@@ -13,6 +13,7 @@ public:
     vector<shared_ptr<Sprite>> ice_blocks_sprites;
     vector<shared_ptr<Sprite>> ice_blocks_sprites2;
     bool can_create_new_batch_of_ice_blocks;
+    void initialize_igloo();
 
 private:
     RenderWindow window;
@@ -52,6 +53,8 @@ private:
     Texture ice_block_texture2;
     Sprite ice_block_sprite2;
 
+    Texture igloo_texture;
+
 
     void draw_game_objects();
     void draw_ice_blocks();
@@ -76,8 +79,6 @@ private:
 
     bool collided1;
     bool collided2;
-
-    bool if_won();
 
     vector<shared_ptr<Sprite>> Igloo_house_sprites;
 

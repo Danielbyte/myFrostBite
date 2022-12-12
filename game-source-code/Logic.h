@@ -17,7 +17,7 @@ public:
    void update_bailey(Sprite&);
 
    //Ice block logic
-   void create_ice_blocks(vector<shared_ptr<Sprite>>&);
+   //void create_ice_blocks(vector<shared_ptr<Sprite>>&);
    void update_ice(vector<shared_ptr<Sprite>>&, bool&, int);
    vector <shared_ptr<IceBlocks>>ice_block_objects1;
    vector <shared_ptr<IceBlocks>>ice_block_objects2;
@@ -28,14 +28,17 @@ public:
    void bailey_and_water_collision1(bool&);
    void bailey_and_water_collision2(bool&);
 
-   void update_igloo(vector<shared_ptr<Sprite>>&, vector<shared_ptr<IceBlocks>>&);
+   void update_igloo(vector<shared_ptr<Sprite>>&);
    bool mark_if_igloo_is_complete();
 
-   void reverse_ice_direction();
+   void reverse_ice_direction(vector<shared_ptr<Sprite>>&);
 
-Igloo igloo_object;
+   vector<shared_ptr<Igloo>>igloo_object;
+   void build_igloo();
+   vector2f get_igloo_position();
 
 private:
+    int number_of_igloo_blocks;
     int ice_block_index;
     IceBlockController ice_block_controller;
     vector2f pos;
@@ -52,5 +55,6 @@ private:
 
     void set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>&);
     bool is_igloo_complete;
+    vector2f position;
 };
 #endif // LOGIC_H

@@ -1,6 +1,7 @@
 #include "Logic.h"
 
 Logic::Logic():
+    number_of_igloo_blocks{0},
     ice_block_index{0},
     is_bailey_moving{false},
     vector1_collision{false},
@@ -10,6 +11,7 @@ Logic::Logic():
 {
     prev_pos.x = 240.0f; //Initial bailey position
     prev_pos.y = 205.0f; // Initial bailey position
+    build_igloo();
 }
 
 void Logic::update_bailey(Sprite& bailey_sprite)
@@ -91,7 +93,12 @@ bool Logic::Is_bailey_moving() const
 
 void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites)
 {
-    auto number_of_igloo_blocks = igloo_object.get_number_of_igloo_blocks();
+    if (!igloo_object.empty())
+    {
+        auto igloo_ptr = igloo_object.begin();
+        auto number_of_igloo_blocks = (*igloo_ptr)->get_number_of_igloo_blocks();
+    }
+
     if (!ice_block_objects1.empty() && !vector2_collision)
     {
         vector2f ice_position;
@@ -115,7 +122,10 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 auto isWhite = (*ice_iter) -> get_if_white();
                 if (isWhite)
                 {
-                    update_igloo(Igloo_house_sprites,ice_block_objects1);
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> add_igloo_blocks();
+                    update_igloo(Igloo_house_sprites);
+
                 }
                 (*ice_iter) -> set_to_blue(true);
                 (*ice_iter) -> set_to_white(false);
@@ -142,7 +152,6 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
 
             ++ice_iter;
 
-            auto number_of_igloo_blocks = igloo_object.get_number_of_igloo_blocks();
             if (number_of_igloo_blocks >= 14)
             {
                 //just set blocks of ice to blue
@@ -190,11 +199,12 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
             if(is_collided)
             {
                 //call the build igloo function here
-
                 auto isWhite = (*ice_iter) -> get_if_white();
                 if (isWhite)
                 {
-                    update_igloo(Igloo_house_sprites,ice_block_objects2);
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> add_igloo_blocks();
+                    update_igloo(Igloo_house_sprites);
                 }
 
                 (*ice_iter) -> set_to_blue(true);
@@ -245,11 +255,10 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
     }
 }
 
-void Logic::update_igloo(vector<shared_ptr<Sprite>>& Igloo_sprites,
-                         vector<shared_ptr<IceBlocks>>& ice_objects)
+void Logic::update_igloo(vector<shared_ptr<Sprite>>& Igloo_sprites)
 {
-    igloo_object.add_igloo_blocks();
-    igloo_object.build_igloo(Igloo_sprites);
+    auto igloo_ptr = igloo_object.begin();
+    (*igloo_ptr)-> build_igloo(Igloo_sprites);
 }
 
 void Logic::bailey_and_water_collision1(bool& collided1)
@@ -421,9 +430,8 @@ void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_block
 
 bool Logic::mark_if_igloo_is_complete()
 {
-    auto igloo_blocks = igloo_object.get_number_of_igloo_blocks();
     auto at_door = bailey_object.get_Xpos();
-    if (igloo_blocks == 14 && (at_door >= 610.0f))
+    if (number_of_igloo_blocks == 14 && (at_door >= 610.0f))
     {
         return true;
     }
@@ -431,7 +439,7 @@ bool Logic::mark_if_igloo_is_complete()
         return false;
 }
 
-void Logic::reverse_ice_direction()
+void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
 {
     if(!ice_block_objects1.empty())
     {
@@ -454,11 +462,17 @@ void Logic::reverse_ice_direction()
                 auto moving_left = (*ice_iter) -> get_if_left();
                 if (moving_left)
                 {
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> subract_igloo_block();
                     (*ice_iter) -> set_if_left(false);
+                    update_igloo(igloo_sprites);
                 }
                 else
                 {
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> subract_igloo_block();
                     (*ice_iter) -> set_if_left(true);
+                    update_igloo(igloo_sprites);
                 }
             }
 
@@ -489,10 +503,16 @@ void Logic::reverse_ice_direction()
                 if (moving_left)
                 {
                     (*ice_iter) -> set_if_left(false);
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> subract_igloo_block();
+                    update_igloo(igloo_sprites);
                 }
                 else
                 {
                     (*ice_iter) -> set_if_left(true);
+                    auto igloo_ptr = igloo_object.begin();
+                    (*igloo_ptr) -> subract_igloo_block();
+                    update_igloo(igloo_sprites);
                 }
             }
 
@@ -500,6 +520,19 @@ void Logic::reverse_ice_direction()
         }
 
     }
+}
+
+void Logic::build_igloo()
+{
+    auto igloo_object_ptr = std::make_shared<Igloo>();
+    position.x = igloo_object_ptr -> get_x_position();
+    position.y = igloo_object_ptr->get_y_position();
+    igloo_object.push_back(igloo_object_ptr);
+}
+
+vector2f Logic::get_igloo_position()
+{
+    return position;
 }
 
 Logic::~Logic() {}

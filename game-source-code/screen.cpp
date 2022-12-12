@@ -16,6 +16,7 @@ Screen::Screen():
     initialise_player();
     initialise_background();
     create_ice_blocks();
+    initialize_igloo();
 }
 
 void Screen::initialize_screen()
@@ -108,7 +109,7 @@ void Screen::process_user_inputs()
             else if(event.key.code == Keyboard::Space)
             {
                 //call a function that causes the block to reverse direcrtion
-               logic.reverse_ice_direction();
+               logic.reverse_ice_direction(Igloo_house_sprites);
             }
 
             else if (is_game_over)
@@ -222,7 +223,6 @@ void Screen::update_game_sprites()
     logic.bailey_and_ice_collision(Igloo_house_sprites);
     logic.bailey_and_water_collision1(collided1);
     logic.bailey_and_water_collision2(collided2);
-    //logic.update_igloo(Igloo_house_sprites);
 
     //Set bailey state
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
@@ -325,6 +325,17 @@ void Screen::update_game_state()
         splash_screen_display.setString("YOU WON!"
                                         "\nRETURNED SAFELY TO SAFE ZONE FROM BOTTOM");
     }
+}
+
+void Screen::initialize_igloo()
+{
+    auto position = logic.get_igloo_position();
+    auto ptr = std::make_shared<Sprite>(Sprite());
+    igloo_texture.loadFromFile("resources/igloo0.png");
+    ptr ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
+    ptr -> setTexture(igloo_texture);
+    ptr -> setPosition(position.x, position.y);
+    Igloo_house_sprites.push_back(ptr);
 }
 
 Screen::~Screen() {}
