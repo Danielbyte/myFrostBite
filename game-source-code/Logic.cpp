@@ -91,11 +91,6 @@ bool Logic::Is_bailey_moving() const
 
 void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites)
 {
-    if (!igloo_object.empty())
-    {
-        auto igloo_ptr = igloo_object.begin();
-        auto number_of_igloo_blocks = (*igloo_ptr)->get_number_of_igloo_blocks();
-    }
 
     if (!ice_block_objects1.empty())
     {
@@ -147,10 +142,9 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 }
 
             }
-
-            ++ice_iter;
-
-            if (number_of_igloo_blocks >= 14)
+            auto ptr = igloo_object.begin();
+            number_of_igloo_blocks = (*ptr)->get_number_of_igloo_blocks();
+            if (number_of_igloo_blocks == 14)
             {
                 //just set blocks of ice to blue
                 set_all_ice_batches_to_blue(ice_block_objects1);
@@ -160,6 +154,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
             {
                 check_for_blues(ice_block_objects1);
             }
+            ++ice_iter;
         }
     }
 
@@ -224,9 +219,8 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 }
 
             }
-            ++ice_iter;
-
-            if (number_of_igloo_blocks >= 14)
+            
+            if (number_of_igloo_blocks == 14)
             {
                 //just set blocks of ice to blue
                 set_all_ice_batches_to_blue(ice_block_objects2);
@@ -236,6 +230,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
             {
                 check_for_blues(ice_block_objects2);
             }
+            ++ice_iter;
         }
 
     }
@@ -322,7 +317,6 @@ void Logic::bailey_and_water_collision2(bool& collided2)
 
             {
                 collision_flag = 1;
-
             }
 
             ++ice_iter2;
@@ -545,5 +539,4 @@ Logic::~Logic()
     ice_block_objects1.clear();
     ice_block_objects2.clear();
     igloo_object.clear();
-
 }

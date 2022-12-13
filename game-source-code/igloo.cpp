@@ -24,10 +24,12 @@ void Igloo::build_igloo(vector<shared_ptr<Sprite>>& igloo_sprites)
 
 void Igloo::add_igloo_blocks()
 {
-    ++igloo_blocks;
-
     //If igloo is complete, keep bricks capped at 14.
-    if (igloo_blocks >= 14)
+    if (igloo_blocks < 14)
+    {
+        ++igloo_blocks;
+    }
+    else
     {
         igloo_blocks = 14;
     }
