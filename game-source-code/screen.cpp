@@ -343,4 +343,10 @@ void Screen::initialize_igloo()
     Igloo_house_sprites.push_back(ptr);
 }
 
-Screen::~Screen() {}
+Screen::~Screen() 
+{
+    //Free memory
+    ice_blocks_sprites.clear();
+    ice_blocks_sprites2.clear();
+    Igloo_house_sprites.clear();
+}

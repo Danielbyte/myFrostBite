@@ -540,4 +540,10 @@ int Logic::get_number_of_igloo_blocks()
     return number_of_igloo_blocks;
 }
 
-Logic::~Logic() {}
+Logic::~Logic()
+{
+    ice_block_objects1.clear();
+    ice_block_objects2.clear();
+    igloo_object.clear();
+
+}
