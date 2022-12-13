@@ -109,7 +109,12 @@ void Screen::process_user_inputs()
             else if(event.key.code == Keyboard::Space)
             {
                 //call a function that causes the block to reverse direcrtion
-               logic.reverse_ice_direction(Igloo_house_sprites);
+               auto igloo_blocks = logic.get_number_of_igloo_blocks();
+               auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
+               if (!bailey_in_safe_zone && igloo_blocks > 0)
+               {
+                   logic.reverse_ice_direction(Igloo_house_sprites);
+               }
             }
 
             else if (is_game_over)

@@ -4,8 +4,6 @@ Logic::Logic():
     number_of_igloo_blocks{0},
     ice_block_index{0},
     is_bailey_moving{false},
-    vector1_collision{false},
-    vector2_collision{false},
     is_igloo_complete{false}
 
 {
@@ -99,7 +97,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
         auto number_of_igloo_blocks = (*igloo_ptr)->get_number_of_igloo_blocks();
     }
 
-    if (!ice_block_objects1.empty() && !vector2_collision)
+    if (!ice_block_objects1.empty())
     {
         vector2f ice_position;
         vector2f bailey_position;
@@ -533,6 +531,13 @@ void Logic::build_igloo()
 vector2f Logic::get_igloo_position()
 {
     return position;
+}
+
+int Logic::get_number_of_igloo_blocks()
+{
+    auto igloo_ptr = igloo_object.begin();
+    number_of_igloo_blocks = (*igloo_ptr) -> get_number_of_igloo_blocks();
+    return number_of_igloo_blocks;
 }
 
 Logic::~Logic() {}

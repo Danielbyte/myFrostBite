@@ -37,6 +37,8 @@ public:
    void build_igloo();
    vector2f get_igloo_position();
 
+   int get_number_of_igloo_blocks();
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;
@@ -47,8 +49,6 @@ private:
     vector2f prev_pos;
 
     Collision collision;
-    bool vector1_collision;
-    bool vector2_collision;
 
     void check_for_blues(vector<shared_ptr<IceBlocks>>Iceblocks);
     void check_for_blues_on_other_ice_batch(vector<shared_ptr<IceBlocks>>, vector<shared_ptr<IceBlocks>>);
