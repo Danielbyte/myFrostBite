@@ -29,7 +29,7 @@ void Logic::update_bailey(Sprite& bailey_sprite)
     }
 }
 
-void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>ice_sprites, int vector_)
+void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
 {
     auto ice_sprite_iter = ice_sprites.begin();
     while (ice_sprite_iter != ice_sprites.end())
@@ -166,6 +166,9 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
         check_for_blues_on_other_ice_batch(ice_block_objects1,ice_block_objects2);
         //check_for_blues_on_other_ice_batch(ice_block_objects2,ice_block_objects1);
     }
+
+    auto ptr = igloo_object.begin();
+    number_of_igloo_blocks = (*ptr)->get_number_of_igloo_blocks();
 
     if(number_of_igloo_blocks < 14)
     {

@@ -28,7 +28,6 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
                 {
                     ice_objects.erase(ice_objects_iter);
                     ice_sprites.erase(ice_sprite_iter);
-                    //std::cout << "Cleared" << std::endl;
                     return;
                 }
                 //create new batch of ice
@@ -46,11 +45,25 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
             pos_.x -= 0.5;
             (*ice_sprite_iter) -> setPosition(pos_);
             (*ice_objects_iter) -> set_position(pos_);
+
+            if (pos_.x == 160.0f || pos_.x == -160.0f)
+            {
+                if (pos_.x == -160)
+                {
+                    ice_objects.erase(ice_objects_iter);
+                    ice_sprites.erase(ice_sprite_iter);
+                    return;
+                }
+                can_create_new_batch = true;
+            }
+            else
+            {
+                can_create_new_batch = false;
+            }
         }
 
         //Update color of ice block texture
         update_ice_texture(ice_sprites,ice_objects);
-
 
         ++ice_sprite_iter;
         ++ice_objects_iter;

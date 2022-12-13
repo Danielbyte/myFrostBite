@@ -209,6 +209,7 @@ void Screen::update_game_sprites()
 {
     logic.update_bailey(bailey_sprite);
     logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
+   
     if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
     {
         create_ice_block_batch(ice_blocks_sprites,vector1);
@@ -219,7 +220,7 @@ void Screen::update_game_sprites()
         create_ice_block_batch(ice_blocks_sprites2, vector2);
     }
 
-    if(ice_blocks_sprites2.size() != 0)
+    if (ice_blocks_sprites2.size() != 0)
     {
         logic.update_ice(ice_blocks_sprites2, can_create_new_batch_of_ice_blocks, vector2);
     }
@@ -272,7 +273,7 @@ void Screen::create_ice_blocks()
 }
 void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
 {
-
+    ice_sprites.clear();
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
     if(!ice_block_texture2.loadFromFile("resources/whiteIce.png")) throw CouldNotLoadPicture{};
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
