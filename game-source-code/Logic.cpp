@@ -29,7 +29,7 @@ void Logic::update_bailey(Sprite& bailey_sprite)
     }
 }
 
-void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
+void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,const int& vector_)
 {
     auto ice_sprite_iter = ice_sprites.begin();
     while (ice_sprite_iter != ice_sprites.end())
@@ -54,6 +54,7 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites, in
             shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
             pos = (*ice_sprite_iter) ->getPosition();
             ice_object_ptr -> set_position(pos);
+            auto isLeft = get_direction_of_other_batch(vector_,ice_block_index);
             ice_object_ptr -> set_if_left(true);
             ice_object_ptr -> set_level(ice_block_index);
             if (vector_ == 1)
@@ -69,6 +70,18 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites, in
         ++ice_block_index;
         ++ice_sprite_iter;
     }
+
+    if ((!ice_block_objects2.empty()) && vector_ == 1)
+    {
+        check_for_blues_on_other_ice_batch(ice_block_objects2, ice_block_objects1);
+        //check_for_blues_on_other_ice_batch(ice_block_objects2, ice_block_objects1);
+    }
+
+    if ((!ice_block_objects1.empty()) && vector_ == 2)
+    {
+        check_for_blues_on_other_ice_batch(ice_block_objects1, ice_block_objects2);
+    }
+
     ice_block_index = 0;
 }
 
@@ -245,6 +258,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
         check_for_blues_on_other_ice_batch(ice_block_objects2,ice_block_objects1);
         //check_for_blues_on_other_ice_batch(ice_block_objects1,ice_block_objects2);
     }
+
     if(number_of_igloo_blocks < 14)
     {
         check_for_blues(ice_block_objects2);
@@ -535,6 +549,32 @@ int Logic::get_number_of_igloo_blocks()
     auto igloo_ptr = igloo_object.begin();
     number_of_igloo_blocks = (*igloo_ptr) -> get_number_of_igloo_blocks();
     return number_of_igloo_blocks;
+}
+
+bool Logic::get_direction_of_other_batch(const int& vector_, const int& ice_level)
+{
+    if (vector_ == 1)
+    {
+        if (!ice_block_objects2.empty())
+        {
+            auto ice_obj2_ptr = ice_block_objects2.begin();
+            auto ice_obj1_ptr = ice_block_objects1.begin();
+            while (ice_obj2_ptr != ice_block_objects2.end())
+            {
+                auto level = (*ice_obj2_ptr)->get_ice_level();
+                if (level == ice_level)
+                {
+                    auto isLeft = (*ice_obj2_ptr)->get_if_left();
+                }
+                ++ice_obj2_ptr;
+                ++ice_obj1_ptr;
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
 }
 
 Logic::~Logic()
