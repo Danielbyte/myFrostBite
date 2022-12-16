@@ -111,7 +111,7 @@ void Screen::process_user_inputs()
                 //call a function that causes the block to reverse direcrtion
                auto igloo_blocks = logic.get_number_of_igloo_blocks();
                auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
-               if (!bailey_in_safe_zone && igloo_blocks > 0)
+               if (!bailey_in_safe_zone && (igloo_blocks > 0 && igloo_blocks < 14))
                {
                    logic.reverse_ice_direction(Igloo_house_sprites);
                }
