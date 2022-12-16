@@ -4,7 +4,8 @@ IceBlocks::IceBlocks():
     ice_speed{1},
     isWhite{true},
     isBlue{false},
-    isLeft{false}
+    isLeft{false},
+    level{NULL}
     {}
 
 void IceBlocks::set_position(vector2f position) {

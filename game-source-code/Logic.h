@@ -57,6 +57,6 @@ private:
     bool is_igloo_complete;
     vector2f position;
 
-    bool get_direction_of_other_batch(const int&, const int&);
+    void set_ice_direction(const int&, const int&, shared_ptr<IceBlocks>&, shared_ptr<Sprite>&);
 };
 #endif // LOGIC_H

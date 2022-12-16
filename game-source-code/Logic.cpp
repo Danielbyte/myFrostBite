@@ -39,6 +39,7 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,con
             shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
             pos = (*ice_sprite_iter) ->getPosition();
             ice_object_ptr -> set_position(pos);
+            set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
             ice_object_ptr -> set_level(ice_block_index);
             if(vector_ == 1)
             {
@@ -54,8 +55,8 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,con
             shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
             pos = (*ice_sprite_iter) ->getPosition();
             ice_object_ptr -> set_position(pos);
-            auto isLeft = get_direction_of_other_batch(vector_,ice_block_index);
-            ice_object_ptr -> set_if_left(true);
+            //call the get direction function here
+            set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
             ice_object_ptr -> set_level(ice_block_index);
             if (vector_ == 1)
             {
@@ -74,7 +75,6 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,con
     if ((!ice_block_objects2.empty()) && vector_ == 1)
     {
         check_for_blues_on_other_ice_batch(ice_block_objects2, ice_block_objects1);
-        //check_for_blues_on_other_ice_batch(ice_block_objects2, ice_block_objects1);
     }
 
     if ((!ice_block_objects1.empty()) && vector_ == 2)
@@ -551,28 +551,83 @@ int Logic::get_number_of_igloo_blocks()
     return number_of_igloo_blocks;
 }
 
-bool Logic::get_direction_of_other_batch(const int& vector_, const int& ice_level)
+void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_ptr<IceBlocks>& ptr,
+    shared_ptr<Sprite>& ptr2)
 {
     if (vector_ == 1)
     {
         if (!ice_block_objects2.empty())
         {
-            auto ice_obj2_ptr = ice_block_objects2.begin();
-            auto ice_obj1_ptr = ice_block_objects1.begin();
-            while (ice_obj2_ptr != ice_block_objects2.end())
+            auto obj2_ptr = ice_block_objects2.begin();
+            while (obj2_ptr != ice_block_objects2.end())
             {
-                auto level = (*ice_obj2_ptr)->get_ice_level();
+                auto level = (*obj2_ptr)->get_ice_level();
                 if (level == ice_level)
                 {
-                    auto isLeft = (*ice_obj2_ptr)->get_if_left();
+                    auto direction = (*obj2_ptr)->get_if_left();
+                    if (direction)
+                    {
+                        vector2f position = ptr2->getPosition();
+                        position.x = -160.0f;
+                        ptr2->setPosition(position);
+                        ptr->set_position(position);
+                    }
+                    else
+                    {
+                        vector2f postion = ptr2->getPosition();
+                        position.x = 960.0f;
+                        ptr2->setPosition(position);
+                        ptr->set_position(position);
+                    }
+
+                    ptr->set_if_left(direction);
+                    break;
                 }
-                ++ice_obj2_ptr;
-                ++ice_obj1_ptr;
+                ++obj2_ptr;
             }
         }
-        else
+        else if ((ice_level == 1 || ice_level == 3) && (ice_block_objects2.empty()))
         {
-            return true;
+            //Have to set to default
+            ptr->set_if_left(true);
+        }
+    }
+
+    else if (vector_ == 2)
+    {
+        if (!ice_block_objects1.empty())
+        {
+            auto obj1_ptr = ice_block_objects1.begin();
+            while (obj1_ptr != ice_block_objects1.end())
+            {
+                auto level = (*obj1_ptr)->get_ice_level();
+                if (level == ice_level)
+                {
+                    auto direction = (*obj1_ptr)->get_if_left();
+                    if (direction)
+                    {
+                        vector2f position = ptr2->getPosition();
+                        position.x = -160.0f;
+                        ptr2->setPosition(position);
+                        ptr->set_position(position);
+                    }
+                    else
+                    {
+                        vector2f position = ptr2->getPosition();
+                        position.x = 960.0f;
+                        ptr2->setPosition(position);
+                        ptr->set_position(position);
+                    }
+                    ptr->set_if_left(direction);
+                    break;
+                }
+                ++obj1_ptr;
+            }
+        }
+
+        else if ((ice_level == 0 ||ice_level == 2) && (ice_block_objects1.empty()))
+        {
+            ptr->set_if_left(true);
         }
     }
 }

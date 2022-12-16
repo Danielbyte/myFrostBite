@@ -7,8 +7,8 @@ class IceBlocks {
 public:
     IceBlocks();
     //Set ice block movements
-    void move_left();
-    void move_right();
+    //void move_left();
+    //void move_right();
     //get ice block movements
     vector2f get_position() const;
 
@@ -17,7 +17,7 @@ public:
     void set_to_blue(bool);
 
     //get color of ice
-    string get_ice_block_color() const;
+    //string get_ice_block_color() const;
 
     //get ice_speed
     float get_ice_speed() const;
