@@ -14,6 +14,7 @@ Logic::Logic():
 
 void Logic::update_bailey(Sprite& bailey_sprite)
 {
+    position;
     auto x = bailey_object.get_Xpos();
     auto y = bailey_object.get_Ypos();
     bailey_sprite.setPosition(x,y);
@@ -38,7 +39,7 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,con
         {
             shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
             pos = (*ice_sprite_iter) ->getPosition();
-            ice_object_ptr -> set_position(pos);
+            //ice_object_ptr -> set_position(pos);
             set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
             ice_object_ptr -> set_level(ice_block_index);
             if(vector_ == 1)
@@ -54,7 +55,7 @@ void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,con
         {
             shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
             pos = (*ice_sprite_iter) ->getPosition();
-            ice_object_ptr -> set_position(pos);
+            //ice_object_ptr -> set_position(pos);
             //call the get direction function here
             set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
             ice_object_ptr -> set_level(ice_block_index);
@@ -574,7 +575,7 @@ void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_p
                     }
                     else
                     {
-                        vector2f postion = ptr2->getPosition();
+                        vector2f position = ptr2->getPosition();
                         position.x = 960.0f;
                         ptr2->setPosition(position);
                         ptr->set_position(position);
