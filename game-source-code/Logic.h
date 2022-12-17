@@ -5,6 +5,7 @@
 #include "IceBlockController.h"
 #include "Collision.h"
 #include "igloo.h"
+#include "BaileyController.h"
 
 
 class Logic {
@@ -39,6 +40,8 @@ public:
 
    int get_number_of_igloo_blocks();
 
+   Texture bailey_texture;
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;
@@ -58,5 +61,7 @@ private:
     vector2f position;
 
     void set_ice_direction(const int&, const int&, shared_ptr<IceBlocks>&, shared_ptr<Sprite>&);
+
+    BaileyController control_bailey;
 };
 #endif // LOGIC_H

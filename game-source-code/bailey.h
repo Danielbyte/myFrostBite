@@ -36,6 +36,10 @@ public:
     bool get_if_bailey_dead() const;
     void set_bailey_to_dead(bool);
     bool get_from_bottom() const;
+
+    bool get_if_moving_right() const;
+    bool get_if_moving_left() const;
+
 private:
     void set_bailey_level();
     float changing_speed;
@@ -67,5 +71,7 @@ private:
 
     bool is_dead;
     bool from_bottom;
+    bool isMovingRight;
+    bool isMovingLeft;
 };
 #endif // BAILEY_H

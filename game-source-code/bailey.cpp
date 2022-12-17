@@ -22,7 +22,9 @@ Bailey::Bailey():
     frame_counter1_2{0},
     frame_counter2_2{0},
     is_dead{false},
-    from_bottom{false}
+    from_bottom{false},
+    isMovingRight{false},
+    isMovingLeft{false}
 {
 
 }
@@ -116,6 +118,8 @@ void Bailey::set_bailey_movement(Direction dir, float side_speed)
     case Direction::Left:
         isMovingUp = false;
         isMovingDown = false;
+        isMovingRight = false;
+        isMovingLeft = true;
         x_position -= side_speed;
         if(x_position <= left_boundary)
         {
@@ -132,6 +136,8 @@ void Bailey::set_bailey_movement(Direction dir, float side_speed)
     case Direction::Right:
         isMovingUp = false;
         isMovingDown = false;
+        isMovingRight = true;
+        isMovingLeft = false;
         x_position += side_speed;
         if (x_position >= right_boundary)
         {
@@ -289,4 +295,14 @@ void Bailey::set_bailey_to_dead(bool status)
 bool Bailey::get_from_bottom() const
 {
     return from_bottom;
+}
+
+bool Bailey::get_if_moving_left() const
+{
+    return isMovingLeft;
+}
+
+bool Bailey::get_if_moving_right() const
+{
+    return isMovingRight;
 }
