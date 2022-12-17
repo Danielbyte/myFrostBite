@@ -18,6 +18,7 @@ void Logic::update_bailey(Sprite& bailey_sprite)
     auto y = bailey_object.get_Ypos();
     bailey_sprite.setPosition(x,y);
     control_bailey.update_bailey(prev_pos, is_bailey_moving, x, y);
+    control_bailey.animate_bailey(bailey_object, bailey_sprite);
 }
 
 void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,const int& vector_)
