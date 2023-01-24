@@ -2,7 +2,9 @@
 
 BaileyController::BaileyController():
 	frame_counter{0}
-{}
+{
+	load_textures();
+}
 
 void BaileyController::update_bailey(vector2f& prev_position, bool& bailey_moving,
 	const float& current_x_pos, const float& current_y_pos)
@@ -34,6 +36,15 @@ void BaileyController::increment_frame()
 	++frame_counter;
 }
 
+void BaileyController::load_textures()
+{
+	//load textures once for optimization
+	bailey_texture1.loadFromFile("resources/bailey.png");
+	bailey_texture2.loadFromFile("resources/bailey1.png");
+	bailey_texture3.loadFromFile("resources/bailey_left.png");
+	bailey_texture4.loadFromFile("resources/bailey1_left.png");
+}
+
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
 {
 	auto right = bailey_object.get_if_moving_right();
@@ -45,15 +56,13 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	if ((right && isRightKeyPressed) && at_safe_zone)
 	{
 		increment_frame();
-		if (frame_counter <= 8)
+		if (frame_counter <= 10)
 		{
-			bailey_texture.loadFromFile("resources/bailey.png");
-			bailey_sprite.setTexture(bailey_texture);
+			bailey_sprite.setTexture(bailey_texture1);
 		}
-		else if (frame_counter > 8 && frame_counter <= 16)
+		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			bailey_texture.loadFromFile("resources/bailey1.png");
-			bailey_sprite.setTexture(bailey_texture);
+			bailey_sprite.setTexture(bailey_texture2);
 		}
 		else
 		{
@@ -65,15 +74,13 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	else if ((left && isLeftKeyPressed) && at_safe_zone)
 	{
 		increment_frame();
-		if (frame_counter <= 8)
+		if (frame_counter <= 10)
 		{
-			bailey_texture.loadFromFile("resources/bailey_left.png");
-			bailey_sprite.setTexture(bailey_texture);
+			bailey_sprite.setTexture(bailey_texture3);
 		}
-		else if (frame_counter > 8 && frame_counter <= 16)
+		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			bailey_texture.loadFromFile("resources/bailey1_left.png");
-			bailey_sprite.setTexture(bailey_texture);
+			bailey_sprite.setTexture(bailey_texture4);
 		}
 
 		else
