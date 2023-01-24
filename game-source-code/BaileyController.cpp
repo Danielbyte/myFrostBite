@@ -39,19 +39,24 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	auto right = bailey_object.get_if_moving_right();
 	auto left = bailey_object.get_if_moving_left();
 	auto at_safe_zone = bailey_object.get_if_bailey_in_safe_zone();
+	auto isRightKeyPressed = bailey_object.get_if_right_key_pressed();
+	auto isLeftKeyPressed = bailey_object.get_if_left_key_pressed();
 
-	if (right && at_safe_zone)
+	if ((right && isRightKeyPressed) && at_safe_zone)
 	{
 		increment_frame();
-		if (frame_counter == 1)
+		if (frame_counter <= 8)
 		{
 			bailey_texture.loadFromFile("resources/bailey.png");
 			bailey_sprite.setTexture(bailey_texture);
 		}
-		else if (frame_counter == 2)
+		else if (frame_counter > 8 && frame_counter <= 16)
 		{
 			bailey_texture.loadFromFile("resources/bailey1.png");
 			bailey_sprite.setTexture(bailey_texture);
+		}
+		else
+		{
 			reset_frame();
 		}
 

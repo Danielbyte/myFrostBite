@@ -3,7 +3,7 @@
 Bailey::Bailey():
     changing_speed{0},
     bailey_speed{82},
-    bailey_speed_sideways{2},
+    bailey_speed_sideways{3},
     bailey_speed_initial{76},
     y_position{205.0f},
     x_position{240.0f},
@@ -24,135 +24,155 @@ Bailey::Bailey():
     is_dead{false},
     from_bottom{false},
     isMovingRight{false},
-    isMovingLeft{false}
+    isMovingLeft{false},
+    RightKeyPressed{false},
+    LeftKeyPressed{false}
 {
 
 }
 
-void Bailey::set_bailey_movement(Direction dir, float side_speed)
+void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
+    const bool& keyPressed_)
 {
-    switch(dir)
+    RightKeyPressed = false;
+    LeftKeyPressed = false;
+   if (keyPressed_)
     {
-    case Direction::Up:
-        isMovingUp = true;
-        isMovingDown = false;
-        //std::cout<< "Moving up" <<std::endl;
-        if (safe_zone)
+        switch (dir)
         {
-            y_position -= bailey_speed_initial;
-            set_bailey_level();
-            changing_speed = bailey_speed_initial;
-            if (y_position <= safe_zone_boundary)
+        case Direction::Up:
+            isMovingUp = true;
+            isMovingDown = false;
+            //std::cout<< "Moving up" <<std::endl;
+            if (safe_zone)
             {
-                y_position = safe_zone_boundary;
+                y_position -= bailey_speed_initial;
                 set_bailey_level();
-                //std::cout << y_position << std::endl;
-                safe_zone = true;
-                //std::cout << "Level"<<bailey_level << std::endl;
+                changing_speed = bailey_speed_initial;
+                if (y_position <= safe_zone_boundary)
+                {
+                    y_position = safe_zone_boundary;
+                    set_bailey_level();
+                    //std::cout << y_position << std::endl;
+                    safe_zone = true;
+                    //std::cout << "Level"<<bailey_level << std::endl;
+                }
+
+                else if (y_position > safe_zone_boundary)
+                {
+                    safe_zone = false;
+                    //--bailey_level;
+                    //std::cout << "Level"<<bailey_level << std::endl;
+                }
+            }
+            else
+            {
+                y_position -= bailey_speed;
+                set_bailey_level();
+                changing_speed = bailey_speed;
+                if (y_position <= safe_zone_boundary)
+                {
+                    y_position = safe_zone_boundary;
+                    set_bailey_level();
+                    safe_zone = true;
+                    // bailey_level = 0;
+                    // std::cout << "Level"<<bailey_level << std::endl;
+                }
+                // std::cout <<y_position <<std::endl;
             }
 
-            else if(y_position > safe_zone_boundary)
+            if (y_position <= upper_boundary)
+            {
+                y_position = upper_boundary;
+                set_bailey_level();
+            }
+            //std::cout << "Level"<<bailey_level << std::endl;
+            //std::cout << y_position << std::endl;
+            break;
+
+        case Direction::Down:
+            isMovingDown = true;
+            isMovingUp = false;
+            // std::cout<< "Moving Down" <<std::endl;
+            if (y_position > safe_zone_boundary)
             {
                 safe_zone = false;
-                //--bailey_level;
+            }
+
+            if (safe_zone)
+            {
+                y_position += bailey_speed_initial;
+                set_bailey_level();
+                changing_speed = bailey_speed_initial;
+                // bailey_level = 0;
                 //std::cout << "Level"<<bailey_level << std::endl;
             }
-        }
-        else
-        {
-            y_position -= bailey_speed;
-            set_bailey_level();
-            changing_speed = bailey_speed;
-            if (y_position <= safe_zone_boundary)
+            else
             {
-                y_position = safe_zone_boundary;
+                y_position += bailey_speed;
+                changing_speed = bailey_speed;
                 set_bailey_level();
-                safe_zone = true;
-                // bailey_level = 0;
-                // std::cout << "Level"<<bailey_level << std::endl;
+                //++bailey_level;
+                //std::cout << "Level"<<bailey_level << std::endl;
             }
-            // std::cout <<y_position <<std::endl;
-        }
-
-        if (y_position <= upper_boundary)
-        {
-            y_position = upper_boundary;
-            set_bailey_level();
-        }
-        //std::cout << "Level"<<bailey_level << std::endl;
-        //std::cout << y_position << std::endl;
-        break;
-
-    case Direction::Down:
-        isMovingDown = true;
-        isMovingUp = false;
-        // std::cout<< "Moving Down" <<std::endl;
-        if (y_position > safe_zone_boundary)
-        {
-            safe_zone = false;
-        }
-
-        if (safe_zone)
-        {
-            y_position += bailey_speed_initial;
-            set_bailey_level();
-            changing_speed = bailey_speed_initial;
-            // bailey_level = 0;
-            //std::cout << "Level"<<bailey_level << std::endl;
-        }
-        else
-        {
-            y_position += bailey_speed;
-            changing_speed = bailey_speed;
-            set_bailey_level();
-            //++bailey_level;
-            //std::cout << "Level"<<bailey_level << std::endl;
-        }
-        if (y_position >= lower_boundary)
-        {
-            y_position = lower_boundary;
-            set_bailey_level();
-        }
-        break;
-
-    case Direction::Left:
-        isMovingUp = false;
-        isMovingDown = false;
-        isMovingRight = false;
-        isMovingLeft = true;
-        x_position -= side_speed;
-        if(x_position <= left_boundary)
-        {
-            x_position = left_boundary;
-            if (!safe_zone)
+            if (y_position >= lower_boundary)
             {
-                is_dead = true;
+                y_position = lower_boundary;
+                set_bailey_level();
             }
+            break;
 
-        }
-        break;
-
-
-    case Direction::Right:
-        isMovingUp = false;
-        isMovingDown = false;
-        isMovingRight = true;
-        isMovingLeft = false;
-        x_position += side_speed;
-        if (x_position >= right_boundary)
-        {
-            x_position = right_boundary;
-            if(!safe_zone)
+        case Direction::Left:
+            isMovingUp = false;
+            isMovingDown = false;
+            isMovingRight = false;
+            isMovingLeft = true;
+            LeftKeyPressed = keyPressed_;
+            x_position -= side_speed;
+            if (x_position <= left_boundary)
             {
-                is_dead = true;
+                x_position = left_boundary;
+                if (!safe_zone)
+                {
+                    is_dead = true;
+                }
+
+            }
+            break;
+
+
+        case Direction::Right:
+            isMovingUp = false;
+            isMovingDown = false;
+            isMovingRight = true;
+            isMovingLeft = false;
+            RightKeyPressed = keyPressed_;
+            x_position += side_speed;
+            if (x_position >= right_boundary)
+            {
+                x_position = right_boundary;
+                if (!safe_zone)
+                {
+                    is_dead = true;
+                }
+
             }
 
+            break;
+        default:
+            ;
         }
-
-        break;
-    default:
-        ;
     }
+}
+
+bool Bailey::get_if_right_key_pressed() const
+{
+    return RightKeyPressed;
+}
+
+bool Bailey::get_if_left_key_pressed() const
+{
+    return LeftKeyPressed;
 }
 
 float Bailey::get_Xpos()

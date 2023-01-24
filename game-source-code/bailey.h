@@ -6,7 +6,7 @@
 class Bailey {
 public:
     Bailey();
-    void set_bailey_movement(Direction, float);
+    void set_bailey_movement(const Direction&, const float&, const bool&);
     float get_Xpos();
     float get_Ypos();
     bool is_bailey_moving() const;
@@ -39,6 +39,9 @@ public:
 
     bool get_if_moving_right() const;
     bool get_if_moving_left() const;
+
+    bool get_if_right_key_pressed() const;
+    bool get_if_left_key_pressed() const;
 
 private:
     void set_bailey_level();
@@ -73,5 +76,7 @@ private:
     bool from_bottom;
     bool isMovingRight;
     bool isMovingLeft;
+    bool RightKeyPressed;
+    bool LeftKeyPressed;
 };
 #endif // BAILEY_H

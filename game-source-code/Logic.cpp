@@ -138,12 +138,12 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 if (!ice_moving_left)
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed);
+                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true);
                 }
                 else
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed);
+                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true);
                 }
 
             }
@@ -218,12 +218,12 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 if (!ice_moving_left)
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed);
+                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true);
                 }
                 else
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed);
+                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true);
                 }
 
             }

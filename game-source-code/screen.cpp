@@ -125,10 +125,10 @@ void Screen::process_user_inputs()
                 keyboard_handling(event.key.code,true);
             break;
 
-        /* case Event::KeyReleased:
+           case Event::KeyReleased:
            keyboard_handling(event.key.code, false);
            break;
-        */
+        
         case Event::Closed:
             quit_game = true;
             window.close();
@@ -142,29 +142,30 @@ void Screen::process_user_inputs()
 
 void Screen::keyboard_handling(Keyboard key, bool keyPressed)
 {
-    auto bailey_speed = logic.bailey_object.getbailey_speed();
-    if (key == Keyboard::Enter) //player wants to play
-        is_playing = true;
-    if (is_playing)
-    {
-        //player movements
-        if(key == Keyboard::Up)
+        auto bailey_speed = logic.bailey_object.getbailey_speed();
+        if (key == Keyboard::Enter && keyPressed) //player wants to play
+            is_playing = true;
+        if (is_playing)
         {
-            logic.bailey_object.set_bailey_movement(Direction::Up,bailey_speed);
+            //player movements
+            if (key == Keyboard::Up)
+            {
+                logic.bailey_object.set_bailey_movement(Direction::Up, bailey_speed, keyPressed);
+            }
+            else if (key == Keyboard::Down)
+            {
+                logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed,keyPressed);
+            }
+            else if (key == Keyboard::Left)
+            {
+                logic.bailey_object.set_bailey_movement(Direction::Left, bailey_speed,keyPressed);
+            }
+            else if (key == Keyboard::Right)
+            {
+                logic.bailey_object.set_bailey_movement(Direction::Right, bailey_speed,keyPressed);
+            }
         }
-        else if (key ==Keyboard::Down)
-        {
-            logic.bailey_object.set_bailey_movement(Direction::Down,bailey_speed);
-        }
-        else if (key == Keyboard::Left)
-        {
-            logic.bailey_object.set_bailey_movement(Direction::Left,bailey_speed);
-        }
-        else if (key == Keyboard::Right)
-        {
-            logic.bailey_object.set_bailey_movement(Direction::Right,bailey_speed);
-        }
-    }
+    
 }
 
 void Screen::draw_game_objects()
