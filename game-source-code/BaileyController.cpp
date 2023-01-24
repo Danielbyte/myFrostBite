@@ -61,4 +61,24 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 		}
 
 	}
+
+	else if ((left && isLeftKeyPressed) && at_safe_zone)
+	{
+		increment_frame();
+		if (frame_counter <= 8)
+		{
+			bailey_texture.loadFromFile("resources/bailey_left.png");
+			bailey_sprite.setTexture(bailey_texture);
+		}
+		else if (frame_counter > 8 && frame_counter <= 16)
+		{
+			bailey_texture.loadFromFile("resources/bailey1_left.png");
+			bailey_sprite.setTexture(bailey_texture);
+		}
+
+		else
+		{
+			reset_frame();
+		}
+	}
 }
