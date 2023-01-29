@@ -17,8 +17,8 @@ using std::string;
 const auto windowWidth = 800ul;
 const auto windowHeight = 600ul;
 
-const auto bailey_height = 48;
-const auto bailey_width = 48;
+const auto bailey_height = 48.0f;
+const auto bailey_width = 48.0f;
 
 const auto ice_width = 320.0f;
 const auto ice_height = 32.0f;

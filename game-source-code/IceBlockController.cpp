@@ -1,6 +1,9 @@
 #include "IceBlockController.h"
 
-IceBlockController::IceBlockController() {}
+IceBlockController::IceBlockController()
+{
+    load_textures();
+}
 
 void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_objects,vector<shared_ptr<Sprite>>& ice_sprites,
         bool& can_create_new_batch)
@@ -80,16 +83,22 @@ void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_spri
         auto isWhite = (*obj_iter) -> get_if_white();
         if (isBlue)
         {
-            blue_ice_texture.loadFromFile("resources/blueice.png");
             (*iter) -> setTexture(blue_ice_texture);
         }
 
         else if (isWhite)
             {
-                white_ice_texture.loadFromFile("resources/whiteIce.png");
                 (*iter) -> setTexture(white_ice_texture);
             }
         ++iter;
         ++obj_iter;
     }
+}
+
+void IceBlockController::load_textures()
+{
+    //Load textures once for optimization
+    white_ice_texture.loadFromFile("resources/whiteIce.png");
+    blue_ice_texture.loadFromFile("resources/blueice.png");
+
 }

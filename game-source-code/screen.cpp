@@ -274,7 +274,7 @@ void Screen::create_ice_blocks()
 }
 void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
 {
-    ice_sprites.clear();
+    //ice_sprites.clear();
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
     if(!ice_block_texture2.loadFromFile("resources/whiteIce.png")) throw CouldNotLoadPicture{};
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
