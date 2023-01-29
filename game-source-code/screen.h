@@ -83,6 +83,7 @@ private:
     vector<shared_ptr<Sprite>> Igloo_house_sprites;
 
     void draw_igloo_house();
+    void load_textures();
 
 };
 

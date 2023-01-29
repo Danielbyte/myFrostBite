@@ -15,6 +15,7 @@ Screen::Screen():
     initialize_screen();
     initialise_player();
     initialise_background();
+    load_textures();
     create_ice_blocks();
     initialize_igloo();
 }
@@ -246,7 +247,6 @@ void Screen::update_game_sprites()
 void Screen::create_ice_blocks()
 {
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
-    if(!ice_block_texture.loadFromFile("resources/whiteIce.png")) throw CouldNotLoadPicture{};
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite1 -> setTexture(ice_block_texture);
     ice_sprite1 -> setPosition(550.0f, 305.0f);
@@ -272,11 +272,13 @@ void Screen::create_ice_blocks()
 
     logic.create_ice_block_objects(ice_blocks_sprites, vector1);
 }
+
+//This function will create batch of ice blocks from the second batch until game ends
+//Violation of dry principle and needs fixing
 void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
 {
     //ice_sprites.clear();
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
-    if(!ice_block_texture2.loadFromFile("resources/whiteIce.png")) throw CouldNotLoadPicture{};
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite1 -> setTexture(ice_block_texture2);
     ice_sprite1 -> setPosition(960.0f, 305.0f);
@@ -343,6 +345,12 @@ void Screen::initialize_igloo()
     ptr -> setTexture(igloo_texture);
     ptr -> setPosition(position.x, position.y);
     Igloo_house_sprites.push_back(ptr);
+}
+
+void Screen::load_textures()
+{
+    ice_block_texture2.loadFromFile("resources/whiteIce.png");
+    ice_block_texture.loadFromFile("resources/whiteIce.png");
 }
 
 Screen::~Screen() 
