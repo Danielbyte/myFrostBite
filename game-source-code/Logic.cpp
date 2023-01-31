@@ -4,7 +4,8 @@ Logic::Logic():
     number_of_igloo_blocks{0},
     ice_block_index{0},
     is_bailey_moving{false},
-    is_igloo_complete{false}
+    is_igloo_complete{false},
+    y_{0.0f}
 
 {
     prev_pos.x = 240.0f; //Initial bailey position
@@ -12,10 +13,28 @@ Logic::Logic():
     build_igloo();
 }
 
-void Logic::update_bailey(Sprite& bailey_sprite)
+void Logic::update_bailey(Sprite& bailey_sprite,bool& isJumping,const float& deltaTime)
 {
     auto x = bailey_object.get_Xpos();
     auto y = bailey_object.get_Ypos();
+    if (!isJumping)
+    {
+        y_ = bailey_object.get_Ypos();
+    }
+
+    if (isJumping)
+    {
+        bailey_object.jump_down(bailey_sprite, deltaTime,y_,isJumping);
+       /* y = bailey_object.get_Ypos();
+    
+        if (y > 281.0f)
+        {
+            y = 281.0f;
+            x = bailey_object.get_Xpos();
+            bailey_sprite.setPosition(x, y);
+        }*/
+    }
+
     //bailey_sprite.setPosition(x,y);
     control_bailey.update_bailey(prev_pos, is_bailey_moving, x, y);
     control_bailey.animate_bailey(bailey_object, bailey_sprite);

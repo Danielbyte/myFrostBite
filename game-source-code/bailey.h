@@ -21,7 +21,6 @@ public:
 
     bool get_if_bailey_dead() const;
     void set_bailey_to_dead(bool);
-    bool get_from_bottom() const;
 
     bool get_if_moving_right() const;
     bool get_if_moving_left() const;
@@ -29,12 +28,17 @@ public:
     bool get_if_right_key_pressed() const;
     bool get_if_left_key_pressed() const;
 
-    bool get_bailey_mass() const;
+    float get_bailey_mass() const;
+    float get_speed() const;
+    void set_speed(const float&);
+    float get_jump_force() const;
+
+    void jump_down(Sprite&, const float&, const float&, bool&);
 
 private:
     void set_bailey_level();
     float changing_speed;
-    float bailey_speed;
+    float distance_between_iceRows;
     float bailey_speed_sideways;
     float bailey_speed_initial;
     float y_position;
@@ -55,7 +59,6 @@ private:
     bool isMovingDown;
 
     bool is_dead;
-    bool from_bottom;
     bool isMovingRight;
     bool isMovingLeft;
     bool RightKeyPressed;
@@ -63,7 +66,9 @@ private:
 
     float bailey_mass;
     float gravity;
+    float jumpForce;
     float left_right_const;
-    //void jump_down();
+    float speed;
+
 };
 #endif // BAILEY_H

@@ -75,7 +75,7 @@ private:
     int vector1;
     int vector2;
 
-    void update_game_state();
+    void update_game_state(const float&);
 
     bool collided1;
     bool collided2;
@@ -86,6 +86,8 @@ private:
     void load_textures();
 
     Clock time;
+
+    bool isJumping;
 
 };
 

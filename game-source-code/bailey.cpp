@@ -2,10 +2,10 @@
 
 Bailey::Bailey():
     changing_speed{0},
-    bailey_speed{82},
+    distance_between_iceRows{82},
     bailey_speed_sideways{3},
     bailey_speed_initial{76},
-    y_position{205.0f},
+    y_position{199.0f},
     x_position{240.0f},
     upper_boundary{24.0f},
     lower_boundary{527.0f},
@@ -18,14 +18,15 @@ Bailey::Bailey():
     isMovingUp{false},
     isMovingDown{false},
     is_dead{false},
-    from_bottom{false},
     isMovingRight{false},
     isMovingLeft{false},
     RightKeyPressed{false},
     LeftKeyPressed{false},
     bailey_mass{75},
     gravity{9.8f},
-    left_right_const{200.0f}
+    jumpForce{100.0f},
+    left_right_const{200.0f},
+    speed{0.0f}
 {
 
 }
@@ -45,7 +46,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
 
             if (safe_zone)
             {
-                y_position -= bailey_speed_initial;
+               // y_position -= bailey_speed_initial;
                 set_bailey_level();
                 changing_speed = bailey_speed_initial;
                 if (y_position <= safe_zone_boundary)
@@ -62,9 +63,9 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
             }
             else
             {
-                y_position -= bailey_speed;
+                y_position -= distance_between_iceRows;
                 set_bailey_level();
-                changing_speed = bailey_speed;
+                changing_speed = distance_between_iceRows;
                 if (y_position <= safe_zone_boundary)
                 {
                     y_position = safe_zone_boundary;
@@ -91,14 +92,14 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
 
             if (safe_zone)
             {
-                y_position += bailey_speed_initial;
+               // y_position += bailey_speed_initial;
                 set_bailey_level();
-                changing_speed = bailey_speed_initial;
+               // changing_speed = bailey_speed_initial;
             }
             else
             {
-                y_position += bailey_speed;
-                changing_speed = bailey_speed;
+               // y_position += bailey_speed;
+               // changing_speed = bailey_speed;
                 set_bailey_level();
             }
             if (y_position >= lower_boundary)
@@ -215,7 +216,6 @@ void Bailey::set_bailey_level()
     if (y_position == 527)
     {
         bailey_level = 3;
-        from_bottom = true;
     }
     if (y_position == safe_zone_boundary)
     {
@@ -255,11 +255,6 @@ void Bailey::set_bailey_to_dead(bool status)
     is_dead = status;
 }
 
-bool Bailey::get_from_bottom() const
-{
-    return from_bottom;
-}
-
 bool Bailey::get_if_moving_left() const
 {
     return isMovingLeft;
@@ -270,7 +265,38 @@ bool Bailey::get_if_moving_right() const
     return isMovingRight;
 }
 
-bool Bailey::get_bailey_mass() const
+float Bailey::get_bailey_mass() const
 {
     return bailey_mass;
+}
+
+void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
+    bool& isJumping)
+{
+    speed -= gravity * deltaTime;
+    bailey_sprite.move(0, -speed);
+    y_position = bailey_sprite.getPosition().y;//update vertical position
+    auto jumped_distance = y_position - start_position;
+
+    if (jumped_distance > distance_between_iceRows)
+    {
+        y_position = start_position + distance_between_iceRows;
+        bailey_sprite.setPosition(x_position, y_position);
+        isJumping = false;
+    }
+}
+
+void Bailey::set_speed(const float& speed_)
+{
+    speed = speed_;
+}
+
+float Bailey::get_speed() const
+{
+    return speed;
+}
+
+float Bailey::get_jump_force() const
+{
+    return jumpForce;
 }

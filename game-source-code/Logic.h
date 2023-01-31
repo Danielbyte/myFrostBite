@@ -15,7 +15,7 @@ public:
 
    //Bailey logic
    Bailey bailey_object;
-   void update_bailey(Sprite&);
+   void update_bailey(Sprite&, bool&, const float&);
 
    //Ice block logic
    //void create_ice_blocks(vector<shared_ptr<Sprite>>&);
@@ -59,6 +59,7 @@ private:
     void set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>&);
     bool is_igloo_complete;
     vector2f position;
+    float y_;
 
     void set_ice_direction(const int&, const int&, shared_ptr<IceBlocks>&, shared_ptr<Sprite>&);
 

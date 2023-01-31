@@ -10,7 +10,8 @@ Screen::Screen():
     vector1{1},
     vector2{2},
     collided1{false},
-    collided2{false}
+    collided2{false},
+    isJumping{false} //bailey is initially at standstill
 {
     initialize_screen();
     initialise_player();
@@ -155,10 +156,15 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                 logic.bailey_object.set_bailey_movement(Direction::Up, bailey_speed, keyPressed,bailey_sprite,
                     deltaTime);
             }
-            else if (key == Keyboard::Down)
+            else if (key == Keyboard::Down && keyPressed && !isJumping)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed,keyPressed,bailey_sprite,
-                    deltaTime);
+                auto jumpForce = logic.bailey_object.get_jump_force();
+                auto mass = logic.bailey_object.get_bailey_mass();
+                auto speed = jumpForce / mass;
+                logic.bailey_object.set_speed(speed);
+                /*logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed, keyPressed, bailey_sprite,
+                    deltaTime);*/
+                isJumping = true;
             }
             else if (key == Keyboard::Left)
             {
@@ -171,7 +177,6 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                     deltaTime);
             }
         }
-    
 }
 
 void Screen::draw_game_objects()
@@ -209,12 +214,12 @@ void Screen::update_game(const float& deltaTime)
 {
     update_game_sprites(deltaTime); // update game entities
 //update game state -> update game
-    update_game_state();
+    update_game_state(deltaTime);
 }
 
 void Screen::update_game_sprites(const float& deltaTime)
 {
-    logic.update_bailey(bailey_sprite);
+    logic.update_bailey(bailey_sprite,isJumping,deltaTime);
     logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
    
     if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
@@ -241,11 +246,11 @@ void Screen::update_game_sprites(const float& deltaTime)
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if ((collided1 || collided2))
     {
-        logic.bailey_object.set_bailey_to_dead(false);
+        //logic.bailey_object.set_bailey_to_dead(false);
     }
     else if ((!bailey_in_safe_zone) && (!(collided1 || collided2)))
     {
-        logic.bailey_object.set_bailey_to_dead(true);
+        //logic.bailey_object.set_bailey_to_dead(true);
     }
 }
 
@@ -311,7 +316,7 @@ void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int
     logic.create_ice_block_objects(ice_sprites,vector_);
 }
 
-void Screen::update_game_state()
+void Screen::update_game_state(const float& deltaTime)
 {
     splash_screen_display.setPosition(125,208);
     splash_screen_display.setCharacterSize(20);
@@ -334,7 +339,7 @@ void Screen::update_game_state()
         window.setKeyRepeatEnabled(false);
         is_playing = false;
         is_game_over = true;
-        logic.update_bailey(bailey_sprite);
+        logic.update_bailey(bailey_sprite,isJumping,deltaTime);
         window.clear();
         splash_screen_display.setString("YOU WON!"
                                         "\nRETURNED SAFELY TO SAFE ZONE FROM BOTTOM");
