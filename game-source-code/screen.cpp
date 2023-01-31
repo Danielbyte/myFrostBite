@@ -66,14 +66,15 @@ void Screen::run()
 
     while(window.isOpen())
     {
-        process_user_inputs();
+        auto deltaTime = time.restart().asSeconds();
+        process_user_inputs(deltaTime);
         if (is_playing)
         {
             window.draw(background_sprite);
             draw_ice_blocks();
             draw_igloo_house();
             //Update screen according to game play
-            update_game(); //update
+            update_game(deltaTime); //update
             //draw game objects
             draw_game_objects(); //draw game entities
 
@@ -93,7 +94,7 @@ void Screen::run()
     }
 }
 
-void Screen::process_user_inputs()
+void Screen::process_user_inputs(const float& deltaTime)
 {
     Event event;
     while(window.pollEvent(event))
@@ -123,11 +124,11 @@ void Screen::process_user_inputs()
                 window.close();
             }
             else
-                keyboard_handling(event.key.code,true);
+                keyboard_handling(event.key.code,true,deltaTime);
             break;
 
            case Event::KeyReleased:
-           keyboard_handling(event.key.code, false);
+           keyboard_handling(event.key.code, false,deltaTime);
            break;
         
         case Event::Closed:
@@ -141,7 +142,7 @@ void Screen::process_user_inputs()
     }
 }
 
-void Screen::keyboard_handling(Keyboard key, bool keyPressed)
+void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& deltaTime)
 {
         auto bailey_speed = logic.bailey_object.getbailey_speed();
         if (key == Keyboard::Enter && keyPressed) //player wants to play
@@ -151,19 +152,23 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed)
             //player movements
             if (key == Keyboard::Up)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Up, bailey_speed, keyPressed);
+                logic.bailey_object.set_bailey_movement(Direction::Up, bailey_speed, keyPressed,bailey_sprite,
+                    deltaTime);
             }
             else if (key == Keyboard::Down)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed,keyPressed);
+                logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed,keyPressed,bailey_sprite,
+                    deltaTime);
             }
             else if (key == Keyboard::Left)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Left, bailey_speed,keyPressed);
+                logic.bailey_object.set_bailey_movement(Direction::Left, bailey_speed,keyPressed,bailey_sprite,
+                    deltaTime);
             }
             else if (key == Keyboard::Right)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Right, bailey_speed,keyPressed);
+                logic.bailey_object.set_bailey_movement(Direction::Right, bailey_speed,keyPressed,bailey_sprite,
+                    deltaTime);
             }
         }
     
@@ -200,14 +205,14 @@ void Screen::draw_ice_blocks()
 
 }
 
-void Screen::update_game()
+void Screen::update_game(const float& deltaTime)
 {
-    update_game_sprites(); // update game entities
+    update_game_sprites(deltaTime); // update game entities
 //update game state -> update game
     update_game_state();
 }
 
-void Screen::update_game_sprites()
+void Screen::update_game_sprites(const float& deltaTime)
 {
     logic.update_bailey(bailey_sprite);
     logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
@@ -228,7 +233,7 @@ void Screen::update_game_sprites()
     }
 
     //Update collisions
-    logic.bailey_and_ice_collision(Igloo_house_sprites);
+    logic.bailey_and_ice_collision(Igloo_house_sprites,bailey_sprite,deltaTime);
     logic.bailey_and_water_collision1(collided1);
     logic.bailey_and_water_collision2(collided2);
 

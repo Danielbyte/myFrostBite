@@ -16,7 +16,7 @@ void Logic::update_bailey(Sprite& bailey_sprite)
 {
     auto x = bailey_object.get_Xpos();
     auto y = bailey_object.get_Ypos();
-    bailey_sprite.setPosition(x,y);
+    //bailey_sprite.setPosition(x,y);
     control_bailey.update_bailey(prev_pos, is_bailey_moving, x, y);
     control_bailey.animate_bailey(bailey_object, bailey_sprite);
 }
@@ -94,7 +94,8 @@ bool Logic::Is_bailey_moving() const
     return is_bailey_moving;
 }
 
-void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites)
+void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites,Sprite& bailey_sprite,
+    const float& deltaTime)
 {
 
     if (!ice_block_objects1.empty())
@@ -132,18 +133,18 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
 
             if (is_collided && !is_bailey_moving)
             {
-
-                //std::cout << "collided1: "<<std::endl;
                 auto ice_moving_left = (*ice_iter) -> get_if_left();
                 if (!ice_moving_left)
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true);
+                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true,bailey_sprite,
+                        deltaTime);
                 }
                 else
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true);
+                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true,bailey_sprite,
+                        deltaTime);
                 }
 
             }
@@ -218,12 +219,14 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 if (!ice_moving_left)
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true);
+                    bailey_object.set_bailey_movement(Direction::Left,new_bailey_speed,true,bailey_sprite,
+                        deltaTime);
                 }
                 else
                 {
                     auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true);
+                    bailey_object.set_bailey_movement(Direction::Right, new_bailey_speed,true,bailey_sprite,
+                        deltaTime);
                 }
 
             }

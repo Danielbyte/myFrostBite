@@ -17,22 +17,21 @@ Bailey::Bailey():
     bailey_level{5},
     isMovingUp{false},
     isMovingDown{false},
-    frame_counter1{0},
-    frame_counter2{0},
-    frame_counter1_2{0},
-    frame_counter2_2{0},
     is_dead{false},
     from_bottom{false},
     isMovingRight{false},
     isMovingLeft{false},
     RightKeyPressed{false},
-    LeftKeyPressed{false}
+    LeftKeyPressed{false},
+    bailey_mass{75},
+    gravity{9.8f},
+    left_right_const{200.0f}
 {
 
 }
 
 void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
-    const bool& keyPressed_)
+    const bool& keyPressed_, Sprite& bailey_sprite,const float& deltaTime)
 {
     RightKeyPressed = false;
     LeftKeyPressed = false;
@@ -43,7 +42,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
         case Direction::Up:
             isMovingUp = true;
             isMovingDown = false;
-            //std::cout<< "Moving up" <<std::endl;
+
             if (safe_zone)
             {
                 y_position -= bailey_speed_initial;
@@ -53,16 +52,12 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                 {
                     y_position = safe_zone_boundary;
                     set_bailey_level();
-                    //std::cout << y_position << std::endl;
                     safe_zone = true;
-                    //std::cout << "Level"<<bailey_level << std::endl;
                 }
 
                 else if (y_position > safe_zone_boundary)
                 {
                     safe_zone = false;
-                    //--bailey_level;
-                    //std::cout << "Level"<<bailey_level << std::endl;
                 }
             }
             else
@@ -75,10 +70,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                     y_position = safe_zone_boundary;
                     set_bailey_level();
                     safe_zone = true;
-                    // bailey_level = 0;
-                    // std::cout << "Level"<<bailey_level << std::endl;
                 }
-                // std::cout <<y_position <<std::endl;
             }
 
             if (y_position <= upper_boundary)
@@ -86,14 +78,12 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                 y_position = upper_boundary;
                 set_bailey_level();
             }
-            //std::cout << "Level"<<bailey_level << std::endl;
-            //std::cout << y_position << std::endl;
             break;
 
         case Direction::Down:
             isMovingDown = true;
             isMovingUp = false;
-            // std::cout<< "Moving Down" <<std::endl;
+         
             if (y_position > safe_zone_boundary)
             {
                 safe_zone = false;
@@ -104,16 +94,12 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                 y_position += bailey_speed_initial;
                 set_bailey_level();
                 changing_speed = bailey_speed_initial;
-                // bailey_level = 0;
-                //std::cout << "Level"<<bailey_level << std::endl;
             }
             else
             {
                 y_position += bailey_speed;
                 changing_speed = bailey_speed;
                 set_bailey_level();
-                //++bailey_level;
-                //std::cout << "Level"<<bailey_level << std::endl;
             }
             if (y_position >= lower_boundary)
             {
@@ -128,10 +114,15 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
             isMovingRight = false;
             isMovingLeft = true;
             LeftKeyPressed = keyPressed_;
-            x_position -= side_speed;
+            bailey_sprite.move(-left_right_const * deltaTime, 0);
+            //update frostbite's horizontal direction
+            x_position = bailey_sprite.getPosition().x;
+
+            //Restrict frostbite to left screen border
             if (x_position <= left_boundary)
             {
                 x_position = left_boundary;
+                bailey_sprite.setPosition(x_position,y_position);
                 if (!safe_zone)
                 {
                     is_dead = true;
@@ -147,10 +138,12 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
             isMovingRight = true;
             isMovingLeft = false;
             RightKeyPressed = keyPressed_;
-            x_position += side_speed;
+            bailey_sprite.move(left_right_const * deltaTime, 0);
+            x_position = bailey_sprite.getPosition().x;
             if (x_position >= right_boundary)
             {
                 x_position = right_boundary;
+                bailey_sprite.setPosition(x_position, y_position);
                 if (!safe_zone)
                 {
                     is_dead = true;
@@ -246,56 +239,6 @@ bool Bailey::get_is_moving_up() const
     return isMovingUp;
 }
 
-void Bailey::reset_frame_counter1()
-{
-    frame_counter1 = 0;
-}
-void Bailey::reset_frame_counter2()
-{
-    frame_counter2 = 0;
-}
-void Bailey::increment_frame_counter1()
-{
-    ++frame_counter1;
-}
-void Bailey::increment_frame_counter2()
-{
-    ++frame_counter2;
-}
-int Bailey::get_frame_counter1()
-{
-    return frame_counter1;
-}
-int Bailey::get_frame_counter2()
-{
-    return frame_counter2;
-}
-
-void Bailey::reset_frame_counter1_2()
-{
-    frame_counter1_2 = 0;
-}
-void Bailey::reset_frame_counter2_2()
-{
-    frame_counter2_2 = 0;
-}
-void Bailey::increment_frame_counter1_2()
-{
-    ++frame_counter1_2;
-}
-void Bailey::increment_frame_counter2_2()
-{
-    ++frame_counter2_2;
-}
-int Bailey::get_frame_counter1_2()
-{
-    return frame_counter1_2;
-}
-int Bailey::get_frame_counter2_2()
-{
-    return frame_counter2_2;
-}
-
 
 float Bailey::get_changing_speed() const
 {
@@ -325,4 +268,9 @@ bool Bailey::get_if_moving_left() const
 bool Bailey::get_if_moving_right() const
 {
     return isMovingRight;
+}
+
+bool Bailey::get_bailey_mass() const
+{
+    return bailey_mass;
 }

@@ -25,7 +25,7 @@ public:
    void create_ice_block_objects(vector<shared_ptr<Sprite>>&,const int&);
    bool Is_bailey_moving() const;
 
-   void bailey_and_ice_collision(vector<shared_ptr<Sprite>>&);
+   void bailey_and_ice_collision(vector<shared_ptr<Sprite>>&,Sprite&,const float&);
    void bailey_and_water_collision1(bool&);
    void bailey_and_water_collision2(bool&);
 

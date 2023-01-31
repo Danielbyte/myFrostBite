@@ -6,7 +6,7 @@
 class Bailey {
 public:
     Bailey();
-    void set_bailey_movement(const Direction&, const float&, const bool&);
+    void set_bailey_movement(const Direction&, const float&, const bool&, Sprite&,const float&);
     float get_Xpos();
     float get_Ypos();
     bool is_bailey_moving() const;
@@ -17,21 +17,7 @@ public:
 
     bool get_is_moving_up() const;
     bool get_is_moving_down() const;
-
-    void reset_frame_counter1();
-    void reset_frame_counter2();
-    void increment_frame_counter1();
-    void increment_frame_counter2();
-    int get_frame_counter1();
-    int get_frame_counter2();
     float get_changing_speed() const;
-
-    void reset_frame_counter1_2();
-    void reset_frame_counter2_2();
-    void increment_frame_counter1_2();
-    void increment_frame_counter2_2();
-    int get_frame_counter1_2();
-    int get_frame_counter2_2();
 
     bool get_if_bailey_dead() const;
     void set_bailey_to_dead(bool);
@@ -42,6 +28,8 @@ public:
 
     bool get_if_right_key_pressed() const;
     bool get_if_left_key_pressed() const;
+
+    bool get_bailey_mass() const;
 
 private:
     void set_bailey_level();
@@ -66,17 +54,16 @@ private:
     bool isMovingUp;
     bool isMovingDown;
 
-    int frame_counter1;
-    int frame_counter2;
-
-    int frame_counter1_2;
-    int frame_counter2_2;
-
     bool is_dead;
     bool from_bottom;
     bool isMovingRight;
     bool isMovingLeft;
     bool RightKeyPressed;
     bool LeftKeyPressed;
+
+    float bailey_mass;
+    float gravity;
+    float left_right_const;
+    //void jump_down();
 };
 #endif // BAILEY_H

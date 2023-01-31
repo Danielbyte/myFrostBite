@@ -33,8 +33,8 @@ private:
     bool quit_game;
 
     //HANDLE USER INPUTS
-    void process_user_inputs();
-    void keyboard_handling(Keyboard,bool);
+    void process_user_inputs(const float&);
+    void keyboard_handling(Keyboard,bool,const float&);
 
     //GAME INITIALISATION
     void initialise_player();
@@ -63,10 +63,10 @@ private:
     Logic logic;
 
     //Update game sprites
-    void update_game_sprites();
+    void update_game_sprites(const float&);
 
     //Update game
-    void update_game();
+    void update_game(const float&);
 
     //Create a new batch of ice blocks
     void create_ice_block_batch(vector<shared_ptr<Sprite>>&, int);
@@ -84,6 +84,8 @@ private:
 
     void draw_igloo_house();
     void load_textures();
+
+    Clock time;
 
 };
 
