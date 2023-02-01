@@ -88,6 +88,8 @@ private:
     Clock time;
 
     bool isJumping;
+    bool isJumpingUp;
+    bool isJumpingDown;
 
 };
 

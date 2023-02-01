@@ -11,20 +11,20 @@ Screen::Screen():
     vector2{2},
     collided1{false},
     collided2{false},
-    isJumping{false} //bailey is initially at standstill
+    isJumping{false}, //bailey is initially at standstill
+    isJumpingUp{false},
+    isJumpingDown{false}
 {
+    load_textures();
     initialize_screen();
     initialise_player();
     initialise_background();
-    load_textures();
     create_ice_blocks();
     initialize_igloo();
 }
 
 void Screen::initialize_screen()
 {
-    displays.loadFromFile("resources/sansation.ttf");
-    splash_screen_font.loadFromFile("resources/sansation.ttf");
     splash_screen_display.setFont(splash_screen_font);
     splash_screen_display.setCharacterSize(20);
     splash_screen_display.setStyle(Text::Regular);
@@ -48,7 +48,6 @@ void Screen::initialize_screen()
 
 void Screen::initialise_player()
 {
-    if(!bailey_texture.loadFromFile("resources/bailey.png")) throw CouldNotLoadPicture{};
     bailey_sprite.setTexture(bailey_texture);
     bailey_sprite.setPosition(logic.bailey_object.get_Xpos(),logic.bailey_object.get_Ypos());
     bailey_sprite.setOrigin(bailey_width/2,bailey_height/2);
@@ -56,7 +55,6 @@ void Screen::initialise_player()
 
 void Screen::initialise_background()
 {
-    if(!background_texture.loadFromFile("resources/background.png")) throw CouldNotLoadPicture{};
     background_sprite.setTexture(background_texture);
 }
 
@@ -151,10 +149,14 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
         if (is_playing)
         {
             //player movements
-            if (key == Keyboard::Up)
+            if (key == Keyboard::Up && keyPressed && !isJumping)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Up, bailey_speed, keyPressed,bailey_sprite,
-                    deltaTime);
+                auto jumpForce = logic.bailey_object.get_up_jumping_force();
+                auto mass = logic.bailey_object.get_bailey_mass();
+                auto speed = jumpForce / mass;
+                logic.bailey_object.set_speed(speed);
+                isJumping = true;
+                isJumpingUp = true;
             }
             else if (key == Keyboard::Down && keyPressed && !isJumping)
             {
@@ -162,9 +164,8 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                 auto mass = logic.bailey_object.get_bailey_mass();
                 auto speed = jumpForce / mass;
                 logic.bailey_object.set_speed(speed);
-                /*logic.bailey_object.set_bailey_movement(Direction::Down, bailey_speed, keyPressed, bailey_sprite,
-                    deltaTime);*/
                 isJumping = true;
+                isJumpingDown = true;
             }
             else if (key == Keyboard::Left)
             {
@@ -219,7 +220,8 @@ void Screen::update_game(const float& deltaTime)
 
 void Screen::update_game_sprites(const float& deltaTime)
 {
-    logic.update_bailey(bailey_sprite,isJumping,deltaTime);
+    logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
+    logic.update_bailey(bailey_sprite);
     logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
    
     if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
@@ -339,7 +341,8 @@ void Screen::update_game_state(const float& deltaTime)
         window.setKeyRepeatEnabled(false);
         is_playing = false;
         is_game_over = true;
-        logic.update_bailey(bailey_sprite,isJumping,deltaTime);
+        logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
+        logic.update_bailey(bailey_sprite);
         window.clear();
         splash_screen_display.setString("YOU WON!"
                                         "\nRETURNED SAFELY TO SAFE ZONE FROM BOTTOM");
@@ -350,7 +353,6 @@ void Screen::initialize_igloo()
 {
     auto position = logic.get_igloo_position();
     auto ptr = std::make_shared<Sprite>(Sprite());
-    igloo_texture.loadFromFile("resources/igloo0.png");
     ptr ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
     ptr -> setTexture(igloo_texture);
     ptr -> setPosition(position.x, position.y);
@@ -359,8 +361,15 @@ void Screen::initialize_igloo()
 
 void Screen::load_textures()
 {
+    displays.loadFromFile("resources/sansation.ttf");
+    splash_screen_font.loadFromFile("resources/sansation.ttf");
+
     ice_block_texture2.loadFromFile("resources/whiteIce.png");
     ice_block_texture.loadFromFile("resources/whiteIce.png");
+
+    if (!bailey_texture.loadFromFile("resources/bailey.png")) throw CouldNotLoadPicture{};
+    if (!background_texture.loadFromFile("resources/background.png")) throw CouldNotLoadPicture{};
+    igloo_texture.loadFromFile("resources/igloo0.png");
 }
 
 Screen::~Screen() 

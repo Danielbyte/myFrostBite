@@ -15,7 +15,8 @@ public:
 
    //Bailey logic
    Bailey bailey_object;
-   void update_bailey(Sprite&, bool&, const float&);
+   void update_bailey_jumps(Sprite&, bool&, const float&,bool&,bool&);
+   void update_bailey(Sprite&);
 
    //Ice block logic
    //void create_ice_blocks(vector<shared_ptr<Sprite>>&);

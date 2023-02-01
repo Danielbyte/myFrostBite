@@ -2,6 +2,7 @@
 #define BAILEY_H
 #include "gameConstants.h"
 #include "SfmlLibrary.h"
+#include <cstdlib>
 
 class Bailey {
 public:
@@ -32,8 +33,10 @@ public:
     float get_speed() const;
     void set_speed(const float&);
     float get_jump_force() const;
+    float get_up_jumping_force() const;
 
-    void jump_down(Sprite&, const float&, const float&, bool&);
+    void jump_down(Sprite&, const float&, const float&, bool&, bool&);
+    void jump_up(Sprite&, const float&, const float&, bool&,bool&);
 
 private:
     void set_bailey_level();
@@ -69,6 +72,7 @@ private:
     float jumpForce;
     float left_right_const;
     float speed;
+    float upJumpingForce;
 
 };
 #endif // BAILEY_H

@@ -26,7 +26,8 @@ Bailey::Bailey():
     gravity{9.8f},
     jumpForce{100.0f},
     left_right_const{200.0f},
-    speed{0.0f}
+    speed{0.0f},
+    upJumpingForce{400}
 {
 
 }
@@ -40,7 +41,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
     {
         switch (dir)
         {
-        case Direction::Up:
+      /*  case Direction::Up:
             isMovingUp = true;
             isMovingDown = false;
 
@@ -108,7 +109,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                 set_bailey_level();
             }
             break;
-
+*/
         case Direction::Left:
             isMovingUp = false;
             isMovingDown = false;
@@ -271,18 +272,37 @@ float Bailey::get_bailey_mass() const
 }
 
 void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
-    bool& isJumping)
+    bool& isJumping, bool& isJumpingDown)
 {
     speed -= gravity * deltaTime;
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position
-    auto jumped_distance = y_position - start_position;
-
+    auto jumped_distance = y_position - start_position;//calculate total distance jumped by frostbite
+   
     if (jumped_distance > distance_between_iceRows)
     {
+        //frostbite jumps betweent consecutive rows of ice
         y_position = start_position + distance_between_iceRows;
+        x_position = bailey_sprite.getPosition().x;
+        bailey_sprite.setPosition(x_position, y_position);
+        isJumping = false;//frostbite has stepped on ice row or drowned
+        isJumpingDown = false;
+    }
+}
+
+void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float& start_position,
+    bool& isJumping, bool& isJumpingUp)
+{
+    speed -= gravity * deltaTime;
+    bailey_sprite.move(0, -speed);
+    y_position = bailey_sprite.getPosition().y;
+    auto jumped_distance = start_position - y_position;
+    if (jumped_distance > distance_between_iceRows)
+    {
+        y_position = start_position - distance_between_iceRows;
         bailey_sprite.setPosition(x_position, y_position);
         isJumping = false;
+        isJumpingUp = false;
     }
 }
 
@@ -299,4 +319,9 @@ float Bailey::get_speed() const
 float Bailey::get_jump_force() const
 {
     return jumpForce;
+}
+
+float Bailey::get_up_jumping_force() const
+{
+    return upJumpingForce;
 }

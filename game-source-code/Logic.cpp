@@ -13,29 +13,29 @@ Logic::Logic():
     build_igloo();
 }
 
-void Logic::update_bailey(Sprite& bailey_sprite,bool& isJumping,const float& deltaTime)
+void Logic::update_bailey_jumps(Sprite& bailey_sprite,bool& isJumping,const float& deltaTime,
+    bool& isJumpingUp, bool& isJumpingDown)
 {
-    auto x = bailey_object.get_Xpos();
-    auto y = bailey_object.get_Ypos();
     if (!isJumping)
     {
         y_ = bailey_object.get_Ypos();
     }
 
-    if (isJumping)
+    if (isJumping && isJumpingDown)
     {
-        bailey_object.jump_down(bailey_sprite, deltaTime,y_,isJumping);
-       /* y = bailey_object.get_Ypos();
-    
-        if (y > 281.0f)
-        {
-            y = 281.0f;
-            x = bailey_object.get_Xpos();
-            bailey_sprite.setPosition(x, y);
-        }*/
+        bailey_object.jump_down(bailey_sprite, deltaTime,y_,isJumping,isJumpingDown);
     }
 
-    //bailey_sprite.setPosition(x,y);
+    if (isJumping && isJumpingUp)
+    {
+        bailey_object.jump_up(bailey_sprite, deltaTime, y_, isJumping, isJumpingUp);
+    }
+}
+
+void Logic::update_bailey(Sprite& bailey_sprite)
+{
+    auto x = bailey_object.get_Xpos();
+    auto y = bailey_object.get_Ypos();
     control_bailey.update_bailey(prev_pos, is_bailey_moving, x, y);
     control_bailey.animate_bailey(bailey_object, bailey_sprite);
 }

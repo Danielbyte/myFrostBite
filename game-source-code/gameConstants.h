@@ -33,6 +33,6 @@ const auto igloo_width = 256;
 
 class CouldNotLoadPicture{};
 
-enum class Direction {Up, Down, Left, Right};
+enum class Direction {Up, Down, Left, Right,unknown};
 
 #endif // GAMECONSTANTS_H
