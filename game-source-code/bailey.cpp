@@ -27,7 +27,7 @@ Bailey::Bailey():
     jumpForce{100.0f},
     left_right_const{200.0f},
     speed{0.0f},
-    upJumpingForce{400}
+    upJumpingForce{489.0f}
 {
 
 }
@@ -297,6 +297,7 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;
     auto jumped_distance = start_position - y_position;
+    //std::cout << "Jumped distance: "<< jumped_distance << std::endl;
     if (jumped_distance > distance_between_iceRows)
     {
         y_position = start_position - distance_between_iceRows;
