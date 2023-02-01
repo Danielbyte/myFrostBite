@@ -12,7 +12,7 @@ Bailey::Bailey():
     left_boundary{24.0f},
     right_boundary{776.0f},
     safe_zone{true}, //player initially in safe zone
-    safe_zone_boundary{205},
+    safe_zone_boundary{199.0f},
     is_moving{false}, //bailey initially stagnant
     bailey_level{5},
     isMovingUp{false},
@@ -293,15 +293,24 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
 void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float& start_position,
     bool& isJumping, bool& isJumpingUp)
 {
-    speed -= gravity * deltaTime;
-    bailey_sprite.move(0, -speed);
-    y_position = bailey_sprite.getPosition().y;
-    auto jumped_distance = start_position - y_position;
-    //std::cout << "Jumped distance: "<< jumped_distance << std::endl;
-    if (jumped_distance > distance_between_iceRows)
+    if (y_position > safe_zone_boundary)
     {
-        y_position = start_position - distance_between_iceRows;
-        bailey_sprite.setPosition(x_position, y_position);
+        speed -= gravity * deltaTime;
+        bailey_sprite.move(0, -speed);
+        y_position = bailey_sprite.getPosition().y;
+        auto jumped_distance = start_position - y_position;
+        //std::cout << "Jumped distance: "<< jumped_distance << std::endl;
+        if (jumped_distance > distance_between_iceRows)
+        {
+            y_position = start_position - distance_between_iceRows;
+            bailey_sprite.setPosition(x_position, y_position);
+            isJumping = false;
+            isJumpingUp = false;
+        }
+    }
+
+    else if(y_position <= safe_zone_boundary)
+    {
         isJumping = false;
         isJumpingUp = false;
     }
