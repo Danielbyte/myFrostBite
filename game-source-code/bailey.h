@@ -7,7 +7,7 @@
 class Bailey {
 public:
     Bailey();
-    void set_bailey_movement(const Direction&, const float&, const bool&, Sprite&,const float&);
+    void set_bailey_movement(const Direction&, const bool&, Sprite&,const float&);
     float get_Xpos();
     float get_Ypos();
     bool is_bailey_moving() const;
@@ -37,6 +37,8 @@ public:
 
     void jump_down(Sprite&, const float&, const float&, bool&, bool&);
     void jump_up(Sprite&, const float&, const float&, bool&,bool&);
+
+    void move_bailey(const float&, Sprite&);
 
 private:
     void set_bailey_level();
@@ -73,6 +75,7 @@ private:
     float left_right_const;
     float speed;
     float upJumpingForce;
+    float ice_speed;
 
 };
 #endif // BAILEY_H

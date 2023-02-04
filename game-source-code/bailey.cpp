@@ -24,15 +24,16 @@ Bailey::Bailey():
     LeftKeyPressed{false},
     bailey_mass{75},
     gravity{9.8f},
-    jumpForce{100.0f},
-    left_right_const{200.0f},
+    jumpForce{80.0f},
+    left_right_const{180.0f},
     speed{0.0f},
-    upJumpingForce{489.0f}
+    upJumpingForce{489.0f},
+    ice_speed{60.0f}
 {
 
 }
 
-void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
+void Bailey::set_bailey_movement(const Direction& dir,
     const bool& keyPressed_, Sprite& bailey_sprite,const float& deltaTime)
 {
     RightKeyPressed = false;
@@ -108,15 +109,15 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
                 y_position = lower_boundary;
                 set_bailey_level();
             }
-            break;
-*/
+            break;*/
+
         case Direction::Left:
             isMovingUp = false;
             isMovingDown = false;
             isMovingRight = false;
             isMovingLeft = true;
             LeftKeyPressed = keyPressed_;
-            bailey_sprite.move(-left_right_const * deltaTime, 0);
+            bailey_sprite.move(- ice_speed * deltaTime, 0);
             //update frostbite's horizontal direction
             x_position = bailey_sprite.getPosition().x;
 
@@ -140,7 +141,7 @@ void Bailey::set_bailey_movement(const Direction& dir, const float& side_speed,
             isMovingRight = true;
             isMovingLeft = false;
             RightKeyPressed = keyPressed_;
-            bailey_sprite.move(left_right_const * deltaTime, 0);
+            bailey_sprite.move(ice_speed * deltaTime, 0);
             x_position = bailey_sprite.getPosition().x;
             if (x_position >= right_boundary)
             {
@@ -173,6 +174,56 @@ bool Bailey::get_if_left_key_pressed() const
 float Bailey::get_Xpos()
 {
     return x_position;
+}
+
+void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
+{
+    RightKeyPressed = false;
+    LeftKeyPressed = false;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        isMovingRight = true;
+        isMovingLeft = false;
+        player_sprite.move(left_right_const * deltaTime, 0);
+        x_position = player_sprite.getPosition().x;
+        RightKeyPressed = true;
+
+        if (x_position >= right_boundary)
+        {
+            x_position = right_boundary;
+            player_sprite.setPosition(x_position, y_position);
+            if (!safe_zone)
+            {
+                is_dead = true;
+            }
+
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        isMovingLeft = true;
+        isMovingRight = false;
+
+        // move player
+        player_sprite.move(-left_right_const * deltaTime, 0);
+        //update the x position
+        x_position = player_sprite.getPosition().x;
+        LeftKeyPressed = true;
+
+        //restrict player within screen
+        if (x_position <= left_boundary)
+        {
+            x_position = left_boundary;
+            player_sprite.setPosition(x_position, y_position);
+
+            if (!safe_zone)
+            {
+                is_dead = true;
+            }
+        }
+    }
 }
 
 float Bailey::get_Ypos()
@@ -283,7 +334,7 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
     {
         //frostbite jumps betweent consecutive rows of ice
         y_position = start_position + distance_between_iceRows;
-        x_position = bailey_sprite.getPosition().x;
+        //x_position = bailey_sprite.getPosition().x;
         bailey_sprite.setPosition(x_position, y_position);
         isJumping = false;//frostbite has stepped on ice row or drowned
         isJumpingDown = false;

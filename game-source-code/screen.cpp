@@ -143,7 +143,6 @@ void Screen::process_user_inputs(const float& deltaTime)
 
 void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& deltaTime)
 {
-        auto bailey_speed = logic.bailey_object.getbailey_speed();
         if (key == Keyboard::Enter && keyPressed) //player wants to play
             is_playing = true;
         if (is_playing)
@@ -151,6 +150,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
             //player movements
             if (key == Keyboard::Up && keyPressed && !isJumping)
             {
+                window.setKeyRepeatEnabled(false);
                 auto jumpForce = logic.bailey_object.get_up_jumping_force();
                 auto mass = logic.bailey_object.get_bailey_mass();
                 auto speed = jumpForce / mass;
@@ -160,6 +160,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
             }
             else if (key == Keyboard::Down && keyPressed && !isJumping)
             {
+                window.setKeyRepeatEnabled(false);
                 auto jumpForce = logic.bailey_object.get_jump_force();
                 auto mass = logic.bailey_object.get_bailey_mass();
                 auto speed = jumpForce / mass;
@@ -169,13 +170,13 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
             }
             else if (key == Keyboard::Left)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Left, bailey_speed,keyPressed,bailey_sprite,
-                    deltaTime);
+                window.setKeyRepeatEnabled(true);
+                logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
             }
             else if (key == Keyboard::Right)
             {
-                logic.bailey_object.set_bailey_movement(Direction::Right, bailey_speed,keyPressed,bailey_sprite,
-                    deltaTime);
+                window.setKeyRepeatEnabled(true);
+                logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
             }
         }
 }
@@ -324,16 +325,16 @@ void Screen::update_game_state(const float& deltaTime)
     splash_screen_display.setCharacterSize(20);
 
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
-    auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
+    //auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
 
-    if (bailey_is_dead)
+   /* if (bailey_is_dead)
     {
         is_playing = false;
         is_game_over = true;
         window.clear();
         splash_screen_display.setString("YOU LOST!"
                                         "\nGAME OVER");
-    }
+    }*/
 
     auto igloo_complete = logic.mark_if_igloo_is_complete();
     if (bailey_in_safe_zone && igloo_complete)
