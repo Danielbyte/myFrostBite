@@ -1,12 +1,12 @@
 #ifndef LOGIC_H
 #define LOGIC_H
+#include <tuple>
 #include "SfmlLibrary.h"
 #include "bailey.h"
 #include "IceBlockController.h"
 #include "Collision.h"
 #include "igloo.h"
 #include "BaileyController.h"
-
 
 class Logic {
 public:
@@ -27,13 +27,13 @@ public:
    bool Is_bailey_moving() const;
 
    void bailey_and_ice_collision(vector<shared_ptr<Sprite>>&,Sprite&,const float&);
-   void bailey_and_water_collision1(bool&);
-   void bailey_and_water_collision2(bool&);
 
    void update_igloo(vector<shared_ptr<Sprite>>&);
    bool mark_if_igloo_is_complete();
 
    void reverse_ice_direction(vector<shared_ptr<Sprite>>&);
+
+   std::tuple<bool, bool> get_collisions();
 
    vector<shared_ptr<Igloo>>igloo_object;
    void build_igloo();
@@ -65,5 +65,8 @@ private:
     void set_ice_direction(const int&, const int&, shared_ptr<IceBlocks>&, shared_ptr<Sprite>&);
 
     BaileyController control_bailey;
+
+    bool ice_collision_batch1;
+    bool ice_collision_batch2;
 };
 #endif // LOGIC_H

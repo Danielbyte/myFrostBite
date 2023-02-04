@@ -135,8 +135,8 @@ void Screen::process_user_inputs(const float& deltaTime)
             window.close();
             break;
 
-        default:
-            ;
+        //default:
+           // ;
         }
     }
 }
@@ -240,20 +240,21 @@ void Screen::update_game_sprites(const float& deltaTime)
         logic.update_ice(ice_blocks_sprites2, can_create_new_batch_of_ice_blocks, vector2);
     }
 
-    //Update collisions
-    logic.bailey_and_ice_collision(Igloo_house_sprites,bailey_sprite,deltaTime);
-    logic.bailey_and_water_collision1(collided1);
-    logic.bailey_and_water_collision2(collided2);
-
-    //Set bailey state
-    auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
-    if ((collided1 || collided2))
+    //only update collisions if frostbite is not in safe zone
+    auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
+    if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
     {
-        //logic.bailey_object.set_bailey_to_dead(false);
-    }
-    else if ((!bailey_in_safe_zone) && (!(collided1 || collided2)))
-    {
-        //logic.bailey_object.set_bailey_to_dead(true);
+        logic.bailey_and_ice_collision(Igloo_house_sprites, bailey_sprite, deltaTime);
+        auto[collision1,collision2] = logic.get_collisions();
+        if (collision1 || collision2)
+        {
+            logic.bailey_object.set_bailey_to_dead(false); // is frosbite has stepped on ice (should live)
+        }
+        else
+        {
+            logic.bailey_object.set_bailey_to_dead(true);//frostbite should die if didn't step on ice  
+        }
+        
     }
 }
 
@@ -325,16 +326,16 @@ void Screen::update_game_state(const float& deltaTime)
     splash_screen_display.setCharacterSize(20);
 
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
-    //auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
+    auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
 
-   /* if (bailey_is_dead)
+    if (bailey_is_dead)
     {
         is_playing = false;
         is_game_over = true;
         window.clear();
         splash_screen_display.setString("YOU LOST!"
                                         "\nGAME OVER");
-    }*/
+    }
 
     auto igloo_complete = logic.mark_if_igloo_is_complete();
     if (bailey_in_safe_zone && igloo_complete)
