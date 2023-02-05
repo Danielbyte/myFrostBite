@@ -1,13 +1,9 @@
 #include "bailey.h"
 
 Bailey::Bailey():
-    changing_speed{0},
     distance_between_iceRows{82},
-    bailey_speed_sideways{3},
-    bailey_speed_initial{76},
     y_position{199.0f},
     x_position{240.0f},
-    upper_boundary{24.0f},
     lower_boundary{527.0f},
     left_boundary{24.0f},
     right_boundary{776.0f},
@@ -28,7 +24,8 @@ Bailey::Bailey():
     left_right_const{180.0f},
     speed{0.0f},
     upJumpingForce{489.0f},
-    ice_speed{60.0f}
+    ice_speed{60.0f},
+    speed_attenuater{1.5f}
 {
 
 }
@@ -164,11 +161,6 @@ bool Bailey::is_bailey_moving() const
     return is_moving;
 }
 
-float Bailey::getbailey_speed() const
-{
-    return bailey_speed_sideways;
-}
-
 bool Bailey::get_if_bailey_in_safe_zone()
 {
     if (y_position > safe_zone_boundary) {safe_zone = false;}
@@ -219,12 +211,6 @@ bool Bailey::get_is_moving_up() const
     return isMovingUp;
 }
 
-
-float Bailey::get_changing_speed() const
-{
-    return changing_speed;
-}
-
 bool Bailey::get_if_bailey_dead()const
 {
     return is_dead;
@@ -253,7 +239,7 @@ float Bailey::get_bailey_mass() const
 void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
     bool& isJumping, bool& isJumpingDown)
 {
-    speed -= gravity * deltaTime;
+    speed -= gravity * deltaTime * speed_attenuater;
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position
     auto jumped_distance = y_position - start_position;//calculate total distance jumped by frostbite

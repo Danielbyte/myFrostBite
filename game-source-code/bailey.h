@@ -11,14 +11,12 @@ public:
     float get_Xpos();
     float get_Ypos();
     bool is_bailey_moving() const;
-    float getbailey_speed() const;
     bool get_if_bailey_in_safe_zone();
 
     int get_bailey_level();
 
     bool get_is_moving_up() const;
     bool get_is_moving_down() const;
-    float get_changing_speed() const;
 
     bool get_if_bailey_dead() const;
     void set_bailey_to_dead(bool);
@@ -42,13 +40,9 @@ public:
 
 private:
     void set_bailey_level();
-    float changing_speed;
     float distance_between_iceRows;
-    float bailey_speed_sideways;
-    float bailey_speed_initial;
     float y_position;
     float x_position;
-    float upper_boundary;
     float lower_boundary;
     float left_boundary;
     float right_boundary;
@@ -76,6 +70,7 @@ private:
     float speed;
     float upJumpingForce;
     float ice_speed;
+    float speed_attenuater;
 
 };
 #endif // BAILEY_H
