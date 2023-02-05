@@ -71,7 +71,7 @@ private:
     float upJumpingForce;
     float ice_speed;
     float speed_attenuater;
-    int upJump_mark;
+    float upJump_speedAtten; //control the speed at which frostbite jumps up
 
 };
 #endif // BAILEY_H

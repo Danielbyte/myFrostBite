@@ -26,7 +26,7 @@ Bailey::Bailey():
     upJumpingForce{400.0f},
     ice_speed{60.0f},
     speed_attenuater{1.5f},
-    upJump_mark{0}
+    upJump_speedAtten{0.95f}
 {
 
 }
@@ -260,7 +260,7 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
     
     if (y_position > safe_zone_boundary)
     {
-        speed -= gravity * deltaTime * 0.85f;
+        speed -= gravity * deltaTime * upJump_speedAtten;
         bailey_sprite.move(0, -speed);
         y_position = bailey_sprite.getPosition().y;
         auto jumped_distance = start_position - y_position;
@@ -271,7 +271,6 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
             bailey_sprite.setPosition(x_position, y_position);
             isJumping = false;
             isJumpingUp = false;
-            upJump_mark = 0;
         }
     }
 
