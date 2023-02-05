@@ -71,6 +71,7 @@ private:
     float upJumpingForce;
     float ice_speed;
     float speed_attenuater;
+    int upJump_mark;
 
 };
 #endif // BAILEY_H

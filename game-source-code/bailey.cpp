@@ -25,7 +25,8 @@ Bailey::Bailey():
     speed{0.0f},
     upJumpingForce{489.0f},
     ice_speed{60.0f},
-    speed_attenuater{1.5f}
+    speed_attenuater{1.5f},
+    upJump_mark{0}
 {
 
 }
@@ -122,7 +123,6 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
             {
                 is_dead = true;
             }
-
         }
     }
 
@@ -243,12 +243,11 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position
     auto jumped_distance = y_position - start_position;//calculate total distance jumped by frostbite
-   
+
     if (jumped_distance > distance_between_iceRows)
     {
         //frostbite jumps betweent consecutive rows of ice
         y_position = start_position + distance_between_iceRows;
-        //x_position = bailey_sprite.getPosition().x;
         bailey_sprite.setPosition(x_position, y_position);
         isJumping = false;//frostbite has stepped on ice row or drowned
         isJumpingDown = false;
@@ -258,19 +257,21 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
 void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float& start_position,
     bool& isJumping, bool& isJumpingUp)
 {
+    
     if (y_position > safe_zone_boundary)
     {
         speed -= gravity * deltaTime * 0.85f;
         bailey_sprite.move(0, -speed);
         y_position = bailey_sprite.getPosition().y;
         auto jumped_distance = start_position - y_position;
-        //std::cout << "Jumped distance: "<< jumped_distance << std::endl;
-        if (jumped_distance > distance_between_iceRows)
+        if (speed < 0 && 
+            y_position >= (start_position - distance_between_iceRows))
         {
             y_position = start_position - distance_between_iceRows;
             bailey_sprite.setPosition(x_position, y_position);
             isJumping = false;
             isJumpingUp = false;
+            upJump_mark = 0;
         }
     }
 
