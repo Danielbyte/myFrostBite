@@ -35,6 +35,7 @@ public:
     void jump_up(Sprite&, const float&, const float&, bool&,bool&);
 
     void move_bailey(const float&, Sprite&);
+    bool isBaileyJumping() const;
 
 private:
     void calibrate(const float&);
@@ -69,6 +70,7 @@ private:
     float ice_speed;
     float speed_attenuater;
     float upJump_speedAtten; //control the speed at which frostbite jumps up
+    bool is_bailey_jumping;
 
 };
 #endif // BAILEY_H

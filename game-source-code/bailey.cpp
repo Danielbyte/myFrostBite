@@ -25,7 +25,8 @@ Bailey::Bailey():
     upJumpingForce{410.0f},
     ice_speed{60.0f},
     speed_attenuater{1.5f},
-    upJump_speedAtten{1.0f}
+    upJump_speedAtten{1.0f},
+    is_bailey_jumping{false}
 {
 
 }
@@ -218,6 +219,7 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position
     auto jumped_distance = y_position - start_position;//calculate total distance jumped by frostbite
+    is_bailey_jumping = isJumping;
 
     if (jumped_distance > distance_between_iceRows)
     {
@@ -227,6 +229,7 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
         bailey_sprite.setPosition(x_position, y_position);
         isJumping = false;//frostbite has stepped on ice row or drowned
         isJumpingDown = false;
+        is_bailey_jumping = false;
     }
 }
 
@@ -240,13 +243,15 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
         bailey_sprite.move(0, -speed);
         y_position = bailey_sprite.getPosition().y;
         auto jumped_distance = start_position - y_position;
-        if (speed < 0 && 
-            y_position >= (start_position - distance_between_iceRows))
+        is_bailey_jumping = isJumping;
+
+        if (speed < 0 && y_position >= (start_position - distance_between_iceRows))
         {
             y_position = start_position - distance_between_iceRows;
             bailey_sprite.setPosition(x_position, y_position);
             isJumping = false;
             isJumpingUp = false;
+            is_bailey_jumping = false;
         }
     }
 
@@ -254,6 +259,7 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
     {
         isJumping = false;
         isJumpingUp = false;
+        is_bailey_jumping = false;
     }
 }
 
@@ -275,4 +281,9 @@ float Bailey::get_jump_force() const
 float Bailey::get_up_jumping_force() const
 {
     return upJumpingForce;
+}
+
+bool Bailey::isBaileyJumping() const
+{
+    return is_bailey_jumping;
 }
