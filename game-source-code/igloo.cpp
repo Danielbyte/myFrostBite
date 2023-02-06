@@ -2,7 +2,7 @@
 
 Igloo::Igloo():
     x_position{612.0f},
-    y_position{147.0f},
+    y_position{130.0f},
     igloo_blocks{0}
 {
     load_textures();

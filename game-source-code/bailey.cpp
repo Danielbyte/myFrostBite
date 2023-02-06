@@ -10,7 +10,6 @@ Bailey::Bailey():
     safe_zone{true}, //player initially in safe zone
     safe_zone_boundary{199.0f},
     is_moving{false}, //bailey initially stagnant
-    bailey_level{5},
     isMovingUp{false},
     isMovingDown{false},
     is_dead{false},
@@ -19,14 +18,14 @@ Bailey::Bailey():
     RightKeyPressed{false},
     LeftKeyPressed{false},
     bailey_mass{75},
-    gravity{9.8f},
+    gravity{10.0f},
     jumpForce{80.0f},
     left_right_const{180.0f},
     speed{0.0f},
-    upJumpingForce{400.0f},
+    upJumpingForce{410.0f},
     ice_speed{60.0f},
     speed_attenuater{1.5f},
-    upJump_speedAtten{0.95f}
+    upJump_speedAtten{1.0f}
 {
 
 }
@@ -168,37 +167,13 @@ bool Bailey::get_if_bailey_in_safe_zone()
     return safe_zone;
 }
 
-void Bailey::set_bailey_level()
+void Bailey::calibrate(const float& position)
 {
-    if (y_position == 281)
+    if (position >= 280.0f && position <= 281.0f)
     {
-        bailey_level = 0;
+        y_position = 281.0f;
     }
 
-    if (y_position == 363)
-    {
-        bailey_level = 1;
-    }
-
-    if (y_position == 445)
-    {
-        bailey_level = 2;
-    }
-
-    if (y_position == 527)
-    {
-        bailey_level = 3;
-    }
-    if (y_position == safe_zone_boundary)
-    {
-        bailey_level = 5;
-    }
-}
-
-int Bailey::get_bailey_level()
-{
-    set_bailey_level();
-    return bailey_level;
 }
 
 bool Bailey::get_is_moving_down() const
@@ -248,6 +223,7 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
     {
         //frostbite jumps betweent consecutive rows of ice
         y_position = start_position + distance_between_iceRows;
+        calibrate(y_position);
         bailey_sprite.setPosition(x_position, y_position);
         isJumping = false;//frostbite has stepped on ice row or drowned
         isJumpingDown = false;

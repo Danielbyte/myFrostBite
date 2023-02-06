@@ -252,7 +252,8 @@ void Screen::update_game_sprites(const float& deltaTime)
         }
         else
         {
-            logic.bailey_object.set_bailey_to_dead(true);//frostbite should die if didn't step on ice  
+            logic.bailey_object.set_bailey_to_dead(true);//frostbite should die if didn't step on ice
+            std::cout << "Dead!" << std::endl;
         }
         
     }

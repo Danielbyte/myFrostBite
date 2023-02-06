@@ -10,6 +10,8 @@
 #include <sstream>
 #include <fstream>
 #include <algorithm>
+#include <cmath>
+
 using std::vector;
 using std::shared_ptr;
 using std::string;

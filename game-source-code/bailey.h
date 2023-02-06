@@ -13,8 +13,6 @@ public:
     bool is_bailey_moving() const;
     bool get_if_bailey_in_safe_zone();
 
-    int get_bailey_level();
-
     bool get_is_moving_up() const;
     bool get_is_moving_down() const;
 
@@ -39,7 +37,7 @@ public:
     void move_bailey(const float&, Sprite&);
 
 private:
-    void set_bailey_level();
+    void calibrate(const float&);
     float distance_between_iceRows;
     float y_position;
     float x_position;
@@ -52,7 +50,6 @@ private:
 
     //see if bailey is moving or not
     bool is_moving;
-    int bailey_level;
 
     bool isMovingUp;
     bool isMovingDown;

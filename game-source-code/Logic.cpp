@@ -134,7 +134,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
 
             bailey_position.x = bailey_object.get_Xpos() - bailey_width_offset;
             bailey_position.y = bailey_object.get_Ypos() - bailey_height_offset;
-
+            //std::cout << "Y position:" << bailey_position.y << std::endl;
             ice_position.x =((*ice_iter) -> get_position()).x - ice_width_offset;
             ice_position.y =((*ice_iter) -> get_position()).y - ice_height_offset;
 
