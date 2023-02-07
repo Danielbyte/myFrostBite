@@ -50,12 +50,11 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 {
 	auto right = bailey_object.get_if_moving_right();
 	auto left = bailey_object.get_if_moving_left();
-	auto at_safe_zone = bailey_object.get_if_bailey_in_safe_zone();
 	auto isRightKeyPressed = bailey_object.get_if_right_key_pressed();
 	auto isLeftKeyPressed = bailey_object.get_if_left_key_pressed();
 	auto isBaileyJumping = bailey_object.isBaileyJumping();
 
-	if ((right && isRightKeyPressed) && at_safe_zone)
+	if (right && isRightKeyPressed && !isBaileyJumping)
 	{
 		increment_frame();
 		if (frame_counter <= 10)
@@ -73,7 +72,7 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 
 	}
 
-	else if ((left && isLeftKeyPressed) && at_safe_zone)
+    if (left && isLeftKeyPressed && !isBaileyJumping)
 	{
 		increment_frame();
 		if (frame_counter <= 10)
@@ -91,8 +90,18 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 		}
 	}
 
-	else if (isBaileyJumping)
+	 if (isBaileyJumping)
 	{
 		bailey_sprite.setTexture(bailey_texture5);
 	}
+
+	 if (!isBaileyJumping && (right && !isRightKeyPressed))
+	 {
+		 bailey_sprite.setTexture(bailey_texture1);
+	 }
+
+	 if (!isBaileyJumping && (left && !isLeftKeyPressed))
+	 {
+		 bailey_sprite.setTexture(bailey_texture3);
+	 }
 }

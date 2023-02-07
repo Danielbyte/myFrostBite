@@ -23,6 +23,7 @@ private:
 	void increment_frame();
 	void reset_frame();
 	int frame_counter;
+	bool isBaileyMoving;
 };
 #endif
 

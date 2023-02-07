@@ -43,9 +43,6 @@ void Bailey::set_bailey_movement(const Direction& dir,
         case Direction::Left:
             isMovingUp = false;
             isMovingDown = false;
-            isMovingRight = false;
-            isMovingLeft = true;
-            LeftKeyPressed = keyPressed_;
             bailey_sprite.move(- ice_speed * deltaTime, 0);
             //update frostbite's horizontal direction
             x_position = bailey_sprite.getPosition().x;
@@ -66,9 +63,6 @@ void Bailey::set_bailey_movement(const Direction& dir,
         case Direction::Right:
             isMovingUp = false;
             isMovingDown = false;
-            isMovingRight = true;
-            isMovingLeft = false;
-            RightKeyPressed = keyPressed_;
             bailey_sprite.move(ice_speed * deltaTime, 0);
             x_position = bailey_sprite.getPosition().x;
             if (x_position >= right_boundary)
