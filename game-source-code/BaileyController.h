@@ -13,6 +13,7 @@ public:
 	Texture bailey_texture3;
 	Texture bailey_texture4;
 	Texture bailey_texture5;
+	Texture bailey_texture6;
 
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);

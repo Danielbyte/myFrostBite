@@ -43,7 +43,8 @@ void BaileyController::load_textures()
 	bailey_texture2.loadFromFile("resources/bailey1.png");
 	bailey_texture3.loadFromFile("resources/bailey_left.png");
 	bailey_texture4.loadFromFile("resources/bailey1_left.png");
-	bailey_texture5.loadFromFile("resources/jump.png");
+	bailey_texture5.loadFromFile("resources/jump_left.png");
+	bailey_texture6.loadFromFile("resources/jump_right.png");
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -90,10 +91,15 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 		}
 	}
 
-	 if (isBaileyJumping)
+	 if (isBaileyJumping && left)
 	{
 		bailey_sprite.setTexture(bailey_texture5);
 	}
+
+	 if (isBaileyJumping && right)
+	 {
+		 bailey_sprite.setTexture(bailey_texture6);
+	 }
 
 	 if (!isBaileyJumping && (right && !isRightKeyPressed))
 	 {
