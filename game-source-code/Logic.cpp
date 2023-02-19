@@ -592,6 +592,11 @@ std::tuple<bool,bool> Logic::get_collisions()
     return { ice_collision_batch1,ice_collision_batch2};
 }
 
+void Logic::update_bear(Sprite& bear_sprite,const float& deltaTime)
+{
+    bear_object.update_bear(bear_sprite, deltaTime);
+}
+
 Logic::~Logic()
 {
     ice_block_objects1.clear();

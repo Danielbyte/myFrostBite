@@ -10,7 +10,7 @@ class Bear
 public:
 	Bear();
 	vector2f get_position() const;
-	void move_bear();
+	void update_bear(Sprite&, const float&);
 	
 	//Textures
 	Texture bear_left1;
@@ -24,5 +24,6 @@ private:
 	vector2f bear_position;
 	Direction bear_direction;
 	void load_textures();
+	float bear_speed;
 };
 #endif

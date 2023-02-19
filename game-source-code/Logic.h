@@ -46,6 +46,7 @@ public:
 
    //Bear
    Bear bear_object;
+   void update_bear(Sprite&, const float&);
 
 private:
     int number_of_igloo_blocks;
