@@ -40,6 +40,7 @@ private:
     void initialise_player();
     void initialise_background();
     void create_ice_blocks();
+    void initialise_bear();
 
     //GAME GRAPHICS
     Texture bailey_texture;
@@ -54,7 +55,11 @@ private:
     Sprite ice_block_sprite2;
 
     Texture igloo_texture;
+    vector<shared_ptr<Sprite>> Igloo_house_sprites;
+    void draw_igloo_house();
 
+    Texture bear_texture;
+    Sprite bear_sprite;
 
     void draw_game_objects();
     void draw_ice_blocks();
@@ -80,9 +85,6 @@ private:
     bool collided1;
     bool collided2;
 
-    vector<shared_ptr<Sprite>> Igloo_house_sprites;
-
-    void draw_igloo_house();
     void load_textures();
 
     Clock time;

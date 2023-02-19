@@ -33,6 +33,9 @@ const auto ice_height_offset = 16;
 const auto igloo_height = 80;
 const auto igloo_width = 256;
 
+const auto bear_with = 85.0f;
+const auto bear_height = 47.0f;
+
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};

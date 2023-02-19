@@ -7,6 +7,7 @@
 #include "Collision.h"
 #include "igloo.h"
 #include "BaileyController.h"
+#include "bear.h"
 
 class Logic {
 public:
@@ -42,6 +43,9 @@ public:
    int get_number_of_igloo_blocks();
 
    Texture bailey_texture;
+
+   //Bear
+   Bear bear_object;
 
 private:
     int number_of_igloo_blocks;

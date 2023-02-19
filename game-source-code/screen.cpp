@@ -21,6 +21,7 @@ Screen::Screen():
     initialise_background();
     create_ice_blocks();
     initialize_igloo();
+    initialise_bear();
 }
 
 void Screen::initialize_screen()
@@ -56,6 +57,14 @@ void Screen::initialise_player()
 void Screen::initialise_background()
 {
     background_sprite.setTexture(background_texture);
+}
+
+void Screen::initialise_bear()
+{
+    bear_sprite.setTexture(bear_texture);
+    auto initialPosistion = logic.bear_object.get_position();
+    bear_sprite.setPosition(initialPosistion);
+    bear_sprite.setOrigin(bear_with / 2, bear_height / 2);
 }
 
 void Screen::run()
@@ -184,6 +193,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
 void Screen::draw_game_objects()
 {
     window.draw(bailey_sprite);
+    window.draw(bear_sprite);
 }
 
 void Screen::draw_igloo_house()
@@ -253,7 +263,6 @@ void Screen::update_game_sprites(const float& deltaTime)
         else
         {
             logic.bailey_object.set_bailey_to_dead(true);//frostbite should die if didn't step on ice
-            std::cout << "Dead!" << std::endl;
         }
         
     }
@@ -373,6 +382,7 @@ void Screen::load_textures()
     if (!bailey_texture.loadFromFile("resources/bailey.png")) throw CouldNotLoadPicture{};
     if (!background_texture.loadFromFile("resources/background.png")) throw CouldNotLoadPicture{};
     igloo_texture.loadFromFile("resources/igloo0.png");
+    if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
 }
 
 Screen::~Screen() 
