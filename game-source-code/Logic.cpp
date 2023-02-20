@@ -594,7 +594,21 @@ std::tuple<bool,bool> Logic::get_collisions()
 
 void Logic::update_bear(Sprite& bear_sprite,const float& deltaTime)
 {
+    bear_track_bailey(bear_sprite);
     bear_object.update_bear(bear_sprite, deltaTime);
+}
+
+void Logic::bear_track_bailey(Sprite& bear_sprite)
+{
+    auto timePassed = bear_object.elapsed_time();
+
+    // Bear should track bailey's position after every 3 seconds 
+    if (timePassed >= 3)
+    {
+        std::cout << "Time is: " << timePassed << "track!" << std::endl;
+        //restart stop watch
+        bear_object.restart_timer();
+    }
 }
 
 Logic::~Logic()

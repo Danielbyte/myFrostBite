@@ -3,8 +3,11 @@
 
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
+#include "bailey.h"
+#include "stopwatch.h"
 
-class Bear
+
+class Bear : public Stopwatch
 {
 	// This class creates an instance of the bear object
 public:
