@@ -3,7 +3,7 @@
 Bear::Bear():
 	bear_direction{Direction::Left}, //Bear initially moving to left
 	bear_position{757.5f,199.0f},
-	bear_speed{110.0f},
+	bear_speed{140.0f},
 	counter{0}
 {
 	load_textures();
@@ -76,6 +76,26 @@ void Bear::animate_bear(Sprite& bear_sprite)
 		else if (counter > 16 && counter <= 24)
 		{
 			bear_sprite.setTexture(bear_left3);
+			reset_counter();
+		}
+	}
+
+	else if (bear_direction == Direction::Right)
+	{
+		increment_counter();
+		if (counter <= 8)
+		{
+			bear_sprite.setTexture(bear_right1);
+		}
+
+		else if (counter > 8 && counter <= 16)
+		{
+			bear_sprite.setTexture(bear_right2);
+		}
+
+		else if (counter > 16 && counter <= 24)
+		{
+			bear_sprite.setTexture(bear_right3);
 			reset_counter();
 		}
 	}
