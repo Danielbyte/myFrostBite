@@ -281,3 +281,13 @@ bool Bailey::isBaileyJumping() const
 {
     return is_bailey_jumping;
 }
+
+float Bailey::get_right_boundary() const
+{
+    return right_boundary;
+}
+
+float Bailey::get_left_boundary() const
+{
+    return left_boundary;
+}

@@ -37,6 +37,9 @@ public:
     void move_bailey(const float&, Sprite&);
     bool isBaileyJumping() const;
 
+    float get_left_boundary() const;
+    float get_right_boundary() const;
+
 private:
     void calibrate(const float&);
     float distance_between_iceRows;

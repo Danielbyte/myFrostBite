@@ -55,6 +55,11 @@ void Bear::update_bear(Sprite& bear_sprite, const float& deltaTime)
 
 	}
 
+	else if (bear_direction == Direction::unknown)
+	{
+		bear_sprite.move(0, 0);
+	}
+
 	animate_bear(bear_sprite);
 }
 

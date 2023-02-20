@@ -607,17 +607,34 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
     {
         auto bailey_x_position = bailey_object.get_Xpos();
         auto bear_position = bear_object.get_position();
+        //get the distance between bear and frostbite
+        auto distance_between = abs(bailey_x_position - bear_position.x);
+        auto safe_zone = bailey_object.get_if_bailey_in_safe_zone();
 
-        if (bailey_x_position < bear_position.x)
+        //left and right boundaries
+        auto leftBoundary = bailey_object.get_left_boundary();
+        auto rightBoundary = bailey_object.get_right_boundary();
+
+        //bear should not move if bailey is at the ends of screen
+        if (!safe_zone && distance_between <= 31.0f && 
+            (bailey_x_position <= leftBoundary || bailey_x_position >= rightBoundary))
         {
-            bear_object.set_bear_direction(Direction::Left);
+            bear_object.set_bear_direction(Direction::unknown);
         }
 
-        else if (bailey_x_position > bear_position.x)
+        else
         {
-            bear_object.set_bear_direction(Direction::Right);
-        }
+            if (bailey_x_position < bear_position.x)
+            {
+                bear_object.set_bear_direction(Direction::Left);
+            }
 
+            else if (bailey_x_position > bear_position.x)
+            {
+                bear_object.set_bear_direction(Direction::Right);
+            }
+        }
+        
         //restart stop watch
         bear_object.restart_timer();
     }
