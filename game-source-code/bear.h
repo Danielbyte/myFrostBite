@@ -14,6 +14,7 @@ public:
 	Bear();
 	vector2f get_position() const;
 	void update_bear(Sprite&, const float&);
+	void set_bear_direction(const Direction&);
 	
 	//Textures
 	Texture bear_left1;

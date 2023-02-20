@@ -602,10 +602,22 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
 {
     auto timePassed = bear_object.elapsed_time();
 
-    // Bear should track bailey's position after every 3 seconds 
-    if (timePassed >= 3)
+    // Bear should track bailey's position after every 1 second 
+    if (timePassed >= 1.0f)
     {
-        std::cout << "Time is: " << timePassed << "track!" << std::endl;
+        auto bailey_x_position = bailey_object.get_Xpos();
+        auto bear_position = bear_object.get_position();
+
+        if (bailey_x_position < bear_position.x)
+        {
+            bear_object.set_bear_direction(Direction::Left);
+        }
+
+        else if (bailey_x_position > bear_position.x)
+        {
+            bear_object.set_bear_direction(Direction::Right);
+        }
+
         //restart stop watch
         bear_object.restart_timer();
     }

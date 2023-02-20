@@ -110,3 +110,8 @@ void Bear::increment_counter()
 {
 	++counter;
 }
+
+void Bear::set_bear_direction(const Direction& direction)
+{
+	bear_direction = direction;
+}
