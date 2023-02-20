@@ -25,5 +25,9 @@ private:
 	Direction bear_direction;
 	void load_textures();
 	float bear_speed;
+	void animate_bear(Sprite&);
+	int counter;
+	void increment_counter();
+	void reset_counter();
 };
 #endif
