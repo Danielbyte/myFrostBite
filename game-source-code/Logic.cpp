@@ -640,6 +640,22 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
     }
 }
 
+void Logic::frostbite_bear_collisions()
+{
+    auto bear_position = bear_object.get_position();
+    vector2f bailey_position;
+    bailey_position.x = bailey_object.get_Xpos();
+    bailey_position.y = bailey_object.get_Ypos();
+
+    auto isCollided = collision.entity_collision(bailey_position, bailey_width, bailey_height,
+        bear_position, bear_with, bear_height);
+
+    if (isCollided)
+    {
+        bailey_object.set_bailey_to_dead(true);
+    }
+}
+
 Logic::~Logic()
 {
     ice_block_objects1.clear();

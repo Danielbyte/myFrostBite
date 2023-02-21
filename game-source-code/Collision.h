@@ -6,6 +6,10 @@ class Collision
 {
 public:
     Collision();
-    bool bailey_ice_collision(vector2f,float,float,vector2f,float,float);
+    bool bailey_ice_collision(const vector2f&,const float&,const float&,const vector2f&,
+        const float&,const float&);
+
+    bool entity_collision(const vector2f&, const float&, const float&, const vector2f&,
+        const float&, const float&);
 };
 #endif // COLLISION_H
