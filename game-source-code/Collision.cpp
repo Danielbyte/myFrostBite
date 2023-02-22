@@ -37,7 +37,7 @@ bool Collision::entity_collision(const vector2f& Entity1Pos, const float& Entity
     auto top2 = Entity2Pos.y;
     auto bottom2 = top2 + Entity2Height;
 
-    if ((right1 >= left2 && left1 <= right2) && (bottom1 >= top2 && top1 <= bottom2))
+    if ( right1 > left2 && left1 < right2 && bottom1 > top2 && top1 < bottom2)
     {
         return true;
     }

@@ -7,7 +7,7 @@
 #include "stopwatch.h"
 
 
-class Bear : public Stopwatch
+class Bear : public Stopwatch //Inherit from stop watch baase class
 {
 	// This class creates an instance of the bear object
 public:
