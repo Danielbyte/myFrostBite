@@ -235,6 +235,7 @@ void Screen::update_game_sprites(const float& deltaTime)
     logic.update_bailey(bailey_sprite);
     logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
     logic.update_bear(bear_sprite, deltaTime);
+    logic.update_enemies(crabs, clamps, birds, fish);
     logic.frostbite_bear_collisions();
    
     if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
@@ -387,10 +388,6 @@ void Screen::load_textures()
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
 }
 
-void Screen::update_enemies()
-{
-
-}
 
 Screen::~Screen() 
 {

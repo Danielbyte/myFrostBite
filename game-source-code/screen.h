@@ -20,7 +20,6 @@ public:
     vector<shared_ptr<Sprite>> clamps;
     vector<shared_ptr<Sprite>> birds;
     vector<shared_ptr<Sprite>> fish;
-    void update_enemies();
 
 private:
     RenderWindow window;
