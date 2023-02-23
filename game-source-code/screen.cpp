@@ -64,7 +64,7 @@ void Screen::initialise_bear()
     bear_sprite.setTexture(bear_texture);
     auto initialPosistion = logic.bear_object.get_position();
     bear_sprite.setPosition(initialPosistion);
-    bear_sprite.setOrigin(bear_with / 2, bear_height / 2);
+    bear_sprite.setOrigin(bear_with / 2.0f, bear_height / 2.0f);
 }
 
 void Screen::run()
@@ -387,10 +387,19 @@ void Screen::load_textures()
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
 }
 
+void Screen::update_enemies()
+{
+
+}
+
 Screen::~Screen() 
 {
     //Free memory
     ice_blocks_sprites.clear();
     ice_blocks_sprites2.clear();
     Igloo_house_sprites.clear();
+    crabs.clear();
+    clamps.clear();
+    birds.clear();
+    fish.clear();
 }

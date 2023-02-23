@@ -15,6 +15,13 @@ public:
     bool can_create_new_batch_of_ice_blocks;
     void initialize_igloo();
 
+    //Enemy sprite vectors
+    vector<shared_ptr<Sprite>> crabs;
+    vector<shared_ptr<Sprite>> clamps;
+    vector<shared_ptr<Sprite>> birds;
+    vector<shared_ptr<Sprite>> fish;
+    void update_enemies();
+
 private:
     RenderWindow window;
     void initialize_screen();

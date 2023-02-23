@@ -656,9 +656,20 @@ void Logic::frostbite_bear_collisions()
     }
 }
 
+void Logic::update_enemies(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sprite>>& clamps,
+    vector<shared_ptr<Sprite>>& birds, vector<shared_ptr<Sprite>>& fish)
+{
+
+}
+
 Logic::~Logic()
 {
+    //House keeping, free some memory
     ice_block_objects1.clear();
     ice_block_objects2.clear();
     igloo_object.clear();
+    crabs.clear();
+    clamps.clear();
+    birds.clear();
+    fish.clear();
 }

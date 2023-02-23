@@ -158,7 +158,7 @@ bool Bailey::is_bailey_moving() const
 bool Bailey::get_if_bailey_in_safe_zone()
 {
     if (y_position > safe_zone_boundary) {safe_zone = false;}
-    else if (y_position <= safe_zone_boundary) {safe_zone = true;}
+    else if (y_position <= safe_zone_boundary && !is_bailey_jumping) {safe_zone = true;}
     return safe_zone;
 }
 

@@ -8,6 +8,7 @@
 #include "igloo.h"
 #include "BaileyController.h"
 #include "bear.h"
+#include "enemy.h"
 
 class Logic {
 public:
@@ -50,6 +51,11 @@ public:
    void bear_track_bailey(Sprite&);
    void frostbite_bear_collisions();
 
+   //Other Enemies
+   Enemy enemy;
+   void update_enemies(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;
@@ -75,5 +81,11 @@ private:
 
     bool ice_collision_batch1;
     bool ice_collision_batch2;
+
+    //vectors of enemies
+    vector <shared_ptr<Enemy>> crabs;
+    vector <shared_ptr<Enemy>> clamps;
+    vector <shared_ptr<Enemy>> birds;
+    vector <shared_ptr<Enemy>> fish;
 };
 #endif // LOGIC_H
