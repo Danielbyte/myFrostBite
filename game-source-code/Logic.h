@@ -9,6 +9,10 @@
 #include "BaileyController.h"
 #include "bear.h"
 #include "enemy.h"
+#include "crab.h"
+#include "clamp.h"
+#include "bird.h"
+#include "fish.h"
 
 class Logic {
 public:

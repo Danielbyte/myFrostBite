@@ -7,6 +7,7 @@
 #include "clamp.h"
 #include "stopwatch.h"
 #include "SfmlLibrary.h"
+#include "gameConstants.h"
 
 //Multiple inheritance
 class Enemy : public Fish, public Bird, public Crab, public Clamp, public Stopwatch
@@ -18,6 +19,10 @@ public:
 	bool enemy_in_region2() const;
 	bool enemy_in_region3() const;
 	bool enemy_in_region4() const;
+	//Function below creates different enemy entities
+	void create_enemy(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+		vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, const float&);
 
 private:
 
