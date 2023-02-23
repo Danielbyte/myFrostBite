@@ -9,6 +9,7 @@
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
 
+
 //Multiple inheritance
 class Enemy : public Fish, public Bird, public Crab, public Clamp, public Stopwatch
 {
@@ -36,5 +37,8 @@ private:
 	float region2Pos;
 	float region3Pos;
 	float region4Pos;
+
+	int pick_side();
+	int generate_enemy_type();
 };
 #endif

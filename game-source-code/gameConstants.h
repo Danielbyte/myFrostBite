@@ -36,8 +36,25 @@ const auto igloo_width = 256;
 const auto bear_with = 85.0f;
 const auto bear_height = 47.0f;
 
+const auto crab_height = 22.0f;
+const auto crab_width = 42.0f;
+
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};
+
+enum animals
+{
+	crab_ = 1,
+	clamp_ = 2,
+	bird_ = 3,
+	fish_ = 4,
+};
+
+enum sides
+{
+	right = 1,
+	left = 2,
+};
 
 #endif // GAMECONSTANTS_H
