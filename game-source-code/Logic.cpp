@@ -663,6 +663,31 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<
     auto timeElapsed = enemy.elapsed_time();
     if (timeElapsed >= 5)
     {
+        auto isEnemyInRegion1 = enemy.enemy_in_region1();
+        auto isEnemyInRegion2 = enemy.enemy_in_region2();
+        auto isEnemyInRegion3 = enemy.enemy_in_region3();
+        auto isEnemyInRegion4 = enemy.enemy_in_region4();
+
+        //Create enemies if there are none at respective regions
+        if (!isEnemyInRegion1)
+        {
+            //Create any enemy in region 1
+        }
+
+        if (!isEnemyInRegion2)
+        {
+            //create enemy in region 2
+        }
+
+        if (!isEnemyInRegion3)
+        {
+            //create any enemy in region 3
+        }
+
+        if (!isEnemyInRegion4)
+        {
+            //create any enemy in region 4
+        }
         enemy.restart_timer();
     }
 }
