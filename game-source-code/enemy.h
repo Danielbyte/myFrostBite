@@ -26,5 +26,10 @@ private:
 	bool region2;
 	bool region3;
 	bool region4;
+
+	float region1Pos;
+	float region2Pos;
+	float region3Pos;
+	float region4Pos;
 };
 #endif
