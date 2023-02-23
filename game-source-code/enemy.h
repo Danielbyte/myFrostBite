@@ -25,6 +25,16 @@ public:
 		vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, const float&);
 
+	//Textures
+	Texture _crab,_clamp,_bird,_fish;
+	void load_textures();
+
+	//get regions
+	float get_region1() const;
+	float get_region2() const;
+	float get_region3() const;
+	float get_region4() const;
+
 private:
 
 	//Regions where enemies can be possibly spawned
@@ -37,6 +47,8 @@ private:
 	float region2Pos;
 	float region3Pos;
 	float region4Pos;
+
+	float gapBetweeenAnimals;
 
 	int pick_side();
 	int generate_enemy_type();

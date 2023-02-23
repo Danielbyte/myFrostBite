@@ -656,8 +656,8 @@ void Logic::frostbite_bear_collisions()
     }
 }
 
-void Logic::update_enemies(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sprite>>& clamps,
-    vector<shared_ptr<Sprite>>& birds, vector<shared_ptr<Sprite>>& fish)
+void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr<Sprite>>& _clamps,
+    vector<shared_ptr<Sprite>>& _birds, vector<shared_ptr<Sprite>>& _fish)
 {
     //create enemy every 5 seconds
     auto timeElapsed = enemy.elapsed_time();
@@ -672,6 +672,8 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<
         if (!isEnemyInRegion1)
         {
             //Create any enemy in region 1
+            auto r1Pos = enemy.get_region1();
+            enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r1Pos);
         }
 
         if (!isEnemyInRegion2)

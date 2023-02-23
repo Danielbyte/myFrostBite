@@ -12,6 +12,7 @@ public:
 	//construct a crab object with parameters
 	Crab(const int&, const float&);
 	vector2f get_position() const;
+	void set_x_position(const float&);
 
 private:
 	vector2f pos;

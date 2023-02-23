@@ -81,6 +81,7 @@ void Screen::run()
             window.draw(background_sprite);
             draw_ice_blocks();
             draw_igloo_house();
+            draw_crabs();
             //Update screen according to game play
             update_game(deltaTime); //update
             //draw game objects
@@ -219,7 +220,17 @@ void Screen::draw_ice_blocks()
     {
         window.draw(*ice_blocks);
     }
+}
 
+void Screen::draw_crabs()
+{
+    if (!crabs.empty())
+    {
+        for (auto& crab : crabs)
+        {
+            window.draw(*crab);
+        }
+    }
 }
 
 void Screen::update_game(const float& deltaTime)

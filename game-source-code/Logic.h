@@ -87,9 +87,9 @@ private:
     bool ice_collision_batch2;
 
     //vectors of enemies
-    vector <shared_ptr<Enemy>> crabs;
-    vector <shared_ptr<Enemy>> clamps;
-    vector <shared_ptr<Enemy>> birds;
-    vector <shared_ptr<Enemy>> fish;
+    vector <shared_ptr<Crab>> crabs;
+    vector <shared_ptr<Clamp>> clamps;
+    vector <shared_ptr<Bird>> birds;
+    vector <shared_ptr<Fish>> fish;
 };
 #endif // LOGIC_H

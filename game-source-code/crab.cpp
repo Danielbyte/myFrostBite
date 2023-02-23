@@ -15,6 +15,12 @@ vector2f Crab::get_position() const
 	return pos;
 }
 
+void Crab::set_x_position(const float& x_)
+{
+	//second crab horizontal position
+	pos.x -= x_;
+}
+
 
 
 

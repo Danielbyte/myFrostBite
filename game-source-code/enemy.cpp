@@ -9,8 +9,11 @@ Enemy::Enemy():
 	region1Pos{240.0f},
 	region2Pos{281.0f},
 	region3Pos{322.0f},
-	region4Pos{363.0f}
-{}
+	region4Pos{363.0f},
+	gapBetweeenAnimals{60.0f}
+{
+	load_textures();
+}
 
 void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sprite>>& clamps,
 	vector<shared_ptr<Sprite>>& birds, vector<shared_ptr<Sprite>>& fish,
@@ -22,20 +25,36 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 	{
 		//First select type of enemy to be spawned
 		auto enemyType = generate_enemy_type();
+		std::cout << "Enemy type: " << enemyType << std::endl;
 		if (enemyType == crab_)
 		{
 			//Randomly decide which side enemy should be created (left or right)
 			auto EnemySide = pick_side();
+		    //spawn enemy on respective side (crab object)
+			shared_ptr<Crab>crab_ptr(new Crab(EnemySide,region1Pos));
+			crabsObj.push_back(crab_ptr);
 
-			if (EnemySide == right)
-			{
-				//spawn enemy on the right
-				shared_ptr<Crab>crab_ptr(new Crab);
-				crabsObj.push_back(crab_ptr);
-			}
-			
+			//create crab sprite based on created object
+			auto crab_sprite = std::make_shared<Sprite>(Sprite());
+			crab_sprite->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+			crab_sprite->setTexture(_crab);
+			auto pos = crab_ptr->get_position();
+			crab_sprite->setPosition(pos);
+			crabs.push_back(crab_sprite);
+
+			//create second crab
+			shared_ptr<Crab>crab_ptr2(new Crab(EnemySide, region1Pos));
+			crab_ptr2->set_x_position(gapBetweeenAnimals);
+			crabsObj.push_back(crab_ptr2);
+
+			//create second crab sprite based on created object
+			auto crab_sprite2 = std::make_shared<Sprite>(Sprite());
+			crab_sprite2->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+			crab_sprite2->setTexture(_crab);
+			auto pos_ = crab_ptr2->get_position();
+			crab_sprite2->setPosition(pos_);
+			crabs.push_back(crab_sprite2);
 		}
-
 		region1 = true; //region 1 is occupied
 	}
 
@@ -78,14 +97,41 @@ bool Enemy::enemy_in_region4() const
 int Enemy::pick_side()
 {
 	//This function randomly generates side at which enemy should be spawned
-	srand(time(0));
+	srand((unsigned int)time(0));
 	auto side = (rand() % 1) + 2;
 	return side;
 }
 
 int Enemy::generate_enemy_type()
 {
-	srand(time(0));
+	srand((unsigned int)time(0));
 	auto enemyType = (rand() % 4) + 1;
 	return enemyType;
+}
+
+void Enemy::load_textures()
+{
+	_crab.loadFromFile("resources/crab1.png");
+	_clamp.loadFromFile("resources/clamp1.png");
+	_fish.loadFromFile("resources/fish1.png");
+}
+
+float Enemy::get_region1() const
+{
+	return region1Pos;
+}
+
+float Enemy::get_region2() const
+{
+	return region2Pos;
+}
+
+float Enemy::get_region3() const
+{
+	return region3Pos;
+}
+
+float Enemy::get_region4() const
+{
+	return region4Pos;
 }
