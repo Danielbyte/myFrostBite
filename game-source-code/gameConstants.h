@@ -39,6 +39,12 @@ const auto bear_height = 47.0f;
 const auto crab_height = 22.0f;
 const auto crab_width = 42.0f;
 
+const auto fish_height = 19.0f;
+const auto fish_width = 43.0f;
+
+const auto clamp_height = 22.0f;
+const auto clamp_width = 42.0f;
+
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};

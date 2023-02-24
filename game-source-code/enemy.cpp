@@ -6,11 +6,11 @@ Enemy::Enemy():
 	region2{false},
 	region3{false},
 	region4{false},
-	region1Pos{240.0f},
+	region1Pos{260.0f},
 	region2Pos{281.0f},
 	region3Pos{322.0f},
 	region4Pos{363.0f},
-	gapBetweeenAnimals{60.0f}
+	gapBetweeenAnimals{120.0f}
 {
 	load_textures();
 }

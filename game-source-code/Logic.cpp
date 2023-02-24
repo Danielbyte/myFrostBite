@@ -661,16 +661,18 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
 {
     //create enemy every 5 seconds
     auto timeElapsed = enemy.elapsed_time();
+  
     if (timeElapsed >= 5)
     {
         auto isEnemyInRegion1 = enemy.enemy_in_region1();
         auto isEnemyInRegion2 = enemy.enemy_in_region2();
         auto isEnemyInRegion3 = enemy.enemy_in_region3();
         auto isEnemyInRegion4 = enemy.enemy_in_region4();
-
+  
         //Create enemies if there are none at respective regions
         if (!isEnemyInRegion1)
         {
+            std::cout << "Came!" << std::endl;
             //Create any enemy in region 1
             auto r1Pos = enemy.get_region1();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r1Pos);

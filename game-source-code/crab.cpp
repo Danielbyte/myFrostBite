@@ -8,6 +8,11 @@ Crab::Crab(const int& side, const float& region)
 		pos.y = region;
 		pos.x = x_position;
 	}
+
+	if (side == right)
+	{
+		std::cout << "Other side!" << std::endl;
+	}
 }
 
 vector2f Crab::get_position() const
