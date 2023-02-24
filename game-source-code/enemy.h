@@ -37,6 +37,7 @@ public:
 
 	//Create animals
 	void create_crabs(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, const float&);
+	void create_clamps(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Clamp>>&, const float&);
 
 private:
 

@@ -170,3 +170,11 @@ void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared
 	crab_sprite2->setPosition(pos_);
 	_crab_sprite.push_back(crab_sprite2);
 }
+
+void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shared_ptr<Clamp>>& clampObj,
+	const float& regionPos)
+{
+	//select side
+	auto EnemySide = pick_side();
+	shared_ptr<Clamp>clamp_ptr(new Clamp(EnemySide, regionPos));
+}
