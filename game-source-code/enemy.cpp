@@ -33,6 +33,7 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == clamp_)
 		{
 			//create clamps
+			create_crabs(crabs, crabsObj, region1Pos);
 		}
 		region1 = true; //region 1 is occupied
 	}
@@ -48,6 +49,7 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == clamp_)
 		{
 			//create clamps
+			create_crabs(crabs, crabsObj, region2Pos);
 		}
 		region2 = true;
 	}
@@ -63,6 +65,7 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == clamp_)
 		{
 			//create clamps
+			create_clamps(clamps, clampsObj, region3Pos);
 		}
 		region3 = true;
 	}
@@ -73,6 +76,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region4Pos);
+		}
+
+		else if (enemyType == clamp_)
+		{
+			create_crabs(crabs, crabsObj, region4Pos);
 		}
 		region4 = true;
 	}
@@ -176,5 +184,28 @@ void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shar
 {
 	//select side
 	auto EnemySide = pick_side();
+	//create new clamp object
 	shared_ptr<Clamp>clamp_ptr(new Clamp(EnemySide, regionPos));
+	clampObj.push_back(clamp_ptr);
+
+	//create clamp sprite based on object
+	auto clamp_sprite = std::make_shared<Sprite>(Sprite());
+	clamp_sprite->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
+	clamp_sprite->setTexture(_clamp);
+	auto pos = clamp_ptr->get_position();
+	clamp_sprite->setPosition(pos);
+	_clamp_sprite.push_back(clamp_sprite);
+
+	//crate second clamp
+	shared_ptr<Clamp>clamp_ptr2(new Clamp(EnemySide, regionPos));
+	clamp_ptr2->set_x_position(gapBetweeenAnimals);
+	clampObj.push_back(clamp_ptr2);
+
+	//create second clamp sprite
+	auto clamp_sprite2 = std::make_shared<Sprite>(Sprite());
+	clamp_sprite2->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
+	clamp_sprite2->setTexture(_clamp);
+	auto pos2 = clamp_ptr2->get_position();
+	clamp_sprite2->setPosition(pos2);
+	_clamp_sprite.push_back(clamp_sprite2);
 }

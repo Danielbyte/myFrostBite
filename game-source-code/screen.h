@@ -21,7 +21,9 @@ public:
     vector<shared_ptr<Sprite>> birds;
     vector<shared_ptr<Sprite>> fish;
 
+    //Draw sea animals
     void draw_crabs();
+    void draw_clamps();
 
 private:
     RenderWindow window;

@@ -82,6 +82,7 @@ void Screen::run()
             draw_ice_blocks();
             draw_igloo_house();
             draw_crabs();
+            draw_clamps();
             //Update screen according to game play
             update_game(deltaTime); //update
             //draw game objects
@@ -229,6 +230,17 @@ void Screen::draw_crabs()
         for (auto& crab : crabs)
         {
             window.draw(*crab);
+        }
+    }
+}
+
+void Screen::draw_clamps()
+{
+    if (!crabs.empty())
+    {
+        for (auto& clamp : clamps)
+        {
+            window.draw(*clamp);
         }
     }
 }
