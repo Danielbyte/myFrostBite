@@ -35,6 +35,9 @@ public:
 	float get_region3() const;
 	float get_region4() const;
 
+	//Create animals
+	void create_crabs(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&);
+
 private:
 
 	//Regions where enemies can be possibly spawned

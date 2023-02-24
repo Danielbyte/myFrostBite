@@ -27,32 +27,7 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		auto enemyType = generate_enemy_type();
 		if (enemyType == crab_)
 		{
-			//Randomly decide which side enemy should be created (left or right)
-			auto EnemySide = pick_side();
-		    //spawn enemy on respective side (crab object)
-			shared_ptr<Crab>crab_ptr(new Crab(EnemySide,region1Pos));
-			crabsObj.push_back(crab_ptr);
-
-			//create crab sprite based on created object
-			auto crab_sprite = std::make_shared<Sprite>(Sprite());
-			crab_sprite->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
-			crab_sprite->setTexture(_crab);
-			auto pos = crab_ptr->get_position();
-			crab_sprite->setPosition(pos);
-			crabs.push_back(crab_sprite);
-
-			//create second crab
-			shared_ptr<Crab>crab_ptr2(new Crab(EnemySide, region1Pos));
-			crab_ptr2->set_x_position(gapBetweeenAnimals);
-			crabsObj.push_back(crab_ptr2);
-
-			//create second crab sprite based on created object
-			auto crab_sprite2 = std::make_shared<Sprite>(Sprite());
-			crab_sprite2->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
-			crab_sprite2->setTexture(_crab);
-			auto pos_ = crab_ptr2->get_position();
-			crab_sprite2->setPosition(pos_);
-			crabs.push_back(crab_sprite2);
+			create_crabs(crabs, crabsObj);
 		}
 		region1 = true; //region 1 is occupied
 	}
@@ -133,4 +108,34 @@ float Enemy::get_region3() const
 float Enemy::get_region4() const
 {
 	return region4Pos;
+}
+
+void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared_ptr<Crab>>& crab_obj)
+{
+	//Randomly decide which side enemy should be created (left or right)
+	auto EnemySide = pick_side();
+	//spawn enemy on respective side (crab object)
+	shared_ptr<Crab>crab_ptr(new Crab(EnemySide, region1Pos));
+	crab_obj.push_back(crab_ptr);
+
+	//create crab sprite based on created object
+	auto crab_sprite = std::make_shared<Sprite>(Sprite());
+	crab_sprite->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+	crab_sprite->setTexture(_crab);
+	auto pos = crab_ptr->get_position();
+	crab_sprite->setPosition(pos);
+	_crab_sprite.push_back(crab_sprite);
+
+	//create second crab
+	shared_ptr<Crab>crab_ptr2(new Crab(EnemySide, region1Pos));
+	crab_ptr2->set_x_position(gapBetweeenAnimals);
+	crab_obj.push_back(crab_ptr2);
+
+	//create second crab sprite based on created object
+	auto crab_sprite2 = std::make_shared<Sprite>(Sprite());
+	crab_sprite2->setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+	crab_sprite2->setTexture(_crab);
+	auto pos_ = crab_ptr2->get_position();
+	crab_sprite2->setPosition(pos_);
+	_crab_sprite.push_back(crab_sprite2);
 }
