@@ -8,13 +8,19 @@ class Crab
 {
 public:
 	//default constructor
-	Crab(){}
+	Crab() {}
 	//construct a crab object with parameters
 	Crab(const int&, const float&);
 	vector2f get_position() const;
 	void set_x_position(const float&);
 
+	//for animating crabs
+	void reset_counter();
+	void increment_counter();
+	int get_counter() const;
+
 private:
 	vector2f pos;
+	int counter;
 };
 #endif

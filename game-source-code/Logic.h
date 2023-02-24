@@ -13,6 +13,7 @@
 #include "clamp.h"
 #include "bird.h"
 #include "fish.h"
+#include "crabController.h"
 
 class Logic {
 public:
@@ -91,5 +92,7 @@ private:
     vector <shared_ptr<Clamp>> clamps;
     vector <shared_ptr<Bird>> birds;
     vector <shared_ptr<Fish>> fish;
+
+    CrabController control_crab;
 };
 #endif // LOGIC_H

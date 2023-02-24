@@ -1,18 +1,19 @@
 #include "crab.h"
 
-Crab::Crab(const int& side, const float& region)
+Crab::Crab(const int& side, const float& region):
+	counter{0}
 {
+	pos.y = region;
+
 	if (side == right)
 	{
 		auto x_position = windowWidth - (crab_width / 2);
-		pos.y = region;
 		pos.x = x_position;
 	}
 
 	if (side == left)
 	{
 		auto x_position = crab_width / 2.0f;
-		pos.y = region;
 		pos.x = x_position;
 	}
 }
@@ -35,6 +36,21 @@ void Crab::set_x_position(const float& x_)
 		pos.x += x_;
 	}
 	
+}
+
+void Crab::increment_counter()
+{
+	++counter;
+}
+
+void Crab::reset_counter()
+{
+	counter = 0;
+}
+
+int Crab::get_counter() const
+{
+	return counter;
 }
 
 

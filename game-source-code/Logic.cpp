@@ -675,6 +675,8 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
             //Create any enemy in region 1
             auto r1Pos = enemy.get_region1();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r1Pos);
+           // enemy.restart_timer();
+           // return;
         }
 
         if (!isEnemyInRegion2)
@@ -682,6 +684,8 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
             //create enemy in region 2
             auto r2Pos = enemy.get_region2();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r2Pos);
+           // enemy.restart_timer();
+           // return;
         }
 
         if (!isEnemyInRegion3)
@@ -689,6 +693,8 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
             //create any enemy in region 3
             auto r3Pos = enemy.get_region3();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r3Pos);
+            //enemy.restart_timer();
+            //return;
         }
 
         if (!isEnemyInRegion4)
@@ -696,9 +702,13 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
             //create any enemy in region 4
             auto r4Pos = enemy.get_region4();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r4Pos);
+            //enemy.restart_timer();
+            //return;
         }
         enemy.restart_timer();
     }
+
+    control_crab.update_crab(_crabs, crabs);
 }
 
 Logic::~Logic()
