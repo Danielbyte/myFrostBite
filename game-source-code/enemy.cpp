@@ -7,9 +7,9 @@ Enemy::Enemy():
 	region3{false},
 	region4{false},
 	region1Pos{260.0f},
-	region2Pos{281.0f},
-	region3Pos{322.0f},
-	region4Pos{363.0f},
+	region2Pos{342.0f},
+	region3Pos{424.0f},
+	region4Pos{506.0f},
 	gapBetweeenAnimals{120.0f}
 {
 	load_textures();
@@ -27,24 +27,39 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		auto enemyType = generate_enemy_type();
 		if (enemyType == crab_)
 		{
-			create_crabs(crabs, crabsObj);
+			create_crabs(crabs, crabsObj,region1Pos);
 		}
 		region1 = true; //region 1 is occupied
 	}
 
 	if (region2Pos == regionPos)
 	{
-
+		auto enemyType = 1;//generate_enemy_type();
+		if (enemyType == crab_)
+		{
+			create_crabs(crabs, crabsObj,region2Pos);
+		}
+		region2 = true;
 	}
 
 	if (region3Pos == regionPos)
 	{
-
+		auto enemyType = 1;//generate_enemy_type();
+		if (enemyType == crab_)
+		{
+			create_crabs(crabs, crabsObj,region3Pos);
+		}
+		region3 = true;
 	}
 
 	if (region4Pos == regionPos)
 	{
-
+		auto enemyType = 1;//generate_enemy_type();
+		if (enemyType == crab_)
+		{
+			create_crabs(crabs, crabsObj,region4Pos);
+		}
+		region4 = true;
 	}
 }
 
@@ -110,12 +125,13 @@ float Enemy::get_region4() const
 	return region4Pos;
 }
 
-void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared_ptr<Crab>>& crab_obj)
+void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared_ptr<Crab>>& crab_obj, 
+	const float& regionPos)
 {
 	//Randomly decide which side enemy should be created (left or right)
 	auto EnemySide = pick_side();
 	//spawn enemy on respective side (crab object)
-	shared_ptr<Crab>crab_ptr(new Crab(EnemySide, region1Pos));
+	shared_ptr<Crab>crab_ptr(new Crab(EnemySide, regionPos));
 	crab_obj.push_back(crab_ptr);
 
 	//create crab sprite based on created object
@@ -127,7 +143,7 @@ void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared
 	_crab_sprite.push_back(crab_sprite);
 
 	//create second crab
-	shared_ptr<Crab>crab_ptr2(new Crab(EnemySide, region1Pos));
+	shared_ptr<Crab>crab_ptr2(new Crab(EnemySide, regionPos));
 	crab_ptr2->set_x_position(gapBetweeenAnimals);
 	crab_obj.push_back(crab_ptr2);
 

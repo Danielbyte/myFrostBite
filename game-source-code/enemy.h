@@ -36,7 +36,7 @@ public:
 	float get_region4() const;
 
 	//Create animals
-	void create_crabs(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&);
+	void create_crabs(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, const float&);
 
 private:
 
