@@ -29,32 +29,47 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		{
 			create_crabs(crabs, crabsObj,region1Pos);
 		}
+
+		else if (enemyType == clamp_)
+		{
+			//create clamps
+		}
 		region1 = true; //region 1 is occupied
 	}
 
 	if (region2Pos == regionPos)
 	{
-		auto enemyType = 1;//generate_enemy_type();
+		auto enemyType = generate_enemy_type();
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region2Pos);
+		}
+
+		else if (enemyType == clamp_)
+		{
+			//create clamps
 		}
 		region2 = true;
 	}
 
 	if (region3Pos == regionPos)
 	{
-		auto enemyType = 1;//generate_enemy_type();
+		auto enemyType = generate_enemy_type();
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region3Pos);
+		}
+
+		else if (enemyType == clamp_)
+		{
+			//create clamps
 		}
 		region3 = true;
 	}
 
 	if (region4Pos == regionPos)
 	{
-		auto enemyType = 1;//generate_enemy_type();
+		auto enemyType = generate_enemy_type();
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region4Pos);
