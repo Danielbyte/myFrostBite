@@ -25,7 +25,6 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 	{
 		//First select type of enemy to be spawned
 		auto enemyType = generate_enemy_type();
-		std::cout << "Enemy type: " << enemyType << std::endl;
 		if (enemyType == crab_)
 		{
 			//Randomly decide which side enemy should be created (left or right)

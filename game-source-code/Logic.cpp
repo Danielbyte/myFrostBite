@@ -672,7 +672,6 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
         //Create enemies if there are none at respective regions
         if (!isEnemyInRegion1)
         {
-            std::cout << "Came!" << std::endl;
             //Create any enemy in region 1
             auto r1Pos = enemy.get_region1();
             enemy.create_enemy(_crabs, _clamps, _birds, _fish, crabs, clamps, birds, fish, r1Pos);
