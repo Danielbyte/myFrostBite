@@ -11,6 +11,7 @@
 #include <fstream>
 #include <algorithm>
 #include <cmath>
+#include <random>
 
 using std::vector;
 using std::shared_ptr;

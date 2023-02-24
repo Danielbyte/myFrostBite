@@ -108,16 +108,17 @@ bool Enemy::enemy_in_region4() const
 
 int Enemy::pick_side()
 {
-	//This function randomly generates side at which enemy should be spawned
-	srand((unsigned int)time(0));
-	auto side = (rand() % 1) + 2;
+	std::random_device rd;
+	std::uniform_int_distribution<int>dist(1, 2);
+	auto side = dist(rd);
 	return side;
 }
 
 int Enemy::generate_enemy_type()
 {
-	srand((unsigned int)time(0));
-	auto enemyType = (rand() % 4) + 1;
+	std::random_device rd;
+	std::uniform_int_distribution<int>dist(1, 4);
+	auto enemyType = dist(rd);
 	return enemyType;
 }
 
