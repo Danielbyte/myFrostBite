@@ -83,6 +83,7 @@ void Screen::run()
             draw_igloo_house();
             draw_crabs();
             draw_clamps();
+            draw_fish();
             //Update screen according to game play
             update_game(deltaTime); //update
             //draw game objects
@@ -241,6 +242,17 @@ void Screen::draw_clamps()
         for (auto& clamp : clamps)
         {
             window.draw(*clamp);
+        }
+    }
+}
+
+void Screen::draw_fish()
+{
+    if (!fish.empty())
+    {
+        for (auto& _fish : fish)
+        {
+            window.draw(*_fish);
         }
     }
 }

@@ -603,7 +603,7 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
     auto timePassed = bear_object.elapsed_time();
 
     // Bear should track bailey's position after every 1 second 
-    if (timePassed >= 1.0f)
+    if (timePassed >= 2.0f)
     {
         auto bailey_x_position = bailey_object.get_Xpos();
         auto bear_position = bear_object.get_position();

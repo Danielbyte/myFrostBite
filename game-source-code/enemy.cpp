@@ -35,6 +35,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 			//create clamps
 			create_crabs(crabs, crabsObj, region1Pos);
 		}
+
+		else if (enemyType == fish_)
+		{
+			create_fish(fish, fishObj, region1Pos);
+		}
 		region1 = true; //region 1 is occupied
 	}
 
@@ -50,6 +55,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		{
 			//create clamps
 			create_crabs(crabs, crabsObj, region2Pos);
+		}
+
+		else if (enemyType == fish_)
+		{
+			create_fish(fish, fishObj, region2Pos);
 		}
 		region2 = true;
 	}
@@ -67,6 +77,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 			//create clamps
 			create_clamps(clamps, clampsObj, region3Pos);
 		}
+
+		else if (enemyType == fish_)
+		{
+			create_fish(fish, fishObj, region3Pos);
+		}
 		region3 = true;
 	}
 
@@ -81,6 +96,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == clamp_)
 		{
 			create_crabs(crabs, crabsObj, region4Pos);
+		}
+
+		else if (enemyType == fish_)
+		{
+			create_fish(fish, fishObj, region4Pos);
 		}
 		region4 = true;
 	}
@@ -209,4 +229,35 @@ void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shar
 	auto pos2 = clamp_ptr2->get_position();
 	clamp_sprite2->setPosition(pos2);
 	_clamp_sprite.push_back(clamp_sprite2);
+}
+
+void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_ptr<Fish>>& fishObj,
+	const float& regionPos)
+{
+	//select side
+	auto EnemySide = pick_side();
+	//create new fish object
+	shared_ptr<Fish>fish_ptr(new Fish(EnemySide, regionPos));
+	fishObj.push_back(fish_ptr);
+
+	//create fish sprite based on object
+	auto fish_sprite = std::make_shared<Sprite>(Sprite());
+	fish_sprite->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
+	fish_sprite->setTexture(_fish);
+	auto pos = fish_ptr->get_position();
+	fish_sprite->setPosition(pos);
+	_fish_sprite.push_back(fish_sprite);
+
+	//crate second fish
+	shared_ptr<Fish>fish_ptr2(new Fish(EnemySide, regionPos));
+	fish_ptr2->set_x_position(gapBetweeenAnimals);
+	fishObj.push_back(fish_ptr2);
+
+	//create second fish sprite
+	auto fish_sprite2 = std::make_shared<Sprite>(Sprite());
+	fish_sprite2->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
+	fish_sprite2->setTexture(_fish);
+	auto pos2 = fish_ptr2->get_position();
+	fish_sprite2->setPosition(pos2);
+	_fish_sprite.push_back(fish_sprite2);
 }

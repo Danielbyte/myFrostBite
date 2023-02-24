@@ -24,6 +24,7 @@ public:
     //Draw sea animals
     void draw_crabs();
     void draw_clamps();
+    void draw_fish();
 
 private:
     RenderWindow window;
