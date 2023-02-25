@@ -709,6 +709,7 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
     }
 
     control_crab.update_crab(_crabs, crabs,deltaTime);
+    control_clamp.update_clamp(_clamps, clamps, deltaTime);
 }
 
 Logic::~Logic()

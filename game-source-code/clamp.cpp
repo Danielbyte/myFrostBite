@@ -14,20 +14,19 @@ Clamp::Clamp(const int& side, const float& region):
 	spawned_right{false}
 {
 	pos.y = region;
+	auto gapBetweenClamps = 120.0f;
 	if (side == right)
 	{
-		auto x_position = windowWidth - (clamp_width / 2);
+		auto x_position = windowWidth + (clamp_width / 2) + gapBetweenClamps;
 		pos.x = x_position;
 		spawned_right = true;
-		spawned_left = false;
 	}
 
 	if (side == left)
 	{
-		auto x_position = clamp_width / 2.0f;
+		auto x_position = (-clamp_width / 2.0f) - gapBetweenClamps;
 		pos.x = x_position;
 		spawned_left = true;
-		spawned_right = false;
 	}
 }
 
@@ -77,5 +76,15 @@ void Clamp::increment_counter()
 void Clamp::reset_counter()
 {
 	counter = 0;
+}
+
+void Clamp::set_postion(const vector2f& _pos)
+{
+	pos = _pos;
+}
+
+std::tuple<bool, bool> Clamp::get_side()
+{
+	return { spawned_left, spawned_right };
 }
 

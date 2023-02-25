@@ -12,6 +12,7 @@ public:
 	void set_x_position(const float& _x);
 	vector2f get_position() const;
 	std::tuple<bool, bool> get_side();
+	void set_postion(const vector2f&);
 
 	void increment_counter();
 	void reset_counter();
