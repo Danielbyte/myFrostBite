@@ -8,7 +8,7 @@ class Crab
 {
 public:
 	//default constructor
-	Crab() {}
+	Crab();
 	//construct a crab object with parameters
 	Crab(const int&, const float&);
 	vector2f get_position() const;

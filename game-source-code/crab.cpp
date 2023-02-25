@@ -1,5 +1,7 @@
 #include "crab.h"
 
+Crab::Crab(){}
+
 Crab::Crab(const int& side, const float& region):
 	counter{0},
 	cycle{1},
