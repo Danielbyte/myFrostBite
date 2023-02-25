@@ -3,6 +3,11 @@
 
 #include "crab.h"
 
+enum cycles {
+	first_cycle = 1,
+	second_cycle = 2,
+};
+
 class CrabController : public Crab
 {
 public:

@@ -1,7 +1,8 @@
 #include "crab.h"
 
 Crab::Crab(const int& side, const float& region):
-	counter{0}
+	counter{0},
+	cycle{1}
 {
 	pos.y = region;
 
@@ -51,6 +52,21 @@ void Crab::reset_counter()
 int Crab::get_counter() const
 {
 	return counter;
+}
+
+int Crab::get_cycle() const
+{
+	return cycle;
+}
+
+void Crab::increment_cycle()
+{
+	++cycle;
+}
+
+void Crab::reset_cycle()
+{
+	cycle = 1;
 }
 
 

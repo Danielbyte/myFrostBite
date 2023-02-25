@@ -18,9 +18,13 @@ public:
 	void reset_counter();
 	void increment_counter();
 	int get_counter() const;
+	void increment_cycle();
+	int get_cycle() const;
+	void reset_cycle();
 
 private:
 	vector2f pos;
 	int counter;
+	int cycle;
 };
 #endif

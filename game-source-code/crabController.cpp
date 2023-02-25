@@ -16,6 +16,18 @@ void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
 		while (crab_ptr != crabObj.end())
 		{
 			animate(*crab_spritePtr, *crab_ptr);
+
+			auto cycle = (*crab_ptr)->get_cycle();
+			if (cycle == first_cycle)
+			{
+				std::cout << "crab moves!" << std::endl;
+			}
+
+			else if (cycle == second_cycle)
+			{
+				std::cout << "crab not move!" << std::endl;
+			}
+
 			++crab_ptr;
 			++crab_spritePtr;
 		}
@@ -66,6 +78,13 @@ void CrabController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Crab>& o
 	{
 		sprite_ptr->setTexture(crab6);
 		obj_ptr->reset_counter();
+		auto cycle = obj_ptr->get_cycle();
+		obj_ptr->increment_cycle();
+	
+		if (cycle > second_cycle)
+		{
+			obj_ptr->reset_cycle();
+		}
 	}
 }
 
