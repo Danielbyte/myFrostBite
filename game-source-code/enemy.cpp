@@ -145,8 +145,8 @@ int Enemy::generate_enemy_type()
 void Enemy::load_textures()
 {
 	_crab.loadFromFile("resources/crab1.png");
-	_clamp.loadFromFile("resources/clamp1.png");
-	_fish.loadFromFile("resources/fish1.png");
+	_clamp_left.loadFromFile("resources/clamp1_left.png");
+	_fish_left.loadFromFile("resources/fish1_left.png");
 }
 
 float Enemy::get_region1() const
@@ -212,7 +212,7 @@ void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shar
 	//create clamp sprite based on object
 	auto clamp_sprite = std::make_shared<Sprite>(Sprite());
 	clamp_sprite->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
-	clamp_sprite->setTexture(_clamp);
+	clamp_sprite->setTexture(_clamp_left);
 	auto pos = clamp_ptr->get_position();
 	clamp_sprite->setPosition(pos);
 	_clamp_sprite.push_back(clamp_sprite);
@@ -225,7 +225,7 @@ void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shar
 	//create second clamp sprite
 	auto clamp_sprite2 = std::make_shared<Sprite>(Sprite());
 	clamp_sprite2->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
-	clamp_sprite2->setTexture(_clamp);
+	clamp_sprite2->setTexture(_clamp_left);
 	auto pos2 = clamp_ptr2->get_position();
 	clamp_sprite2->setPosition(pos2);
 	_clamp_sprite.push_back(clamp_sprite2);
@@ -243,7 +243,7 @@ void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_
 	//create fish sprite based on object
 	auto fish_sprite = std::make_shared<Sprite>(Sprite());
 	fish_sprite->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
-	fish_sprite->setTexture(_fish);
+	fish_sprite->setTexture(_fish_left);
 	auto pos = fish_ptr->get_position();
 	fish_sprite->setPosition(pos);
 	_fish_sprite.push_back(fish_sprite);
@@ -256,7 +256,7 @@ void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_
 	//create second fish sprite
 	auto fish_sprite2 = std::make_shared<Sprite>(Sprite());
 	fish_sprite2->setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
-	fish_sprite2->setTexture(_fish);
+	fish_sprite2->setTexture(_fish_left);
 	auto pos2 = fish_ptr2->get_position();
 	fish_sprite2->setPosition(pos2);
 	_fish_sprite.push_back(fish_sprite2);

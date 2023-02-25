@@ -26,7 +26,7 @@ public:
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, const float&);
 
 	//Textures
-	Texture _crab,_clamp,_bird,_fish;
+	Texture _crab,_clamp_left,_bird_left,_fish_left;
 	void load_textures();
 
 	//get regions
