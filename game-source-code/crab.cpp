@@ -7,10 +7,10 @@ Crab::Crab(const int& side, const float& region):
 	spawned_right{false}
 {
 	pos.y = region;
-
+	auto gapBetweeenCrabs = 120.0f;
 	if (side == right)
 	{
-		auto x_position = windowWidth - (crab_width / 2);
+		auto x_position = windowWidth + (crab_width / 2) + gapBetweeenCrabs;
 		pos.x = x_position;
 		spawned_left = false;
 		spawned_right = true;
@@ -18,7 +18,7 @@ Crab::Crab(const int& side, const float& region):
 
 	if (side == left)
 	{
-		auto x_position = crab_width / 2.0f;
+		auto x_position = (- crab_width / 2.0f) - gapBetweeenCrabs;
 		pos.x = x_position;
 		spawned_left = true;
 		spawned_right = false;
