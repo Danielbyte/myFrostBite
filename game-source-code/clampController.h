@@ -15,8 +15,14 @@ public:
 	void update_clamp(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Clamp>>&, const float&);
 	void animate(shared_ptr<Sprite>&, shared_ptr<Clamp>&);
 
+	//Textures if clamp spawned from left
 	Texture clamp1_left, clamp2_left, clamp3_left, clamp4_left, clamp5_left, clamp6_left,
 		clamp7_left, clamp8_left, clamp9_left, clamp10_left;
+
+	//Textures if clamp spawned from right
+	Texture clamp1_right, clamp2_right, clamp3_right, clamp4_right, clamp5_right, clamp6_right,
+		clamp7_right, clamp8_right, clamp9_right, clamp10_right;
+
 	void load_tectures();
 
 private:

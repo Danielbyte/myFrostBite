@@ -48,59 +48,116 @@ void ClampController::animate(shared_ptr<Sprite>& _sprite, shared_ptr<Clamp>& _o
 {
 	_obj->increment_counter();
 	auto counter = _obj->get_counter();
+	auto [left, right] = _obj->get_side();
 
-	if (counter > 0 && counter <= 10)
+	if (left)
 	{
-		_sprite->setTexture(clamp1_left);
-	}
-	else if (counter > 10 && counter <= 20)
-    {
-		_sprite->setTexture(clamp2_left);
-	}
-	else if (counter > 20 && counter <= 30)
-	{
-		_sprite->setTexture(clamp3_left);
-	}
-	else if (counter > 30 && counter <= 40)
-	{
-		_sprite->setTexture(clamp4_left);
-	}
-	else if (counter > 40 && counter <= 50)
-	{
-		_sprite->setTexture(clamp5_left);
-	}
-	else if (counter > 50 && counter <= 60)
-	{
-		_sprite->setTexture(clamp6_left);
-	}
-	else if (counter > 60 && counter <= 70)
-	{
-		_sprite->setTexture(clamp7_left);
-	}
-	else if (counter > 70 && counter <= 80)
-	{
-		_sprite->setTexture(clamp8_left);
-	}
-	else if (counter > 80 && counter <= 90)
-	{
-		_sprite->setTexture(clamp9_left);
-	}
-	else if (counter > 90 && counter <= 100)
-	{
-		_sprite->setTexture(clamp10_left);
-		_obj->reset_counter();
-		_obj->increment_cycle();
-		auto cycle = _obj->get_cycle();
-		if (cycle > clamp_second_cycle)
+		if (counter > 0 && counter <= 10)
 		{
-			//past the last cycle of the movement pattern
-			_obj->reset_cycle();//start over again
+			_sprite->setTexture(clamp1_left);
+		}
+		else if (counter > 10 && counter <= 20)
+		{
+			_sprite->setTexture(clamp2_left);
+		}
+		else if (counter > 20 && counter <= 30)
+		{
+			_sprite->setTexture(clamp3_left);
+		}
+		else if (counter > 30 && counter <= 40)
+		{
+			_sprite->setTexture(clamp4_left);
+		}
+		else if (counter > 40 && counter <= 50)
+		{
+			_sprite->setTexture(clamp5_left);
+		}
+		else if (counter > 50 && counter <= 60)
+		{
+			_sprite->setTexture(clamp6_left);
+		}
+		else if (counter > 60 && counter <= 70)
+		{
+			_sprite->setTexture(clamp7_left);
+		}
+		else if (counter > 70 && counter <= 80)
+		{
+			_sprite->setTexture(clamp8_left);
+		}
+		else if (counter > 80 && counter <= 90)
+		{
+			_sprite->setTexture(clamp9_left);
+		}
+		else if (counter > 90 && counter <= 100)
+		{
+			_sprite->setTexture(clamp10_left);
+			_obj->reset_counter();
+			_obj->increment_cycle();
+			auto cycle = _obj->get_cycle();
+			if (cycle > clamp_second_cycle)
+			{
+				//past the last cycle of the movement pattern
+				_obj->reset_cycle();//start over again
+			}
+		}
+	}
+
+	else if (right)
+	{
+		if (counter > 0 && counter <= 10)
+		{
+			_sprite->setTexture(clamp1_right);
+		}
+		else if (counter > 10 && counter <= 20)
+		{
+			_sprite->setTexture(clamp2_right);
+		}
+		else if (counter > 20 && counter <= 30)
+		{
+			_sprite->setTexture(clamp3_right);
+		}
+		else if (counter > 30 && counter <= 40)
+		{
+			_sprite->setTexture(clamp4_right);
+		}
+		else if (counter > 40 && counter <= 50)
+		{
+			_sprite->setTexture(clamp5_right);
+		}
+		else if (counter > 50 && counter <= 60)
+		{
+			_sprite->setTexture(clamp6_right);
+		}
+		else if (counter > 60 && counter <= 70)
+		{
+			_sprite->setTexture(clamp7_right);
+		}
+		else if (counter > 70 && counter <= 80)
+		{
+			_sprite->setTexture(clamp8_right);
+		}
+		else if (counter > 80 && counter <= 90)
+		{
+			_sprite->setTexture(clamp9_right);
+		}
+		else if (counter > 90 && counter <= 100)
+		{
+			_sprite->setTexture(clamp10_right);
+			_obj->reset_counter();
+			_obj->increment_cycle();
+			auto cycle = _obj->get_cycle();
+			if (cycle > clamp_second_cycle)
+			{
+				//past the last cycle of the movement pattern
+				_obj->reset_cycle();//start over again
+			}
 		}
 	}
 }
 
 void ClampController::load_tectures()
 {
+	//load textures if clamp spawned from the left
 	clamp1_left.loadFromFile("resources/clamp1_left.png");
 	clamp2_left.loadFromFile("resources/clamp2_left.png");
 	clamp3_left.loadFromFile("resources/clamp3_left.png");
@@ -111,4 +168,16 @@ void ClampController::load_tectures()
 	clamp8_left.loadFromFile("resources/clamp8_left.png");
 	clamp9_left.loadFromFile("resources/clamp9_left.png");
 	clamp10_left.loadFromFile("resources/clamp10_left.png");
+
+	//load textures if clamp spawned from the right
+	clamp1_right.loadFromFile("resources/clamp1_right.png");
+	clamp2_right.loadFromFile("resources/clamp2_right.png");
+	clamp3_right.loadFromFile("resources/clamp3_right.png");
+	clamp4_right.loadFromFile("resources/clamp4_right.png");
+	clamp5_right.loadFromFile("resources/clamp5_right.png");
+	clamp6_right.loadFromFile("resources/clamp6_right.png");
+	clamp7_right.loadFromFile("resources/clamp7_right.png");
+	clamp8_right.loadFromFile("resources/clamp8_right.png");
+	clamp9_right.loadFromFile("resources/clamp9_right.png");
+	clamp10_right.loadFromFile("resources/clamp10_right.png");
 }
