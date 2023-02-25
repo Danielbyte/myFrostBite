@@ -15,6 +15,7 @@
 #include "fish.h"
 #include "crabController.h"
 #include "clampController.h"
+#include "fishController.h"
 
 class Logic {
 public:
@@ -97,5 +98,6 @@ private:
     //control sea entities
     CrabController control_crab;
     ClampController control_clamp;
+    FishController control_fish;
 };
 #endif // LOGIC_H

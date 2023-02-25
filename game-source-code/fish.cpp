@@ -61,3 +61,8 @@ void Fish::increment_counter()
 {
 	++counter;
 }
+
+void Fish::set_position(const vector2f& _pos)
+{
+	pos = _pos;
+}

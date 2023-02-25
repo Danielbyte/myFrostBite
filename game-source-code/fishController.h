@@ -14,5 +14,6 @@ public:
 	Texture fish1_right, fish2_right, fish3_right, fish4_right, fish5_right;
 	void load_textures();
 private:
+	float speed_controller;
 };
 #endif
