@@ -12,14 +12,15 @@ Fish::Fish(const int& side, const float& region):
 	counter {0}
 {
 	pos.y = region;
+	auto gapBetweenFish = 130.0f;
 	if (side == right)
 	{
-		pos.x = windowWidth - (fish_width / 2.0f);
+		pos.x = windowWidth + (fish_width / 2.0f) + gapBetweenFish;
 		spawned_right = true;
 	}
 	else if (side == left)
 	{
-		pos.x = fish_width / 2.0f;
+		pos.x = (-fish_width / 2.0f) - gapBetweenFish;
 		spawned_left = true;
 	}
 }
