@@ -47,23 +47,23 @@ void FishController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Fish>& f
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 10)
+		if (counter > 0 && counter <= 8)
 		{
 			sprite_ptr->setTexture(fish1_left);
 		}
-		else if (counter > 10 && counter <= 20)
+		else if (counter > 8 && counter <= 16)
 		{
 			sprite_ptr->setTexture(fish2_left);
 		}
-		else if (counter > 20 && counter <= 30)
+		else if (counter > 16 && counter <= 24)
 		{
 			sprite_ptr->setTexture(fish3_left);
 		}
-		else if (counter > 30 && counter <= 40)
+		else if (counter > 24 && counter <= 32)
 		{
 			sprite_ptr->setTexture(fish4_left);
 		}
-		else if (counter > 40 && counter <= 50)
+		else if (counter > 32 && counter <= 40)
 		{
 			sprite_ptr->setTexture(fish5_left);
 			fishObj->reset_counter();
@@ -72,23 +72,23 @@ void FishController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Fish>& f
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 10)
+		if (counter > 0 && counter <= 8)
 		{
 			sprite_ptr->setTexture(fish1_right);
 		}
-		else if (counter > 10 && counter <= 20)
+		else if (counter > 8 && counter <= 16)
 		{
 			sprite_ptr->setTexture(fish2_right);
 		}
-		else if (counter > 20 && counter <= 30)
+		else if (counter > 16 && counter <= 24)
 		{
 			sprite_ptr->setTexture(fish3_right);
 		}
-		else if (counter > 30 && counter <= 40)
+		else if (counter > 24 && counter <= 32)
 		{
 			sprite_ptr->setTexture(fish4_right);
 		}
-		else if (counter > 40 && counter <= 50)
+		else if (counter > 32 && counter <= 40)
 		{
 			sprite_ptr->setTexture(fish5_right);
 			fishObj->reset_counter();
