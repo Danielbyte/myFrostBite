@@ -13,6 +13,7 @@ public:
 	Crab(const int&, const float&);
 	vector2f get_position() const;
 	void set_x_position(const float&);
+	void set_position(const vector2f&);
 
 	//for animating crabs
 	void reset_counter();
@@ -22,9 +23,17 @@ public:
 	int get_cycle() const;
 	void reset_cycle();
 
+	//get which side crab was spawned
+	std::tuple<bool, bool> get_spawn_side();
+
+
 private:
 	vector2f pos;
 	int counter;
 	int cycle;
+
+	//mark if crab was spawned left or rightwards
+	bool spawned_left;
+	bool spawned_right;
 };
 #endif

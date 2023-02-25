@@ -1,12 +1,13 @@
 #include "crabController.h"
 
-CrabController::CrabController()
+CrabController::CrabController():
+	speed_controller{100.0f}
 {
 	load_textures();
 }
 
 void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
-	vector<shared_ptr<Crab>>& crabObj)
+	vector<shared_ptr<Crab>>& crabObj, const float& deltaTime)
 {
 	if (!crabObj.empty())
 	{
@@ -20,12 +21,21 @@ void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
 			auto cycle = (*crab_ptr)->get_cycle();
 			if (cycle == first_cycle)
 			{
-				std::cout << "crab moves!" << std::endl;
-			}
+				//the crab should move
+				auto [left, right] = (*crab_ptr)->get_spawn_side();
+				if (left)
+				{
+					(*crab_spritePtr)->move(deltaTime * speed_controller, 0);
+					vector2f pos = (*crab_spritePtr)->getPosition();
+					(*crab_ptr)->set_position(pos);
+				}
 
-			else if (cycle == second_cycle)
-			{
-				std::cout << "crab not move!" << std::endl;
+				else if (right)
+				{
+					(*crab_spritePtr)->move(-deltaTime * speed_controller, 0);
+					vector2f pos = (*crab_spritePtr)->getPosition();
+					(*crab_ptr)->set_position(pos);
+				}
 			}
 
 			++crab_ptr;

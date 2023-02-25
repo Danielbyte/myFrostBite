@@ -12,7 +12,7 @@ class CrabController : public Crab
 {
 public:
 	CrabController();
-	void update_crab(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&);
+	void update_crab(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, const float&);
 
 	//Crab textures
 	Texture crab1, crab2, crab3, crab4, crab5, crab6;
@@ -21,5 +21,6 @@ public:
 	void animate(shared_ptr<Sprite>&, shared_ptr<Crab>&);
 
 private:
+	float speed_controller;
 };
 #endif

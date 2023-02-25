@@ -657,7 +657,7 @@ void Logic::frostbite_bear_collisions()
 }
 
 void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr<Sprite>>& _clamps,
-    vector<shared_ptr<Sprite>>& _birds, vector<shared_ptr<Sprite>>& _fish)
+    vector<shared_ptr<Sprite>>& _birds, vector<shared_ptr<Sprite>>& _fish, const float& deltaTime)
 {
     //create enemy every 5 seconds
     auto timeElapsed = enemy.elapsed_time();
@@ -708,7 +708,7 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
         enemy.restart_timer();
     }
 
-    control_crab.update_crab(_crabs, crabs);
+    control_crab.update_crab(_crabs, crabs,deltaTime);
 }
 
 Logic::~Logic()

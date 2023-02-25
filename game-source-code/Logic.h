@@ -59,7 +59,7 @@ public:
    //Other Enemies
    Enemy enemy;
    void update_enemies(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
-       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&, const float&);
 
 private:
     int number_of_igloo_blocks;

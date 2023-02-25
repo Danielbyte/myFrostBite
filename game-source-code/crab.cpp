@@ -2,7 +2,9 @@
 
 Crab::Crab(const int& side, const float& region):
 	counter{0},
-	cycle{1}
+	cycle{1},
+	spawned_left{false},
+	spawned_right{false}
 {
 	pos.y = region;
 
@@ -10,12 +12,16 @@ Crab::Crab(const int& side, const float& region):
 	{
 		auto x_position = windowWidth - (crab_width / 2);
 		pos.x = x_position;
+		spawned_left = false;
+		spawned_right = true;
 	}
 
 	if (side == left)
 	{
 		auto x_position = crab_width / 2.0f;
 		pos.x = x_position;
+		spawned_left = true;
+		spawned_right = false;
 	}
 }
 
@@ -69,6 +75,15 @@ void Crab::reset_cycle()
 	cycle = 1;
 }
 
+std::tuple<bool, bool> Crab::get_spawn_side()
+{
+	return { spawned_left, spawned_right };
+}
+
+void Crab::set_position(const vector2f& pos_)
+{
+	pos = pos_;
+}
 
 
 
