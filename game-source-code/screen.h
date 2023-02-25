@@ -25,6 +25,7 @@ public:
     void draw_crabs();
     void draw_clamps();
     void draw_fish();
+    void draw_birds();
 
 private:
     RenderWindow window;

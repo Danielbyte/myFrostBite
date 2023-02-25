@@ -84,6 +84,7 @@ void Screen::run()
             draw_crabs();
             draw_clamps();
             draw_fish();
+            draw_birds();
             //Update screen according to game play
             update_game(deltaTime); //update
             //draw game objects
@@ -253,6 +254,17 @@ void Screen::draw_fish()
         for (auto& _fish : fish)
         {
             window.draw(*_fish);
+        }
+    }
+}
+
+void Screen::draw_birds()
+{
+    if (!birds.empty())
+    {
+        for (auto& bird : birds)
+        {
+            window.draw(*bird);
         }
     }
 }

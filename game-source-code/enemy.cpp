@@ -40,6 +40,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		{
 			create_fish(fish, fishObj, region1Pos);
 		}
+
+		else if (enemyType == bird_)
+		{
+			create_birds(birds, birdsObj, region1Pos);
+		}
 		region1 = true; //region 1 is occupied
 	}
 
@@ -60,6 +65,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region2Pos);
+		}
+
+		else if (enemyType == bird_)
+		{
+			create_birds(birds, birdsObj, region2Pos);
 		}
 		region2 = true;
 	}
@@ -82,6 +92,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		{
 			create_fish(fish, fishObj, region3Pos);
 		}
+
+		else if (enemyType == bird_)
+		{
+			create_birds(birds, birdsObj, region3Pos);
+		}
 		region3 = true;
 	}
 
@@ -101,6 +116,11 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region4Pos);
+		}
+
+		else if (enemyType == bird_)
+		{
+			create_birds(birds, birdsObj, region4Pos);
 		}
 		region4 = true;
 	}
@@ -147,6 +167,7 @@ void Enemy::load_textures()
 	_crab.loadFromFile("resources/crab1.png");
 	_clamp_left.loadFromFile("resources/clamp1_left.png");
 	_fish_left.loadFromFile("resources/fish1_left.png");
+	_bird_left.loadFromFile("resources/bird1_left.png");
 }
 
 float Enemy::get_region1() const
@@ -260,4 +281,35 @@ void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_
 	auto pos2 = fish_ptr2->get_position();
 	fish_sprite2->setPosition(pos2);
 	_fish_sprite.push_back(fish_sprite2);
+}
+
+void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared_ptr<Bird>>& birdObj,
+	const float& regionPos)
+{
+	//select side
+	auto EnemySide = pick_side();
+	//create new bird object
+	shared_ptr<Bird>bird_ptr(new Bird(EnemySide, regionPos));
+	birdObj.push_back(bird_ptr);
+
+	//create bird sprite based on object
+	auto bird_sprite = std::make_shared<Sprite>(Sprite());
+	bird_sprite->setOrigin(bird_width / 2.0f, bird_height / 2.0f);
+	bird_sprite->setTexture(_bird_left);
+	auto pos = bird_ptr->get_position();
+	bird_sprite->setPosition(pos);
+	_bird_sprite.push_back(bird_sprite);
+
+	//crate second bird
+	shared_ptr<Bird>bird_ptr2(new Bird(EnemySide, regionPos));
+	bird_ptr2->set_x_position(gapBetweeenAnimals);
+	birdObj.push_back(bird_ptr2);
+
+	//create second bird sprite
+	auto bird_sprite2 = std::make_shared<Sprite>(Sprite());
+	bird_sprite2->setOrigin(bird_width / 2.0f, bird_height / 2.0f);
+	bird_sprite2->setTexture(_bird_left);
+	auto pos2 = bird_ptr2->get_position();
+	bird_sprite2->setPosition(pos2);
+	_bird_sprite.push_back(bird_sprite2);
 }

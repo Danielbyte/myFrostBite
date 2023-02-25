@@ -1,7 +1,7 @@
 #include "fishController.h"
 
 FishController::FishController():
-	speed_controller{100.0f}
+	speed_controller{90.0f}
 {
 	load_textures();
 }
