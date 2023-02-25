@@ -1,15 +1,26 @@
 #include "fish.h"
 
-Fish::Fish(const int& side, const float& region)
+Fish::Fish():
+	spawned_left{ false },
+	spawned_right{ false },
+	counter{ 0 }
+{}
+
+Fish::Fish(const int& side, const float& region):
+	spawned_left{false},
+	spawned_right{ false },
+	counter {0}
 {
 	pos.y = region;
 	if (side == right)
 	{
 		pos.x = windowWidth - (fish_width / 2.0f);
+		spawned_right = true;
 	}
 	else if (side == left)
 	{
 		pos.x = fish_width / 2.0f;
+		spawned_left = true;
 	}
 }
 
@@ -29,4 +40,24 @@ void Fish::set_x_position(const float& _x)
 	{
 		pos.x += _x;
 	}
+}
+
+std::tuple<bool, bool> Fish::get_side()
+{
+	return { spawned_left, spawned_right };
+}
+
+int Fish::get_counter() const
+{
+	return counter;
+}
+
+void Fish::reset_counter()
+{
+	counter = 0;
+}
+
+void Fish::increment_counter()
+{
+	++counter;
 }
