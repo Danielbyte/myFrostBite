@@ -28,6 +28,14 @@ void ClampController::update_clamp(vector<shared_ptr<Sprite>>& clamp_sprites,
 					(*sprite_ptr)->move(deltaTime * speed_controller, 0);
 					vector2f pos = (*sprite_ptr)->getPosition();
 					(*obj_ptr)->set_postion(pos);
+
+					auto outOfBounds = windowWidth + (clamp_width / 2.0f);
+					if (pos.x >= outOfBounds)
+					{
+						clampObj.erase(obj_ptr);
+						clamp_sprites.erase(sprite_ptr);
+						return;
+					}
 				}
 
 				else if (right) //clamp was spawned on the right
@@ -35,6 +43,14 @@ void ClampController::update_clamp(vector<shared_ptr<Sprite>>& clamp_sprites,
 					(*sprite_ptr)->move(-deltaTime * speed_controller, 0);
 					vector2f pos = (*sprite_ptr)->getPosition();
 					(*obj_ptr)->set_postion(pos);
+
+					auto outOfBounds = -clamp_width / 2.0f;
+					if (pos.x <= outOfBounds)
+					{
+						clampObj.erase(obj_ptr);
+						clamp_sprites.erase(sprite_ptr);
+						return;
+					}
 				}
 			}
 

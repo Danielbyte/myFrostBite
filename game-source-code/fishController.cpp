@@ -24,6 +24,14 @@ void FishController::update_fish(vector<shared_ptr<Sprite>>& fish_sprites,
 				(*fish_sprite)->move(speed_controller * deltaTime, 0);
 				vector2f pos = (*fish_sprite)->getPosition();
 				(*fish_obj)->set_position(pos);
+
+				auto outOfBounds = windowWidth + (fish_width / 2.0f);
+				if (pos.x >= outOfBounds)
+				{
+					fish_objects.erase(fish_obj);
+					fish_sprites.erase(fish_sprite);
+					return;
+				}
 			}
 
 			else if (right)
@@ -31,6 +39,14 @@ void FishController::update_fish(vector<shared_ptr<Sprite>>& fish_sprites,
 				(*fish_sprite)->move(-speed_controller * deltaTime, 0);
 				vector2f pos = (*fish_sprite)->getPosition();
 				(*fish_obj)->set_position(pos);
+
+				auto outOfBounds = -fish_width / 2.0f;
+				if (pos.x <= outOfBounds)
+				{
+					fish_objects.erase(fish_obj);
+					fish_sprites.erase(fish_sprite);
+					return;
+				}
 			}
 
 			++fish_obj;

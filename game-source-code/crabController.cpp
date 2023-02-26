@@ -28,6 +28,14 @@ void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
 					(*crab_spritePtr)->move(deltaTime * speed_controller, 0);
 					vector2f pos = (*crab_spritePtr)->getPosition();
 					(*crab_ptr)->set_position(pos);
+
+					auto outOfBounds = windowWidth + (crab_width / 2.0f);
+					if (pos.x >= outOfBounds)
+					{
+						crabObj.erase(crab_ptr);
+						crab_sprites.erase(crab_spritePtr);
+						return;
+					}
 				}
 
 				else if (right)
@@ -35,6 +43,14 @@ void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
 					(*crab_spritePtr)->move(-deltaTime * speed_controller, 0);
 					vector2f pos = (*crab_spritePtr)->getPosition();
 					(*crab_ptr)->set_position(pos);
+
+					auto outOfBounds = -crab_width / 2.0f;
+					if (pos.x <= outOfBounds)
+					{
+						crabObj.erase(crab_ptr);
+						crab_sprites.erase(crab_spritePtr);
+						return;
+					}
 				}
 			}
 

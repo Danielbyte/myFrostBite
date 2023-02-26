@@ -49,7 +49,6 @@ void BirdController::update_birds(vector<shared_ptr<Sprite>>& bird_sprites,
 					//delete bird object
 					bird_objects.erase(bird_obj);
 					bird_sprites.erase(bird_sprite);
-					std::cout << "Deleted" << std::endl;
 					return;
 				}
 			}
