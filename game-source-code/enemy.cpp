@@ -313,3 +313,62 @@ void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared
 	bird_sprite2->setPosition(pos2);
 	_bird_sprite.push_back(bird_sprite2);
 }
+
+void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_ptr<Clamp>>& clamps,
+	vector<shared_ptr<Bird>>& birds, vector<shared_ptr<Fish>>& fish)
+{
+	region1 = false;
+	region2 = false;
+	region3 = false;
+	region3 = false;
+	//crabs in the sea
+	if (!crabs.empty())
+	{
+		//check for crabs in region
+	}
+
+	if (!clamps.empty())
+	{
+		//check for clamps in region
+	}
+
+	if (!birds.empty())
+	{
+		//check for birds in region
+		birds_in_region(birds);
+	}
+
+	if (!fish.empty())
+	{
+		//check for fish in region
+	}
+}
+
+void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
+{
+	auto bird_ptr = birds.begin();
+	while (bird_ptr != birds.end())
+	{
+		auto y_pos = ((*bird_ptr)->get_position()).y;
+		//update the first region if it has not been updated
+		if (y_pos == region1Pos && !region1)
+		{
+			region1 = true;
+		}
+
+		if (y_pos == region2Pos && !region2)
+		{
+			region2 = true;
+		}
+
+		if (y_pos == region3Pos && !region3)
+		{
+			region3 = true;
+		}
+		if (y_pos == region4Pos && !region4)
+		{
+			region4 = true;
+		}
+		++bird_ptr;
+	}
+}

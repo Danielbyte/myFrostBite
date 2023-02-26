@@ -25,6 +25,9 @@ public:
 		vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, const float&);
 
+	void update_enemy_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
+
 	//Textures
 	Texture _crab,_clamp_left,_bird_left,_fish_left;
 	void load_textures();
@@ -58,5 +61,11 @@ private:
 
 	int pick_side();
 	int generate_enemy_type();
+
+	//check for sea animals in each region to update status of each region to empty or not
+	void crabs_in_region(vector<shared_ptr<Crab>>&);
+	void clamps_in_region(vector<shared_ptr<Clamp>>&);
+	void birds_in_region(vector<shared_ptr<Bird>>&);
+	void fish_in_region(vector<shared_ptr<Fish>>&);
 };
 #endif
