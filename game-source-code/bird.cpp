@@ -12,15 +12,17 @@ Bird::Bird(const int& enemySide, const float& region):
 	counter{0}
 {
 	pos.y = region;
+	auto gapBetweenBirds = 120.0f;
+
 	if (enemySide == right)
 	{
-		pos.x = windowWidth - (bird_width / 2.0f);
+		pos.x = windowWidth + (bird_width / 2.0f) + gapBetweenBirds;
 		spawned_right = true;
 	}
 
 	else if (enemySide == left)
 	{
-		pos.x = (bird_width / 2.0f);
+		pos.x = (-bird_width / 2.0f) - gapBetweenBirds;
 		spawned_left = true;
 	}
 }
@@ -56,11 +58,6 @@ void Bird::reset_counter()
 int Bird::get_counter() const
 {
 	return counter;
-}
-
-vector2f Bird::get_position() const
-{
-	return pos;
 }
 
 void Bird::set_position(const vector2f& pos_)
