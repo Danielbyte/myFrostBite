@@ -2,12 +2,14 @@
 
 Bird::Bird():
 	spawned_left{false},
-	spawned_right{false}
+	spawned_right{false},
+	counter{0}
 {}
 
 Bird::Bird(const int& enemySide, const float& region):
 	spawned_left{false},
-	spawned_right{false}
+	spawned_right{false},
+	counter{0}
 {
 	pos.y = region;
 	if (enemySide == right)
@@ -39,4 +41,34 @@ void Bird::set_x_position(const float& _x)
 	{
 		pos.x += _x;
 	}
+}
+
+void Bird::increment_counter()
+{
+	++counter;
+}
+
+void Bird::reset_counter()
+{
+	counter = 0;
+}
+
+int Bird::get_counter() const
+{
+	return counter;
+}
+
+vector2f Bird::get_position() const
+{
+	return pos;
+}
+
+void Bird::set_position(const vector2f& pos_)
+{
+	pos = pos_;
+}
+
+std::tuple<bool, bool> Bird::get_side()
+{
+	return { spawned_left, spawned_right };
 }
