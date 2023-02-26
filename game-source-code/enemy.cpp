@@ -405,6 +405,35 @@ void Enemy::crabs_in_region(vector<shared_ptr<Crab>>& crabs)
 	}
 }
 
+void Enemy::fish_in_region(vector<shared_ptr<Fish>>& fish)
+{
+	auto fish_ptr = fish.begin();
+	while (fish_ptr != fish.end())
+	{
+		auto y_pos = ((*fish_ptr)->get_position()).y;
+		//update the first region if it has not been updated
+		if (y_pos == region1Pos && !region1)
+		{
+			region1 = true;
+		}
+
+		if (y_pos == region2Pos && !region2)
+		{
+			region2 = true;
+		}
+
+		if (y_pos == region3Pos && !region3)
+		{
+			region3 = true;
+		}
+		if (y_pos == region4Pos && !region4)
+		{
+			region4 = true;
+		}
+		++fish_ptr;
+	}
+}
+
 void Enemy::clamps_in_region(vector<shared_ptr<Clamp>>& clamps)
 {
 	auto clamp_ptr = clamps.begin();
