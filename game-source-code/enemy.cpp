@@ -325,6 +325,8 @@ void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_
 	if (!crabs.empty())
 	{
 		//check for crabs in region
+		crabs_in_region(crabs);
+		
 	}
 
 	if (!clamps.empty())
@@ -370,5 +372,34 @@ void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
 			region4 = true;
 		}
 		++bird_ptr;
+	}
+}
+
+void Enemy::crabs_in_region(vector<shared_ptr<Crab>>& crabs)
+{
+	auto crab_ptr = crabs.begin();
+	while (crab_ptr != crabs.end())
+	{
+		auto y_pos = ((*crab_ptr)->get_position()).y;
+		//update the first region if it has not been updated
+		if (y_pos == region1Pos && !region1)
+		{
+			region1 = true;
+		}
+
+		if (y_pos == region2Pos && !region2)
+		{
+			region2 = true;
+		}
+
+		if (y_pos == region3Pos && !region3)
+		{
+			region3 = true;
+		}
+		if (y_pos == region4Pos && !region4)
+		{
+			region4 = true;
+		}
+		++crab_ptr;
 	}
 }
