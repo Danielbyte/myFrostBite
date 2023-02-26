@@ -650,7 +650,9 @@ void Logic::frostbite_bear_collisions()
     auto isCollided = collision.entity_collision(bailey_position, bailey_width, bailey_height,
         bear_position, bear_with, bear_height);
 
-    if (isCollided)
+    //bailey needs to be in safe zone
+    auto baileyInSafeZone = bailey_object.get_if_bailey_in_safe_zone();
+    if (isCollided && baileyInSafeZone)
     {
         bailey_object.set_bailey_to_dead(true);
     }
