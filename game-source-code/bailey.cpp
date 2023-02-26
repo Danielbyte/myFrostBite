@@ -52,10 +52,10 @@ void Bailey::set_bailey_movement(const Direction& dir,
             {
                 x_position = left_boundary;
                 bailey_sprite.setPosition(x_position,y_position);
-                if (!safe_zone)
+               /* if (!safe_zone)
                 {
                     is_dead = true;
-                }
+                }*/
 
             }
             break;
@@ -69,10 +69,10 @@ void Bailey::set_bailey_movement(const Direction& dir,
             {
                 x_position = right_boundary;
                 bailey_sprite.setPosition(x_position, y_position);
-                if (!safe_zone)
+                /*if (!safe_zone)
                 {
                     is_dead = true;
-                }
+                }*/
             }
             break;
         //default:
@@ -113,10 +113,10 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
         {
             x_position = right_boundary;
             player_sprite.setPosition(x_position, y_position);
-            if (!safe_zone)
-            {
-                is_dead = true;
-            }
+           // if (!safe_zone)
+           // {
+           //     is_dead = true;
+           // }
         }
     }
 
@@ -137,10 +137,10 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
             x_position = left_boundary;
             player_sprite.setPosition(x_position, y_position);
 
-            if (!safe_zone)
-            {
-                is_dead = true;
-            }
+           // if (!safe_zone)
+           // {
+                //is_dead = true;
+           // }
         }
     }
 }
