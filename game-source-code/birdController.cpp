@@ -41,6 +41,17 @@ void BirdController::update_birds(vector<shared_ptr<Sprite>>& bird_sprites,
 				(*bird_sprite)->move(-speed_controller * deltaTime, 0);
 				vector2f pos = (*bird_sprite)->getPosition();
 				(*bird_obj)->set_position(pos);
+
+				//delete bird if it has travelled past the screen
+				auto outOfBounds = -bird_width / 2.0f;
+				if (pos.x <= outOfBounds)
+				{
+					//delete bird object
+					bird_objects.erase(bird_obj);
+					bird_sprites.erase(bird_sprite);
+					std::cout << "Deleted" << std::endl;
+					return;
+				}
 			}
 
 			++bird_obj;

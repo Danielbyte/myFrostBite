@@ -67,5 +67,7 @@ private:
 	void clamps_in_region(vector<shared_ptr<Clamp>>&);
 	void birds_in_region(vector<shared_ptr<Bird>>&);
 	void fish_in_region(vector<shared_ptr<Fish>>&);
+
+	void reset_regions();
 };
 #endif

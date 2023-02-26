@@ -317,10 +317,6 @@ void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared
 void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_ptr<Clamp>>& clamps,
 	vector<shared_ptr<Bird>>& birds, vector<shared_ptr<Fish>>& fish)
 {
-	region1 = false;
-	region2 = false;
-	region3 = false;
-	region3 = false;
 	//crabs in the sea
 	if (!crabs.empty())
 	{
@@ -461,4 +457,13 @@ void Enemy::clamps_in_region(vector<shared_ptr<Clamp>>& clamps)
 		}
 		++clamp_ptr;
 	}
+}
+
+void Enemy::reset_regions()
+{
+	//reset regions to be re-updated
+	region1 = false;
+	region2 = false;
+	region3 = false;
+	region3 = false;
 }
