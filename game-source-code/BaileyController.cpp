@@ -45,6 +45,23 @@ void BaileyController::load_textures()
 	bailey_texture4.loadFromFile("resources/bailey1_left.png");
 	bailey_texture5.loadFromFile("resources/jump_left.png");
 	bailey_texture6.loadFromFile("resources/jump_right.png");
+
+	//textures to animate the death of bailey due to the bear
+	death1_bailey.loadFromFile("resources/death1_bailey.png");
+	death2_bailey.loadFromFile("resources/death2_bailey.png");
+	death3_bailey.loadFromFile("resources/death3_bailey.png");
+	death4_bailey.loadFromFile("resources/death4_bailey.png");
+	death5_bailey.loadFromFile("resources/death5_bailey.png");
+	death6_bailey.loadFromFile("resources/death6_bailey.png");
+	death7_bailey.loadFromFile("resources/death7_bailey.png");
+	death8_bailey.loadFromFile("resources/death8_bailey.png");
+	death9_bailey.loadFromFile("resources/death9_bailey.png");
+	death10_bailey.loadFromFile("resources/death10_bailey.png");
+	death11_bailey.loadFromFile("resources/death11_bailey.png");
+	death12_bailey.loadFromFile("resources/death12_bailey.png");
+	death13_bailey.loadFromFile("resources/death13_bailey.png");
+	death14_bailey.loadFromFile("resources/death14_bailey.png");
+
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -110,4 +127,9 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	 {
 		 bailey_sprite.setTexture(bailey_texture3);
 	 }
+}
+
+void BaileyController::bailey_death(Bailey& bailey_object,Sprite& bailey_sprite)
+{
+
 }

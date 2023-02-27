@@ -40,6 +40,10 @@ public:
     float get_left_boundary() const;
     float get_right_boundary() const;
 
+    int get_death_frame_counter() const;
+    void reset_death_frame_counter();
+    void increment_death_frame_counter();
+
 private:
     void calibrate(const float&);
     float distance_between_iceRows;
@@ -74,6 +78,9 @@ private:
     float speed_attenuater;
     float upJump_speedAtten; //control the speed at which frostbite jumps up
     bool is_bailey_jumping;
+
+    //This counter monitors the animation when bailey dies due to bear
+    int death_frame_counter;
 
 };
 #endif // BAILEY_H

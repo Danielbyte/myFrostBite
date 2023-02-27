@@ -15,9 +15,15 @@ public:
 	Texture bailey_texture5;
 	Texture bailey_texture6;
 
+	//Textures for when bailey dies due to bear
+	Texture death1_bailey, death2_bailey, death3_bailey, death4_bailey, death5_bailey, death6_bailey,
+		death7_bailey, death8_bailey, death9_bailey, death10_bailey, death11_bailey, death12_bailey,
+		death13_bailey, death14_bailey;
+
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);
 	void animate_bailey(Bailey&, Sprite&);
+	void bailey_death(Bailey&,Sprite&);
 	void load_textures();
 
 private:
