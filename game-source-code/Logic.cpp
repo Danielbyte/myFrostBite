@@ -7,7 +7,8 @@ Logic::Logic():
     is_igloo_complete{false},
     y_{0.0f},
     ice_collision_batch1{false},
-    ice_collision_batch2{false}
+    ice_collision_batch2{false},
+    plungedInWater{true}
 
 {
     prev_pos.x = 240.0f; //Initial bailey position
@@ -162,6 +163,11 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 
                 //frostbite should only move along a patch of ice, otherwise drown
                 check_frostbite_on_ice_patch(*ice_iter);
+                if (plungedInWater)
+                { 
+                    ice_collision_batch1 = false;                  
+                    return; 
+                }
 
             }
 
@@ -734,13 +740,15 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
     auto point1 = ice_x_pos + 13.0f;
     auto point2 = point1 + (ice_patch_width - 13.0f);
     auto end_of_ice = ice_x_pos + ice_width - bailey_width;
-  
+    plungedInWater = true;
+
     if (bailey_x_pos >= ice_x_pos && bailey_x_pos <= end_of_ice)
     {
         auto adjusted_point1 = point1 - 10.5f; //correction factor
         if (bailey_x_pos >= adjusted_point1 && ((bailey_x_pos + bailey_width) <= point2))
         {
             std::cout << "in region1" << std::endl;
+            plungedInWater = false;
         }
 
         auto point3 = point2 + 29.5f;
@@ -748,6 +756,7 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
         if (bailey_x_pos >= point3 && ((bailey_x_pos + bailey_width) <= point4))
         {
             std::cout << "in region 2" << std::endl;
+            plungedInWater = false;
         }
 
         auto point5 = point4 + 29.5f;
@@ -755,6 +764,7 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
         if (bailey_x_pos >= point5 && (bailey_x_pos + bailey_width) <= point6)
         {
             std::cout << "in region 3" << std::endl;
+            plungedInWater = false;
         }
 
     }
@@ -763,7 +773,10 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
         std::cout << "out of bounds" << std::endl;
     }
  
-
+    if (plungedInWater)
+    {
+        bailey_object.set_bailey_to_dead(true);
+    }
    
     
 }

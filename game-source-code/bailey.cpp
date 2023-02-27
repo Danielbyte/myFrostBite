@@ -186,7 +186,7 @@ bool Bailey::get_if_bailey_dead()const
     return is_dead;
 }
 
-void Bailey::set_bailey_to_dead(bool status)
+void Bailey::set_bailey_to_dead(const bool& status)
 {
     is_dead = status;
 }

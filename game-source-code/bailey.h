@@ -17,7 +17,7 @@ public:
     bool get_is_moving_down() const;
 
     bool get_if_bailey_dead() const;
-    void set_bailey_to_dead(bool);
+    void set_bailey_to_dead(const bool&);
 
     bool get_if_moving_right() const;
     bool get_if_moving_left() const;

@@ -105,5 +105,7 @@ private:
     ClampController control_clamp;
     FishController control_fish;
     BirdController control_bird;
+
+    bool plungedInWater; //monitors if bailey has plunged on water
 };
 #endif // LOGIC_H
