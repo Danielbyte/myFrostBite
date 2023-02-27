@@ -159,7 +159,10 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
                 }
                 (*ice_iter) -> set_to_blue(true);
                 (*ice_iter) -> set_to_white(false);
-                //std::cout << "Ice position: " << ice_position.y << "should turn blue" << std::endl;
+                
+                //frostbite should only move along a patch of ice, otherwise drown
+                check_frostbite_on_ice_patch(*ice_iter);
+
             }
 
             if (isCollided && !is_bailey_moving)
@@ -722,6 +725,47 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
 void Logic::animate_bailey_death(const float& deltaTime, Sprite& bailey_sprite)
 {
     control_bailey.bailey_death(deltaTime, bailey_sprite);
+}
+
+void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
+{
+    auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;
+    auto bailey_x_pos = bailey_object.get_Xpos() - bailey_width_offset;
+    auto point1 = ice_x_pos + 13.0f;
+    auto point2 = point1 + (ice_patch_width - 13.0f);
+    auto end_of_ice = ice_x_pos + ice_width - bailey_width;
+  
+    if (bailey_x_pos >= ice_x_pos && bailey_x_pos <= end_of_ice)
+    {
+        auto adjusted_point1 = point1 - 10.5f; //correction factor
+        if (bailey_x_pos >= adjusted_point1 && ((bailey_x_pos + bailey_width) <= point2))
+        {
+            std::cout << "in region1" << std::endl;
+        }
+
+        auto point3 = point2 + 29.5f;
+        auto point4 = point3 + ice_patch_width;
+        if (bailey_x_pos >= point3 && ((bailey_x_pos + bailey_width) <= point4))
+        {
+            std::cout << "in region 2" << std::endl;
+        }
+
+        auto point5 = point4 + 29.5f;
+        auto point6 = point5 + ice_patch_width;
+        if (bailey_x_pos >= point5 && (bailey_x_pos + bailey_width) <= point6)
+        {
+            std::cout << "in region 3" << std::endl;
+        }
+
+    }
+    else
+    {
+        std::cout << "out of bounds" << std::endl;
+    }
+ 
+
+   
+    
 }
 
 Logic::~Logic()

@@ -49,6 +49,9 @@ const auto clamp_width = 42.0f;
 const auto bird_height = 38.0f;
 const auto bird_width = 38.0f;
 
+const auto ice_patch_width = 87.0f;
+const auto water_patch_width = 29.5f;
+
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};
