@@ -391,6 +391,7 @@ void Screen::update_game_state(const float& deltaTime)
         {
             auto TimeElapsed = s_watch.elapsed_time();
             logic.animate_bailey_death(TimeElapsed,bailey_sprite);
+            logic.bear_object.update_bear(bear_sprite, 0.0f);
             draw_game_entities();
             //draw game objects
             draw_game_objects(); //draw game entities
