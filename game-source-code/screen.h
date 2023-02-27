@@ -2,6 +2,7 @@
 #define SCREEN
 #include "SfmlLibrary.h"
 #include "Logic.h"
+#include "stopwatch.h"
 
 class Screen {
 public:

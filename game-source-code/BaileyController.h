@@ -23,7 +23,7 @@ public:
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);
 	void animate_bailey(Bailey&, Sprite&);
-	void bailey_death(Bailey&,Sprite&);
+	void bailey_death(const float&, Sprite&);
 	void load_textures();
 
 private:

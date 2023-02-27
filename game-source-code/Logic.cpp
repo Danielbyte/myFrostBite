@@ -719,6 +719,11 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
     enemy.update_enemy_regions(crabs, clamps, birds, fish);
 }
 
+void Logic::animate_bailey_death(const float& deltaTime, Sprite& bailey_sprite)
+{
+    control_bailey.bailey_death(deltaTime, bailey_sprite);
+}
+
 Logic::~Logic()
 {
     //House keeping, free some memory

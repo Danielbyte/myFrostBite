@@ -64,6 +64,8 @@ public:
    void update_enemies(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&, const float&);
 
+   void animate_bailey_death(const float&,Sprite&);
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;

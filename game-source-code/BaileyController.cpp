@@ -129,7 +129,66 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	 }
 }
 
-void BaileyController::bailey_death(Bailey& bailey_object,Sprite& bailey_sprite)
+void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite)
 {
+	
+	if (deltaTime >0 && deltaTime <= 0.07)
+	{
+		bailey_sprite.setTexture(death1_bailey);
 
+	}
+
+	if (deltaTime > 0.07 && deltaTime <= 0.14)
+	{
+		bailey_sprite.setTexture(death2_bailey);
+	}
+
+	if (deltaTime > 0.14 && deltaTime <= 0.21)
+	{
+		bailey_sprite.setTexture(death3_bailey);
+	}
+	if (deltaTime > 0.21 && deltaTime <= 0.28)
+	{
+		bailey_sprite.setTexture(death4_bailey);
+	}
+	if (deltaTime > 0.28 && deltaTime <= 0.35)
+	{
+		bailey_sprite.setTexture(death5_bailey);
+	}
+	if (deltaTime >0.35 && deltaTime <= 0.42)
+	{
+		bailey_sprite.setTexture(death6_bailey);
+	}
+	if (deltaTime > 0.42 && deltaTime <= 0.49)
+	{
+		bailey_sprite.setTexture(death7_bailey);
+	}
+	if (deltaTime > 0.49 && deltaTime <= 0.56)
+	{
+		bailey_sprite.setTexture(death8_bailey);
+	}
+	if (deltaTime > 0.56 && deltaTime <= 0.63)
+	{
+		bailey_sprite.setTexture(death9_bailey);
+	}
+	if (deltaTime > 0.63 && deltaTime <= 0.7)
+	{
+		bailey_sprite.setTexture(death10_bailey);
+	}
+	if (deltaTime > 0.77 && deltaTime <= 0.84)
+	{
+		bailey_sprite.setTexture(death11_bailey);
+	}
+	if (deltaTime > 0.84 && deltaTime <= 0.91)
+	{
+		bailey_sprite.setTexture(death12_bailey);
+	}
+	if (deltaTime > 0.91 && deltaTime <= 0.98)
+	{
+		bailey_sprite.setTexture(death13_bailey);
+	}
+	if (deltaTime > 0.98 && deltaTime <= 1.05)
+	{
+		bailey_sprite.setTexture(death14_bailey);
+	}
 }

@@ -388,6 +388,34 @@ void Screen::update_game_state(const float& deltaTime)
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
     auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
 
+    if (bailey_is_dead && bailey_in_safe_zone)
+    {
+        auto isAnimating = true;
+        Stopwatch s_watch;
+        
+        while (isAnimating)
+        {
+            auto TimeElapsed = s_watch.elapsed_time();
+            logic.animate_bailey_death(TimeElapsed,bailey_sprite);
+            window.draw(background_sprite);
+            draw_ice_blocks();
+            draw_igloo_house();
+            draw_crabs();
+            draw_clamps();
+            draw_fish();
+            draw_birds();
+            //draw game objects
+            draw_game_objects(); //draw game entities
+            window.display();
+            window.clear();
+            if (TimeElapsed >= 1.05)
+            {
+                isAnimating = false;
+            }
+
+        }
+    }
+
     if (bailey_is_dead)
     {
         is_playing = false;

@@ -26,8 +26,7 @@ Bailey::Bailey():
     ice_speed{60.0f},
     speed_attenuater{1.5f},
     upJump_speedAtten{1.0f},
-    is_bailey_jumping{false},
-    death_frame_counter{0}
+    is_bailey_jumping{false}
 {
 
 }
@@ -291,19 +290,4 @@ float Bailey::get_right_boundary() const
 float Bailey::get_left_boundary() const
 {
     return left_boundary;
-}
-
-int Bailey::get_death_frame_counter() const
-{
-    return death_frame_counter;
-}
-
-void Bailey::reset_death_frame_counter()
-{
-    death_frame_counter = 0;
-}
-
-void Bailey::increment_death_frame_counter()
-{
-    ++death_frame_counter;
 }
