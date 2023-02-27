@@ -78,13 +78,7 @@ void Screen::run()
         process_user_inputs(deltaTime);
         if (is_playing)
         {
-            window.draw(background_sprite);
-            draw_ice_blocks();
-            draw_igloo_house();
-            draw_crabs();
-            draw_clamps();
-            draw_fish();
-            draw_birds();
+            draw_game_entities();
             //Update screen according to game play
             update_game(deltaTime); //update
             //draw game objects
@@ -397,18 +391,12 @@ void Screen::update_game_state(const float& deltaTime)
         {
             auto TimeElapsed = s_watch.elapsed_time();
             logic.animate_bailey_death(TimeElapsed,bailey_sprite);
-            window.draw(background_sprite);
-            draw_ice_blocks();
-            draw_igloo_house();
-            draw_crabs();
-            draw_clamps();
-            draw_fish();
-            draw_birds();
+            draw_game_entities();
             //draw game objects
             draw_game_objects(); //draw game entities
             window.display();
             window.clear();
-            if (TimeElapsed >= 1.05)
+            if (TimeElapsed >= 1.09)
             {
                 isAnimating = false;
             }
@@ -463,6 +451,16 @@ void Screen::load_textures()
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
 }
 
+void Screen::draw_game_entities()
+{
+    window.draw(background_sprite);
+    draw_ice_blocks();
+    draw_igloo_house();
+    draw_crabs();
+    draw_clamps();
+    draw_fish();
+    draw_birds();
+}
 
 Screen::~Screen() 
 {

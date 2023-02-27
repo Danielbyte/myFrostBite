@@ -106,6 +106,8 @@ private:
     bool isJumpingUp;
     bool isJumpingDown;
 
+    void draw_game_entities();
+
 };
 
 #endif // SCREEN_H
