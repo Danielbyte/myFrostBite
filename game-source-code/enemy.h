@@ -44,6 +44,9 @@ public:
 	void create_fish(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Fish>>&, const float&);
 	void create_birds(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Bird>>&, const float&);
 
+	//get animal per region
+	std::tuple<Animal, Animal, Animal, Animal> get_animals_in_regions() const;
+
 private:
 
 	//Regions where enemies can be possibly spawned
@@ -69,5 +72,8 @@ private:
 	void fish_in_region(vector<shared_ptr<Fish>>&);
 
 	void reset_regions();
+
+	Animal region1_animal, region2_animal, region3_animal, region4_animal;
+	void reset_animal_presence();
 };
 #endif

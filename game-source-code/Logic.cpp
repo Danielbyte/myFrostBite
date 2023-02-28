@@ -771,8 +771,7 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
 
         auto point5_offset = 29.8f;
         auto point5 = point4 - point5_offset;
-       // auto point6 = point5 + ice_patch_width;
-        if (bailey_x_pos >= point5  /* && (bailey_x_pos + bailey_width) <= point6*/)
+        if (bailey_x_pos >= point5)
         {
             plungedInWater = false;
         }

@@ -12,6 +12,7 @@ Enemy::Enemy():
 	region4Pos{506.0f},
 	gapBetweeenAnimals{120.0f}
 {
+	reset_animal_presence(); //initially, there are no animals
 	load_textures();
 }
 
@@ -28,22 +29,26 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region1Pos);
+			region1_animal = Animal::crabs;
 		}
 
 		else if (enemyType == clamp_)
 		{
 			//create clamps
 			create_crabs(crabs, crabsObj, region1Pos);
+			region1_animal = Animal::clamps;
 		}
 
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region1Pos);
+			region1_animal = Animal::fish;
 		}
 
 		else if (enemyType == bird_)
 		{
 			create_birds(birds, birdsObj, region1Pos);
+			region1_animal = Animal::birds;
 		}
 		region1 = true; //region 1 is occupied
 	}
@@ -54,22 +59,26 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region2Pos);
+			region2_animal = Animal::crabs;
 		}
 
 		else if (enemyType == clamp_)
 		{
 			//create clamps
 			create_crabs(crabs, crabsObj, region2Pos);
+			region2_animal = Animal::clamps;
 		}
 
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region2Pos);
+			region2_animal = Animal::fish;
 		}
 
 		else if (enemyType == bird_)
 		{
 			create_birds(birds, birdsObj, region2Pos);
+			region2_animal = Animal::birds;
 		}
 		region2 = true;
 	}
@@ -80,22 +89,26 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region3Pos);
+			region3_animal = Animal::crabs;
 		}
 
 		else if (enemyType == clamp_)
 		{
 			//create clamps
 			create_clamps(clamps, clampsObj, region3Pos);
+			region3_animal = Animal::clamps;
 		}
 
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region3Pos);
+			region3_animal = Animal::fish;
 		}
 
 		else if (enemyType == bird_)
 		{
 			create_birds(birds, birdsObj, region3Pos);
+			region3_animal = Animal::birds;
 		}
 		region3 = true;
 	}
@@ -106,21 +119,25 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		if (enemyType == crab_)
 		{
 			create_crabs(crabs, crabsObj,region4Pos);
+			region4_animal = Animal::crabs;
 		}
 
 		else if (enemyType == clamp_)
 		{
 			create_crabs(crabs, crabsObj, region4Pos);
+			region4_animal = Animal::clamps;
 		}
 
 		else if (enemyType == fish_)
 		{
 			create_fish(fish, fishObj, region4Pos);
+			region4_animal = Animal::fish;
 		}
 
 		else if (enemyType == bird_)
 		{
 			create_birds(birds, birdsObj, region4Pos);
+			region4_animal = Animal::birds;
 		}
 		region4 = true;
 	}
@@ -319,6 +336,8 @@ void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_
 {
 	//reset regions to be re-updated
 	reset_regions();
+	//reset  aimals in region
+	reset_animal_presence();
 	//crabs in the sea
 	if (!crabs.empty())
 	{
@@ -356,20 +375,24 @@ void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
 		if (y_pos == region1Pos && !region1)
 		{
 			region1 = true;
+			region1_animal = Animal::birds;
 		}
 
 		if (y_pos == region2Pos && !region2)
 		{
 			region2 = true;
+			region2_animal = Animal::birds;
 		}
 
 		if (y_pos == region3Pos && !region3)
 		{
 			region3 = true;
+			region3_animal = Animal::birds;
 		}
 		if (y_pos == region4Pos && !region4)
 		{
 			region4 = true;
+			region4_animal = Animal::birds;
 		}
 		++bird_ptr;
 	}
@@ -385,20 +408,24 @@ void Enemy::crabs_in_region(vector<shared_ptr<Crab>>& crabs)
 		if (y_pos == region1Pos && !region1)
 		{
 			region1 = true;
+			region1_animal = Animal::crabs;
 		}
 
 		if (y_pos == region2Pos && !region2)
 		{
 			region2 = true;
+			region2_animal = Animal::crabs;
 		}
 
 		if (y_pos == region3Pos && !region3)
 		{
 			region3 = true;
+			region3_animal = Animal::crabs;
 		}
 		if (y_pos == region4Pos && !region4)
 		{
 			region4 = true;
+			region4_animal = Animal::crabs;
 		}
 		++crab_ptr;
 	}
@@ -414,20 +441,24 @@ void Enemy::fish_in_region(vector<shared_ptr<Fish>>& fish)
 		if (y_pos == region1Pos && !region1)
 		{
 			region1 = true;
+			region1_animal = Animal::fish;
 		}
 
 		if (y_pos == region2Pos && !region2)
 		{
 			region2 = true;
+			region2_animal = Animal::fish;
 		}
 
 		if (y_pos == region3Pos && !region3)
 		{
 			region3 = true;
+			region3_animal = Animal::fish;
 		}
 		if (y_pos == region4Pos && !region4)
 		{
 			region4 = true;
+			region4_animal = Animal::fish;
 		}
 		++fish_ptr;
 	}
@@ -443,23 +474,35 @@ void Enemy::clamps_in_region(vector<shared_ptr<Clamp>>& clamps)
 		if (y_pos == region1Pos && !region1)
 		{
 			region1 = true;
+			region1_animal = Animal::clamps;
 		}
 
 		if (y_pos == region2Pos && !region2)
 		{
 			region2 = true;
+			region2_animal = Animal::clamps;
 		}
 
 		if (y_pos == region3Pos && !region3)
 		{
 			region3 = true;
+			region3_animal = Animal::clamps;
 		}
 		if (y_pos == region4Pos && !region4)
 		{
 			region4 = true;
+			region4_animal = Animal::clamps;
 		}
 		++clamp_ptr;
 	}
+}
+
+void Enemy::reset_animal_presence()
+{
+	region1_animal = Animal::none;
+	region2_animal = Animal::none;
+	region3_animal = Animal::none;
+	region4_animal = Animal::none;
 }
 
 void Enemy::reset_regions()
@@ -469,4 +512,9 @@ void Enemy::reset_regions()
 	region2 = false;
 	region3 = false;
 	region4 = false;
+}
+
+std::tuple<Animal, Animal, Animal, Animal> Enemy::get_animals_in_regions() const
+{
+	return{ region1_animal,region2_animal,region3_animal,region4_animal };
 }

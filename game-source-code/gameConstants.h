@@ -55,6 +55,7 @@ const auto water_patch_width = 29.5f;
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};
+enum class Animal {crabs, clamps, birds, fish, none};
 
 enum animals
 {
