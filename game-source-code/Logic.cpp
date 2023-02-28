@@ -749,7 +749,8 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
     auto point1 = ice_x_pos - point1_offset;
     auto point2_offset = 26.0f;
     auto point2 = (ice_x_pos + point2_offset) + ice_patch_width;
-    auto end_of_ice = ice_x_pos + ice_width - bailey_width;
+    auto EOI_offset = 16.0f; // end of ice offset
+    auto end_of_ice = ice_x_pos + ice_width - EOI_offset;
     plungedInWater = true;
     
     if (bailey_x_pos >= point1 && bailey_x_pos <= end_of_ice)
@@ -768,9 +769,10 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
             plungedInWater = false;
         }
 
-        auto point5 = point4 + 29.5f;
-        auto point6 = point5 + ice_patch_width;
-        if (bailey_x_pos >= point5 && (bailey_x_pos + bailey_width) <= point6)
+        auto point5_offset = 29.8f;
+        auto point5 = point4 - point5_offset;
+       // auto point6 = point5 + ice_patch_width;
+        if (bailey_x_pos >= point5  /* && (bailey_x_pos + bailey_width) <= point6*/)
         {
             plungedInWater = false;
         }
