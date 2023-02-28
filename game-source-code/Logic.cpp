@@ -745,25 +745,26 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
 {
     auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;
     auto bailey_x_pos = bailey_object.get_Xpos() - bailey_width_offset;
-    auto point1 = ice_x_pos + 13.0f;
-    auto point2 = point1 + (ice_patch_width - 13.0f);
+    auto point1_offset = 37.0f;
+    auto point1 = ice_x_pos - point1_offset;
+    auto point2_offset = 26.0f;
+    auto point2 = (ice_x_pos + point2_offset) + ice_patch_width;
     auto end_of_ice = ice_x_pos + ice_width - bailey_width;
     plungedInWater = true;
-
-    if (bailey_x_pos >= ice_x_pos && bailey_x_pos <= end_of_ice)
+    
+    if (bailey_x_pos >= point1 && bailey_x_pos <= end_of_ice)
     {
-        auto adjusted_point1 = point1 - 10.5f; //correction factor
-        if (bailey_x_pos >= adjusted_point1 && ((bailey_x_pos + bailey_width) <= point2))
+        if (bailey_x_pos >= point1 && ((bailey_x_pos + bailey_width) <= point2))
         {
-            std::cout << "in region1" << std::endl;
             plungedInWater = false;
         }
 
-        auto point3 = point2 + 29.5f;
-        auto point4 = point3 + ice_patch_width;
+        auto point3_offset = 26.5f;
+        auto point3 = point2 - point3_offset;
+        auto point4_offset = 50.5f;
+        auto point4 = point3 + ice_patch_width+ point4_offset;
         if (bailey_x_pos >= point3 && ((bailey_x_pos + bailey_width) <= point4))
         {
-            std::cout << "in region 2" << std::endl;
             plungedInWater = false;
         }
 
@@ -771,22 +772,22 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
         auto point6 = point5 + ice_patch_width;
         if (bailey_x_pos >= point5 && (bailey_x_pos + bailey_width) <= point6)
         {
-            std::cout << "in region 3" << std::endl;
             plungedInWater = false;
         }
 
     }
-    else
-    {
-        std::cout << "out of bounds" << std::endl;
-    }
- 
+
     if (plungedInWater)
     {
         bailey_object.set_bailey_to_dead(true);
     }
    
     
+}
+
+void Logic::drowning_bailey_animation(const float& deltaTime,Sprite& bailey_sprite)
+{
+    control_bailey.drowning_bailey(deltaTime, bailey_sprite);
 }
 
 Logic::~Logic()

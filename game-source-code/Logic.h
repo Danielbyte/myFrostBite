@@ -67,6 +67,7 @@ public:
    void animate_bailey_death(const float&,Sprite&);
 
    void check_frostbite_on_ice_patch(shared_ptr<IceBlocks>&);
+   void drowning_bailey_animation(const float&,Sprite&);
 
 private:
     int number_of_igloo_blocks;

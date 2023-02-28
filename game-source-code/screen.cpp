@@ -306,7 +306,24 @@ void Screen::update_game_sprites(const float& deltaTime)
         }
         else
         {
-            logic.bailey_object.set_bailey_to_dead(true);//frostbite should die if didn't step on ice
+            auto isAnimating = true;
+            Stopwatch s_watch;
+            logic.bailey_object.set_bailey_to_dead(true);
+            while (isAnimating)
+            {
+                auto TimeElapsed = s_watch.elapsed_time();
+                logic.drowning_bailey_animation(TimeElapsed, bailey_sprite);
+                draw_game_entities();
+                //draw game objects
+                draw_game_objects(); //draw game entities
+                window.display();
+                window.clear();
+                if (TimeElapsed >= 1.03f)
+                {
+                    isAnimating = false;
+                }
+
+            }
         }
         
     }

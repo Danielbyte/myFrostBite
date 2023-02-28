@@ -1,7 +1,8 @@
 #include "BaileyController.h"
 
 BaileyController::BaileyController():
-	frame_counter{0}
+	frame_counter{0},
+	drowningTimePerFrame{0.06f}
 {
 	load_textures();
 }
@@ -211,7 +212,74 @@ void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite
 	}
 }
 
-void BaileyController(const float& deltaTime, Sprite& bailey_sprite)
+void BaileyController::drowning_bailey(const float& deltaTime, Sprite& bailey_sprite)
 {
-
+	if (deltaTime >= 0 && deltaTime <= drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown1);
+	}
+	if (deltaTime > drowningTimePerFrame && deltaTime <= 2*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown2);
+	}
+	if (deltaTime > 2*drowningTimePerFrame && deltaTime <= 3*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown3);
+	}
+	if (deltaTime > 3*drowningTimePerFrame && deltaTime <= 4*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown4);
+	}
+	if (deltaTime > 4*drowningTimePerFrame && deltaTime <= 5*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown5);
+	}
+	if (deltaTime > 0 && deltaTime <= 6*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown6);
+	}
+	if (deltaTime > 6*drowningTimePerFrame && deltaTime <= 7*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown7);
+	}
+	if (deltaTime > 7*drowningTimePerFrame && deltaTime <= 8*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown8);
+	}
+	if (deltaTime > 8*drowningTimePerFrame && deltaTime <= 9*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown9);
+	}
+	if (deltaTime > 9*drowningTimePerFrame && deltaTime <= 10*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown10);
+	}
+	if (deltaTime > 10*drowningTimePerFrame && deltaTime <= 11*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown11);
+	}
+	if (deltaTime > 11*drowningTimePerFrame && deltaTime <= 12*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown12);
+	}
+	if (deltaTime > 12 * drowningTimePerFrame && deltaTime <= 13*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown13);
+	}
+	if (deltaTime > 13 * drowningTimePerFrame && deltaTime <= 14*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown14);
+	}
+	if (deltaTime > 14 * drowningTimePerFrame && deltaTime <= 15*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown15);
+	}
+	if (deltaTime > 15 * drowningTimePerFrame && deltaTime <= 16*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown16);
+	}
+	if (deltaTime > 16 * drowningTimePerFrame && deltaTime <= 17*drowningTimePerFrame)
+	{
+		bailey_sprite.setTexture(drown17);
+	}
 }

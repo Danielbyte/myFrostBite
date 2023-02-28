@@ -36,6 +36,7 @@ private:
 	void reset_frame();
 	int frame_counter;
 	bool isBaileyMoving;
+	float drowningTimePerFrame; //constant to time the animation of drowning frostbite
 };
 #endif
 
