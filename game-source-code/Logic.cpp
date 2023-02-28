@@ -258,6 +258,14 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
 
                 (*ice_iter) -> set_to_blue(true);
                 (*ice_iter) -> set_to_white(false);
+
+                check_frostbite_on_ice_patch(*ice_iter);
+                
+                if (plungedInWater)
+                {
+                    ice_collision_batch2 = false;
+                    return;
+                }
             }
 
             if (isCollided && !is_bailey_moving)
