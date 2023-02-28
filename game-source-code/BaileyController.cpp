@@ -62,6 +62,24 @@ void BaileyController::load_textures()
 	death13_bailey.loadFromFile("resources/death13_bailey.png");
 	death14_bailey.loadFromFile("resources/death14_bailey.png");
 
+	//Textures to animate drowning frostbite
+	drown1.loadFromFile("resources/drown1.png");
+	drown2.loadFromFile("resources/drown2.png");
+	drown3.loadFromFile("resources/drown3.png");
+	drown4.loadFromFile("resources/drown4.png");
+	drown5.loadFromFile("resources/drown5.png");
+	drown6.loadFromFile("resources/drown6.png");
+	drown7.loadFromFile("resources/drown7.png");
+	drown8.loadFromFile("resources/drown8.png");
+	drown9.loadFromFile("resources/drown9.png");
+	drown10.loadFromFile("resources/drown10.png");
+	drown11.loadFromFile("resources/drown11.png");
+	drown12.loadFromFile("resources/drown12.png");
+	drown13.loadFromFile("resources/drown13.png");
+	drown14.loadFromFile("resources/drown14.png");
+	drown15.loadFromFile("resources/drown15.png");
+	drown16.loadFromFile("resources/drown16.png");
+	drown17.loadFromFile("resources/drown17.png");
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -191,4 +209,9 @@ void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite
 	{
 		bailey_sprite.setTexture(death14_bailey);
 	}
+}
+
+void BaileyController(const float& deltaTime, Sprite& bailey_sprite)
+{
+
 }

@@ -20,10 +20,15 @@ public:
 		death7_bailey, death8_bailey, death9_bailey, death10_bailey, death11_bailey, death12_bailey,
 		death13_bailey, death14_bailey;
 
+	//Textures when bailey drowns
+	Texture drown1, drown2, drown3, drown4, drown5, drown6, drown7, drown8, drown9, drown10, drown11,
+		drown12, drown13, drown14, drown15, drown16, drown17;
+
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);
 	void animate_bailey(Bailey&, Sprite&);
-	void bailey_death(const float&, Sprite&);
+	void bailey_death(const float&, Sprite&); //when frostbite collides with bear
+	void drowning_bailey(const float&, Sprite&);
 	void load_textures();
 
 private:
