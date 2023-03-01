@@ -12,8 +12,6 @@ public:
 
     //Vectors for game objects
     vector<shared_ptr<Sprite>> ice_blocks_sprites;
-    vector<shared_ptr<Sprite>> ice_blocks_sprites2;
-    bool can_create_new_batch_of_ice_blocks;
     void initialize_igloo();
 
     //Enemy sprite vectors
@@ -68,7 +66,7 @@ private:
     Sprite ice_block_sprite2;
 
     Texture igloo_texture;
-    vector<shared_ptr<Sprite>> Igloo_house_sprites;
+    shared_ptr<Sprite> Igloo_house_sprite = std::make_shared<Sprite>(Sprite());
     void draw_igloo_house();
 
     Texture bear_texture;
@@ -85,13 +83,6 @@ private:
 
     //Update game
     void update_game(const float&);
-
-    //Create a new batch of ice blocks
-    void create_ice_block_batch(vector<shared_ptr<Sprite>>&, int);
-
-    bool new_ice_created;
-    int vector1;
-    int vector2;
 
     void update_game_state(const float&);
 

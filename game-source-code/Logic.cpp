@@ -72,7 +72,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
 
         //create third row of ice
         _pos3.x = 550.0f;
-        _pos3.y = 468.0f;
+        _pos3.y = 469.0f;
         shared_ptr<IceBlocks>obj_3(new IceBlocks(_pos3));
         obj_3->set_region(IceRegion::R3);
         obj_3->set_direction(IceDirection::L);
@@ -100,204 +100,30 @@ bool Logic::Is_bailey_moving() const
     return is_bailey_moving;
 }
 
-void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites,Sprite& bailey_sprite,
+void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite& bailey_sprite,
     const float& deltaTime)
 {
+    auto isBaileyInSafeZone = bailey_object.get_if_bailey_in_safe_zone();
     ice_collision_batch1 = true;
-    /*
-    ice_collision_batch1 = false;
-    ice_collision_batch2 = false;
-
-    if (!ice_block_objects1.empty())
+    //if frostbite bailey is not in the safe zone, check collisions with ice
+    if (!isBaileyInSafeZone)
     {
-        auto collision_counter = 0;
-        vector2f ice_position;
-        vector2f bailey_position;
-        auto ice_iter = ice_block_objects1.begin();
-        while(ice_iter != ice_block_objects1.end())
+        auto iceObj_iter = ice_block_objects.begin();
+        while (iceObj_iter != ice_block_objects.end())
         {
+            vector2f bailey_pos;
+            auto ice_pos = (*iceObj_iter)->get_position();
+            bailey_pos.x = bailey_object.get_Xpos();
+            bailey_pos.y = bailey_object.get_Ypos();
 
-            bailey_position.x = bailey_object.get_Xpos() - bailey_width_offset;
-            bailey_position.y = bailey_object.get_Ypos() - bailey_height_offset;
-            //std::cout << "Y position:" << bailey_position.y << std::endl;
-            ice_position.x =((*ice_iter) -> get_position()).x - ice_width_offset;
-            ice_position.y =((*ice_iter) -> get_position()).y - ice_height_offset;
-
-            //check if frostbite successfully stepped on first batch of ice
-            auto isCollided = collision.bailey_ice_collision(bailey_position, bailey_width, bailey_height,
-                ice_position, ice_width, ice_height);
-            if (collision_counter == 0 && isCollided)
-            {
-                ice_collision_batch1 = isCollided;
-                ++collision_counter;
-            }
+            auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
             if (isCollided)
             {
-                //call build igloo function here
-                auto isWhite = (*ice_iter) -> get_if_white();
-                if (isWhite)
-                {
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> add_igloo_blocks();
-                    update_igloo(Igloo_house_sprites);
-
-                }
-                (*ice_iter) -> set_to_blue(true);
-                (*ice_iter) -> set_to_white(false);
-                
-                //frostbite should only move along a patch of ice, otherwise drown
-                check_frostbite_on_ice_patch(*ice_iter);
-                if (plungedInWater)
-                { 
-                    ice_collision_batch1 = false;                  
-                    return; 
-                }
-
+                std::cout << "Bailey on ice" << std::endl;
             }
-
-            if (isCollided && !is_bailey_moving)
-            {
-                auto ice_moving_left = (*ice_iter) -> get_if_left();
-                if (!ice_moving_left)
-                {
-                    //auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,true,bailey_sprite,
-                        deltaTime);
-                }
-                else
-                {
-                   // auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right,true,bailey_sprite,
-                        deltaTime);
-                }
-
-            }
-            auto ptr = igloo_object.begin();
-            number_of_igloo_blocks = (*ptr)->get_number_of_igloo_blocks();
-            if (number_of_igloo_blocks == 14)
-            {
-                //just set blocks of ice to blue
-                set_all_ice_batches_to_blue(ice_block_objects1);
-            }
-
-            if (number_of_igloo_blocks < 14)
-            {
-                check_for_blues(ice_block_objects1);
-            }
-            ++ice_iter;
+            ++iceObj_iter;
         }
     }
-
-    //We want to check if the other vector of ice has a blue.
-    //If it has a blue, change row in respective batch to blue.
-    //Check if it is not empty first
-    if(!ice_block_objects2.empty())
-    {
-        check_for_blues_on_other_ice_batch(ice_block_objects1,ice_block_objects2);
-        //check_for_blues_on_other_ice_batch(ice_block_objects2,ice_block_objects1);
-    }
-
-    auto ptr = igloo_object.begin();
-    number_of_igloo_blocks = (*ptr)->get_number_of_igloo_blocks();
-
-    if(number_of_igloo_blocks < 14)
-    {
-        check_for_blues(ice_block_objects1);
-    }
-
-    if (!ice_block_objects2.empty())
-    {
-        auto collission_counter = 0;
-        vector2f ice_position;
-        vector2f bailey_position;
-        auto ice_iter = ice_block_objects2.begin();
-        while(ice_iter != ice_block_objects2.end())
-        {
-
-            bailey_position.x = bailey_object.get_Xpos() - bailey_width_offset;
-            bailey_position.y = bailey_object.get_Ypos() - bailey_height_offset;
-
-            ice_position.x =((*ice_iter) -> get_position()).x - ice_width_offset;
-            ice_position.y =((*ice_iter) -> get_position()).y - ice_height_offset;
-
-            //check if frostbite suceessfully stepped on second batch of ice
-            auto isCollided = collision.bailey_ice_collision(bailey_position, bailey_width, bailey_height,
-                ice_position, ice_width, ice_height);
-            if (collission_counter == 0 && isCollided)
-            {
-                ice_collision_batch2 = isCollided;
-                ++collission_counter;
-            }
-
-            if(isCollided)
-            {
-                //call the build igloo function here
-                auto isWhite = (*ice_iter) -> get_if_white();
-                if (isWhite)
-                {
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> add_igloo_blocks();
-                    update_igloo(Igloo_house_sprites);
-                }
-
-                (*ice_iter) -> set_to_blue(true);
-                (*ice_iter) -> set_to_white(false);
-
-                check_frostbite_on_ice_patch(*ice_iter);
-                
-                if (plungedInWater)
-                {
-                    ice_collision_batch2 = false;
-                    return;
-                }
-            }
-
-            if (isCollided && !is_bailey_moving)
-            {
-                auto ice_moving_left = (*ice_iter) -> get_if_left();
-                if (!ice_moving_left)
-                {
-                   // auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Left,true,bailey_sprite,
-                        deltaTime);
-                }
-                else
-                {
-                    //auto new_bailey_speed = (*ice_iter) -> get_ice_speed();
-                    bailey_object.set_bailey_movement(Direction::Right,true,bailey_sprite,
-                        deltaTime);
-                }
-
-            }
-            
-            if (number_of_igloo_blocks == 14)
-            {
-                //just set blocks of ice to blue
-                set_all_ice_batches_to_blue(ice_block_objects2);
-            }
-
-            if(number_of_igloo_blocks < 14)
-            {
-                check_for_blues(ice_block_objects2);
-            }
-            ++ice_iter;
-        }
-
-    }
-
-    //We want to check if the other vector of ice has a blue.
-    //If it has a blue, change row in respective batch to blue.
-    if(!ice_block_objects1.empty())
-    {
-        check_for_blues_on_other_ice_batch(ice_block_objects2,ice_block_objects1);
-        //check_for_blues_on_other_ice_batch(ice_block_objects1,ice_block_objects2);
-    }
-
-    if(number_of_igloo_blocks < 14)
-    {
-        check_for_blues(ice_block_objects2);
-    }
-    */
 }
 
 void Logic::update_igloo(vector<shared_ptr<Sprite>>& Igloo_sprites)

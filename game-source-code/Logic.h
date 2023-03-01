@@ -36,7 +36,7 @@ public:
    std::tuple<vector2f,vector2f,vector2f,vector2f> create_ice_block_objects();
    bool Is_bailey_moving() const;
 
-   void bailey_and_ice_collision(vector<shared_ptr<Sprite>>&,Sprite&,const float&);
+   void bailey_and_ice_collision(shared_ptr<Sprite>&,Sprite&,const float&);
 
    void update_igloo(vector<shared_ptr<Sprite>>&);
    bool mark_if_igloo_is_complete();

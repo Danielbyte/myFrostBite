@@ -1,14 +1,10 @@
 #include "screen.h"
 
 Screen::Screen():
-    can_create_new_batch_of_ice_blocks{false},
     window(VideoMode(windowWidth, windowHeight), "Frostbite"),
     is_playing{false},
     is_game_over{false},
     quit_game{false},
-    new_ice_created{false},
-    vector1{1},
-    vector2{2},
     collided1{false},
     collided2{false},
     isJumping{false}, //bailey is initially at standstill
@@ -121,7 +117,7 @@ void Screen::process_user_inputs(const float& deltaTime)
                auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
                if (!bailey_in_safe_zone && (igloo_blocks > 0 && igloo_blocks < 14))
                {
-                   logic.reverse_ice_direction(Igloo_house_sprites);
+                  // logic.reverse_ice_direction(Igloo_house_sprite);
                }
             }
 
@@ -196,24 +192,13 @@ void Screen::draw_game_objects()
 
 void Screen::draw_igloo_house()
 {
-    if(!Igloo_house_sprites.empty())
-    {
-        for(auto& igloo_blocks : Igloo_house_sprites)
-        {
-            window.draw(*igloo_blocks);
-        }
-    }
+     window.draw(*Igloo_house_sprite);
 }
 
 void Screen::draw_ice_blocks()
 {
 //Draw moving ice blocks
     for(auto& ice_blocks : ice_blocks_sprites)
-    {
-        window.draw(*ice_blocks);
-    }
-
-    for(auto& ice_blocks : ice_blocks_sprites2)
     {
         window.draw(*ice_blocks);
     }
@@ -280,26 +265,11 @@ void Screen::update_game_sprites(const float& deltaTime)
     logic.frostbite_bear_collisions();
     logic.updateBaileyAndSeaAnimalCollisioons(crabs, clamps, birds, fish);
    
-    if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
-    {
-        create_ice_block_batch(ice_blocks_sprites,vector1);
-    }
-
-    if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites2.size() == 0)
-    {
-        create_ice_block_batch(ice_blocks_sprites2, vector2);
-    }
-
-    if (ice_blocks_sprites2.size() != 0)
-    {
-        logic.update_ice(ice_blocks_sprites2, deltaTime);
-    }
-
     //only update collisions if frostbite is not in safe zone
     auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
     {
-        logic.bailey_and_ice_collision(Igloo_house_sprites, bailey_sprite, deltaTime);
+        logic.bailey_and_ice_collision(Igloo_house_sprite, bailey_sprite, deltaTime);
         auto[collision1,collision2] = logic.get_collisions();
         if (collision1 || collision2)
         {
@@ -359,38 +329,6 @@ void Screen::create_ice_blocks()
     ice_blocks_sprites.push_back(ice_sprite4);
 }
 
-//This function will create batch of ice blocks from the second batch until game ends
-//Violation of dry principle and needs fixing
-void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
-{
-    /*/ice_sprites.clear();
-    auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
-    ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
-    ice_sprite1 -> setTexture(ice_block_texture2);
-    ice_sprite1 -> setPosition(960.0f, 305.0f);
-    ice_sprites.push_back(ice_sprite1);
-
-    auto ice_sprite2 = std::make_shared<Sprite>(Sprite());
-    ice_sprite2 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
-    ice_sprite2 -> setTexture(ice_block_texture2);
-    ice_sprite2 -> setPosition(-160.0f, 387.0f);
-    ice_sprites.push_back(ice_sprite2);
-
-    auto ice_sprite3 = std::make_shared<Sprite>(Sprite());
-    ice_sprite3 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
-    ice_sprite3 -> setTexture(ice_block_texture2);
-    ice_sprite3 -> setPosition(960.0f, 469.0f);
-    ice_sprites.push_back(ice_sprite3);
-
-    auto ice_sprite4 = std::make_shared<Sprite>(Sprite());
-    ice_sprite4 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
-    ice_sprite4 -> setTexture(ice_block_texture2);
-    ice_sprite4 -> setPosition(-160.0f, 551.0f);
-    ice_sprites.push_back(ice_sprite4);
-
-    new_ice_created = true;
-    logic.create_ice_block_objects(ice_sprites,vector_);*/
-}
 
 void Screen::update_game_state(const float& deltaTime)
 {
@@ -449,11 +387,9 @@ void Screen::update_game_state(const float& deltaTime)
 void Screen::initialize_igloo()
 {
     auto position = logic.get_igloo_position();
-    auto ptr = std::make_shared<Sprite>(Sprite());
-    ptr ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-    ptr -> setTexture(igloo_texture);
-    ptr -> setPosition(position.x, position.y);
-    Igloo_house_sprites.push_back(ptr);
+    Igloo_house_sprite ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
+    Igloo_house_sprite -> setTexture(igloo_texture);
+    Igloo_house_sprite -> setPosition(position.x, position.y);
 }
 
 void Screen::load_textures()
@@ -485,8 +421,6 @@ Screen::~Screen()
 {
     //Free memory
     ice_blocks_sprites.clear();
-    ice_blocks_sprites2.clear();
-    Igloo_house_sprites.clear();
     crabs.clear();
     clamps.clear();
     birds.clear();
