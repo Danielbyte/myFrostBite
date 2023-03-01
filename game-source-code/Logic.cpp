@@ -844,6 +844,7 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 {
     auto fish_obj_iter = fish.begin();
     auto fish_sprite_iter = fish_sprites.begin();
+    Stopwatch watch;
     while (fish_obj_iter != fish.end())
     {
         auto fish_pos = (*fish_obj_iter)->get_position();
@@ -855,8 +856,14 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 
         if (isCollided)
         {
+            auto TimeElapsed = watch.elapsed_time();
             fish.erase(fish_obj_iter);
             fish_sprites.erase(fish_sprite_iter);
+            while (TimeElapsed < 0.09f)
+            {
+                TimeElapsed = watch.elapsed_time();
+            }
+            watch.restart_timer();
             return;
         }
         ++fish_obj_iter;
@@ -879,7 +886,6 @@ void Logic::bailey_clamp_collision(vector<shared_ptr<Sprite>>& clamp_sprites)
 
         if (isCollided)
         {
-            std::cout << "collided with clamp" << std::endl;
         }
         ++clamp_obj_iter;
         ++clamp_sprite_iter;
@@ -901,7 +907,6 @@ void Logic::bailey_crab_collision(vector<shared_ptr<Sprite>>& crab_sprites)
 
         if (isCollided)
         {
-            std::cout << "collided with crab" << std::endl;
         }
         ++crab_obj_iter;
         ++crab_sprite_iter;
@@ -923,7 +928,6 @@ void Logic::bailey_bird_collision(vector<shared_ptr<Sprite>>& bird_sprites)
 
         if (isCollided)
         {
-            std::cout << "collided with bird" << std::endl;
         }
         ++bird_obj_iter;
         ++bird_sprite_iter;
