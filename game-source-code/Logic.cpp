@@ -45,72 +45,56 @@ void Logic::update_bailey(Sprite& bailey_sprite)
     control_bailey.animate_bailey(bailey_object, bailey_sprite);
 }
 
-void Logic::create_ice_block_objects(vector<shared_ptr<Sprite>>& ice_sprites,const int& vector_)
+std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects()
 {
-    auto ice_sprite_iter = ice_sprites.begin();
-    while (ice_sprite_iter != ice_sprites.end())
-    {
-        if (ice_block_index == 0 || ice_block_index == 2)
-        {
-            shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
-            pos = (*ice_sprite_iter) ->getPosition();
-            //ice_object_ptr -> set_position(pos);
-            set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
-            ice_object_ptr -> set_level(ice_block_index);
-            if(vector_ == 1)
-            {
-                ice_block_objects1.push_back(ice_object_ptr);
-            }
-            else if (vector_ == 2)
-            {
-                ice_block_objects2.push_back(ice_object_ptr);
-            }
-        }
-        else if (ice_block_index == 1 || ice_block_index == 3)
-        {
-            shared_ptr<IceBlocks>ice_object_ptr(new IceBlocks);
-            pos = (*ice_sprite_iter) ->getPosition();
-            //ice_object_ptr -> set_position(pos);
-            //call the get direction function here
-            set_ice_direction(vector_, ice_block_index, ice_object_ptr,(*ice_sprite_iter));
-            ice_object_ptr -> set_level(ice_block_index);
-            if (vector_ == 1)
-            {
-                ice_block_objects1.push_back(ice_object_ptr);
-            }
-            else if (vector_ == 2)
-            {
-                ice_block_objects2.push_back(ice_object_ptr);
-            }
-        }
-        //std::cout << ice_block_index <<std::endl;
-        ++ice_block_index;
-        ++ice_sprite_iter;
+    auto noIceBlocks = ice_block_objects.empty();//check if there are no ices at present
+    vector2f _pos1;
+    vector2f _pos2;
+    vector2f _pos3;
+    vector2f _pos4;
+
+    if (noIceBlocks)
+    {    
+        _pos1.x = 550.0f;
+        _pos1.y = 305.0f;
+        shared_ptr<IceBlocks>obj_1(new IceBlocks(_pos1));
+        ice_block_objects.push_back(obj_1);
+
+        //Create second row of ice
+        _pos2.x = 250.0f;
+        _pos2.y = 387.0f;
+        shared_ptr<IceBlocks>obj_2(new IceBlocks(_pos2));
+        ice_block_objects.push_back(obj_2);
+
+        //create third row of ice
+        _pos3.x = 550.0f;
+        _pos3.y = 468.0f;
+        shared_ptr<IceBlocks>obj_3(new IceBlocks(_pos3));
+        ice_block_objects.push_back(obj_3);
+
+        //create fourth row of ice
+        _pos4.x = 250.0f;
+        _pos4.y = 551.0f;
+        shared_ptr<IceBlocks>obj_4(new IceBlocks(_pos4));
+        ice_block_objects.push_back(obj_4);
     }
 
-    if ((!ice_block_objects2.empty()) && vector_ == 1)
-    {
-        check_for_blues_on_other_ice_batch(ice_block_objects2, ice_block_objects1);
-    }
-
-    if ((!ice_block_objects1.empty()) && vector_ == 2)
-    {
-        check_for_blues_on_other_ice_batch(ice_block_objects1, ice_block_objects2);
-    }
-
-    ice_block_index = 0;
+    return { _pos1,_pos2,_pos3,_pos4 };
 }
 
-void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_blocks, bool& can_create_new_batch, int vector_)
+void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_blocks, bool& can_create_new_batch,
+    const int& vector_, const float& deltaTime)
 {
-    if (vector_ == 1)
+   /* if (vector_ == 1)
     {
-        ice_block_controller.update_iceblocks(ice_block_objects1, ice_blocks, can_create_new_batch);
+        ice_block_controller.update_iceblocks(ice_block_objects1, ice_blocks,
+            can_create_new_batch, deltaTime);
     }
     if (vector_ == 2)
     {
-        ice_block_controller.update_iceblocks(ice_block_objects2, ice_blocks, can_create_new_batch);
-    }
+        ice_block_controller.update_iceblocks(ice_block_objects2, ice_blocks,
+            can_create_new_batch, deltaTime);
+    }*/
 }
 
 bool Logic::Is_bailey_moving() const
@@ -121,6 +105,7 @@ bool Logic::Is_bailey_moving() const
 void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites,Sprite& bailey_sprite,
     const float& deltaTime)
 {
+    /*
     ice_collision_batch1 = false;
     ice_collision_batch2 = false;
 
@@ -313,6 +298,7 @@ void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_spr
     {
         check_for_blues(ice_block_objects2);
     }
+    */
 }
 
 void Logic::update_igloo(vector<shared_ptr<Sprite>>& Igloo_sprites)
@@ -421,6 +407,7 @@ bool Logic::mark_if_igloo_is_complete()
 
 void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
 {
+    /*
     if(!ice_block_objects1.empty())
     {
         vector2f ice_position;
@@ -500,6 +487,7 @@ void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
         }
 
     }
+    */
 }
 
 void Logic::build_igloo()
@@ -525,6 +513,7 @@ int Logic::get_number_of_igloo_blocks()
 void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_ptr<IceBlocks>& ptr,
     shared_ptr<Sprite>& ptr2)
 {
+    /*
     if (vector_ == 1)
     {
         if (!ice_block_objects2.empty())
@@ -601,6 +590,7 @@ void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_p
             ptr->set_if_left(true);
         }
     }
+    */
 }
 
 //This tuple function returns variable that mark if frostbite successfully stepped on ice
@@ -844,7 +834,6 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 {
     auto fish_obj_iter = fish.begin();
     auto fish_sprite_iter = fish_sprites.begin();
-    Stopwatch watch;
     while (fish_obj_iter != fish.end())
     {
         auto fish_pos = (*fish_obj_iter)->get_position();
@@ -856,14 +845,9 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 
         if (isCollided)
         {
-            auto TimeElapsed = watch.elapsed_time();
+            
             fish.erase(fish_obj_iter);
             fish_sprites.erase(fish_sprite_iter);
-            while (TimeElapsed < 0.09f)
-            {
-                TimeElapsed = watch.elapsed_time();
-            }
-            watch.restart_timer();
             return;
         }
         ++fish_obj_iter;
@@ -937,8 +921,7 @@ void Logic::bailey_bird_collision(vector<shared_ptr<Sprite>>& bird_sprites)
 Logic::~Logic()
 {
     //House keeping, free some memory
-    ice_block_objects1.clear();
-    ice_block_objects2.clear();
+    ice_block_objects.clear();
     igloo_object.clear();
     crabs.clear();
     clamps.clear();

@@ -5,7 +5,8 @@
 class IceBlockController {
 public:
     IceBlockController();
-    void update_iceblocks(vector<shared_ptr<IceBlocks>>&, vector<shared_ptr<Sprite>>&, bool&);
+    void update_iceblocks(vector<shared_ptr<IceBlocks>>&, vector<shared_ptr<Sprite>>&, 
+        bool&,const float&);
     Texture blue_ice_texture;
     Texture white_ice_texture;
     void update_ice_texture(vector<shared_ptr<Sprite>>&, vector<shared_ptr<IceBlocks>>&);

@@ -8,6 +8,16 @@ IceBlocks::IceBlocks():
     level{NULL}
     {}
 
+IceBlocks::IceBlocks(const vector2f& pos_):
+    ice_speed{ 1 },
+    isWhite{ true },
+    isBlue{ false },
+    isLeft{ false },
+    level{ NULL }
+{
+    pos = pos_;
+}
+
 void IceBlocks::set_position(vector2f position) {
 pos = position;
 return;

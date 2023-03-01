@@ -30,10 +30,10 @@ public:
 
    //Ice block logic
    //void create_ice_blocks(vector<shared_ptr<Sprite>>&);
-   void update_ice(vector<shared_ptr<Sprite>>&, bool&, int);
-   vector <shared_ptr<IceBlocks>>ice_block_objects1;
-   vector <shared_ptr<IceBlocks>>ice_block_objects2;
-   void create_ice_block_objects(vector<shared_ptr<Sprite>>&,const int&);
+   void update_ice(vector<shared_ptr<Sprite>>&,bool&, const int&, const float&);
+   vector <shared_ptr<IceBlocks>>ice_block_objects;
+
+   std::tuple<vector2f,vector2f,vector2f,vector2f> create_ice_block_objects();
    bool Is_bailey_moving() const;
 
    void bailey_and_ice_collision(vector<shared_ptr<Sprite>>&,Sprite&,const float&);

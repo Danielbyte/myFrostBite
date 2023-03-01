@@ -274,7 +274,7 @@ void Screen::update_game_sprites(const float& deltaTime)
 {
     logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
     logic.update_bailey(bailey_sprite);
-    logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1);
+    logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1, deltaTime);
     logic.update_bear(bear_sprite, deltaTime);
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
     logic.frostbite_bear_collisions();
@@ -292,7 +292,7 @@ void Screen::update_game_sprites(const float& deltaTime)
 
     if (ice_blocks_sprites2.size() != 0)
     {
-        logic.update_ice(ice_blocks_sprites2, can_create_new_batch_of_ice_blocks, vector2);
+        logic.update_ice(ice_blocks_sprites2, can_create_new_batch_of_ice_blocks, vector2,deltaTime);
     }
 
     //only update collisions if frostbite is not in safe zone
@@ -332,38 +332,38 @@ void Screen::update_game_sprites(const float& deltaTime)
 
 void Screen::create_ice_blocks()
 {
+    auto [pos1, pos2, pos3, pos4] = logic.create_ice_block_objects();
+
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite1 -> setTexture(ice_block_texture);
-    ice_sprite1 -> setPosition(550.0f, 305.0f);
+    ice_sprite1 -> setPosition(pos1);
     ice_blocks_sprites.push_back(ice_sprite1);
 
     auto ice_sprite2 = std::make_shared<Sprite>(Sprite());
     ice_sprite2 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite2 -> setTexture(ice_block_texture);
-    ice_sprite2 -> setPosition(250.0f, 387.0f);
+    ice_sprite2 -> setPosition(pos2);
     ice_blocks_sprites.push_back(ice_sprite2);
 
     auto ice_sprite3 = std::make_shared<Sprite>(Sprite());
     ice_sprite3 -> setOrigin(ice_width/2.0f,ice_height/2.0f);
     ice_sprite3 -> setTexture(ice_block_texture);
-    ice_sprite3 -> setPosition(550.0f, 469.0f);
+    ice_sprite3 -> setPosition(pos3);
     ice_blocks_sprites.push_back(ice_sprite3);
 
     auto ice_sprite4 = std::make_shared<Sprite>(Sprite());
     ice_sprite4 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite4 -> setTexture(ice_block_texture);
-    ice_sprite4 -> setPosition(250.0f, 551.0f);
+    ice_sprite4 -> setPosition(pos4);
     ice_blocks_sprites.push_back(ice_sprite4);
-
-    logic.create_ice_block_objects(ice_blocks_sprites, vector1);
 }
 
 //This function will create batch of ice blocks from the second batch until game ends
 //Violation of dry principle and needs fixing
 void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int vector_)
 {
-    //ice_sprites.clear();
+    /*/ice_sprites.clear();
     auto ice_sprite1 = std::make_shared<Sprite>(Sprite());
     ice_sprite1 -> setOrigin(ice_width/2.0f, ice_height/2.0f);
     ice_sprite1 -> setTexture(ice_block_texture2);
@@ -389,7 +389,7 @@ void Screen::create_ice_block_batch(vector<shared_ptr<Sprite>>& ice_sprites, int
     ice_sprites.push_back(ice_sprite4);
 
     new_ice_created = true;
-    logic.create_ice_block_objects(ice_sprites,vector_);
+    logic.create_ice_block_objects(ice_sprites,vector_);*/
 }
 
 void Screen::update_game_state(const float& deltaTime)

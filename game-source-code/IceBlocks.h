@@ -6,10 +6,7 @@
 class IceBlocks {
 public:
     IceBlocks();
-    //Set ice block movements
-    //void move_left();
-    //void move_right();
-    //get ice block movements
+    IceBlocks(const vector2f&);
     vector2f get_position() const;
 
     //change ice block to blue if it has been jumped on
