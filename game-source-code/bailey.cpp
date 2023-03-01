@@ -26,9 +26,13 @@ Bailey::Bailey():
     ice_speed{60.0f},
     speed_attenuater{1.5f},
     upJump_speedAtten{1.0f},
-    is_bailey_jumping{false}
+    is_bailey_jumping{false},
+    Region1{281.0f},
+    Region2{363.0f},
+    Region3{445.0f},
+    Region4{527.0f}
 {
-
+    bailey_region = BaileyRegion::unknown; //bailey initially not in any of the four regions
 }
 
 void Bailey::set_bailey_movement(const Direction& dir,
@@ -52,11 +56,6 @@ void Bailey::set_bailey_movement(const Direction& dir,
             {
                 x_position = left_boundary;
                 bailey_sprite.setPosition(x_position,y_position);
-               /* if (!safe_zone)
-                {
-                    is_dead = true;
-                }*/
-
             }
             break;
 
@@ -69,10 +68,6 @@ void Bailey::set_bailey_movement(const Direction& dir,
             {
                 x_position = right_boundary;
                 bailey_sprite.setPosition(x_position, y_position);
-                /*if (!safe_zone)
-                {
-                    is_dead = true;
-                }*/
             }
             break;
         //default:
@@ -113,10 +108,6 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
         {
             x_position = right_boundary;
             player_sprite.setPosition(x_position, y_position);
-           // if (!safe_zone)
-           // {
-           //     is_dead = true;
-           // }
         }
     }
 
@@ -136,11 +127,6 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
         {
             x_position = left_boundary;
             player_sprite.setPosition(x_position, y_position);
-
-           // if (!safe_zone)
-           // {
-                //is_dead = true;
-           // }
         }
     }
 }
@@ -224,6 +210,7 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
         isJumping = false;//frostbite has stepped on ice row or drowned
         isJumpingDown = false;
         is_bailey_jumping = false;
+        update_bailey_region();
     }
 }
 
@@ -246,6 +233,7 @@ void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float&
             isJumping = false;
             isJumpingUp = false;
             is_bailey_jumping = false;
+            update_bailey_region();
         }
     }
 
@@ -290,4 +278,37 @@ float Bailey::get_right_boundary() const
 float Bailey::get_left_boundary() const
 {
     return left_boundary;
+}
+
+void Bailey::update_bailey_region()
+{
+    if (y_position == Region1)
+    {
+        bailey_region = BaileyRegion::region1;
+    }
+
+    if (y_position == Region2)
+    {
+        bailey_region = BaileyRegion::region2;
+    }
+
+    if (y_position == Region3)
+    {
+        bailey_region = BaileyRegion::region3;
+    }
+
+    if (y_position == Region4)
+    {
+        bailey_region = BaileyRegion::region4;
+    }
+
+    if (y_position <= safe_zone_boundary || y_position > Region4)
+    {
+        bailey_region = BaileyRegion::unknown;
+    }
+}
+
+BaileyRegion Bailey::get_bailey_region() const
+{
+    return bailey_region;
 }

@@ -69,6 +69,14 @@ public:
    void check_frostbite_on_ice_patch(shared_ptr<IceBlocks>&);
    void drowning_bailey_animation(const float&,Sprite&);
 
+   //frostbite bailey with sea animals
+   void updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+   void bailey_fish_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Fish>>&);
+   void bailey_bird_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Bird>>&);
+   void bailey_clamp_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Clamp>>&);
+   void bailey_crab_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&);
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;

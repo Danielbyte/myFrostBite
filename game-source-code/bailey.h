@@ -4,6 +4,8 @@
 #include "SfmlLibrary.h"
 #include <cstdlib>
 
+enum class BaileyRegion { region1, region2, region3, region4, unknown };
+
 class Bailey {
 public:
     Bailey();
@@ -40,6 +42,9 @@ public:
     float get_left_boundary() const;
     float get_right_boundary() const;
 
+    BaileyRegion get_bailey_region() const;
+    void update_bailey_region();
+
 private:
     void calibrate(const float&);
     float distance_between_iceRows;
@@ -74,5 +79,12 @@ private:
     float speed_attenuater;
     float upJump_speedAtten; //control the speed at which frostbite jumps up
     bool is_bailey_jumping;
+
+    //regions
+    BaileyRegion bailey_region;
+    float Region1;
+    float Region2;
+    float Region3;
+    float Region4;
 };
 #endif // BAILEY_H
