@@ -72,10 +72,10 @@ public:
    //frostbite bailey with sea animals
    void updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
-   void bailey_fish_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Fish>>&);
-   void bailey_bird_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Bird>>&);
-   void bailey_clamp_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Clamp>>&);
-   void bailey_crab_collision(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Crab>>&);
+   void bailey_fish_collision(vector<shared_ptr<Sprite>>&);
+   void bailey_bird_collision(vector<shared_ptr<Sprite>>&);
+   void bailey_clamp_collision(vector<shared_ptr<Sprite>>&);
+   void bailey_crab_collision(vector<shared_ptr<Sprite>>&);
 
 private:
     int number_of_igloo_blocks;

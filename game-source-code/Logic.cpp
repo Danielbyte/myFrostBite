@@ -782,13 +782,44 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
     {
         bailey_object.set_bailey_to_dead(true);
     }
-   
-    
 }
 
 void Logic::drowning_bailey_animation(const float& deltaTime,Sprite& bailey_sprite)
 {
     control_bailey.drowning_bailey(deltaTime, bailey_sprite);
+}
+
+void Logic::updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>& crab_sprites,
+    vector<shared_ptr<Sprite>>& clamp_sprites, vector<shared_ptr<Sprite>>& bird_sprites,
+    vector<shared_ptr<Sprite>>& fish_sprites)
+{
+    //AIR -> Animal In Region
+    auto [AIR1, AIR2, AIR3, AIR4] = enemy.get_animals_in_regions();
+    auto bailey_region = bailey_object.get_bailey_region();
+    if (AIR1 == Animal::fish && bailey_region == BaileyRegion::region1)
+    {
+        bailey_fish_collision(fish_sprites);
+    }
+}
+
+void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
+{
+    auto fish_obj_iter = fish.begin();
+    auto fish_sprite_iter = fish_sprites.begin();
+    while (fish_obj_iter != fish.end())
+    {
+        auto fish_pos = (*fish_obj_iter)->get_position();
+        auto baileyXpos = bailey_object.get_Xpos();
+        auto isCollided = collision.bailey_enemy_collision(fish_pos.x, fish_width, baileyXpos, 
+            bailey_width);
+
+        if (isCollided)
+        {
+            std::cout << "collided with fish" << std::endl;
+        }
+        ++fish_obj_iter;
+        ++fish_sprite_iter;
+    }
 }
 
 Logic::~Logic()

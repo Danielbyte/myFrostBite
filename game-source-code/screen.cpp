@@ -278,6 +278,7 @@ void Screen::update_game_sprites(const float& deltaTime)
     logic.update_bear(bear_sprite, deltaTime);
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
     logic.frostbite_bear_collisions();
+    logic.updateBaileyAndSeaAnimalCollisioons(crabs, clamps, birds, fish);
    
     if (can_create_new_batch_of_ice_blocks && ice_blocks_sprites.size() == 0)
     {

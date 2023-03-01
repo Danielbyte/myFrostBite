@@ -46,3 +46,27 @@ bool Collision::entity_collision(const vector2f& Entity1Pos, const float& Entity
         return false;
     }
 }
+
+bool Collision::bailey_enemy_collision(const float& E1_pos, const float& E1_width,
+    const float& E2_pos, const float& E2_width)
+{
+    //vertical borders of of first entity
+    auto LHS1 = E1_pos - (E1_width / 2.0f);
+    auto RHS1 = E1_pos + (E1_width / 2.0f);
+
+    //vertical borders of second entity
+    auto LHS2 = E2_pos - (E2_width / 2.0f);
+    auto RHS2 = E2_pos + (E2_width / 2.0f);
+
+    //collision detect
+    if (RHS1 >= LHS2 && LHS1 <= RHS2)
+    {
+        return true;
+    }
+
+    else
+    {
+        return false;
+    }
+
+}
