@@ -77,6 +77,9 @@ public:
    void bailey_clamp_collision(vector<shared_ptr<Sprite>>&);
    void bailey_crab_collision(vector<shared_ptr<Sprite>>&);
 
+   void region1_collisions(const Animal&, vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+
 private:
     int number_of_igloo_blocks;
     int ice_block_index;

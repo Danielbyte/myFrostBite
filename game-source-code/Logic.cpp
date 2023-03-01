@@ -796,9 +796,45 @@ void Logic::updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>& crab
     //AIR -> Animal In Region
     auto [AIR1, AIR2, AIR3, AIR4] = enemy.get_animals_in_regions();
     auto bailey_region = bailey_object.get_bailey_region();
-    if (AIR1 == Animal::fish && bailey_region == BaileyRegion::region1)
+    switch (bailey_region)
+    {
+    case BaileyRegion::region1:
+        region1_collisions(AIR1, crab_sprites, clamp_sprites, bird_sprites, fish_sprites);
+        break;
+    case BaileyRegion::region2:
+        break;
+    case BaileyRegion::region3:
+        break;
+    case BaileyRegion::region4:
+        break;
+    case BaileyRegion::unknown:
+        break;
+    default:
+        break;
+    }
+}
+
+void Logic::region1_collisions(const Animal& typeOfAnimal, vector<shared_ptr<Sprite>>& crab_sprites,
+    vector<shared_ptr<Sprite>>& clamp_sprites, vector<shared_ptr<Sprite>>& bird_sprites,
+    vector<shared_ptr<Sprite>>& fish_sprites)
+{
+    if (typeOfAnimal == Animal::fish)
     {
         bailey_fish_collision(fish_sprites);
+    }
+
+    if (typeOfAnimal == Animal::birds)
+    {
+        bailey_bird_collision(bird_sprites);
+    }
+
+    if (typeOfAnimal == Animal::crabs)
+    {
+        bailey_crab_collision(crab_sprites);
+    }
+    if (typeOfAnimal == Animal::clamps)
+    {
+        bailey_clamp_collision(clamp_sprites);
     }
 }
 
@@ -820,6 +856,21 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
         ++fish_obj_iter;
         ++fish_sprite_iter;
     }
+}
+
+void Logic::bailey_clamp_collision(vector<shared_ptr<Sprite>>& clamp_sprites)
+{
+
+}
+
+void Logic::bailey_crab_collision(vector<shared_ptr<Sprite>>& crab_sprites)
+{
+
+}
+
+void Logic::bailey_bird_collision(vector<shared_ptr<Sprite>>& bird_sprites)
+{
+
 }
 
 Logic::~Logic()
