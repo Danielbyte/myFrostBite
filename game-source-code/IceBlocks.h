@@ -3,6 +3,9 @@
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
 
+enum class IceRegion { R1, R2, R3, R4, unknown }; //Regions of ice
+enum class IceDirection { L, R }; //L->left, R->right
+
 class IceBlocks {
 public:
     IceBlocks();
@@ -20,30 +23,27 @@ public:
     float get_ice_speed() const;
 
     void set_position(const vector2f&);
-    void set_to_left(const bool&);
-    void set_to_right(const bool&);
-    std::tuple<bool, bool> get_direction() const;
+    void set_direction(const IceDirection&);
+    IceDirection get_direction() const;
     bool get_if_blue() const;
     bool get_if_white() const;
     void set_level(int);
     int get_ice_level() const;
 
-    std::tuple<bool, bool, bool, bool> ice_in_regions();
-    void SetIceInRegion1(const bool&);
-    void SetIceInRegion2(const bool&);
-    void SetIceInRegion3(const bool&);
-    void SetIceInRegion4(const bool&);
+    IceRegion get_region() const;
+    void set_region(const IceRegion&);
 
 private:
     float ice_speed;
     vector2f pos;
     bool isWhite;
     bool isBlue;
-    bool toLeft;
-    bool toRight;
     int level;
 
     //marks if there is ice in different regions
-    bool IIR1, IIR2, IIR3, IIR4; //IIR -> Ice In Region
+    IceRegion region;
+
+    //marks the directionof ice
+    IceDirection direction;
 };
 #endif // ICEBLOCKS_H

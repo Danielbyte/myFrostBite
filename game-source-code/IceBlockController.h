@@ -9,6 +9,10 @@ public:
     Texture blue_ice_texture;
     Texture white_ice_texture;
     void update_ice_texture(vector<shared_ptr<Sprite>>&, vector<shared_ptr<IceBlocks>>&);
+    void create_new_ice(const IceDirection&, const IceRegion&,vector<shared_ptr<Sprite>>&,
+        vector<shared_ptr<IceBlocks>>&);
+    void create_ice_R1(vector<shared_ptr<Sprite>>&, vector<shared_ptr<IceBlocks>>&,
+        const IceDirection&, const IceRegion&);
 
 private:
     void load_textures();
