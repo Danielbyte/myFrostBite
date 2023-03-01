@@ -4,31 +4,59 @@ IceBlocks::IceBlocks():
     ice_speed{1},
     isWhite{true},
     isBlue{false},
-    isLeft{false},
-    level{NULL}
+    toLeft{false},
+    level{NULL},
+    IIR1{false},
+    IIR2{false},
+    IIR3{false},
+    IIR4{false}
     {}
 
 IceBlocks::IceBlocks(const vector2f& pos_):
     ice_speed{ 1 },
     isWhite{ true },
     isBlue{ false },
-    isLeft{ false },
-    level{ NULL }
+    toLeft{ false },
+    level{ NULL },
+    IIR1{ false },
+    IIR2{ false },
+    IIR3{ false },
+    IIR4{ false }
 {
     pos = pos_;
 }
 
-void IceBlocks::set_position(vector2f position) {
-pos = position;
-return;
+void IceBlocks::SetIceInRegion1(const bool& isIce)
+{
+    IIR1 = isIce;
 }
 
-void IceBlocks::set_if_left(bool ifLeft) {
-isLeft = ifLeft;
+void IceBlocks::SetIceInRegion2(const bool& isIce)
+{
+    IIR2 = isIce;
+}
+void IceBlocks::SetIceInRegion3(const bool& isIce)
+{
+    IIR3 = isIce;
+}
+void IceBlocks::SetIceInRegion4(const bool& isIce)
+{
+    IIR4 = isIce;
 }
 
-bool IceBlocks::get_if_left() const {
-return isLeft;
+void IceBlocks::set_position(const vector2f& position)
+{
+   pos = position;
+}
+
+void IceBlocks::set_to_left(const bool& ifLeft) 
+{
+   toLeft = ifLeft;
+}
+
+bool IceBlocks::getIfToLeft() const 
+{
+   return toLeft;
 }
 
 vector2f IceBlocks::get_position() const

@@ -274,7 +274,7 @@ void Screen::update_game_sprites(const float& deltaTime)
 {
     logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
     logic.update_bailey(bailey_sprite);
-    logic.update_ice(ice_blocks_sprites, can_create_new_batch_of_ice_blocks, vector1, deltaTime);
+    logic.update_ice(ice_blocks_sprites, deltaTime);
     logic.update_bear(bear_sprite, deltaTime);
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
     logic.frostbite_bear_collisions();
@@ -292,7 +292,7 @@ void Screen::update_game_sprites(const float& deltaTime)
 
     if (ice_blocks_sprites2.size() != 0)
     {
-        logic.update_ice(ice_blocks_sprites2, can_create_new_batch_of_ice_blocks, vector2,deltaTime);
+        logic.update_ice(ice_blocks_sprites2, deltaTime);
     }
 
     //only update collisions if frostbite is not in safe zone

@@ -19,20 +19,29 @@ public:
     //get ice_speed
     float get_ice_speed() const;
 
-    void set_position(vector2f);
-    void set_if_left(bool);
-    bool get_if_left() const;
+    void set_position(const vector2f&);
+    void set_to_left(const bool&);
+    bool getIfToLeft() const;
     bool get_if_blue() const;
     bool get_if_white() const;
     void set_level(int);
     int get_ice_level() const;
+
+    std::tuple<bool, bool, bool, bool> ice_in_regions();
+    void SetIceInRegion1(const bool&);
+    void SetIceInRegion2(const bool&);
+    void SetIceInRegion3(const bool&);
+    void SetIceInRegion4(const bool&);
 
 private:
     float ice_speed;
     vector2f pos;
     bool isWhite;
     bool isBlue;
-    bool isLeft;
+    bool toLeft;
     int level;
+
+    //marks if there is ice in different regions
+    bool IIR1, IIR2, IIR3, IIR4; //IIR -> Ice In Region
 };
 #endif // ICEBLOCKS_H

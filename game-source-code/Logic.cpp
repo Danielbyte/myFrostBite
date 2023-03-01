@@ -58,43 +58,37 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
         _pos1.x = 550.0f;
         _pos1.y = 305.0f;
         shared_ptr<IceBlocks>obj_1(new IceBlocks(_pos1));
+        obj_1->SetIceInRegion1(true);
         ice_block_objects.push_back(obj_1);
 
         //Create second row of ice
         _pos2.x = 250.0f;
         _pos2.y = 387.0f;
         shared_ptr<IceBlocks>obj_2(new IceBlocks(_pos2));
+        obj_2->SetIceInRegion2(true);
         ice_block_objects.push_back(obj_2);
 
         //create third row of ice
         _pos3.x = 550.0f;
         _pos3.y = 468.0f;
         shared_ptr<IceBlocks>obj_3(new IceBlocks(_pos3));
+        obj_3->SetIceInRegion3(true);
         ice_block_objects.push_back(obj_3);
 
         //create fourth row of ice
         _pos4.x = 250.0f;
         _pos4.y = 551.0f;
         shared_ptr<IceBlocks>obj_4(new IceBlocks(_pos4));
+        obj_4->SetIceInRegion4(true);
         ice_block_objects.push_back(obj_4);
     }
 
     return { _pos1,_pos2,_pos3,_pos4 };
 }
 
-void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_blocks, bool& can_create_new_batch,
-    const int& vector_, const float& deltaTime)
+void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_block_sprites, const float& deltaTime)
 {
-   /* if (vector_ == 1)
-    {
-        ice_block_controller.update_iceblocks(ice_block_objects1, ice_blocks,
-            can_create_new_batch, deltaTime);
-    }
-    if (vector_ == 2)
-    {
-        ice_block_controller.update_iceblocks(ice_block_objects2, ice_blocks,
-            can_create_new_batch, deltaTime);
-    }*/
+    ice_block_controller.update_iceblocks(ice_block_objects, ice_block_sprites, deltaTime);
 }
 
 bool Logic::Is_bailey_moving() const

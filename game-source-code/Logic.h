@@ -30,7 +30,7 @@ public:
 
    //Ice block logic
    //void create_ice_blocks(vector<shared_ptr<Sprite>>&);
-   void update_ice(vector<shared_ptr<Sprite>>&,bool&, const int&, const float&);
+   void update_ice(vector<shared_ptr<Sprite>>&, const float&);
    vector <shared_ptr<IceBlocks>>ice_block_objects;
 
    std::tuple<vector2f,vector2f,vector2f,vector2f> create_ice_block_objects();
