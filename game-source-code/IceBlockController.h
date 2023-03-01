@@ -12,5 +12,7 @@ public:
 
 private:
     void load_textures();
+    float OOBBL; //OOBL->Out Of Bounds Boundary Left
+    float OOBBR; //OOBR->Out Of Bounds Boundary Right
 } ;
 #endif // ICEBLOCKCONTROLLER_H

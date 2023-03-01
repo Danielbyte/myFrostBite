@@ -3,6 +3,8 @@
 IceBlockController::IceBlockController()
 {
     load_textures();
+    OOBBL = -ice_width_offset;
+    OOBBR = windowWidth + ice_width_offset;
 }
 
 void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_objects,
@@ -16,16 +18,30 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
         auto [isToLeft, isToRight] = (*ice_objects_iter)->get_direction();
         if (isToLeft)
         {
-            (*ice_sprite_iter)->move(-50 * deltaTime, 0);
+            (*ice_sprite_iter)->move(-45 * deltaTime, 0);
             auto pos_ = (*ice_sprite_iter)->getPosition();
             (*ice_objects_iter)->set_position(pos_);
+
+            if (pos_.x <= OOBBL)
+            {
+                ice_objects.erase(ice_objects_iter);
+                ice_sprites.erase(ice_sprite_iter);
+                return;
+            }
         }
 
         if (isToRight)
         {
-            (*ice_sprite_iter)->move(50 * deltaTime, 0);
+            (*ice_sprite_iter)->move(45 * deltaTime, 0);
             auto pos_ = (*ice_sprite_iter)->getPosition();
             (*ice_objects_iter)->set_position(pos_);
+
+            if (pos_.x >= OOBBR)
+            {
+                ice_objects.erase(ice_objects_iter);
+                ice_sprites.erase(ice_sprite_iter);
+                return;
+            }
         }
         ++ice_sprite_iter;
         ++ice_objects_iter;

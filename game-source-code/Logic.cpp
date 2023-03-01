@@ -103,6 +103,7 @@ bool Logic::Is_bailey_moving() const
 void Logic::bailey_and_ice_collision(vector<shared_ptr<Sprite>>& Igloo_house_sprites,Sprite& bailey_sprite,
     const float& deltaTime)
 {
+    ice_collision_batch1 = true;
     /*
     ice_collision_batch1 = false;
     ice_collision_batch2 = false;
