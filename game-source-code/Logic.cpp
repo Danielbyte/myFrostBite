@@ -847,9 +847,11 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
     while (fish_obj_iter != fish.end())
     {
         auto fish_pos = (*fish_obj_iter)->get_position();
-        auto baileyXpos = bailey_object.get_Xpos();
-        auto isCollided = collision.bailey_enemy_collision(fish_pos.x, fish_width, baileyXpos, 
-            bailey_width);
+        vector2f bailey_pos;
+        bailey_pos.x = bailey_object.get_Xpos();
+        bailey_pos.y = bailey_object.get_Ypos();
+        auto isCollided = collision.bailey_enemy_collision(fish_pos, fish_width,fish_height,
+            bailey_pos, bailey_width, bailey_height);
 
         if (isCollided)
         {
@@ -869,9 +871,11 @@ void Logic::bailey_clamp_collision(vector<shared_ptr<Sprite>>& clamp_sprites)
     while (clamp_obj_iter != clamps.end())
     {
         auto clamp_pos = (*clamp_obj_iter)->get_position();
-        auto baileyXpos = bailey_object.get_Xpos();
-        auto isCollided = collision.bailey_enemy_collision(clamp_pos.x, clamp_width, baileyXpos,
-            bailey_width);
+        vector2f bailey_pos;
+        bailey_pos.x = bailey_object.get_Xpos();
+        bailey_pos.y = bailey_object.get_Ypos();
+        auto isCollided = collision.bailey_enemy_collision(clamp_pos, clamp_width,clamp_height,
+            bailey_pos, bailey_width, bailey_height);
 
         if (isCollided)
         {
@@ -889,9 +893,11 @@ void Logic::bailey_crab_collision(vector<shared_ptr<Sprite>>& crab_sprites)
     while (crab_obj_iter != crabs.end())
     {
         auto crab_pos = (*crab_obj_iter)->get_position();
-        auto baileyXpos = bailey_object.get_Xpos();
-        auto isCollided = collision.bailey_enemy_collision(crab_pos.x, crab_width, baileyXpos,
-            bailey_width);
+        vector2f bailey_pos;
+        bailey_pos.x = bailey_object.get_Xpos();
+        bailey_pos.y = bailey_object.get_Ypos();
+        auto isCollided = collision.bailey_enemy_collision(crab_pos, crab_width, crab_height,
+            bailey_pos,bailey_width, bailey_height);
 
         if (isCollided)
         {
@@ -909,9 +915,11 @@ void Logic::bailey_bird_collision(vector<shared_ptr<Sprite>>& bird_sprites)
     while (bird_obj_iter != birds.end())
     {
         auto bird_pos = (*bird_obj_iter)->get_position();
-        auto baileyXpos = bailey_object.get_Xpos();
-        auto isCollided = collision.bailey_enemy_collision(bird_pos.x, bird_width, baileyXpos,
-            bailey_width);
+        vector2f bailey_pos;
+        bailey_pos.x = bailey_object.get_Xpos();
+        bailey_pos.y = bailey_object.get_Ypos();
+        auto isCollided = collision.bailey_enemy_collision(bird_pos, bird_width,crab_height,
+            bailey_pos,bailey_width, bailey_height);
 
         if (isCollided)
         {

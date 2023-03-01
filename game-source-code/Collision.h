@@ -12,6 +12,7 @@ public:
     bool entity_collision(const vector2f&, const float&, const float&, const vector2f&,
         const float&, const float&);
 
-    bool bailey_enemy_collision(const float&, const float&, const float&, const float&);
+    bool bailey_enemy_collision(const vector2f&, const float&, const float&, const vector2f&, 
+        const float&,const float&);
 };
 #endif // COLLISION_H

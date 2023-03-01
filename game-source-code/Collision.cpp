@@ -47,19 +47,23 @@ bool Collision::entity_collision(const vector2f& Entity1Pos, const float& Entity
     }
 }
 
-bool Collision::bailey_enemy_collision(const float& E1_pos, const float& E1_width,
-    const float& E2_pos, const float& E2_width)
+bool Collision::bailey_enemy_collision(const vector2f& E1_pos, const float& E1_width,
+    const float& E1_height, const vector2f& E2_pos, const float& E2_width, const float& E2_height)
 {
     //vertical borders of of first entity
-    auto LHS1 = E1_pos - (E1_width / 2.0f);
-    auto RHS1 = E1_pos + (E1_width / 2.0f);
+    auto LHS1 = E1_pos.x - (E1_width / 2.0f);
+    auto RHS1 = E1_pos.x + (E1_width / 2.0f);
+    auto top1 = E1_pos.y - (E1_height / 2.0f);
+    auto bottom1 = E1_pos.y + (E1_height / 2.0f);
 
     //vertical borders of second entity
-    auto LHS2 = E2_pos - (E2_width / 2.0f);
-    auto RHS2 = E2_pos + (E2_width / 2.0f);
+    auto LHS2 = E2_pos.x - (E2_width / 2.0f);
+    auto RHS2 = E2_pos.x + (E2_width / 2.0f);
+    auto top2 = E2_pos.y - (E2_height / 2.0f);
+    auto bottom2 = E2_pos.y + (E2_height / 2.0f);
 
     //collision detect
-    if (RHS1 >= LHS2 && LHS1 <= RHS2)
+    if (RHS1 >= LHS2 && LHS1 <= RHS2 && bottom1 > top2 && top1 < top2)
     {
         return true;
     }
