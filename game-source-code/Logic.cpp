@@ -853,7 +853,9 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 
         if (isCollided)
         {
-            std::cout << "collided with fish" << std::endl;
+            fish.erase(fish_obj_iter);
+            fish_sprites.erase(fish_sprite_iter);
+            return;
         }
         ++fish_obj_iter;
         ++fish_sprite_iter;
