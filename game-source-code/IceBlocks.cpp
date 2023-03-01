@@ -5,6 +5,7 @@ IceBlocks::IceBlocks():
     isWhite{true},
     isBlue{false},
     toLeft{false},
+    toRight{false},
     level{NULL},
     IIR1{false},
     IIR2{false},
@@ -17,6 +18,7 @@ IceBlocks::IceBlocks(const vector2f& pos_):
     isWhite{ true },
     isBlue{ false },
     toLeft{ false },
+    toRight{ false },
     level{ NULL },
     IIR1{ false },
     IIR2{ false },
@@ -54,9 +56,14 @@ void IceBlocks::set_to_left(const bool& ifLeft)
    toLeft = ifLeft;
 }
 
-bool IceBlocks::getIfToLeft() const 
+void IceBlocks::set_to_right(const bool& ifRight)
 {
-   return toLeft;
+    toRight = ifRight;
+}
+
+std::tuple<bool, bool> IceBlocks::get_direction() const
+{
+    return { toLeft, toRight };
 }
 
 vector2f IceBlocks::get_position() const

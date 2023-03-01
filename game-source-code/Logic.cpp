@@ -59,6 +59,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
         _pos1.y = 305.0f;
         shared_ptr<IceBlocks>obj_1(new IceBlocks(_pos1));
         obj_1->SetIceInRegion1(true);
+        obj_1->set_to_left(true);
         ice_block_objects.push_back(obj_1);
 
         //Create second row of ice
@@ -66,6 +67,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
         _pos2.y = 387.0f;
         shared_ptr<IceBlocks>obj_2(new IceBlocks(_pos2));
         obj_2->SetIceInRegion2(true);
+        obj_2->set_to_right(true);
         ice_block_objects.push_back(obj_2);
 
         //create third row of ice
@@ -73,6 +75,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
         _pos3.y = 468.0f;
         shared_ptr<IceBlocks>obj_3(new IceBlocks(_pos3));
         obj_3->SetIceInRegion3(true);
+        obj_3->set_to_left(true);
         ice_block_objects.push_back(obj_3);
 
         //create fourth row of ice
@@ -80,6 +83,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
         _pos4.y = 551.0f;
         shared_ptr<IceBlocks>obj_4(new IceBlocks(_pos4));
         obj_4->SetIceInRegion4(true);
+        obj_4->set_to_right(true);
         ice_block_objects.push_back(obj_4);
     }
 

@@ -13,7 +13,20 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
 
     while(ice_sprite_iter != ice_sprites.end())
     {
-        //(*ice_sprite_iter)->move()
+        auto [isToLeft, isToRight] = (*ice_objects_iter)->get_direction();
+        if (isToLeft)
+        {
+            (*ice_sprite_iter)->move(-50 * deltaTime, 0);
+            auto pos_ = (*ice_sprite_iter)->getPosition();
+            (*ice_objects_iter)->set_position(pos_);
+        }
+
+        if (isToRight)
+        {
+            (*ice_sprite_iter)->move(50 * deltaTime, 0);
+            auto pos_ = (*ice_sprite_iter)->getPosition();
+            (*ice_objects_iter)->set_position(pos_);
+        }
         ++ice_sprite_iter;
         ++ice_objects_iter;
     }

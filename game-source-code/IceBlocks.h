@@ -21,7 +21,8 @@ public:
 
     void set_position(const vector2f&);
     void set_to_left(const bool&);
-    bool getIfToLeft() const;
+    void set_to_right(const bool&);
+    std::tuple<bool, bool> get_direction() const;
     bool get_if_blue() const;
     bool get_if_white() const;
     void set_level(int);
@@ -39,6 +40,7 @@ private:
     bool isWhite;
     bool isBlue;
     bool toLeft;
+    bool toRight;
     int level;
 
     //marks if there is ice in different regions
