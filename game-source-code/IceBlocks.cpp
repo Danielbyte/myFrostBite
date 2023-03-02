@@ -2,21 +2,21 @@
 
 IceBlocks::IceBlocks():
     ice_speed{1},
-    isWhite{true},
-    isBlue{false},
     level{NULL}
 {
     region = IceRegion::unknown;
+    direction = IceDirection::S;
+    color = IceColor::White;
 }
 
 IceBlocks::IceBlocks(const vector2f& pos_):
     ice_speed{ 1 },
-    isWhite{ true },
-    isBlue{ false },
     level{ NULL }
 {
     region = IceRegion::unknown;
     pos = pos_;
+    direction = IceDirection::S;
+    color = IceColor::White;
 }
 
 void IceBlocks::set_region(const IceRegion& _region)
@@ -59,21 +59,15 @@ int IceBlocks::get_ice_level() const
     return level;
 }
 
-void IceBlocks::set_to_blue(bool ifBlue)
+void IceBlocks::set_color(const IceColor& _color)
 {
-    isBlue = ifBlue;
-    isWhite = false;
+    color = _color;
 }
 
-void IceBlocks::set_to_white(bool ifWhite)
-{
-    isWhite = ifWhite;
-    isBlue = false;
-}
 
-std::tuple<bool, bool> IceBlocks::get_color() const
+IceColor IceBlocks::get_color() const
 {
-    return { isWhite, isBlue };
+    return color;
 }
 
 IceRegion IceBlocks::get_region() const

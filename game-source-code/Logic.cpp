@@ -119,11 +119,11 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
             auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
             if (isCollided)
             {
-                auto [isWhite, isBlue] = (*iceObj_iter)->get_color();
+                auto color = (*iceObj_iter)->get_color();
                 //change ice to blue if white
-                if (isWhite)
+                if (color == IceColor::White)
                 {
-                    (*iceObj_iter)->set_to_blue(true);
+                    (*iceObj_iter)->set_color(IceColor::Blue);
                     igloo_object->add_igloo_blocks();
                     igloo_object->update_igloo(IglooHouseSprite);
                     break;
@@ -215,8 +215,8 @@ void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_block
     auto iter = ice_blocks.begin();
     while(iter != ice_blocks.end())
     {
-        (*iter) -> set_to_white(false);
-        (*iter) -> set_to_blue(true);
+        (*iter) -> set_color(IceColor::Blue);
+        (*iter) -> set_color(IceColor::Blue);
         ++iter;
     }
 }

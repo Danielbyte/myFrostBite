@@ -27,8 +27,8 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
             {
                 //crate a new ice and store it in a queue
                 auto region = (*ice_objects_iter)->get_region();
-                create_new_ice(direction, region, ice_sprites, ice_objects);
-                //return;
+                auto color = (*ice_objects_iter)->get_color();
+                create_new_ice(direction, region,color);
             }
 
             if (pos_.x <= OOBBL)
@@ -53,7 +53,8 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
             {
                 //crate a new ice and store it in a que
                 auto region = (*ice_objects_iter)->get_region();
-                create_new_ice(direction, region, ice_sprites, ice_objects);
+                auto color = (*ice_objects_iter)->get_color();
+                create_new_ice(direction, region,color);
             }
 
             if (pos_.x >= OOBBR)
@@ -85,25 +86,25 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
 }
 
 void IceBlockController::create_new_ice(const IceDirection& direction,const IceRegion& region,
-    vector<shared_ptr<Sprite>>& ice_sprites, vector <shared_ptr<IceBlocks>>& ice_objects)
+    const IceColor& color)
 {
         switch (region)
         {
         case IceRegion::R1:
             //create ice in region 1
-            create_ice_R1(ice_sprites,ice_objects,direction,region);
+            create_ice_R1(direction,region,color);
             break;
 
         case IceRegion::R2:
-            create_ice_R2(ice_sprites, ice_objects, direction, region);
+            create_ice_R2(direction, region, color);
             break;
 
         case IceRegion::R3:
-            create_ice_R3(ice_sprites, ice_objects, direction, region);
+            create_ice_R3(direction, region, color);
             break;
 
         case IceRegion::R4:
-            create_ice_R4(ice_sprites, ice_objects, direction, region);
+            create_ice_R4(direction, region, color);
             break;
 
         default:
@@ -111,9 +112,8 @@ void IceBlockController::create_new_ice(const IceDirection& direction,const IceR
         }
 }
 
-void IceBlockController::create_ice_R1(vector<shared_ptr<Sprite>>& ice_sprites,
-    vector<shared_ptr<IceBlocks>>& ice_objects, const IceDirection& direction, 
-    const IceRegion& region)
+void IceBlockController::create_ice_R1(const IceDirection& direction, const IceRegion& region,
+    const IceColor& color)
 {
     vector2f _pos;
     _pos.x = 960.0f;
@@ -121,6 +121,7 @@ void IceBlockController::create_ice_R1(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
+    ice_obj->set_color(color);
     new_ice_objects.push(ice_obj);
     //ice_objects.push_back(ice_obj);
 
@@ -132,9 +133,8 @@ void IceBlockController::create_ice_R1(vector<shared_ptr<Sprite>>& ice_sprites,
     //ice_sprites.push_back(ice_sprite);
 }
 
-void IceBlockController::create_ice_R2(vector<shared_ptr<Sprite>>& ice_sprites,
-    vector<shared_ptr<IceBlocks>>& ice_objects, const IceDirection& direction,
-    const IceRegion& region)
+void IceBlockController::create_ice_R2(const IceDirection& direction, const IceRegion& region,
+    const IceColor& color)
 {
     vector2f _pos;
     _pos.x = -160.0f;
@@ -142,20 +142,18 @@ void IceBlockController::create_ice_R2(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
+    ice_obj->set_color(color);
     new_ice_objects.push(ice_obj);
-    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
     new_ice_sprites.push(ice_sprite);
-    //ice_sprites.push_back(ice_sprite);
 }
 
-void IceBlockController::create_ice_R3(vector<shared_ptr<Sprite>>& ice_sprites,
-    vector<shared_ptr<IceBlocks>>& ice_objects, const IceDirection& direction,
-    const IceRegion& region)
+void IceBlockController::create_ice_R3(const IceDirection& direction,const IceRegion& region,
+    const IceColor& color)
 {
     vector2f _pos;
     _pos.x = 960.0f;
@@ -163,20 +161,18 @@ void IceBlockController::create_ice_R3(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
+    ice_obj->set_color(color);
     new_ice_objects.push(ice_obj);
-    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
     new_ice_sprites.push(ice_sprite);
-    //ice_sprites.push_back(ice_sprite);
 }
 
-void IceBlockController::create_ice_R4(vector<shared_ptr<Sprite>>& ice_sprites,
-    vector<shared_ptr<IceBlocks>>& ice_objects, const IceDirection& direction,
-    const IceRegion& region)
+void IceBlockController::create_ice_R4(const IceDirection& direction,const IceRegion& region,
+    const IceColor& color)
 {
     vector2f _pos;
     _pos.x = -160.0f;
@@ -184,15 +180,14 @@ void IceBlockController::create_ice_R4(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
+    ice_obj->set_color(color);
     new_ice_objects.push(ice_obj);
-    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
     new_ice_sprites.push(ice_sprite);
-    //ice_sprites.push_back(ice_sprite);
 }
 
 void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_sprites, 
@@ -202,13 +197,13 @@ void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_spri
     auto obj_iter = ice_objects.begin();
     while(iter != ice_sprites.end())
     {
-        auto [isWhite, isBlue] = (*obj_iter)->get_color();
-        if (isBlue)
+        auto color = (*obj_iter)->get_color();
+        if (color == IceColor::Blue)
         {
             (*iter) -> setTexture(blue_ice_texture);
         }
         
-        else if (isWhite)
+        else if (color == IceColor::White)
         {
                 (*iter) -> setTexture(white_ice_texture);
         }
