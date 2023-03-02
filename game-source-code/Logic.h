@@ -89,9 +89,6 @@ private:
 
     Collision collision;
 
-    void check_for_blues(vector<shared_ptr<IceBlocks>>Iceblocks);
-    void check_for_blues_on_other_ice_batch(vector<shared_ptr<IceBlocks>>, vector<shared_ptr<IceBlocks>>);
-
     void set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>&);
     bool is_igloo_complete;
     vector2f position;
@@ -117,5 +114,9 @@ private:
     BirdController control_bird;
 
     bool plungedInWater; //monitors if bailey has plunged on water
+
+    int NOBI; //Number Of Blue Ice
+    void set_all_ice_to_white();
+    void update_other_ice(const IceRegion&, const IceColor&);
 };
 #endif // LOGIC_H

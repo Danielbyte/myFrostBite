@@ -8,7 +8,8 @@ Logic::Logic():
     y_{0.0f},
     ice_collision_batch1{false},
     ice_collision_batch2{false},
-    plungedInWater{true}
+    plungedInWater{true},
+    NOBI{0}
 
 {
     prev_pos.x = 240.0f; //Initial bailey position
@@ -117,97 +118,33 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
             bailey_pos.y = bailey_object.get_Ypos();
 
             auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
-            if (isCollided)
+            auto color = (*iceObj_iter)->get_color();
+            if (isCollided && color == IceColor::White)
             {
-                auto color = (*iceObj_iter)->get_color();
-                //change ice to blue if white
-                if (color == IceColor::White)
-                {
                     (*iceObj_iter)->set_color(IceColor::Blue);
                     igloo_object->add_igloo_blocks();
                     igloo_object->update_igloo(IglooHouseSprite);
-                    break;
-                }
+                    auto ice_size = ice_block_objects.size();
+                    if (ice_size > 4)
+                    {
+                        auto _color = (*iceObj_iter)->get_color();
+                        auto region = (*iceObj_iter)->get_region();
+                        update_other_ice(region, _color);
+                    }
+                    ++NOBI;
             }
+
             ++iceObj_iter;
         }
-    }
-}
 
-void Logic::check_for_blues(vector<shared_ptr<IceBlocks>>Iceblocks)
-{
-/*    auto blue_marker = 0;
-    auto iter = Iceblocks.begin();
-    while(iter != Iceblocks.end())
-    {
-        auto isBlue = (*iter) -> get_if_blue();
-        if (isBlue)
+        if (NOBI == 4)
         {
-            ++blue_marker;
+            set_all_ice_to_white();
+            NOBI = 0;
         }
-
-        ++iter;
     }
 
-    if (blue_marker == 4)
-    {
-        auto iter2 = Iceblocks.begin();
-        while(iter2 != Iceblocks.end())
-        {
-            //std::cout << "Set "<< blue_marker<< std::endl;
-            (*iter2) -> set_to_white(true);
-            (*iter2) -> set_to_blue(false);
-            ++iter2;
-        }
-    }*/
-}
 
-void Logic::check_for_blues_on_other_ice_batch(vector<shared_ptr<IceBlocks>> current_ice_block_obj,
-        vector<shared_ptr<IceBlocks>> other_ice_batch)
-{
-   /* auto iter = current_ice_block_obj.begin();
-    while (iter != current_ice_block_obj.end())
-    {
-        auto blue = (*iter) -> get_if_blue();
-        auto white = (*iter) -> get_if_white();
-        if (blue)
-        {
-            //want to get the level of this ice row
-            //then change every row of the batch to blue
-            auto current_ice_level = (*iter) -> get_ice_level();
-
-            //On same row of ice, change entire row to blue
-            auto other_ice = other_ice_batch.begin();
-            while(other_ice != other_ice_batch.end())
-            {
-                auto ice_level2 = (*other_ice) -> get_ice_level();
-                if (ice_level2 == current_ice_level)
-                {
-                    (*other_ice) -> set_to_blue(true);
-                    (*other_ice) -> set_to_white(false);
-                }
-                ++other_ice;
-            }
-        }
-
-        else if (white)
-        {
-            auto current_ice_level = (*iter) -> get_ice_level();
-            auto other_ice = other_ice_batch.begin();
-            while(other_ice != other_ice_batch.end())
-            {
-                auto ice_level2 = (*other_ice) -> get_ice_level();
-                if (ice_level2 == current_ice_level)
-                {
-                    (*other_ice) -> set_to_white(true);
-                    (*other_ice) -> set_to_blue(false);
-
-                }
-                ++other_ice;
-            }
-        }
-        ++iter;
-    }*/
 }
 
 void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_blocks)
@@ -230,6 +167,33 @@ bool Logic::mark_if_igloo_is_complete()
     }
     else
         return false;
+}
+
+void Logic::set_all_ice_to_white()
+{
+    auto ice_iter = ice_block_objects.begin();
+    while (ice_iter != ice_block_objects.end())
+    {
+        (*ice_iter)->set_color(IceColor::White);
+        ++ice_iter;
+    }
+}
+
+void Logic::update_other_ice(const IceRegion& region, const IceColor& color)
+{
+    auto obj_iter = ice_block_objects.begin();
+
+    while (obj_iter != ice_block_objects.end())
+    {
+        auto _region = (*obj_iter)->get_region();
+        if (_region == region)
+        {
+            (*obj_iter)->set_color(color);
+            break;
+        }
+
+        ++obj_iter;
+    }
 }
 
 void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
