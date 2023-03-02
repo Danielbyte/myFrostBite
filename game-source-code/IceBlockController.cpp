@@ -12,6 +12,7 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
 {
     auto ice_sprite_iter = ice_sprites.begin();
     auto ice_objects_iter = ice_objects.begin();
+    auto numberOfIceObjects = ice_objects.size();
 
     while(ice_sprite_iter != ice_sprites.end())
     {
@@ -22,35 +23,64 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice_obj
             auto pos_ = (*ice_sprite_iter)->getPosition();
             (*ice_objects_iter)->set_position(pos_);
 
+            if (pos_.x <= ice_width_offset && numberOfIceObjects < 8)
+            {
+                //crate a new ice and store it in a queue
+                auto region = (*ice_objects_iter)->get_region();
+                create_new_ice(direction, region, ice_sprites, ice_objects);
+                //return;
+            }
+
             if (pos_.x <= OOBBL)
             {
-                auto region = (*ice_objects_iter)->get_region();
                 ice_objects.erase(ice_objects_iter);
                 ice_sprites.erase(ice_sprite_iter);
-                //create new ice batch
-                create_new_ice(direction, region, ice_sprites, ice_objects);
-                return;
+            }
+            else
+            {
+                ++ice_sprite_iter;
+                ++ice_objects_iter;
             }
         }
 
-        if (direction == IceDirection::R)
+        else if (direction == IceDirection::R)
         {
-            (*ice_sprite_iter)->move(45 * deltaTime, 0);
-            auto pos_ = (*ice_sprite_iter)->getPosition();
-            (*ice_objects_iter)->set_position(pos_);
+             (*ice_sprite_iter)->move(45 * deltaTime, 0);
+             auto pos_ = (*ice_sprite_iter)->getPosition();
+             (*ice_objects_iter)->set_position(pos_);
+
+            if (pos_.x >= (windowWidth - ice_width_offset) && numberOfIceObjects < 8)
+            {
+                //crate a new ice and store it in a que
+                auto region = (*ice_objects_iter)->get_region();
+                create_new_ice(direction, region, ice_sprites, ice_objects);
+            }
 
             if (pos_.x >= OOBBR)
             {
-                auto region = (*ice_objects_iter)->get_region();
                 ice_objects.erase(ice_objects_iter);
                 ice_sprites.erase(ice_sprite_iter);
-                //crate a new ice batch
-                create_new_ice(direction, region, ice_sprites, ice_objects);
-                return;
+            }
+
+            else
+            {
+                ++ice_sprite_iter;
+                ++ice_objects_iter;
             }
         }
-        ++ice_sprite_iter;
-        ++ice_objects_iter;
+
+    }
+
+    if (!new_ice_objects.empty()) //update ice objects with newly created ice objects
+    {
+        while (!new_ice_objects.empty())
+        {
+            ice_objects.push_back(new_ice_objects.front());
+            ice_sprites.push_back(new_ice_sprites.front());
+            //delete ice objects after they have been updated
+            new_ice_sprites.pop();
+            new_ice_objects.pop();
+        }
     }
 }
 
@@ -91,13 +121,15 @@ void IceBlockController::create_ice_R1(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
-    ice_objects.push_back(ice_obj);
+    new_ice_objects.push(ice_obj);
+    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
-    ice_sprites.push_back(ice_sprite);
+    new_ice_sprites.push(ice_sprite);
+    //ice_sprites.push_back(ice_sprite);
 }
 
 void IceBlockController::create_ice_R2(vector<shared_ptr<Sprite>>& ice_sprites,
@@ -110,13 +142,15 @@ void IceBlockController::create_ice_R2(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
-    ice_objects.push_back(ice_obj);
+    new_ice_objects.push(ice_obj);
+    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
-    ice_sprites.push_back(ice_sprite);
+    new_ice_sprites.push(ice_sprite);
+    //ice_sprites.push_back(ice_sprite);
 }
 
 void IceBlockController::create_ice_R3(vector<shared_ptr<Sprite>>& ice_sprites,
@@ -129,13 +163,15 @@ void IceBlockController::create_ice_R3(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
-    ice_objects.push_back(ice_obj);
+    new_ice_objects.push(ice_obj);
+    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
-    ice_sprites.push_back(ice_sprite);
+    new_ice_sprites.push(ice_sprite);
+    //ice_sprites.push_back(ice_sprite);
 }
 
 void IceBlockController::create_ice_R4(vector<shared_ptr<Sprite>>& ice_sprites,
@@ -148,32 +184,34 @@ void IceBlockController::create_ice_R4(vector<shared_ptr<Sprite>>& ice_sprites,
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
-    ice_objects.push_back(ice_obj);
+    new_ice_objects.push(ice_obj);
+    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
-    ice_sprites.push_back(ice_sprite);
+    new_ice_sprites.push(ice_sprite);
+    //ice_sprites.push_back(ice_sprite);
 }
 
-void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_sprites, vector<shared_ptr<IceBlocks>>& ice_objects)
+void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_sprites, 
+    vector<shared_ptr<IceBlocks>>& ice_objects)
 {
     auto iter = ice_sprites.begin();
     auto obj_iter = ice_objects.begin();
     while(iter != ice_sprites.end())
     {
-        auto isBlue = (*obj_iter) -> get_if_blue();
-        auto isWhite = (*obj_iter) -> get_if_white();
+        auto [isWhite, isBlue] = (*obj_iter)->get_color();
         if (isBlue)
         {
             (*iter) -> setTexture(blue_ice_texture);
         }
-
+        
         else if (isWhite)
-            {
+        {
                 (*iter) -> setTexture(white_ice_texture);
-            }
+        }
         ++iter;
         ++obj_iter;
     }

@@ -1,6 +1,7 @@
 #ifndef ICEBLOCKCONTROLLER_H
 #define ICEBLOCKCONTROLLER_H
 #include "IceBlocks.h"
+#include <queue>
 
 class IceBlockController {
 public:
@@ -28,5 +29,7 @@ private:
     void load_textures();
     float OOBBL; //OOBL->Out Of Bounds Boundary Left
     float OOBBR; //OOBR->Out Of Bounds Boundary Right
+    std::queue<shared_ptr<IceBlocks>>new_ice_objects;
+    std::queue<shared_ptr<Sprite>>new_ice_sprites;
 } ;
 #endif // ICEBLOCKCONTROLLER_H

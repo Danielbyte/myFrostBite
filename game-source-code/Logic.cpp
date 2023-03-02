@@ -13,7 +13,6 @@ Logic::Logic():
 {
     prev_pos.x = 240.0f; //Initial bailey position
     prev_pos.y = 205.0f; // Initial bailey position
-    build_igloo();
 }
 
 void Logic::update_bailey_jumps(Sprite& bailey_sprite,bool& isJumping,const float& deltaTime,
@@ -93,6 +92,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
 void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_block_sprites, const float& deltaTime)
 {
     ice_block_controller.update_iceblocks(ice_block_objects, ice_block_sprites, deltaTime);
+    ice_block_controller.update_ice_texture(ice_block_sprites, ice_block_objects);
 }
 
 bool Logic::Is_bailey_moving() const
@@ -119,22 +119,24 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
             auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
             if (isCollided)
             {
-                std::cout << "Bailey on ice" << std::endl;
+                auto [isWhite, isBlue] = (*iceObj_iter)->get_color();
+                //change ice to blue if white
+                if (isWhite)
+                {
+                    (*iceObj_iter)->set_to_blue(true);
+                    igloo_object->add_igloo_blocks();
+                    igloo_object->update_igloo(IglooHouseSprite);
+                    break;
+                }
             }
             ++iceObj_iter;
         }
     }
 }
 
-void Logic::update_igloo(vector<shared_ptr<Sprite>>& Igloo_sprites)
-{
-    auto igloo_ptr = igloo_object.begin();
-    (*igloo_ptr)-> build_igloo(Igloo_sprites);
-}
-
 void Logic::check_for_blues(vector<shared_ptr<IceBlocks>>Iceblocks)
 {
-    auto blue_marker = 0;
+/*    auto blue_marker = 0;
     auto iter = Iceblocks.begin();
     while(iter != Iceblocks.end())
     {
@@ -157,13 +159,13 @@ void Logic::check_for_blues(vector<shared_ptr<IceBlocks>>Iceblocks)
             (*iter2) -> set_to_blue(false);
             ++iter2;
         }
-    }
+    }*/
 }
 
 void Logic::check_for_blues_on_other_ice_batch(vector<shared_ptr<IceBlocks>> current_ice_block_obj,
         vector<shared_ptr<IceBlocks>> other_ice_batch)
 {
-    auto iter = current_ice_block_obj.begin();
+   /* auto iter = current_ice_block_obj.begin();
     while (iter != current_ice_block_obj.end())
     {
         auto blue = (*iter) -> get_if_blue();
@@ -205,7 +207,7 @@ void Logic::check_for_blues_on_other_ice_batch(vector<shared_ptr<IceBlocks>> cur
             }
         }
         ++iter;
-    }
+    }*/
 }
 
 void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_blocks)
@@ -315,14 +317,6 @@ void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
     */
 }
 
-void Logic::build_igloo()
-{
-    auto igloo_object_ptr = std::make_shared<Igloo>();
-    position.x = igloo_object_ptr -> get_x_position();
-    position.y = igloo_object_ptr->get_y_position();
-    igloo_object.push_back(igloo_object_ptr);
-}
-
 vector2f Logic::get_igloo_position()
 {
     return position;
@@ -330,8 +324,7 @@ vector2f Logic::get_igloo_position()
 
 int Logic::get_number_of_igloo_blocks()
 {
-    auto igloo_ptr = igloo_object.begin();
-    number_of_igloo_blocks = (*igloo_ptr) -> get_number_of_igloo_blocks();
+    number_of_igloo_blocks = igloo_object -> get_number_of_igloo_blocks();
     return number_of_igloo_blocks;
 }
 
@@ -747,7 +740,6 @@ Logic::~Logic()
 {
     //House keeping, free some memory
     ice_block_objects.clear();
-    igloo_object.clear();
     crabs.clear();
     clamps.clear();
     birds.clear();

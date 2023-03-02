@@ -38,15 +38,13 @@ public:
 
    void bailey_and_ice_collision(shared_ptr<Sprite>&,Sprite&,const float&);
 
-   void update_igloo(vector<shared_ptr<Sprite>>&);
    bool mark_if_igloo_is_complete();
 
    void reverse_ice_direction(vector<shared_ptr<Sprite>>&);
 
    std::tuple<bool, bool> get_collisions();
 
-   vector<shared_ptr<Igloo>>igloo_object;
-   void build_igloo();
+   shared_ptr<Igloo>igloo_object = std::make_shared<Igloo>(Igloo());
    vector2f get_igloo_position();
 
    int get_number_of_igloo_blocks();

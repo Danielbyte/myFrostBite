@@ -59,23 +59,21 @@ int IceBlocks::get_ice_level() const
     return level;
 }
 
-void IceBlocks::set_to_blue(bool ifBlue) {
-isBlue = ifBlue;
-}
-
-bool IceBlocks::get_if_blue() const
+void IceBlocks::set_to_blue(bool ifBlue)
 {
-    return isBlue;
+    isBlue = ifBlue;
+    isWhite = false;
 }
 
 void IceBlocks::set_to_white(bool ifWhite)
 {
     isWhite = ifWhite;
+    isBlue = false;
 }
 
-bool IceBlocks::get_if_white() const
+std::tuple<bool, bool> IceBlocks::get_color() const
 {
-    return isWhite;
+    return { isWhite, isBlue };
 }
 
 IceRegion IceBlocks::get_region() const

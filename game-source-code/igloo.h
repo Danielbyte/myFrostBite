@@ -27,11 +27,10 @@ public:
 
     float get_x_position() const;
     float get_y_position() const;
-    void build_igloo(vector<shared_ptr<Sprite>>&);
     void add_igloo_blocks();
     int get_number_of_igloo_blocks() const;
     void subract_igloo_block();
-    void update_igloo(shared_ptr<Sprite>&, vector<shared_ptr<Sprite>>&);
+    void update_igloo(shared_ptr<Sprite>&);
 
 private:
     float x_position;

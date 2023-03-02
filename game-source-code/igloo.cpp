@@ -18,12 +18,6 @@ float Igloo::get_y_position() const
     return y_position;
 }
 
-void Igloo::build_igloo(vector<shared_ptr<Sprite>>& igloo_sprites)
-{
-    auto ptr = igloo_sprites.begin();
-    update_igloo(*ptr,igloo_sprites);
-}
-
 void Igloo::add_igloo_blocks()
 {
     //If igloo is complete, keep bricks capped at 14.
@@ -53,128 +47,112 @@ int Igloo::get_number_of_igloo_blocks() const
     return igloo_blocks;
 }
 
-void Igloo::update_igloo(shared_ptr<Sprite>& ptr, vector<shared_ptr<Sprite>>& igloo_sprite)
+void Igloo::update_igloo(shared_ptr<Sprite>& igloo_sprite)
 {
     if (igloo_blocks == 0)
     {
-        ptr->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr->setTexture(igloo_texture1);
-        ptr->setPosition(x_position, y_position);
-        igloo_sprite.push_back(ptr);
+        igloo_sprite->setTexture(igloo_texture1);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 1)
     {
-        auto ptr1 = igloo_sprite.begin();
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr ->setTexture(igloo_texture2);
-        ptr -> setPosition(x_position, y_position);
-        igloo_sprite.push_back(ptr);
+        igloo_sprite->setTexture(igloo_texture2);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 2)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture3);
-        ptr -> setPosition(x_position, y_position);
+
+        igloo_sprite -> setTexture(igloo_texture3);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 3)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture4);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture4);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 4)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture5);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture5);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 5)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture6);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite->setTexture(igloo_texture6);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 6)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture7);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture7);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 7)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture8);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture8);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 8)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture9);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture9);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 9)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture10);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture10);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 10)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture11);
-        ptr -> setPosition(x_position, y_position);
+
+        igloo_sprite -> setTexture(igloo_texture11);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 11)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture12);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture12);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 12)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture13);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture13);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 13)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture14);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture14);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 
     else if (igloo_blocks == 14)
     {
-        ptr -> setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
-        ptr -> setTexture(igloo_texture15);
-        ptr -> setPosition(x_position, y_position);
+        igloo_sprite -> setTexture(igloo_texture15);
+        igloo_sprite->setPosition(x_position, y_position);
         return;
     }
 }

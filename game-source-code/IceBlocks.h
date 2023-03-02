@@ -25,8 +25,7 @@ public:
     void set_position(const vector2f&);
     void set_direction(const IceDirection&);
     IceDirection get_direction() const;
-    bool get_if_blue() const;
-    bool get_if_white() const;
+    std::tuple<bool, bool> get_color() const;
     void set_level(int);
     int get_ice_level() const;
 
