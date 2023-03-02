@@ -134,6 +134,14 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
                     }
                     ++NOBI;
                 }
+
+                if (!is_bailey_moving)
+                {
+                    auto ice_direction = (*iceObj_iter)->get_direction();
+                    //bailey should move with ice if stagnant
+                    setBaileyToMoveWithIce(bailey_sprite, ice_direction, deltaTime);
+
+                }
             }
 
             ++iceObj_iter;
@@ -203,6 +211,24 @@ void Logic::update_other_ice(const IceRegion& region, const IceColor& color)
             (*obj_iter)->set_color(color);
         }
         ++obj_iter;
+    }
+}
+
+void Logic::setBaileyToMoveWithIce(Sprite& bailey_sprite, const IceDirection& ice_dir,
+    const float& deltaTime)
+{
+    switch (ice_dir)
+    {
+    case IceDirection::L:
+        bailey_object.setBaileyToMoveWithIce(Direction::Left, bailey_sprite, deltaTime);
+        break;
+
+    case IceDirection::R:
+        bailey_object.setBaileyToMoveWithIce(Direction::Right, bailey_sprite, deltaTime);
+        break;
+
+    default:
+        break;
     }
 }
 

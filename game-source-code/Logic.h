@@ -117,5 +117,7 @@ private:
     int NOBI; //Number Of Blue Ice
     void set_all_ice_to_white();
     void update_other_ice(const IceRegion&, const IceColor&);
+
+    void setBaileyToMoveWithIce(Sprite&, const IceDirection&, const float&);
 };
 #endif // LOGIC_H

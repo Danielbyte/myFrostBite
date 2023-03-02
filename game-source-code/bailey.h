@@ -9,7 +9,7 @@ enum class BaileyRegion { region1, region2, region3, region4, unknown };
 class Bailey {
 public:
     Bailey();
-    void set_bailey_movement(const Direction&, const bool&, Sprite&,const float&);
+    void setBaileyToMoveWithIce(const Direction&, Sprite&, const float&);
     float get_Xpos();
     float get_Ypos();
     bool is_bailey_moving() const;

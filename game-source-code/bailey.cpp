@@ -23,7 +23,7 @@ Bailey::Bailey():
     left_right_const{180.0f},
     speed{0.0f},
     upJumpingForce{410.0f},
-    ice_speed{60.0f},
+    ice_speed{88.0f},
     speed_attenuater{1.5f},
     upJump_speedAtten{1.0f},
     is_bailey_jumping{false},
@@ -35,13 +35,9 @@ Bailey::Bailey():
     bailey_region = BaileyRegion::unknown; //bailey initially not in any of the four regions
 }
 
-void Bailey::set_bailey_movement(const Direction& dir,
-    const bool& keyPressed_, Sprite& bailey_sprite,const float& deltaTime)
+void Bailey::setBaileyToMoveWithIce(const Direction& dir,Sprite& bailey_sprite,
+    const float& deltaTime)
 {
-    RightKeyPressed = false;
-    LeftKeyPressed = false;
-   if (keyPressed_)
-    {
         switch (dir)
         {
         case Direction::Left:
@@ -73,7 +69,7 @@ void Bailey::set_bailey_movement(const Direction& dir,
         //default:
             //;
         }
-    }
+    
 }
 
 bool Bailey::get_if_right_key_pressed() const
