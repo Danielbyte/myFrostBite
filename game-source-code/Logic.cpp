@@ -118,8 +118,10 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
 
             auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
             auto color = (*iceObj_iter)->get_color();
-            if (isCollided && color == IceColor::White)
+            if (isCollided)
             {
+                if (color == IceColor::White)
+                {
                     (*iceObj_iter)->set_color(IceColor::Blue);
                     igloo_object->add_igloo_blocks();
                     igloo_object->update_igloo(IglooHouseSprite);
@@ -131,6 +133,7 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
                         update_other_ice(region, _color);
                     }
                     ++NOBI;
+                }
             }
 
             ++iceObj_iter;
@@ -198,9 +201,7 @@ void Logic::update_other_ice(const IceRegion& region, const IceColor& color)
         if (_region == region)
         {
             (*obj_iter)->set_color(color);
-            break;
         }
-
         ++obj_iter;
     }
 }
