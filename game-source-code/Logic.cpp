@@ -1,7 +1,6 @@
 #include "Logic.h"
 
 Logic::Logic():
-    number_of_igloo_blocks{0},
     ice_block_index{0},
     is_bailey_moving{false},
     is_igloo_complete{false},
@@ -144,13 +143,17 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
         }
     }
 
-
+    auto isIglooComplete = mark_if_igloo_is_complete();
+    if (isIglooComplete)
+    {
+        set_all_ice_batches_to_blue();
+    }
 }
 
-void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_blocks)
+void Logic::set_all_ice_batches_to_blue()
 {
-    auto iter = ice_blocks.begin();
-    while(iter != ice_blocks.end())
+    auto iter = ice_block_objects.begin();
+    while(iter != ice_block_objects.end())
     {
         (*iter) -> set_color(IceColor::Blue);
         (*iter) -> set_color(IceColor::Blue);
@@ -160,13 +163,19 @@ void Logic::set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>& ice_block
 
 bool Logic::mark_if_igloo_is_complete()
 {
-    auto at_door = bailey_object.get_Xpos();
-    if (number_of_igloo_blocks == 14 && (at_door >= 610.0f))
+    auto blocks = get_number_of_igloo_blocks();
+    if (blocks == 14)
     {
         return true;
     }
     else
         return false;
+}
+
+int Logic::get_number_of_igloo_blocks()
+{
+    auto blocks = igloo_object->get_number_of_igloo_blocks();
+    return blocks;
 }
 
 void Logic::set_all_ice_to_white()
@@ -284,12 +293,6 @@ void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
 vector2f Logic::get_igloo_position()
 {
     return position;
-}
-
-int Logic::get_number_of_igloo_blocks()
-{
-    number_of_igloo_blocks = igloo_object -> get_number_of_igloo_blocks();
-    return number_of_igloo_blocks;
 }
 
 void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_ptr<IceBlocks>& ptr,

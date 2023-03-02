@@ -79,7 +79,6 @@ public:
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
 
 private:
-    int number_of_igloo_blocks;
     int ice_block_index;
     IceBlockController ice_block_controller;
     vector2f pos;
@@ -89,7 +88,7 @@ private:
 
     Collision collision;
 
-    void set_all_ice_batches_to_blue(vector<shared_ptr<IceBlocks>>&);
+    void set_all_ice_batches_to_blue();
     bool is_igloo_complete;
     vector2f position;
     float y_;
