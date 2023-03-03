@@ -40,9 +40,7 @@ public:
 
    bool mark_if_igloo_is_complete();
 
-   void reverse_ice_direction(vector<shared_ptr<Sprite>>&);
-
-   std::tuple<bool, bool> get_collisions();
+   void reverse_ice_direction(shared_ptr<Sprite>&);
 
    shared_ptr<Igloo>igloo_object = std::make_shared<Igloo>(Igloo());
    vector2f get_igloo_position();
@@ -93,7 +91,6 @@ private:
     vector2f position;
     float y_;
 
-    void set_ice_direction(const int&, const int&, shared_ptr<IceBlocks>&, shared_ptr<Sprite>&);
 
     BaileyController control_bailey;
 

@@ -23,7 +23,7 @@ Bailey::Bailey():
     left_right_const{180.0f},
     speed{0.0f},
     upJumpingForce{410.0f},
-    ice_speed{88.0f},
+    ice_speed{88.5f},
     speed_attenuater{1.5f},
     upJump_speedAtten{1.0f},
     is_bailey_jumping{false},

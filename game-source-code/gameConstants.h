@@ -12,10 +12,12 @@
 #include <algorithm>
 #include <cmath>
 #include <random>
+#include <queue>
 
 using std::vector;
 using std::shared_ptr;
 using std::string;
+using std::queue;
 
 const auto windowWidth = 800ul;
 const auto windowHeight = 600ul;

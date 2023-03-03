@@ -5,8 +5,6 @@ Logic::Logic():
     is_bailey_moving{false},
     is_igloo_complete{false},
     y_{0.0f},
-    ice_collision_batch1{false},
-    ice_collision_batch2{false},
     plungedInWater{true},
     NOBI{0}
 
@@ -104,7 +102,6 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
     const float& deltaTime)
 {
     auto isBaileyInSafeZone = bailey_object.get_if_bailey_in_safe_zone();
-    ice_collision_batch1 = true;
     //if frostbite bailey is not in the safe zone, check collisions with ice
     if (!isBaileyInSafeZone)
     {
@@ -232,183 +229,38 @@ void Logic::setBaileyToMoveWithIce(Sprite& bailey_sprite, const IceDirection& ic
     }
 }
 
-void Logic::reverse_ice_direction(vector<shared_ptr<Sprite>>& igloo_sprites)
+void Logic::reverse_ice_direction(shared_ptr<Sprite>& igloo_sprites)
 {
-    /*
-    if(!ice_block_objects1.empty())
+    auto obj_iter = ice_block_objects.begin();
+    while (obj_iter != ice_block_objects.end())
     {
-        vector2f ice_position;
-        vector2f bailey_position;
-        auto ice_iter = ice_block_objects1.begin();
-        while(ice_iter != ice_block_objects1.end())
+        vector2f bailey_pos;
+        auto ice_pos = (*obj_iter)->get_position();
+        bailey_pos.x = bailey_object.get_Xpos();
+        bailey_pos.y = bailey_object.get_Ypos();
+        auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
+        auto region = (*obj_iter)->get_region();
+     
+        if (isCollided)
         {
-            bailey_position.x = bailey_object.get_Xpos() - bailey_width_offset;
-            bailey_position.y = bailey_object.get_Ypos() - bailey_height_offset;
-
-            ice_position.x =((*ice_iter) -> get_position()).x - ice_width_offset;
-            ice_position.y =((*ice_iter) -> get_position()).y - ice_height_offset;
-
-            auto is_collided = collision.bailey_ice_collision(bailey_position,bailey_width,bailey_height,
-                               ice_position,ice_width,ice_height);
-
-            if (is_collided)
+            auto dir = (*obj_iter)->get_direction();
+            if (dir == IceDirection::L)
             {
-                auto moving_left = (*ice_iter) -> get_if_left();
-                if (moving_left)
-                {
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> subract_igloo_block();
-                    (*ice_iter) -> set_if_left(false);
-                    update_igloo(igloo_sprites);
-                }
-                else
-                {
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> subract_igloo_block();
-                    (*ice_iter) -> set_if_left(true);
-                    update_igloo(igloo_sprites);
-                }
+                (*obj_iter)->set_direction(IceDirection::R);
             }
-
-            ++ice_iter;
+             if (dir == IceDirection::R)
+            {
+                (*obj_iter)->set_direction(IceDirection::L);
+            }
         }
 
+        ++obj_iter;
     }
-
-    if(!ice_block_objects2.empty())
-    {
-        vector2f ice_position;
-        vector2f bailey_position;
-        auto ice_iter = ice_block_objects2.begin();
-        while(ice_iter != ice_block_objects2.end())
-        {
-            bailey_position.x = bailey_object.get_Xpos() - bailey_width_offset;
-            bailey_position.y = bailey_object.get_Ypos() - bailey_height_offset;
-
-            ice_position.x =((*ice_iter) -> get_position()).x - ice_width_offset;
-            ice_position.y =((*ice_iter) -> get_position()).y - ice_height_offset;
-
-            auto is_collided = collision.bailey_ice_collision(bailey_position,bailey_width,bailey_height,
-                               ice_position,ice_width,ice_height);
-
-            if (is_collided)
-            {
-                auto moving_left = (*ice_iter) -> get_if_left();
-                if (moving_left)
-                {
-                    (*ice_iter) -> set_if_left(false);
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> subract_igloo_block();
-                    update_igloo(igloo_sprites);
-                }
-                else
-                {
-                    (*ice_iter) -> set_if_left(true);
-                    auto igloo_ptr = igloo_object.begin();
-                    (*igloo_ptr) -> subract_igloo_block();
-                    update_igloo(igloo_sprites);
-                }
-            }
-
-            ++ice_iter;
-        }
-
-    }
-    */
 }
 
 vector2f Logic::get_igloo_position()
 {
     return position;
-}
-
-void Logic::set_ice_direction(const int& vector_, const int& ice_level, shared_ptr<IceBlocks>& ptr,
-    shared_ptr<Sprite>& ptr2)
-{
-    /*
-    if (vector_ == 1)
-    {
-        if (!ice_block_objects2.empty())
-        {
-            auto obj2_ptr = ice_block_objects2.begin();
-            while (obj2_ptr != ice_block_objects2.end())
-            {
-                auto level = (*obj2_ptr)->get_ice_level();
-                if (level == ice_level)
-                {
-                    auto direction = (*obj2_ptr)->get_if_left();
-                    if (direction)
-                    {
-                        vector2f position = ptr2->getPosition();
-                        position.x = -160.0f;
-                        ptr2->setPosition(position);
-                        ptr->set_position(position);
-                    }
-                    else
-                    {
-                        vector2f position = ptr2->getPosition();
-                        position.x = 960.0f;
-                        ptr2->setPosition(position);
-                        ptr->set_position(position);
-                    }
-
-                    ptr->set_if_left(direction);
-                    break;
-                }
-                ++obj2_ptr;
-            }
-        }
-        else if ((ice_level == 1 || ice_level == 3) && (ice_block_objects2.empty()))
-        {
-            //Have to set to default
-            ptr->set_if_left(true);
-        }
-    }
-
-    else if (vector_ == 2)
-    {
-        if (!ice_block_objects1.empty())
-        {
-            auto obj1_ptr = ice_block_objects1.begin();
-            while (obj1_ptr != ice_block_objects1.end())
-            {
-                auto level = (*obj1_ptr)->get_ice_level();
-                if (level == ice_level)
-                {
-                    auto direction = (*obj1_ptr)->get_if_left();
-                    if (direction)
-                    {
-                        vector2f position = ptr2->getPosition();
-                        position.x = -160.0f;
-                        ptr2->setPosition(position);
-                        ptr->set_position(position);
-                    }
-                    else
-                    {
-                        vector2f position = ptr2->getPosition();
-                        position.x = 960.0f;
-                        ptr2->setPosition(position);
-                        ptr->set_position(position);
-                    }
-                    ptr->set_if_left(direction);
-                    break;
-                }
-                ++obj1_ptr;
-            }
-        }
-
-        else if ((ice_level == 0 ||ice_level == 2) && (ice_block_objects1.empty()))
-        {
-            ptr->set_if_left(true);
-        }
-    }
-    */
-}
-
-//This tuple function returns variable that mark if frostbite successfully stepped on ice
-std::tuple<bool,bool> Logic::get_collisions()
-{
-    return { ice_collision_batch1,ice_collision_batch2};
 }
 
 void Logic::update_bear(Sprite& bear_sprite,const float& deltaTime)
@@ -682,6 +534,7 @@ void Logic::bailey_clamp_collision(vector<shared_ptr<Sprite>>& clamp_sprites)
 
         if (isCollided)
         {
+           
         }
         ++clamp_obj_iter;
         ++clamp_sprite_iter;

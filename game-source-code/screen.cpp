@@ -117,7 +117,7 @@ void Screen::process_user_inputs(const float& deltaTime)
                auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
                if (!bailey_in_safe_zone && (igloo_blocks > 0 && igloo_blocks < 14))
                {
-                  // logic.reverse_ice_direction(Igloo_house_sprite);
+                   logic.reverse_ice_direction(Igloo_house_sprite);
                }
             }
 
@@ -270,8 +270,8 @@ void Screen::update_game_sprites(const float& deltaTime)
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
     {
         logic.bailey_and_ice_collision(Igloo_house_sprite, bailey_sprite, deltaTime);
-        auto[collision1,collision2] = logic.get_collisions();
-        if (collision1 || collision2)
+        auto collision1 = true;
+        if (collision1)
         {
             logic.bailey_object.set_bailey_to_dead(false); // is frosbite has stepped on ice (should live)
         }
