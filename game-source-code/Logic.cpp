@@ -98,9 +98,10 @@ bool Logic::Is_bailey_moving() const
     return is_bailey_moving;
 }
 
-void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite& bailey_sprite,
+bool Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite& bailey_sprite,
     const float& deltaTime)
 {
+    auto collided = false;
     auto isBaileyInSafeZone = bailey_object.get_if_bailey_in_safe_zone();
     //if frostbite bailey is not in the safe zone, check collisions with ice
     if (!isBaileyInSafeZone)
@@ -117,6 +118,7 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
             auto color = (*iceObj_iter)->get_color();
             if (isCollided)
             {
+                collided = true;
                 if (color == IceColor::White)
                 {
                     (*iceObj_iter)->set_color(IceColor::Blue);
@@ -139,6 +141,7 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
                     setBaileyToMoveWithIce(bailey_sprite, ice_direction, deltaTime);
 
                 }
+                check_frostbite_on_ice_patch(*iceObj_iter);
             }
 
             ++iceObj_iter;
@@ -156,6 +159,10 @@ void Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite
     {
         set_all_ice_batches_to_blue();
     }
+
+    if (plungedInWater) { collided = false; }
+
+    return collided;
 }
 
 void Logic::set_all_ice_batches_to_blue()

@@ -36,7 +36,7 @@ public:
    std::tuple<vector2f,vector2f,vector2f,vector2f> create_ice_block_objects();
    bool Is_bailey_moving() const;
 
-   void bailey_and_ice_collision(shared_ptr<Sprite>&,Sprite&,const float&);
+   bool bailey_and_ice_collision(shared_ptr<Sprite>&,Sprite&,const float&);
 
    bool mark_if_igloo_is_complete();
 
@@ -91,11 +91,7 @@ private:
     vector2f position;
     float y_;
 
-
     BaileyController control_bailey;
-
-    bool ice_collision_batch1;
-    bool ice_collision_batch2;
 
     //vectors of enemies
     vector <shared_ptr<Crab>> crabs;
