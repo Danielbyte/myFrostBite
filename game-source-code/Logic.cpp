@@ -247,10 +247,14 @@ void Logic::reverse_ice_direction(shared_ptr<Sprite>& igloo_sprites)
             if (dir == IceDirection::L)
             {
                 (*obj_iter)->set_direction(IceDirection::R);
+                igloo_object->subract_igloo_block();
+                igloo_object->update_igloo(igloo_sprites);
             }
              if (dir == IceDirection::R)
             {
                 (*obj_iter)->set_direction(IceDirection::L);
+                igloo_object->subract_igloo_block();
+                igloo_object->update_igloo(igloo_sprites);
             }
         }
 
