@@ -135,42 +135,27 @@ void IceBlockController::create_ice_R1(const IceDirection& direction, const IceR
     const IceColor& color)
 {
     vector2f _pos;
-    switch (direction)
-    {
-    case IceDirection::L:
-        _pos.x = OOBBR;
-        _pos.y = 305.0f;
-        break;
-    case IceDirection::R:
-        _pos.x = OOBBL;
-        _pos.y = 305.0f;
-        break;
-    default:
-        break;
-    }
-    
+    auto y_pos = 305.0f;
+    set_position(direction, _pos, y_pos);
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
     ice_obj->set_color(color);
     new_ice_objects.push(ice_obj);
-    //ice_objects.push_back(ice_obj);
 
     auto ice_sprite = std::make_shared<Sprite>(Sprite());
     ice_sprite->setOrigin(ice_width / 2.0f, ice_height / 2.0f);
     ice_sprite->setTexture(white_ice_texture);
     ice_sprite->setPosition(_pos);
     new_ice_sprites.push(ice_sprite);
-    //ice_sprites.push_back(ice_sprite);
 }
 
 void IceBlockController::create_ice_R2(const IceDirection& direction, const IceRegion& region,
     const IceColor& color)
 {
-    //std::cout << "R2 created" << std::endl;
     vector2f _pos;
-    _pos.x = -160.0f;
-    _pos.y = 387.0f;
+    auto y_pos = 387.0f;
+    set_position(direction, _pos, y_pos);
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
@@ -187,10 +172,9 @@ void IceBlockController::create_ice_R2(const IceDirection& direction, const IceR
 void IceBlockController::create_ice_R3(const IceDirection& direction,const IceRegion& region,
     const IceColor& color)
 {
-    //std::cout << "R3 created" << std::endl;
     vector2f _pos;
-    _pos.x = 960.0f;
-    _pos.y = 469.0f;
+    auto y_pos = 469.0f;
+    set_position(direction, _pos, y_pos);
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
@@ -207,10 +191,9 @@ void IceBlockController::create_ice_R3(const IceDirection& direction,const IceRe
 void IceBlockController::create_ice_R4(const IceDirection& direction,const IceRegion& region,
     const IceColor& color)
 {
-    //std::cout << "R4 created" << std::endl;
     vector2f _pos;
-    _pos.x = -160.0f;
-    _pos.y = 551.0f;
+    auto y_pos = 551.0f;
+    set_position(direction, _pos, y_pos);
     shared_ptr<IceBlocks>ice_obj(new IceBlocks(_pos));
     ice_obj->set_region(region);
     ice_obj->set_direction(direction);
@@ -244,6 +227,23 @@ void IceBlockController::update_ice_texture(vector<shared_ptr<Sprite>>& ice_spri
 
         ++obj_iter;
         ++iter;
+    }
+}
+
+void IceBlockController::set_position(const IceDirection& direction, vector2f& _pos,const float& y)
+{
+    switch (direction)
+    {
+    case IceDirection::L:
+        _pos.x = OOBBR;
+        _pos.y = y;
+        break;
+    case IceDirection::R:
+        _pos.x = OOBBL;
+        _pos.y = y;
+        break;
+    default:
+        break;
     }
 }
 

@@ -21,6 +21,7 @@ public:
 
     //Check if you already have ice present in region
     void check_regions(const vector<shared_ptr<IceBlocks>>&);
+    void set_position(const IceDirection&, vector2f&, const float&);
 
 private:
     void load_textures();
