@@ -188,6 +188,11 @@ float Bailey::get_bailey_mass() const
     return bailey_mass;
 }
 
+float Bailey::get_gravity() const
+{
+    return gravity;
+}
+
 void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
     bool& isJumping, bool& isJumpingDown)
 {
@@ -208,6 +213,11 @@ void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float
         is_bailey_jumping = false;
         update_bailey_region();
     }
+}
+
+void Bailey::setXposition(const float& _pos)
+{
+    x_position = _pos;
 }
 
 void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float& start_position,
@@ -302,6 +312,16 @@ void Bailey::update_bailey_region()
     {
         bailey_region = BaileyRegion::unknown;
     }
+}
+
+void Bailey::turnGravityOff()
+{
+    gravity = 0.0f;
+}
+
+void Bailey::setSpeedToZero()
+{
+    left_right_const = 0;
 }
 
 BaileyRegion Bailey::get_bailey_region() const

@@ -2,7 +2,8 @@
 
 BaileyController::BaileyController():
 	frame_counter{0},
-	drowningTimePerFrame{0.06f}
+	drowningTimePerFrame{0.06f},
+	CWSCTPF{0.17f}
 {
 	load_textures();
 }
@@ -81,6 +82,14 @@ void BaileyController::load_textures()
 	drown15.loadFromFile("resources/drown15.png");
 	drown16.loadFromFile("resources/drown16.png");
 	drown17.loadFromFile("resources/drown17.png");
+
+	//Tecture to animate when frostbite collides with sea animal
+	die1.loadFromFile("resources/die1.png");
+	die2.loadFromFile("resources/die2.png");
+	die3.loadFromFile("resources/die3.png");
+	die4.loadFromFile("resources/die4.png");
+	die5.loadFromFile("resources/die5.png");
+	die6.loadFromFile("resources/die6.png");
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -146,6 +155,34 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	 {
 		 bailey_sprite.setTexture(bailey_texture3);
 	 }
+}
+
+void BaileyController::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)
+{
+	if (deltaTime >= 0 && deltaTime <= CWSCTPF)
+	{
+		bailey_sprite.setTexture(die1);
+	}
+	if (deltaTime >= CWSCTPF && deltaTime <= 2*CWSCTPF)
+	{
+		bailey_sprite.setTexture(die2);
+	}
+	if (deltaTime >= 2 * CWSCTPF && deltaTime <= 3 * CWSCTPF)
+	{
+		bailey_sprite.setTexture(die3);
+	}
+	if (deltaTime >= 3 * CWSCTPF && deltaTime <= 4 * CWSCTPF)
+	{
+		bailey_sprite.setTexture(die4);
+	}
+	if (deltaTime >= 4 * CWSCTPF && deltaTime <= 5 * CWSCTPF)
+	{
+		bailey_sprite.setTexture(die5);
+	}
+	if (deltaTime >= 5 * CWSCTPF && deltaTime <= 6 * CWSCTPF)
+	{
+		bailey_sprite.setTexture(die6);
+	}
 }
 
 void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite)

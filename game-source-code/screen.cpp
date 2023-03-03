@@ -263,18 +263,14 @@ void Screen::update_game_sprites(const float& deltaTime)
     logic.update_bear(bear_sprite, deltaTime);
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
     logic.frostbite_bear_collisions();
-    logic.updateBaileyAndSeaAnimalCollisioons(crabs, clamps, birds, fish);
+    logic.updateBaileyAndSeaAnimalCollisions(crabs, clamps, birds, fish);
    
     //only update collisions if frostbite is not in safe zone
     auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
     {
-        auto collision = logic.bailey_and_ice_collision(Igloo_house_sprite, bailey_sprite, deltaTime);
-        if (collision)
-        {
-            logic.bailey_object.set_bailey_to_dead(false); // is frosbite has stepped on ice (should live)
-        }
-        else
+        auto isCollided = logic.bailey_and_ice_collision(Igloo_house_sprite, bailey_sprite, deltaTime);
+         if(!isCollided)
         {
             auto isAnimating = true;
             Stopwatch s_watch;
@@ -295,6 +291,29 @@ void Screen::update_game_sprites(const float& deltaTime)
 
             }
         }
+
+         auto collidedWithSeaCreatures = logic.getIfCollidedWithSeaAnimal();
+         if (collidedWithSeaCreatures)
+         {
+             auto isAnimating = true;
+             Stopwatch s_watch;
+             logic.bailey_object.set_bailey_to_dead(true);
+             while (isAnimating)
+             {
+                 auto TimeElapsed = s_watch.elapsed_time();
+                 logic.baileyCollisionWithSeaCreatureAnimation(TimeElapsed, bailey_sprite);
+                 draw_game_entities();
+                 //draw game objects
+                 draw_game_objects(); //draw game entities
+                 window.display();
+                 window.clear();
+                 if (TimeElapsed >= 1.03f)
+                 {
+                     isAnimating = false;
+                 }
+
+             }
+         }
         
     }
 }

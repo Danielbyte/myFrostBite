@@ -6,7 +6,8 @@ Logic::Logic():
     is_igloo_complete{false},
     y_{0.0f},
     plungedInWater{true},
-    NOBI{0}
+    NOBI{0},
+    BaileyCollidedWithSeaAnimal{false}
 
 {
     prev_pos.x = 240.0f; //Initial bailey position
@@ -477,10 +478,16 @@ void Logic::drowning_bailey_animation(const float& deltaTime,Sprite& bailey_spri
     control_bailey.drowning_bailey(deltaTime, bailey_sprite);
 }
 
-void Logic::updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>& crab_sprites,
+void Logic::baileyCollisionWithSeaCreatureAnimation(const float& deltaTime, Sprite& bailey_sprite)
+{
+    control_bailey.collision_with_sea_animal(deltaTime, bailey_sprite);
+}
+
+void Logic::updateBaileyAndSeaAnimalCollisions(vector<shared_ptr<Sprite>>& crab_sprites,
     vector<shared_ptr<Sprite>>& clamp_sprites, vector<shared_ptr<Sprite>>& bird_sprites,
     vector<shared_ptr<Sprite>>& fish_sprites)
 {
+    BaileyCollidedWithSeaAnimal = false;
     //AIR -> Animal In Region
     auto [AIR1, AIR2, AIR3, AIR4] = enemy.get_animals_in_regions();
     auto bailey_region = bailey_object.get_bailey_region();
@@ -568,7 +575,7 @@ void Logic::bailey_clamp_collision(vector<shared_ptr<Sprite>>& clamp_sprites)
 
         if (isCollided)
         {
-           
+            BaileyCollidedWithSeaAnimal = true;
         }
         ++clamp_obj_iter;
         ++clamp_sprite_iter;
@@ -590,6 +597,7 @@ void Logic::bailey_crab_collision(vector<shared_ptr<Sprite>>& crab_sprites)
 
         if (isCollided)
         {
+            BaileyCollidedWithSeaAnimal = true;
         }
         ++crab_obj_iter;
         ++crab_sprite_iter;
@@ -611,10 +619,16 @@ void Logic::bailey_bird_collision(vector<shared_ptr<Sprite>>& bird_sprites)
 
         if (isCollided)
         {
+            BaileyCollidedWithSeaAnimal = true;
         }
         ++bird_obj_iter;
         ++bird_sprite_iter;
     }
+}
+
+bool Logic::getIfCollidedWithSeaAnimal() const
+{
+    return BaileyCollidedWithSeaAnimal;
 }
 
 Logic::~Logic()

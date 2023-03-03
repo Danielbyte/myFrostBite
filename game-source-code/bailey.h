@@ -15,6 +15,8 @@ public:
     bool is_bailey_moving() const;
     bool get_if_bailey_in_safe_zone();
 
+    void setXposition(const float&);
+
     bool get_is_moving_up() const;
     bool get_is_moving_down() const;
 
@@ -44,6 +46,9 @@ public:
 
     BaileyRegion get_bailey_region() const;
     void update_bailey_region();
+    void setSpeedToZero();
+    void turnGravityOff();
+    float get_gravity() const;
 
 private:
     void calibrate(const float&);

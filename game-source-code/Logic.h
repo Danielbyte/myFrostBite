@@ -64,9 +64,10 @@ public:
 
    void check_frostbite_on_ice_patch(shared_ptr<IceBlocks>&);
    void drowning_bailey_animation(const float&,Sprite&);
+   void baileyCollisionWithSeaCreatureAnimation(const float&, Sprite&);
 
    //frostbite bailey with sea animals
-   void updateBaileyAndSeaAnimalCollisioons(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+   void updateBaileyAndSeaAnimalCollisions(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
    void bailey_fish_collision(vector<shared_ptr<Sprite>>&);
    void bailey_bird_collision(vector<shared_ptr<Sprite>>&);
@@ -75,6 +76,8 @@ public:
 
    void region_collisions(const Animal&, vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+
+   bool getIfCollidedWithSeaAnimal() const;
 
 private:
     int ice_block_index;
@@ -113,5 +116,7 @@ private:
     void updateOtherIceToChangeDirection(const IceRegion&, const IceDirection&);
 
     void setBaileyToMoveWithIce(Sprite&, const IceDirection&, const float&);
+
+    bool BaileyCollidedWithSeaAnimal;
 };
 #endif // LOGIC_H
