@@ -243,22 +243,45 @@ void Logic::reverse_ice_direction(shared_ptr<Sprite>& igloo_sprites)
      
         if (isCollided)
         {
+            IceDirection temp_direction = IceDirection::S;
             auto dir = (*obj_iter)->get_direction();
             if (dir == IceDirection::L)
             {
                 (*obj_iter)->set_direction(IceDirection::R);
                 igloo_object->subract_igloo_block();
                 igloo_object->update_igloo(igloo_sprites);
+                temp_direction = IceDirection::R;
             }
              if (dir == IceDirection::R)
             {
                 (*obj_iter)->set_direction(IceDirection::L);
                 igloo_object->subract_igloo_block();
                 igloo_object->update_igloo(igloo_sprites);
+                temp_direction = IceDirection::L;
             }
+             auto numberOfIceObjects = ice_block_objects.size();
+             if (numberOfIceObjects > 4)
+             {
+                 updateOtherIceToChangeDirection(region, temp_direction);
+             }
         }
 
         ++obj_iter;
+    }
+}
+
+void Logic::updateOtherIceToChangeDirection(const IceRegion& region, const IceDirection& direction)
+{
+    auto iter = ice_block_objects.begin();
+    while (iter != ice_block_objects.end())
+    {
+        auto _region = (*iter)->get_region();
+
+        if (_region == region)
+        {
+            (*iter)->set_direction(direction);
+        }
+        ++iter;
     }
 }
 
