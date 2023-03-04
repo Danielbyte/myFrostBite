@@ -47,9 +47,14 @@ void Screen::initialize_screen()
     temperature_disp.setCharacterSize(20);
     temperature_disp.setStyle(Text::Bold);
     temperature_disp.setFillColor(Color::Cyan);
-    temperature_disp.setPosition(0.0f, 0.0f);
+    temperature_disp.setPosition(0.0f, 3.0f);
 
-
+    degree_symbol.setFont(splash_screen_font);
+    degree_symbol.setCharacterSize(15);
+    degree_symbol.setStyle(Text::Bold);
+    degree_symbol.setFillColor(Color::Cyan);
+    degree_symbol.setPosition(188.0f, 0.0f);
+    degree_symbol.setString("o");
 }
 
 void Screen::initialise_player()
@@ -319,6 +324,8 @@ void Screen::update_game_sprites(const float& deltaTime)
                 draw_game_entities();
                 //draw game objects
                 draw_game_objects(); //draw game entities
+                window.draw(temperature_disp);
+                window.draw(degree_symbol);
                 window.display();
                 window.clear();
                 if (TimeElapsed >= 1.03f)
@@ -342,6 +349,8 @@ void Screen::update_game_sprites(const float& deltaTime)
                  draw_game_entities();
                  //draw game objects
                  draw_game_objects(); //draw game entities
+                 window.draw(temperature_disp);
+                 window.draw(degree_symbol);
                  window.display();
                  window.clear();
                  if (TimeElapsed >= 1.03f)
@@ -356,6 +365,7 @@ void Screen::update_game_sprites(const float& deltaTime)
     string _temperature = std::to_string(temperature);
     temperature_disp.setString("TEMPERATURE: " + _temperature);
     window.draw(temperature_disp);
+    window.draw(degree_symbol);
 
     if (timeUp)
     {
@@ -369,6 +379,8 @@ void Screen::update_game_sprites(const float& deltaTime)
             draw_game_entities();
             //draw game objects
             draw_game_objects(); //draw game entities
+            window.draw(temperature_disp);
+            window.draw(degree_symbol);
             window.display();
             window.clear();
             if (TimeElapsed >= 1.1f)
@@ -429,6 +441,8 @@ void Screen::update_game_state(const float& deltaTime)
             logic.animate_bailey_death(TimeElapsed,bailey_sprite);
             logic.bear_object.update_bear(bear_sprite, 0.0f);//bear is stationary, attacking frosty
             draw_game_entities();
+            window.draw(temperature_disp);
+            window.draw(degree_symbol);
             //draw game objects
             draw_game_objects(); //draw game entities
             window.display();

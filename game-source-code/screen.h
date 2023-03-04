@@ -104,6 +104,7 @@ private:
     bool isJumpingDown;
 
     Text temperature_disp;
+    Text degree_symbol;
 
 
     void draw_game_entities();
