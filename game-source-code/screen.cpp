@@ -43,6 +43,12 @@ void Screen::initialize_screen()
                                 "\nUse keyboard arrows to move player"
                                 "\nPress space to reverse block of ice!");
 
+    temperature_disp.setFont(splash_screen_font);
+    temperature_disp.setCharacterSize(20);
+    temperature_disp.setStyle(Text::Bold);
+    temperature_disp.setFillColor(Color::Cyan);
+    temperature_disp.setPosition(0.0f, 0.0f);
+
 
 }
 
@@ -346,6 +352,10 @@ void Screen::update_game_sprites(const float& deltaTime)
              }
          }       
     }
+
+    string _temperature = std::to_string(temperature);
+    temperature_disp.setString("TEMPERATURE: " + _temperature);
+    window.draw(temperature_disp);
 
     if (timeUp)
     {

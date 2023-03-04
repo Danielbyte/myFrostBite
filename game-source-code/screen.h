@@ -103,6 +103,9 @@ private:
     bool isJumpingUp;
     bool isJumpingDown;
 
+    Text temperature_disp;
+
+
     void draw_game_entities();
 
 };
