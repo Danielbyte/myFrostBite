@@ -27,6 +27,12 @@ public:
     void draw_birds();
 
 private:
+    void update_temperature();
+    void initialize_temperature();
+    Stopwatch tempStopWatch;
+    bool startedTempDecrease; //mark when started decreasig the temperature
+    bool timeUp;
+    int temperature;
     RenderWindow window;
     void initialize_screen();
 

@@ -1,6 +1,9 @@
 #include "screen.h"
 
 Screen::Screen():
+    startedTempDecrease{false},
+    timeUp{false},
+    temperature{45}, //temperature starts at 45 degrees
     window(VideoMode(windowWidth, windowHeight), "Frostbite"),
     is_playing{false},
     is_game_over{false},
@@ -148,6 +151,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
 {
         if (key == Keyboard::Enter && keyPressed) //player wants to play
             is_playing = true;
+        initialize_temperature();
         if (is_playing)
         {
             //player movements
@@ -182,6 +186,33 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                 logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
             }
         }
+}
+
+void Screen::initialize_temperature()
+{
+    if (!startedTempDecrease)
+    {
+        tempStopWatch.restart_timer();
+        startedTempDecrease = true;
+    }
+}
+
+void Screen::update_temperature()
+{
+    if (startedTempDecrease)
+    {
+        auto _time = tempStopWatch.elapsed_time();
+        if (_time >= 1.0f) // decrease temperature every 1 second
+        {
+            --temperature; //decrease the temperature
+            tempStopWatch.restart_timer();
+        }
+
+        if (temperature == 0)
+        {
+            timeUp = true;
+        }
+    }
 }
 
 void Screen::draw_game_objects()
@@ -264,7 +295,7 @@ void Screen::update_game_sprites(const float& deltaTime)
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
     logic.frostbite_bear_collisions();
     logic.updateBaileyAndSeaAnimalCollisions(crabs, clamps, birds, fish);
-   
+    update_temperature();
     //only update collisions if frostbite is not in safe zone
     auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
@@ -313,8 +344,29 @@ void Screen::update_game_sprites(const float& deltaTime)
                  }
 
              }
-         }
-        
+         }       
+    }
+
+    if (timeUp)
+    {
+        auto isAnimating = true;
+        Stopwatch s_watch;
+        logic.bailey_object.set_bailey_to_dead(true);
+        while (isAnimating)
+        {
+            auto TimeElapsed = s_watch.elapsed_time();
+            logic.freezing_bailey_animation(TimeElapsed, bailey_sprite);
+            draw_game_entities();
+            //draw game objects
+            draw_game_objects(); //draw game entities
+            window.display();
+            window.clear();
+            if (TimeElapsed >= 1.1f)
+            {
+                isAnimating = false;
+            }
+
+        }
     }
 }
 

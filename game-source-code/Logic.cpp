@@ -419,6 +419,11 @@ void Logic::animate_bailey_death(const float& deltaTime, Sprite& bailey_sprite)
     control_bailey.bailey_death(deltaTime, bailey_sprite);
 }
 
+void Logic::freezing_bailey_animation(const float& deltaTime, Sprite& bailey_sprite)
+{
+    control_bailey.freezing_animation(deltaTime, bailey_sprite);
+}
+
 void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
 {
     auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;

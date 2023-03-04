@@ -1,7 +1,6 @@
 #ifndef LOGIC_H
 #define LOGIC_H
 #include <tuple>
-#include "SfmlLibrary.h"
 #include "bailey.h"
 #include "IceBlockController.h"
 #include "Collision.h"
@@ -67,6 +66,7 @@ public:
    void baileyCollisionWithSeaCreatureAnimation(const float&, Sprite&);
    void drowning_bailey_animation(const float&, Sprite&);
    void animate_bailey_death(const float&, Sprite&);
+   void freezing_bailey_animation(const float&, Sprite&);
 
 private:
     //Ice block private functions and variables
