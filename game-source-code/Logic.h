@@ -23,80 +23,70 @@ public:
     Logic();
    ~Logic();
 
-   //Bailey logic
-   Bailey bailey_object;
-   void update_bailey_jumps(Sprite&, bool&, const float&,bool&,bool&);
-   void update_bailey(Sprite&);
-
-   //Ice block logic
-   //void create_ice_blocks(vector<shared_ptr<Sprite>>&);
+   //Igloo logic
+   shared_ptr<Igloo>igloo_object = std::make_shared<Igloo>(Igloo());
+   int get_number_of_igloo_blocks();
+   bool mark_if_igloo_is_complete();
+   
+   //Ice logic
+   std::tuple<vector2f, vector2f, vector2f, vector2f> create_ice_block_objects();
    void update_ice(vector<shared_ptr<Sprite>>&, const float&);
    vector <shared_ptr<IceBlocks>>ice_block_objects;
-
-   std::tuple<vector2f,vector2f,vector2f,vector2f> create_ice_block_objects();
-   bool Is_bailey_moving() const;
-
-   bool bailey_and_ice_collision(shared_ptr<Sprite>&,Sprite&,const float&);
-
-   bool mark_if_igloo_is_complete();
-
    void reverse_ice_direction(shared_ptr<Sprite>&);
+   
+   //Frostbite bailey logic
+   Bailey bailey_object;
+   bool bailey_and_ice_collision(shared_ptr<Sprite>&, Sprite&, const float&);
+   void update_bailey_jumps(Sprite&, bool&, const float&, bool&, bool&);
+   void check_frostbite_on_ice_patch(shared_ptr<IceBlocks>&);
+   void update_bailey(Sprite&);
 
-   shared_ptr<Igloo>igloo_object = std::make_shared<Igloo>(Igloo());
-   vector2f get_igloo_position();
-
-   int get_number_of_igloo_blocks();
-
-   Texture bailey_texture;
-
-   //Bear
+   //Bear logic
    Bear bear_object;
    void update_bear(Sprite&, const float&);
    void bear_track_bailey(Sprite&);
    void frostbite_bear_collisions();
 
-   //Other Enemies
+   //Sea animals logic
    Enemy enemy;
    void update_enemies(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&, const float&);
 
-   void animate_bailey_death(const float&,Sprite&);
-
-   void check_frostbite_on_ice_patch(shared_ptr<IceBlocks>&);
-   void drowning_bailey_animation(const float&,Sprite&);
-   void baileyCollisionWithSeaCreatureAnimation(const float&, Sprite&);
-
-   //frostbite bailey with sea animals
+   //frostbite baileyinteraction with sea animals
    void updateBaileyAndSeaAnimalCollisions(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
+       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
+   void region_collisions(const Animal&, vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
        vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
    void bailey_fish_collision(vector<shared_ptr<Sprite>>&);
    void bailey_bird_collision(vector<shared_ptr<Sprite>>&);
    void bailey_clamp_collision(vector<shared_ptr<Sprite>>&);
    void bailey_crab_collision(vector<shared_ptr<Sprite>>&);
-
-   void region_collisions(const Animal&, vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&,
-       vector<shared_ptr<Sprite>>&, vector<shared_ptr<Sprite>>&);
-
    bool getIfCollidedWithSeaAnimal() const;
 
+   //Animations
+   void baileyCollisionWithSeaCreatureAnimation(const float&, Sprite&);
+   void drowning_bailey_animation(const float&, Sprite&);
+   void animate_bailey_death(const float&, Sprite&);
+
 private:
-    int ice_block_index;
+    //Ice block private functions and variables
+    void updateOtherIceToChangeDirection(const IceRegion&, const IceDirection&);
+    void update_other_ice(const IceRegion&, const IceColor&);
     IceBlockController ice_block_controller;
-    vector2f pos;
-
-    bool is_bailey_moving;
-    vector2f prev_pos;
-
-    Collision collision;
-
     void set_all_ice_batches_to_blue();
+    void set_all_ice_to_white();
     bool is_igloo_complete;
-    vector2f position;
+    int NOBI; //Number Of Blue Ice
+
+    //Frostbite bear private functions and variables
+    void setBaileyToMoveWithIce(Sprite&, const IceDirection&, const float&);
+    BaileyController control_bailey;
+    bool is_bailey_moving;
+    bool plungedInWater; //monitors if bailey has plunged on water
+    vector2f prev_pos;
     float y_;
 
-    BaileyController control_bailey;
-
-    //vectors of enemies
+    //vectors of sea enemies
     vector <shared_ptr<Crab>> crabs;
     vector <shared_ptr<Clamp>> clamps;
     vector <shared_ptr<Bird>> birds;
@@ -108,15 +98,8 @@ private:
     FishController control_fish;
     BirdController control_bird;
 
-    bool plungedInWater; //monitors if bailey has plunged on water
-
-    int NOBI; //Number Of Blue Ice
-    void set_all_ice_to_white();
-    void update_other_ice(const IceRegion&, const IceColor&);
-    void updateOtherIceToChangeDirection(const IceRegion&, const IceDirection&);
-
-    void setBaileyToMoveWithIce(Sprite&, const IceDirection&, const float&);
-
+    //Collisions
     bool BaileyCollidedWithSeaAnimal;
+    Collision collision;
 };
 #endif // LOGIC_H

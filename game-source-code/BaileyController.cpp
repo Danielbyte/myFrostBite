@@ -3,7 +3,8 @@
 BaileyController::BaileyController():
 	frame_counter{0},
 	drowningTimePerFrame{0.06f},
-	CWSCTPF{0.17f}
+	CWSCTPF{0.17f},
+	freezingFrameTime{0.063f}
 {
 	load_textures();
 }
@@ -90,6 +91,24 @@ void BaileyController::load_textures()
 	die4.loadFromFile("resources/die4.png");
 	die5.loadFromFile("resources/die5.png");
 	die6.loadFromFile("resources/die6.png");
+
+	//Textures to animate frostbite when frozen
+	freeze1.loadFromFile("resources/freeze1.png");
+	freeze2.loadFromFile("resources/freeze2.png");
+	freeze3.loadFromFile("resources/freeze3.png");
+	freeze4.loadFromFile("resources/freeze4.png");
+	freeze5.loadFromFile("resources/freeze5.png");
+	freeze6.loadFromFile("resources/freeze6.png");
+	freeze7.loadFromFile("resources/freeze7.png");
+	freeze8.loadFromFile("resources/freeze8.png");
+	freeze9.loadFromFile("resources/freeze9.png");
+	freeze10.loadFromFile("resources/freeze10.png");
+	freeze11.loadFromFile("resources/freeze11.png");
+	freeze12.loadFromFile("resources/freeze12.png");
+	freeze13.loadFromFile("resources/freeze13.png");
+	freeze14.loadFromFile("resources/freeze14.png");
+	freeze15.loadFromFile("resources/freeze15.png");
+	freeze16.loadFromFile("resources/freeze16.png");
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -318,5 +337,73 @@ void BaileyController::drowning_bailey(const float& deltaTime, Sprite& bailey_sp
 	if (deltaTime > 16 * drowningTimePerFrame && deltaTime <= 17*drowningTimePerFrame)
 	{
 		bailey_sprite.setTexture(drown17);
+	}
+}
+
+void BaileyController::freezing_animation(const float& deltaTime, Sprite& bailey_sprite)
+{
+	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze1);
+	}
+	if (deltaTime >= freezingFrameTime && deltaTime <= 2 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze2);
+	}
+	if (deltaTime >= 2 * freezingFrameTime && deltaTime <= 3 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze3);
+	}
+	if (deltaTime >= 3 * freezingFrameTime && deltaTime <= 4 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze4);
+	}
+	if (deltaTime >= 4 * freezingFrameTime && deltaTime <= 5 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze5);
+	}
+	if (deltaTime >= 5 * freezingFrameTime && deltaTime <= 6 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze6);
+	}
+	if (deltaTime >= 6 * freezingFrameTime && deltaTime <= 7 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze7);
+	}
+	if (deltaTime >= 7 * freezingFrameTime && deltaTime <= 8 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze8);
+	}
+	if (deltaTime >= 8 * freezingFrameTime && deltaTime <= 9 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze9);
+	}
+	if (deltaTime >= 9 * freezingFrameTime && deltaTime <= 10 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze10);
+	}
+	if (deltaTime >= 10 * freezingFrameTime && deltaTime <= 11 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze11);
+	}
+	if (deltaTime >= 0 && deltaTime <= 12 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze12);
+	}
+	if (deltaTime >= 12 * freezingFrameTime && deltaTime <= 13 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze13);
+	}
+	if (deltaTime >= 13 * freezingFrameTime && deltaTime <= 14 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze14);
+	}
+	if (deltaTime >= 14 * freezingFrameTime && deltaTime <= 15 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze15);
+	}
+	if (deltaTime >= 15 * freezingFrameTime && deltaTime <= 16 * freezingFrameTime)
+	{
+		bailey_sprite.setTexture(freeze16);
 	}
 }

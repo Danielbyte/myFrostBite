@@ -375,7 +375,6 @@ void Screen::update_game_state(const float& deltaTime)
             {
                 isAnimating = false;
             }
-
         }
     }
 
@@ -404,10 +403,12 @@ void Screen::update_game_state(const float& deltaTime)
 
 void Screen::initialize_igloo()
 {
-    auto position = logic.get_igloo_position();
+    vector2f Initposition;
+    Initposition.x = 0;
+    Initposition.y = 0;
     Igloo_house_sprite ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
     Igloo_house_sprite -> setTexture(igloo_texture);
-    Igloo_house_sprite -> setPosition(position.x, position.y);
+    Igloo_house_sprite -> setPosition(Initposition);
 }
 
 void Screen::load_textures()

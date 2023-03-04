@@ -27,12 +27,17 @@ public:
 	//Textures when bailey collides with sea animal
 	Texture die1, die2, die3, die4, die5, die6;
 
+	//Textures when bailey runs out of time and is frozen.
+	Texture freeze1, freeze2, freeze3, freeze4, freeze5, freeze6, freeze7, freeze8, freeze9, freeze10
+		, freeze11, freeze12, freeze13, freeze14, freeze15, freeze16;
+
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);
 	void animate_bailey(Bailey&, Sprite&);
 	void bailey_death(const float&, Sprite&); //when frostbite collides with bear
 	void drowning_bailey(const float&, Sprite&);
 	void collision_with_sea_animal(const float&, Sprite&);
+	void freezing_animation(const float&, Sprite&);
 	void load_textures();
 
 private:
@@ -42,6 +47,7 @@ private:
 	bool isBaileyMoving;
 	float drowningTimePerFrame; //constant to time the animation of drowning frostbite
 	float CWSCTPF;//CWSCTPF->Collission With Sea Creature Time Per Frame
+	float freezingFrameTime;
 };
 #endif
 

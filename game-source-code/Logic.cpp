@@ -1,7 +1,6 @@
 #include "Logic.h"
 
 Logic::Logic():
-    ice_block_index{0},
     is_bailey_moving{false},
     is_igloo_complete{false},
     y_{0.0f},
@@ -92,11 +91,6 @@ void Logic::update_ice(vector<shared_ptr<Sprite>>& ice_block_sprites, const floa
 {
     ice_block_controller.update_iceblocks(ice_block_objects, ice_block_sprites, deltaTime);
     ice_block_controller.update_ice_texture(ice_block_sprites, ice_block_objects);
-}
-
-bool Logic::Is_bailey_moving() const
-{
-    return is_bailey_moving;
 }
 
 bool Logic::bailey_and_ice_collision(shared_ptr<Sprite>& IglooHouseSprite,Sprite& bailey_sprite,
@@ -291,11 +285,6 @@ void Logic::updateOtherIceToChangeDirection(const IceRegion& region, const IceDi
         }
         ++iter;
     }
-}
-
-vector2f Logic::get_igloo_position()
-{
-    return position;
 }
 
 void Logic::update_bear(Sprite& bear_sprite,const float& deltaTime)
