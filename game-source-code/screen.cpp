@@ -175,6 +175,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
         if (level == cursor_level3_y)
         {
             RenderWindow instructions_window(VideoMode(windowWidth, windowHeight), "Instructions");
+            _cursor.setPosition(instructions_back_x, instructions_back_y);
             while (instructions_window.isOpen())
             {
                 Event instructionsEvent;
@@ -185,10 +186,12 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                     case Event::KeyPressed:
                         if (instructionsEvent.key.code == Keyboard::Enter)
                         {
+                            _cursor.setPosition(cursor_level3_x, cursor_level3_y); //reset position back
                             instructions_window.close();
                         }
                         break;
                     case Event::Closed:
+                        _cursor.setPosition(cursor_level3_x, cursor_level3_y); //reset cursor position
                         instructions_window.close();
                         break;
                     default:
@@ -197,8 +200,14 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
                 }
                 window.clear();
                 instructions_window.draw(_instructions);
+                instructions_window.draw(_cursor);
                 instructions_window.display();
             }
+        }
+        if (level == cursor_level4_y)
+        {
+            quit_game = true;
+            window.close(); //quit game;
         }
     }
     if (key == Keyboard::Up && (keyPressed && !is_playing))

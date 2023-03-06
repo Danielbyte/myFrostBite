@@ -67,6 +67,10 @@ const auto cursor_level4_x = 294.0f;
 const auto cursor_level4_y = 393.0f;
 const auto cursor_step = 57.0f;
 
+const auto instructions_back_x = 660.0f;
+const auto instructions_back_y = 472.0f;
+
+
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};
