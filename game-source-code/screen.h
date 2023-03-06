@@ -74,6 +74,13 @@ private:
     Texture mainscreen;
     Sprite _mainscreen;
 
+    Texture cursor;
+    Sprite _cursor;
+    void initialize_cursor();
+    vector2f cursor_position;
+    void set_cursor_x_position();
+    bool startGamePlay;
+
     Texture igloo_texture;
     shared_ptr<Sprite> Igloo_house_sprite = std::make_shared<Sprite>(Sprite());
     void draw_igloo_house();
@@ -94,9 +101,6 @@ private:
     void update_game(const float&);
 
     void update_game_state(const float&);
-
-    bool collided1;
-    bool collided2;
 
     void load_textures();
 

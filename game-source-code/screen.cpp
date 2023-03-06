@@ -8,8 +8,6 @@ Screen::Screen():
     is_playing{false},
     is_game_over{false},
     quit_game{false},
-    collided1{false},
-    collided2{false},
     isJumping{false}, //bailey is initially at standstill
     isJumpingUp{false},
     isJumpingDown{false},
@@ -18,6 +16,7 @@ Screen::Screen():
     goingInIgloo_Y_speed{9.5f}
 {
     load_textures();
+    initialize_cursor();
     initialize_screen();
     initialise_player();
     initialise_background();
@@ -82,6 +81,16 @@ void Screen::initialise_bear()
     bear_sprite.setOrigin(bear_with / 2.0f, bear_height / 2.0f);
 }
 
+void Screen::initialize_cursor()
+{
+    _cursor.setTexture(cursor);
+    vector2f position;
+    position.x = cursor_level1_x;
+    position.y = cursor_level1_y;
+    _cursor.setPosition(position);
+    _cursor.setOrigin(cursor_width / 2.0f, cursor_height / 2.0f);
+}
+
 void Screen::run()
 {
     window.setVerticalSyncEnabled(true);
@@ -107,6 +116,8 @@ void Screen::run()
             if (!is_game_over)
             {
                 window.draw(_mainscreen);
+
+                window.draw(_cursor);
             }
         }
 
@@ -165,43 +176,81 @@ void Screen::process_user_inputs(const float& deltaTime)
 
 void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& deltaTime)
 {
-        if (key == Keyboard::Enter && keyPressed) //player wants to play
-            is_playing = true;
+    auto level = cursor_position.y;
+    if (key == Keyboard::Enter && keyPressed && level == cursor_level1_y) //player wants to play
+    {
+        is_playing = true;
         initialize_temperature();
-        if (is_playing)
+    }
+    if (key == Keyboard::Up && (keyPressed && !is_playing))
+    {
+        _cursor.move(0.0f, -cursor_step);
+        cursor_position.y = _cursor.getPosition().y;
+        set_cursor_x_position();
+        _cursor.setPosition(cursor_position.x, cursor_position.y);
+        if (cursor_position.y <= cursor_level1_y)
         {
-            //player movements
-            if (key == Keyboard::Up && keyPressed && !isJumping)
-            {
-                window.setKeyRepeatEnabled(false);
-                auto jumpForce = logic.bailey_object.get_up_jumping_force();
-                auto mass = logic.bailey_object.get_bailey_mass();
-                auto speed = jumpForce / mass;
-                logic.bailey_object.set_speed(speed);
-                isJumping = true;
-                isJumpingUp = true;
-            }
-            else if (key == Keyboard::Down && keyPressed && !isJumping)
-            {
-                window.setKeyRepeatEnabled(false);
-                auto jumpForce = logic.bailey_object.get_jump_force();
-                auto mass = logic.bailey_object.get_bailey_mass();
-                auto speed = jumpForce / mass;
-                logic.bailey_object.set_speed(speed);
-                isJumping = true;
-                isJumpingDown = true;
-            }
-            else if (key == Keyboard::Left)
-            {
-                window.setKeyRepeatEnabled(true);
-                logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
-            }
-            else if (key == Keyboard::Right)
-            {
-                window.setKeyRepeatEnabled(true);
-                logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
-            }
+            cursor_position.y = cursor_level1_y;
+            set_cursor_x_position();
+            _cursor.setPosition(cursor_position.x, cursor_position.y);
         }
+    }
+    if (key == Keyboard::Down && (keyPressed && !is_playing))
+    {
+        _cursor.move(0.0f, cursor_step);
+        cursor_position.y = _cursor.getPosition().y;
+        set_cursor_x_position();
+        _cursor.setPosition(cursor_position.x, cursor_position.y);
+        if (cursor_position.y >= cursor_level4_y)
+        {
+            cursor_position.y = cursor_level4_y;
+            set_cursor_x_position();
+            _cursor.setPosition(cursor_position.x, cursor_position.y);
+        }
+    }
+
+    if (is_playing)
+    {
+            //player movements
+         if (key == Keyboard::Up && keyPressed && !isJumping)
+         {
+              window.setKeyRepeatEnabled(false);
+              auto jumpForce = logic.bailey_object.get_up_jumping_force();
+              auto mass = logic.bailey_object.get_bailey_mass();
+              auto speed = jumpForce / mass;
+              logic.bailey_object.set_speed(speed);
+              isJumping = true;
+              isJumpingUp = true;
+         }
+         else if (key == Keyboard::Down && keyPressed && !isJumping)
+         {
+              window.setKeyRepeatEnabled(false);
+              auto jumpForce = logic.bailey_object.get_jump_force();
+              auto mass = logic.bailey_object.get_bailey_mass();
+              auto speed = jumpForce / mass;
+              logic.bailey_object.set_speed(speed);
+              isJumping = true;
+              isJumpingDown = true;
+         }
+         else if (key == Keyboard::Left)
+         {
+              window.setKeyRepeatEnabled(true);
+              logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
+         }
+         else if (key == Keyboard::Right)
+         {
+             window.setKeyRepeatEnabled(true);
+             logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
+         }
+    }
+}
+
+void Screen::set_cursor_x_position()
+{
+    if (cursor_position.y == cursor_level1_y) { cursor_position.x = cursor_level1_x; }
+    if (cursor_position.y == cursor_level2_y) { cursor_position.x = cursor_level2_x; }
+    if (cursor_position.y == cursor_level3_y) { cursor_position.x = cursor_level3_x; }
+    if (cursor_position.y == cursor_level4_y) { cursor_position.x = cursor_level4_x; }
 }
 
 void Screen::initialize_temperature()
@@ -386,7 +435,6 @@ void Screen::update_game_sprites(const float& deltaTime)
             {
                 isAnimating = false;
             }
-
         }
     }
 }
@@ -559,6 +607,7 @@ void Screen::load_textures()
     igloo_texture.loadFromFile("resources/igloo0.png");
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
     mainscreen.loadFromFile("resources/mainscreen.png");
+    cursor.loadFromFile("resources/cursor.png");
 }
 
 void Screen::draw_game_entities()
