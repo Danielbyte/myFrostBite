@@ -4,7 +4,7 @@ Screen::Screen():
     startedTempDecrease{false},
     timeUp{false},
     temperature{45}, //temperature starts at 45 degrees
-    window(VideoMode(windowWidth, windowHeight), "Frostbite"),
+    window(VideoMode(windowWidth, windowHeight), "Frostbite", sf::Style::Default),
     is_playing{false},
     is_game_over{false},
     quit_game{false},
@@ -35,17 +35,7 @@ void Screen::initialize_screen()
     /*splash_screen_display.setString("Welcome to Frostbite");*/
 
     _mainscreen.setTexture(mainscreen);
-    /*/game instructions set up
-    game_instructions.setFont(splash_screen_font);
-    game_instructions.setCharacterSize(20);
-    game_instructions.setStyle(Text::Regular);
-    game_instructions.setFillColor(Color::Red);
-    game_instructions.setPosition(10, 220);*/
-
-    /*game_instructions.setString("INSTRUCTIONS: \nPress Enter to start game!"
-                                "\nPress Escape(Esc) to quit!"
-                                "\nUse keyboard arrows to move player"
-                                "\nPress space to reverse block of ice!");*/
+    _instructions.setTexture(instructions);
 
     temperature_disp.setFont(splash_screen_font);
     temperature_disp.setCharacterSize(20);
@@ -84,10 +74,9 @@ void Screen::initialise_bear()
 void Screen::initialize_cursor()
 {
     _cursor.setTexture(cursor);
-    vector2f position;
-    position.x = cursor_level1_x;
-    position.y = cursor_level1_y;
-    _cursor.setPosition(position);
+    cursor_position.x = cursor_level1_x;
+    cursor_position.y = cursor_level1_y;
+    _cursor.setPosition(cursor_position);
     _cursor.setOrigin(cursor_width / 2.0f, cursor_height / 2.0f);
 }
 
@@ -120,7 +109,6 @@ void Screen::run()
                 window.draw(_cursor);
             }
         }
-
         window.display();
         window.clear();
     }
@@ -177,10 +165,41 @@ void Screen::process_user_inputs(const float& deltaTime)
 void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& deltaTime)
 {
     auto level = cursor_position.y;
-    if (key == Keyboard::Enter && keyPressed && level == cursor_level1_y) //player wants to play
+    if (key == Keyboard::Enter && keyPressed) //player wants to play
     {
-        is_playing = true;
-        initialize_temperature();
+        if (level == cursor_level1_y)
+        {
+            is_playing = true;
+            initialize_temperature();
+        }
+        if (level == cursor_level3_y)
+        {
+            RenderWindow instructions_window(VideoMode(windowWidth, windowHeight), "Instructions");
+            while (instructions_window.isOpen())
+            {
+                Event instructionsEvent;
+                while (instructions_window.pollEvent(instructionsEvent))
+                {
+                    switch (instructionsEvent.type)
+                    {
+                    case Event::KeyPressed:
+                        if (instructionsEvent.key.code == Keyboard::Enter)
+                        {
+                            instructions_window.close();
+                        }
+                        break;
+                    case Event::Closed:
+                        instructions_window.close();
+                        break;
+                    default:
+                        break;
+                    }
+                }
+                window.clear();
+                instructions_window.draw(_instructions);
+                instructions_window.display();
+            }
+        }
     }
     if (key == Keyboard::Up && (keyPressed && !is_playing))
     {
@@ -608,6 +627,7 @@ void Screen::load_textures()
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
     mainscreen.loadFromFile("resources/mainscreen.png");
     cursor.loadFromFile("resources/cursor.png");
+    instructions.loadFromFile("resources/instructions.png");
 }
 
 void Screen::draw_game_entities()

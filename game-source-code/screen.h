@@ -74,6 +74,9 @@ private:
     Texture mainscreen;
     Sprite _mainscreen;
 
+    Texture instructions;
+    Sprite _instructions;
+
     Texture cursor;
     Sprite _cursor;
     void initialize_cursor();
