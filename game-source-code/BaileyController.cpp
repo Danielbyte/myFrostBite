@@ -109,6 +109,12 @@ void BaileyController::load_textures()
 	freeze14.loadFromFile("resources/freeze14.png");
 	freeze15.loadFromFile("resources/freeze15.png");
 	freeze16.loadFromFile("resources/freeze16.png");
+
+	//Textures to animate frostbite when he goes into an igloo
+	enterIgloo1.loadFromFile("resources/enterIgloo1.png");
+	enterIgloo2.loadFromFile("resources/enterIgloo2.png");
+	enterIgloo3.loadFromFile("resources/enterIgloo3.png");
+	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
 void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
@@ -405,5 +411,28 @@ void BaileyController::freezing_animation(const float& deltaTime, Sprite& bailey
 	if (deltaTime >= 15 * freezingFrameTime && deltaTime <= 16 * freezingFrameTime)
 	{
 		bailey_sprite.setTexture(freeze16);
+	}
+}
+
+void BaileyController::go_inside_igloo(const float& y_pos, Sprite& bailey_sprite)
+{
+	if (y_pos <= 199.0f && y_pos >= 160.0f)
+	{
+		bailey_sprite.setTexture(enterIgloo1);
+	}
+
+	if (y_pos < 160 && y_pos >= 135)
+	{
+		bailey_sprite.setTexture(enterIgloo2);
+	}
+
+	if (y_pos < 135 && y_pos >= 133)
+	{
+		bailey_sprite.setTexture(enterIgloo3);
+	}
+
+	if (y_pos < 133)
+	{
+		bailey_sprite.setTexture(enterIgloo4);
 	}
 }

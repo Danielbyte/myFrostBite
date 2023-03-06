@@ -220,6 +220,11 @@ void Bailey::setXposition(const float& _pos)
     x_position = _pos;
 }
 
+void Bailey::setYposition(const float& _pos)
+{
+    y_position = _pos;
+}
+
 void Bailey::jump_up(Sprite& bailey_sprite, const float& deltaTime, const float& start_position,
     bool& isJumping, bool& isJumpingUp)
 {

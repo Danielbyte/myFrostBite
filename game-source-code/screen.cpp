@@ -12,7 +12,10 @@ Screen::Screen():
     collided2{false},
     isJumping{false}, //bailey is initially at standstill
     isJumpingUp{false},
-    isJumpingDown{false}
+    isJumpingDown{false},
+    igloorDoorOffset{14.5f},
+    goingInIgloo_X_speed{100.0f},
+    goingInIgloo_Y_speed{9.5f}
 {
     load_textures();
     initialize_screen();
@@ -376,13 +379,7 @@ void Screen::update_game_sprites(const float& deltaTime)
         {
             auto TimeElapsed = s_watch.elapsed_time();
             logic.freezing_bailey_animation(TimeElapsed, bailey_sprite);
-            draw_game_entities();
-            //draw game objects
-            draw_game_objects(); //draw game entities
-            window.draw(temperature_disp);
-            window.draw(degree_symbol);
-            window.display();
-            window.clear();
+            draw_animations();
             if (TimeElapsed >= 1.1f)
             {
                 isAnimating = false;
@@ -429,7 +426,7 @@ void Screen::update_game_state(const float& deltaTime)
 
     auto bailey_in_safe_zone = logic.bailey_object.get_if_bailey_in_safe_zone();
     auto bailey_is_dead = logic.bailey_object.get_if_bailey_dead();
-
+  
     if (bailey_is_dead && bailey_in_safe_zone)
     {
         auto isAnimating = true;
@@ -440,20 +437,14 @@ void Screen::update_game_state(const float& deltaTime)
             auto TimeElapsed = s_watch.elapsed_time();
             logic.animate_bailey_death(TimeElapsed,bailey_sprite);
             logic.bear_object.update_bear(bear_sprite, 0.0f);//bear is stationary, attacking frosty
-            draw_game_entities();
-            window.draw(temperature_disp);
-            window.draw(degree_symbol);
-            //draw game objects
-            draw_game_objects(); //draw game entities
-            window.display();
-            window.clear();
+            draw_animations();
             if (TimeElapsed >= 1.09)
             {
                 isAnimating = false;
             }
         }
     }
-
+ 
     if (bailey_is_dead)
     {
         is_playing = false;
@@ -464,24 +455,90 @@ void Screen::update_game_state(const float& deltaTime)
     }
 
     auto igloo_complete = logic.mark_if_igloo_is_complete();
-    if (bailey_in_safe_zone && igloo_complete)
+    auto [distance, igloo_door_Xpos, igloo_door_Ypos] = calculateDistanceBetweenBaileyAndDoor();
+    if (bailey_in_safe_zone && igloo_complete && distance.x <= 35.0f)
     {
-        window.setKeyRepeatEnabled(false);
-        is_playing = false;
-        is_game_over = true;
-        logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
-        logic.update_bailey(bailey_sprite);
+        Stopwatch s_watch;
+        float bailey_y_position;
+        float bailey_x_position;
+        bool isInside = false;
+        while (!isInside)
+        {
+            auto [distance, igloo_door_Xpos, igloo_door_Ypos] = calculateDistanceBetweenBaileyAndDoor();
+            auto TimeElapsed = s_watch.elapsed_time();
+            bailey_x_position = logic.bailey_object.get_Xpos();
+            bailey_y_position = logic.bailey_object.get_Ypos();
+            if (bailey_x_position > igloo_door_Xpos)
+            { 
+                if (distance.x > igloorDoorOffset) 
+                {
+                    bailey_sprite.move(-TimeElapsed*goingInIgloo_X_speed, 0);
+                     bailey_x_position = bailey_sprite.getPosition().x;
+                    logic.bailey_object.setXposition(bailey_x_position);
+                }
+            }
+
+            if (bailey_x_position < igloo_door_Xpos) 
+            { 
+                if (distance.x > igloorDoorOffset) 
+                { 
+                    bailey_sprite.move(TimeElapsed*goingInIgloo_X_speed, 0);
+                    bailey_x_position = bailey_sprite.getPosition().x;
+                    logic.bailey_object.setXposition(bailey_x_position); 
+                }
+            }
+
+            if (bailey_y_position > igloo_door_Ypos) 
+            { 
+                bailey_sprite.move(0, -TimeElapsed*goingInIgloo_Y_speed);
+                bailey_y_position = bailey_sprite.getPosition().y;
+                logic.bailey_object.setYposition(bailey_y_position);
+            }
+
+            logic.go_inside_igloo(bailey_y_position, bailey_sprite);
+            draw_animations();
+
+            if (bailey_y_position < 133)
+            {
+                isInside = true;
+                is_playing = false;
+                is_game_over = true;
+                window.setKeyRepeatEnabled(false);
+            }
+        }
         window.clear();
         splash_screen_display.setString("YOU WON!"
                                         "\nRETURNED SAFELY TO SAFE ZONE FROM BOTTOM");
     }
 }
 
+std::tuple<vector2f&, float&, float&> Screen::calculateDistanceBetweenBaileyAndDoor()
+{
+    auto bailey_x_position = logic.bailey_object.get_Xpos();
+    auto bailey_y_position = logic.bailey_object.get_Ypos();
+    auto igloo_door_Xpos = (logic.igloo_object)->get_x_position();
+    auto igloo_door_Ypos = (logic.igloo_object)->get_y_position();
+    distanceBetweenDoorAndBailey.x = abs(bailey_x_position - igloo_door_Xpos);
+    distanceBetweenDoorAndBailey.y = abs(bailey_y_position - igloo_door_Ypos);
+    return { distanceBetweenDoorAndBailey, igloo_door_Xpos, igloo_door_Ypos };
+}
+
+void Screen::draw_animations()
+{
+    draw_game_entities();
+    window.draw(temperature_disp);
+    window.draw(degree_symbol);
+    //draw game objects
+    draw_game_objects(); //draw game entities
+    window.display();
+    window.clear();
+}
+
 void Screen::initialize_igloo()
 {
     vector2f Initposition;
-    Initposition.x = 0;
-    Initposition.y = 0;
+    Initposition.x = (logic.igloo_object)->get_x_position();\
+    Initposition.y = (logic.igloo_object)->get_y_position();
     Igloo_house_sprite ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
     Igloo_house_sprite -> setTexture(igloo_texture);
     Igloo_house_sprite -> setPosition(Initposition);

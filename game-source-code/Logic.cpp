@@ -424,6 +424,11 @@ void Logic::freezing_bailey_animation(const float& deltaTime, Sprite& bailey_spr
     control_bailey.freezing_animation(deltaTime, bailey_sprite);
 }
 
+void Logic::go_inside_igloo(const float& y_pos, Sprite& bailey_sprite) // bailey goes inside igloo
+{
+    control_bailey.go_inside_igloo(y_pos, bailey_sprite);
+}
+
 void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
 {
     auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;

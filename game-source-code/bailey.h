@@ -16,6 +16,7 @@ public:
     bool get_if_bailey_in_safe_zone();
 
     void setXposition(const float&);
+    void setYposition(const float&);
 
     bool get_is_moving_up() const;
     bool get_is_moving_down() const;

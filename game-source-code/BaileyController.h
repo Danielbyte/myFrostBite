@@ -31,6 +31,9 @@ public:
 	Texture freeze1, freeze2, freeze3, freeze4, freeze5, freeze6, freeze7, freeze8, freeze9, freeze10
 		, freeze11, freeze12, freeze13, freeze14, freeze15, freeze16;
 
+	//Textures when bailey runs into the igloo house
+	Texture enterIgloo1, enterIgloo2, enterIgloo3, enterIgloo4;
+
 	int get_frame() const;
 	void update_bailey(vector2f&,bool&, const float&, const float&);
 	void animate_bailey(Bailey&, Sprite&);
@@ -38,6 +41,7 @@ public:
 	void drowning_bailey(const float&, Sprite&);
 	void collision_with_sea_animal(const float&, Sprite&);
 	void freezing_animation(const float&, Sprite&);
+	void go_inside_igloo(const float&, Sprite&);
 	void load_textures();
 
 private:

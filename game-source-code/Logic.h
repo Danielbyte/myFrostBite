@@ -67,6 +67,7 @@ public:
    void drowning_bailey_animation(const float&, Sprite&);
    void animate_bailey_death(const float&, Sprite&);
    void freezing_bailey_animation(const float&, Sprite&);
+   void go_inside_igloo(const float&, Sprite&);
 
 private:
     //Ice block private functions and variables

@@ -108,6 +108,12 @@ private:
 
 
     void draw_game_entities();
+    vector2f distanceBetweenDoorAndBailey;
+    std::tuple<vector2f&,float&,float&> calculateDistanceBetweenBaileyAndDoor();
+    float igloorDoorOffset;
+    float goingInIgloo_X_speed;
+    float goingInIgloo_Y_speed;
+    void draw_animations();
 
 };
 
