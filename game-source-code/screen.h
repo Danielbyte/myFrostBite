@@ -71,6 +71,9 @@ private:
     Texture ice_block_texture2;
     Sprite ice_block_sprite2;
 
+    Texture mainscreen;
+    Sprite _mainscreen;
+
     Texture igloo_texture;
     shared_ptr<Sprite> Igloo_house_sprite = std::make_shared<Sprite>(Sprite());
     void draw_igloo_house();

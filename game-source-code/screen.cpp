@@ -33,18 +33,20 @@ void Screen::initialize_screen()
     splash_screen_display.setStyle(Text::Regular);
     splash_screen_display.setFillColor(Color::Red);
     splash_screen_display.setPosition(10,180);
-    splash_screen_display.setString("Welcome to Frostbite");
+    /*splash_screen_display.setString("Welcome to Frostbite");*/
 
-    //game instructions set up
+    _mainscreen.setTexture(mainscreen);
+    /*/game instructions set up
     game_instructions.setFont(splash_screen_font);
     game_instructions.setCharacterSize(20);
     game_instructions.setStyle(Text::Regular);
     game_instructions.setFillColor(Color::Red);
-    game_instructions.setPosition(10, 220);
-    game_instructions.setString("INSTRUCTIONS: \nPress Enter to start game!"
+    game_instructions.setPosition(10, 220);*/
+
+    /*game_instructions.setString("INSTRUCTIONS: \nPress Enter to start game!"
                                 "\nPress Escape(Esc) to quit!"
                                 "\nUse keyboard arrows to move player"
-                                "\nPress space to reverse block of ice!");
+                                "\nPress space to reverse block of ice!");*/
 
     temperature_disp.setFont(splash_screen_font);
     temperature_disp.setCharacterSize(20);
@@ -104,7 +106,7 @@ void Screen::run()
 
             if (!is_game_over)
             {
-                window.draw(game_instructions);
+                window.draw(_mainscreen);
             }
         }
 
@@ -556,6 +558,7 @@ void Screen::load_textures()
     if (!background_texture.loadFromFile("resources/background.png")) throw CouldNotLoadPicture{};
     igloo_texture.loadFromFile("resources/igloo0.png");
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
+    mainscreen.loadFromFile("resources/mainscreen.png");
 }
 
 void Screen::draw_game_entities()
