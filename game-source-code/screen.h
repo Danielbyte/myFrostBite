@@ -65,6 +65,8 @@ private:
     Texture background_texture;
     Sprite background_sprite;
 
+    Texture multiplayer_background;
+
     Texture ice_block_texture;
     Sprite ice_block_sprite;
 
@@ -93,6 +95,10 @@ private:
 
     void draw_game_objects();
     void draw_ice_blocks();
+
+    void twoPlayerGameLoop();
+    void InitTwoPlayerModeScreen();
+    sf::View player1View, player2View;
 
     //Access the logic layer
     Logic logic;
@@ -125,6 +131,10 @@ private:
     float goingInIgloo_Y_speed;
     void draw_animations();
 
+    bool multiPlayer;
+
+    Texture line;
+    Sprite line_sprite;
 };
 
 #endif // SCREEN_H

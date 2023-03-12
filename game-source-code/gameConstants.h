@@ -58,17 +58,17 @@ const auto cursor_width = 32.0f;
 const auto cursor_height = 32.0f;
 
 const auto cursor_level1_x = 206.0f;
-const auto cursor_level1_y = 222.0f;
+const auto cursor_level1_y = 222.0f;// single player mode cursor level
 const auto cursor_level2_x = 215.0f;
-const auto cursor_level2_y = 279.0f;
+const auto cursor_level2_y = 279.0f; //multiplayer mode cursor level
 const auto cursor_level3_x = 273.0f;
-const auto cursor_level3_y = 336.0f;
+const auto cursor_level3_y = 336.0f;//game instructions cursor level
 const auto cursor_level4_x = 294.0f;
-const auto cursor_level4_y = 393.0f;
-const auto cursor_step = 57.0f;
+const auto cursor_level4_y = 393.0f;//quit game cursor level
+const auto cursor_step = 57.0f;//separation between each level
 
-const auto instructions_back_x = 660.0f;
-const auto instructions_back_y = 472.0f;
+const auto instructions_back_x = 660.0f; //x-coordinate of back sign in instructions window
+const auto instructions_back_y = 472.0f;//y-coordinate of back sign in instructions window
 
 
 class CouldNotLoadPicture{};

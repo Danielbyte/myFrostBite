@@ -4,7 +4,7 @@ Screen::Screen():
     startedTempDecrease{false},
     timeUp{false},
     temperature{45}, //temperature starts at 45 degrees
-    window(VideoMode(windowWidth, windowHeight), "Frostbite", sf::Style::Default),
+    window(VideoMode(windowWidth, windowHeight), "Frostbite", sf::Style::Fullscreen),
     is_playing{false},
     is_game_over{false},
     quit_game{false},
@@ -13,7 +13,8 @@ Screen::Screen():
     isJumpingDown{false},
     igloorDoorOffset{14.5f},
     goingInIgloo_X_speed{100.0f},
-    goingInIgloo_Y_speed{9.5f}
+    goingInIgloo_Y_speed{9.5f},
+    multiPlayer{false}
 {
     load_textures();
     initialize_cursor();
@@ -49,6 +50,10 @@ void Screen::initialize_screen()
     degree_symbol.setFillColor(Color::Cyan);
     degree_symbol.setPosition(188.0f, 0.0f);
     degree_symbol.setString("o");
+
+    line_sprite.setTexture(line);
+    line_sprite.setOrigin(0.5f, windowHeight / 2.0f);
+    line_sprite.setPosition(200.01f, 300.0f);
 }
 
 void Screen::initialise_player()
@@ -89,14 +94,21 @@ void Screen::run()
     {
         auto deltaTime = time.restart().asSeconds();
         process_user_inputs(deltaTime);
-        if (is_playing)
-        {
-            draw_game_entities();
-            //Update screen according to game play
-            update_game(deltaTime); //update
-            //draw game objects
-            draw_game_objects(); //draw game entities
 
+        if (is_playing || multiPlayer)
+        {
+            if (multiPlayer)
+            {
+                twoPlayerGameLoop();
+            }
+            if (is_playing)
+            {
+                draw_game_entities();
+                //Update screen according to game play
+                update_game(deltaTime); //update
+                //draw game objects
+                draw_game_objects(); //draw game entities
+            }
         }
         else
         {
@@ -156,8 +168,8 @@ void Screen::process_user_inputs(const float& deltaTime)
             window.close();
             break;
 
-        //default:
-           // ;
+        default:
+           break;
         }
     }
 }
@@ -172,9 +184,16 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
             is_playing = true;
             initialize_temperature();
         }
+        if (level == cursor_level2_y)
+        {
+            //multiplayer mode
+            multiPlayer = true;
+            InitTwoPlayerModeScreen();
+        }
         if (level == cursor_level3_y)
         {
-            RenderWindow instructions_window(VideoMode(windowWidth, windowHeight), "Instructions");
+            RenderWindow instructions_window(VideoMode(windowWidth, windowHeight),"",
+                sf::Style::Resize);
             _cursor.setPosition(instructions_back_x, instructions_back_y);
             while (instructions_window.isOpen())
             {
@@ -601,6 +620,28 @@ std::tuple<vector2f&, float&, float&> Screen::calculateDistanceBetweenBaileyAndD
     return { distanceBetweenDoorAndBailey, igloo_door_Xpos, igloo_door_Ypos };
 }
 
+void Screen::twoPlayerGameLoop()
+{
+    window.setView(player1View);
+    window.draw(background_sprite);
+   
+    window.setView(player2View);
+    window.draw(background_sprite);
+    window.draw(line_sprite);
+}
+
+void Screen::InitTwoPlayerModeScreen()
+{
+    player1View.setViewport(sf::FloatRect(0, 0, 0.5f, 1.0f));
+    player1View.setSize(windowWidth / 2.0f, windowHeight);
+    player1View.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
+
+    player2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1.0f));
+    player2View.setSize(windowWidth / 2.0f, windowHeight);
+    player2View.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
+
+}
+
 void Screen::draw_animations()
 {
     draw_game_entities();
@@ -615,7 +656,7 @@ void Screen::draw_animations()
 void Screen::initialize_igloo()
 {
     vector2f Initposition;
-    Initposition.x = (logic.igloo_object)->get_x_position();\
+    Initposition.x = (logic.igloo_object)->get_x_position();
     Initposition.y = (logic.igloo_object)->get_y_position();
     Igloo_house_sprite ->setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
     Igloo_house_sprite -> setTexture(igloo_texture);
@@ -637,6 +678,7 @@ void Screen::load_textures()
     mainscreen.loadFromFile("resources/mainscreen.png");
     cursor.loadFromFile("resources/cursor.png");
     instructions.loadFromFile("resources/instructions.png");
+    line.loadFromFile("resources/line.png");
 }
 
 void Screen::draw_game_entities()
