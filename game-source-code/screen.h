@@ -96,7 +96,7 @@ private:
     void draw_game_objects();
     void draw_ice_blocks();
 
-    void twoPlayerGameLoop();
+    void twoPlayerGameScreen();
     void InitTwoPlayerModeScreen();
     sf::View player1View, player2View;
 

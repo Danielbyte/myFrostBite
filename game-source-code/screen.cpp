@@ -4,7 +4,7 @@ Screen::Screen():
     startedTempDecrease{false},
     timeUp{false},
     temperature{45}, //temperature starts at 45 degrees
-    window(VideoMode(windowWidth, windowHeight), "Frostbite", sf::Style::Fullscreen),
+    window(VideoMode(windowWidth, windowHeight), "Frostbite", sf::Style::Default),
     is_playing{false},
     is_game_over{false},
     quit_game{false},
@@ -99,7 +99,9 @@ void Screen::run()
         {
             if (multiPlayer)
             {
-                twoPlayerGameLoop();
+                twoPlayerGameScreen();
+                bailey_sprite.move(1.0f, 0);
+                std::cout << bailey_sprite.getPosition().x << std::endl;
             }
             if (is_playing)
             {
@@ -620,14 +622,16 @@ std::tuple<vector2f&, float&, float&> Screen::calculateDistanceBetweenBaileyAndD
     return { distanceBetweenDoorAndBailey, igloo_door_Xpos, igloo_door_Ypos };
 }
 
-void Screen::twoPlayerGameLoop()
+void Screen::twoPlayerGameScreen()
 {
     window.setView(player1View);
     window.draw(background_sprite);
-   
+    window.draw(bailey_sprite);
+
     window.setView(player2View);
     window.draw(background_sprite);
     window.draw(line_sprite);
+
 }
 
 void Screen::InitTwoPlayerModeScreen()
@@ -639,7 +643,6 @@ void Screen::InitTwoPlayerModeScreen()
     player2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1.0f));
     player2View.setSize(windowWidth / 2.0f, windowHeight);
     player2View.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
-
 }
 
 void Screen::draw_animations()

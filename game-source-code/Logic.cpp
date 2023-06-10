@@ -51,7 +51,7 @@ std::tuple<vector2f,vector2f,vector2f,vector2f> Logic::create_ice_block_objects(
     vector2f _pos4;
 
     if (noIceBlocks)
-    {    
+    {
         _pos1.x = 550.0f;
         _pos1.y = 305.0f;
         shared_ptr<IceBlocks>obj_1(new IceBlocks(_pos1));
@@ -242,7 +242,7 @@ void Logic::reverse_ice_direction(shared_ptr<Sprite>& igloo_sprites)
         bailey_pos.y = bailey_object.get_Ypos();
         auto isCollided = collision.bailey_ice_collision(bailey_pos, ice_pos);
         auto region = (*obj_iter)->get_region();
-     
+
         if (isCollided)
         {
             IceDirection temp_direction = IceDirection::S;
@@ -297,7 +297,7 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
 {
     auto timePassed = bear_object.elapsed_time();
 
-    // Bear should track bailey's position after every 1 second 
+    // Bear should track bailey's position after every 1 second
     if (timePassed >= 2.0f)
     {
         auto bailey_x_position = bailey_object.get_Xpos();
@@ -311,7 +311,7 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
         auto rightBoundary = bailey_object.get_right_boundary();
 
         //bear should not move if bailey is at the ends of screen
-        if (!safe_zone && distance_between <= 31.0f && 
+        if (!safe_zone && distance_between <= 31.0f &&
             (bailey_x_position <= leftBoundary || bailey_x_position >= rightBoundary))
         {
             bear_object.set_bear_direction(Direction::unknown);
@@ -329,7 +329,7 @@ void Logic::bear_track_bailey(Sprite& bear_sprite)
                 bear_object.set_bear_direction(Direction::Right);
             }
         }
-        
+
         //restart stop watch
         bear_object.restart_timer();
     }
@@ -358,14 +358,14 @@ void Logic::update_enemies(vector<shared_ptr<Sprite>>& _crabs, vector<shared_ptr
 {
     //create enemy every 5 seconds
     auto timeElapsed = enemy.elapsed_time();
-  
+
     if (timeElapsed >= 5)
     {
         auto isEnemyInRegion1 = enemy.enemy_in_region1();
         auto isEnemyInRegion2 = enemy.enemy_in_region2();
         auto isEnemyInRegion3 = enemy.enemy_in_region3();
         auto isEnemyInRegion4 = enemy.enemy_in_region4();
-  
+
         //Create enemies if there are none at respective regions
         if (!isEnemyInRegion1)
         {
@@ -440,7 +440,7 @@ void Logic::check_frostbite_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr)
     auto EOI_offset = 16.0f; // end of ice offset
     auto end_of_ice = ice_x_pos + ice_width - EOI_offset;
     plungedInWater = true;
-    
+
     if (bailey_x_pos >= point1 && bailey_x_pos <= end_of_ice)
     {
         if (bailey_x_pos >= point1 && ((bailey_x_pos + bailey_width) <= point2))
@@ -549,7 +549,7 @@ void Logic::bailey_fish_collision(vector<shared_ptr<Sprite>>& fish_sprites)
 
         if (isCollided)
         {
-            
+
             fish.erase(fish_obj_iter);
             fish_sprites.erase(fish_sprite_iter);
             return;
