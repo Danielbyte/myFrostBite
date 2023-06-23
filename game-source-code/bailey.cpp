@@ -3,7 +3,7 @@
 Bailey::Bailey():
     distance_between_iceRows{82},
     y_position{199.0f},
-    x_position{0.0f},
+    x_position{24.0f},
     lower_boundary{527.0f},
     left_boundary{24.0f},
     right_boundary{776.0f},

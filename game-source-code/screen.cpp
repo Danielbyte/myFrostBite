@@ -19,7 +19,8 @@ Screen::Screen():
     load_textures();
     initialize_cursor();
     initialize_screen();
-    initialise_player();
+    initialise_player(200.0f, logic, player1_sprite, player1_texture);
+    initialise_player(200.0f, player2_logic, player2_sprite, player2_texture);
     initialise_background();
     create_ice_blocks();
     initialize_igloo();
@@ -52,15 +53,19 @@ void Screen::initialize_screen()
     degree_symbol.setString("o");
 
     line_sprite.setTexture(line);
-    line_sprite.setOrigin(0.5f, windowHeight / 2.0f);
-    line_sprite.setPosition(200.01f, 300.0f);
+    line_sprite.setPosition(600.0f, 300.0f);
+    line_sprite.setOrigin(0.5f, windowHeight/2.0f);
 }
 
-void Screen::initialise_player()
+void Screen::initialise_player(const float offset, Logic& _logic, Sprite& player,Texture& playerT)
 {
-    bailey_sprite.setTexture(bailey_texture);
-    bailey_sprite.setPosition(logic.bailey_object.get_Xpos(),logic.bailey_object.get_Ypos());
-    bailey_sprite.setOrigin(bailey_width/2,bailey_height/2);
+    vector2f Pos;
+    Pos.x = _logic.bailey_object.get_Xpos() + offset;
+    _logic.bailey_object.setXposition(Pos.x);
+    Pos.y = _logic.bailey_object.get_Ypos();
+    player.setTexture(playerT);
+    player.setPosition(Pos.x, Pos.y);
+    player.setOrigin(bailey_width/2,bailey_height/2);
 }
 
 void Screen::initialise_background()
@@ -99,9 +104,8 @@ void Screen::run()
         {
             if (multiPlayer)
             {
+                //Initialize multi player entities
                 twoPlayerGameScreen();
-                bailey_sprite.move(1.0f, 0);
-                std::cout << bailey_sprite.getPosition().x << std::endl;
             }
             if (is_playing)
             {
@@ -284,12 +288,12 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
          else if (key == Keyboard::Left)
          {
               window.setKeyRepeatEnabled(true);
-              logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
+              logic.bailey_object.move_bailey(deltaTime, player1_sprite);
          }
          else if (key == Keyboard::Right)
          {
              window.setKeyRepeatEnabled(true);
-             logic.bailey_object.move_bailey(deltaTime, bailey_sprite);
+             logic.bailey_object.move_bailey(deltaTime, player1_sprite);
          }
     }
 }
@@ -300,6 +304,11 @@ void Screen::set_cursor_x_position()
     if (cursor_position.y == cursor_level2_y) { cursor_position.x = cursor_level2_x; }
     if (cursor_position.y == cursor_level3_y) { cursor_position.x = cursor_level3_x; }
     if (cursor_position.y == cursor_level4_y) { cursor_position.x = cursor_level4_x; }
+}
+
+void Screen::initialise_mPlayer_objects(const float offset)
+{
+    //initialise_player(offset);
 }
 
 void Screen::initialize_temperature()
@@ -331,7 +340,7 @@ void Screen::update_temperature()
 
 void Screen::draw_game_objects()
 {
-    window.draw(bailey_sprite);
+    window.draw(player1_sprite);
     window.draw(bear_sprite);
 }
 
@@ -402,8 +411,8 @@ void Screen::update_game(const float& deltaTime)
 
 void Screen::update_game_sprites(const float& deltaTime)
 {
-    logic.update_bailey_jumps(bailey_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
-    logic.update_bailey(bailey_sprite);
+    logic.update_bailey_jumps(player1_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
+    logic.update_bailey(player1_sprite);
     logic.update_ice(ice_blocks_sprites, deltaTime);
     logic.update_bear(bear_sprite, deltaTime);
     logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
@@ -414,7 +423,7 @@ void Screen::update_game_sprites(const float& deltaTime)
     auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
     {
-        auto isCollided = logic.bailey_and_ice_collision(Igloo_house_sprite, bailey_sprite, deltaTime);
+        auto isCollided = logic.bailey_and_ice_collision(Igloo_house_sprite, player1_sprite, deltaTime);
          if(!isCollided)
         {
             auto isAnimating = true;
@@ -423,7 +432,7 @@ void Screen::update_game_sprites(const float& deltaTime)
             while (isAnimating)
             {
                 auto TimeElapsed = s_watch.elapsed_time();
-                logic.drowning_bailey_animation(TimeElapsed, bailey_sprite);
+                logic.drowning_bailey_animation(TimeElapsed, player1_sprite);
                 draw_game_entities();
                 //draw game objects
                 draw_game_objects(); //draw game entities
@@ -448,7 +457,7 @@ void Screen::update_game_sprites(const float& deltaTime)
              while (isAnimating)
              {
                  auto TimeElapsed = s_watch.elapsed_time();
-                 logic.baileyCollisionWithSeaCreatureAnimation(TimeElapsed, bailey_sprite);
+                 logic.baileyCollisionWithSeaCreatureAnimation(TimeElapsed, player1_sprite);
                  draw_game_entities();
                  //draw game objects
                  draw_game_objects(); //draw game entities
@@ -478,7 +487,7 @@ void Screen::update_game_sprites(const float& deltaTime)
         while (isAnimating)
         {
             auto TimeElapsed = s_watch.elapsed_time();
-            logic.freezing_bailey_animation(TimeElapsed, bailey_sprite);
+            logic.freezing_bailey_animation(TimeElapsed, player1_sprite);
             draw_animations();
             if (TimeElapsed >= 1.1f)
             {
@@ -534,7 +543,7 @@ void Screen::update_game_state(const float& deltaTime)
         while (isAnimating)
         {
             auto TimeElapsed = s_watch.elapsed_time();
-            logic.animate_bailey_death(TimeElapsed,bailey_sprite);
+            logic.animate_bailey_death(TimeElapsed,player1_sprite);
             logic.bear_object.update_bear(bear_sprite, 0.0f);//bear is stationary, attacking frosty
             draw_animations();
             if (TimeElapsed >= 1.09)
@@ -571,8 +580,8 @@ void Screen::update_game_state(const float& deltaTime)
             { 
                 if (distance.x > igloorDoorOffset) 
                 {
-                    bailey_sprite.move(-TimeElapsed*goingInIgloo_X_speed, 0);
-                     bailey_x_position = bailey_sprite.getPosition().x;
+                    player1_sprite.move(-TimeElapsed*goingInIgloo_X_speed, 0);
+                     bailey_x_position = player1_sprite.getPosition().x;
                     logic.bailey_object.setXposition(bailey_x_position);
                 }
             }
@@ -581,20 +590,20 @@ void Screen::update_game_state(const float& deltaTime)
             { 
                 if (distance.x > igloorDoorOffset) 
                 { 
-                    bailey_sprite.move(TimeElapsed*goingInIgloo_X_speed, 0);
-                    bailey_x_position = bailey_sprite.getPosition().x;
+                    player1_sprite.move(TimeElapsed*goingInIgloo_X_speed, 0);
+                    bailey_x_position = player1_sprite.getPosition().x;
                     logic.bailey_object.setXposition(bailey_x_position); 
                 }
             }
 
             if (bailey_y_position > igloo_door_Ypos) 
             { 
-                bailey_sprite.move(0, -TimeElapsed*goingInIgloo_Y_speed);
-                bailey_y_position = bailey_sprite.getPosition().y;
+                player1_sprite.move(0, -TimeElapsed*goingInIgloo_Y_speed);
+                bailey_y_position = player1_sprite.getPosition().y;
                 logic.bailey_object.setYposition(bailey_y_position);
             }
 
-            logic.go_inside_igloo(bailey_y_position, bailey_sprite);
+            logic.go_inside_igloo(bailey_y_position, player1_sprite);
             draw_animations();
 
             if (bailey_y_position < 133)
@@ -626,23 +635,23 @@ void Screen::twoPlayerGameScreen()
 {
     window.setView(player1View);
     window.draw(background_sprite);
-    window.draw(bailey_sprite);
-
+    window.draw(player1_sprite);
+    window.draw(line_sprite);
+    
     window.setView(player2View);
     window.draw(background_sprite);
-    window.draw(line_sprite);
-
+    window.draw(player2_sprite);
 }
 
 void Screen::InitTwoPlayerModeScreen()
 {
     player1View.setViewport(sf::FloatRect(0, 0, 0.5f, 1.0f));
-    player1View.setSize(windowWidth / 2.0f, windowHeight);
-    player1View.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
+    player1View.setSize(windowWidth/2.0f, windowHeight);
+    player1View.setCenter(windowWidth/2.0f, windowHeight/2.0f);
 
     player2View.setViewport(sf::FloatRect(0.5f, 0, 0.5f, 1.0f));
-    player2View.setSize(windowWidth / 2.0f, windowHeight);
-    player2View.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
+    player2View.setSize(windowWidth/2.0f, windowHeight);
+    player2View.setCenter(windowWidth/2.0f,windowHeight/2.0f);
 }
 
 void Screen::draw_animations()
@@ -674,7 +683,8 @@ void Screen::load_textures()
     ice_block_texture2.loadFromFile("resources/whiteIce.png");
     ice_block_texture.loadFromFile("resources/whiteIce.png");
 
-    if (!bailey_texture.loadFromFile("resources/bailey.png")) throw CouldNotLoadPicture{};
+    if (!player1_texture.loadFromFile("resources/bailey.png")) throw CouldNotLoadPicture{};
+    if (!player2_texture.loadFromFile("resources/baileyP2.png")) throw CouldNotLoadPicture{};
     if (!background_texture.loadFromFile("resources/background.png")) throw CouldNotLoadPicture{};
     igloo_texture.loadFromFile("resources/igloo0.png");
     if (!bear_texture.loadFromFile("resources/bear1_left.png")) throw CouldNotLoadPicture{};
