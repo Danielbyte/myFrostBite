@@ -54,7 +54,7 @@ private:
     void keyboard_handling(Keyboard,bool,const float&);
 
     //GAME INITIALISATION
-    void initialise_player(const float, Logic&, Sprite&, Texture&);
+    void initialise_player(Logic&, Sprite&, Texture&);
     void initialise_background();
     void create_ice_blocks();
     void initialise_bear();
@@ -113,10 +113,10 @@ private:
     Logic player2_logic;
 
     //Update game sprites
-    void update_game_sprites(const float&);
+    void update_game_sprites(const float&,Logic&);
 
     //Update game
-    void update_game(const float&);
+    void update_game(const float&, Logic&);
 
     void update_game_state(const float&);
 

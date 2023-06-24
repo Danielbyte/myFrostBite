@@ -3,7 +3,7 @@
 Bailey::Bailey():
     distance_between_iceRows{82},
     y_position{199.0f},
-    x_position{24.0f},
+    x_position{224.0f},
     lower_boundary{527.0f},
     left_boundary{24.0f},
     right_boundary{776.0f},
@@ -91,7 +91,6 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
 {
     RightKeyPressed = false;
     LeftKeyPressed = false;
-
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
         isMovingRight = true;
@@ -196,6 +195,7 @@ float Bailey::get_gravity() const
 void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
     bool& isJumping, bool& isJumpingDown)
 {
+    std::cout << "Moving" << std::endl;
     speed -= gravity * deltaTime * speed_attenuater;
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position

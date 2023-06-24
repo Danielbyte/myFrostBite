@@ -23,6 +23,7 @@ void Logic::update_bailey_jumps(Sprite& bailey_sprite,bool& isJumping,const floa
 
     if (isJumping && isJumpingDown)
     {
+        std::cout << "is Jumping" << std::endl;
         bailey_object.jump_down(bailey_sprite, deltaTime,y_,isJumping,isJumpingDown);
         bailey_object.move_bailey(deltaTime, bailey_sprite);
     }

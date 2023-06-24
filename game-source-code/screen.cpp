@@ -19,8 +19,8 @@ Screen::Screen():
     load_textures();
     initialize_cursor();
     initialize_screen();
-    initialise_player(200.0f, logic, player1_sprite, player1_texture);
-    initialise_player(200.0f, player2_logic, player2_sprite, player2_texture);
+    initialise_player(logic, player1_sprite, player1_texture);
+    initialise_player(player2_logic, player2_sprite, player2_texture);
     initialise_background();
     create_ice_blocks();
     initialize_igloo();
@@ -57,11 +57,10 @@ void Screen::initialize_screen()
     line_sprite.setOrigin(0.5f, windowHeight/2.0f);
 }
 
-void Screen::initialise_player(const float offset, Logic& _logic, Sprite& player,Texture& playerT)
+void Screen::initialise_player(Logic& _logic, Sprite& player,Texture& playerT)
 {
     vector2f Pos;
-    Pos.x = _logic.bailey_object.get_Xpos() + offset;
-    _logic.bailey_object.setXposition(Pos.x);
+    Pos.x = _logic.bailey_object.get_Xpos();
     Pos.y = _logic.bailey_object.get_Ypos();
     player.setTexture(playerT);
     player.setPosition(Pos.x, Pos.y);
@@ -104,14 +103,16 @@ void Screen::run()
         {
             if (multiPlayer)
             {
-                //Initialize multi player entities
+                //Two player screen (draw characters)
                 twoPlayerGameScreen();
+                update_game(deltaTime,logic);
+                update_game(deltaTime, player2_logic);
             }
             if (is_playing)
             {
                 draw_game_entities();
                 //Update screen according to game play
-                update_game(deltaTime); //update
+                update_game(deltaTime, logic); //update
                 //draw game objects
                 draw_game_objects(); //draw game entities
             }
@@ -262,7 +263,7 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
         }
     }
 
-    if (is_playing)
+    if (is_playing || multiPlayer)
     {
             //player movements
          if (key == Keyboard::Up && keyPressed && !isJumping)
@@ -402,23 +403,23 @@ void Screen::draw_birds()
     }
 }
 
-void Screen::update_game(const float& deltaTime)
+void Screen::update_game(const float& deltaTime, Logic& _logic)
 {
-    update_game_sprites(deltaTime); // update game entities
+    update_game_sprites(deltaTime, _logic); // update game entities
 //update game state -> update game
     update_game_state(deltaTime);
 }
 
-void Screen::update_game_sprites(const float& deltaTime)
+void Screen::update_game_sprites(const float& deltaTime,Logic& _logic)
 {
-    logic.update_bailey_jumps(player1_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
-    logic.update_bailey(player1_sprite);
-    logic.update_ice(ice_blocks_sprites, deltaTime);
-    logic.update_bear(bear_sprite, deltaTime);
-    logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
-    logic.frostbite_bear_collisions();
-    logic.updateBaileyAndSeaAnimalCollisions(crabs, clamps, birds, fish);
-    update_temperature();
+    _logic.update_bailey_jumps(player1_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
+    _logic.update_bailey(player1_sprite);
+    //_logic.update_ice(ice_blocks_sprites, deltaTime);
+    //_logic.update_bear(bear_sprite, deltaTime);
+    //_logic.update_enemies(crabs, clamps, birds, fish, deltaTime);
+   //_logic.frostbite_bear_collisions();
+   // _logic.updateBaileyAndSeaAnimalCollisions(crabs, clamps, birds, fish);
+    //update_temperature();
     //only update collisions if frostbite is not in safe zone
     auto isBaileyInSafeZone = logic.bailey_object.get_if_bailey_in_safe_zone();
     if (!isJumping && !isBaileyInSafeZone) //frostbite either stepped on ice or drowned
