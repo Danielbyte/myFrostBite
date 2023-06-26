@@ -107,6 +107,7 @@ void Screen::run()
                 twoPlayerGameScreen();
                 update_game(deltaTime,logic);
                 update_game(deltaTime, player2_logic);
+              //  process_user_inputs(deltaTime, "player2");
             }
             if (is_playing)
             {
@@ -135,6 +136,7 @@ void Screen::run()
 
 void Screen::process_user_inputs(const float& deltaTime)
 {
+   // std::cout << "Player: " << _player << std::endl;
     Event event;
     while(window.pollEvent(event))
     {
@@ -183,6 +185,7 @@ void Screen::process_user_inputs(const float& deltaTime)
 
 void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& deltaTime)
 {
+   // std::cout << "Hanndle player: " << _player << std::endl;
     auto level = cursor_position.y;
     if (key == Keyboard::Enter && keyPressed) //player wants to play
     {
@@ -265,37 +268,47 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
 
     if (is_playing || multiPlayer)
     {
-            //player movements
-         if (key == Keyboard::Up && keyPressed && !isJumping)
-         {
-              window.setKeyRepeatEnabled(false);
-              auto jumpForce = logic.bailey_object.get_up_jumping_force();
-              auto mass = logic.bailey_object.get_bailey_mass();
-              auto speed = jumpForce / mass;
-              logic.bailey_object.set_speed(speed);
-              isJumping = true;
-              isJumpingUp = true;
-         }
-         else if (key == Keyboard::Down && keyPressed && !isJumping)
-         {
-              window.setKeyRepeatEnabled(false);
-              auto jumpForce = logic.bailey_object.get_jump_force();
-              auto mass = logic.bailey_object.get_bailey_mass();
-              auto speed = jumpForce / mass;
-              logic.bailey_object.set_speed(speed);
-              isJumping = true;
-              isJumpingDown = true;
-         }
-         else if (key == Keyboard::Left)
-         {
-              window.setKeyRepeatEnabled(true);
-              logic.bailey_object.move_bailey(deltaTime, player1_sprite);
-         }
-         else if (key == Keyboard::Right)
-         {
+            if (key == Keyboard::Up && keyPressed && !isJumping)
+            {
+                // window.setKeyRepeatEnabled(false);
+                auto jumpForce = logic.bailey_object.get_up_jumping_force();
+                auto mass = logic.bailey_object.get_bailey_mass();
+                auto speed = jumpForce / mass;
+                logic.bailey_object.set_speed(speed);
+                isJumping = true;
+                isJumpingUp = true;
+            }
+            if (key == Keyboard::Down && keyPressed && !isJumping)
+            {
+                // window.setKeyRepeatEnabled(false);
+                auto jumpForce = logic.bailey_object.get_jump_force();
+                auto mass = logic.bailey_object.get_bailey_mass();
+                auto speed = jumpForce / mass;
+                logic.bailey_object.set_speed(speed);
+                isJumping = true;
+                isJumpingDown = true;
+            }
+            if (key == Keyboard::Left)
+            {
+                window.setKeyRepeatEnabled(true);
+                logic.bailey_object.move_bailey(deltaTime, player1_sprite);
+            }
+            if (key == Keyboard::Right)
+            {
+                // window.setKeyRepeatEnabled(true);
+                logic.bailey_object.move_bailey(deltaTime, player1_sprite);
+            }
+   
+           if (key == Keyboard::D)
+           { 
              window.setKeyRepeatEnabled(true);
-             logic.bailey_object.move_bailey(deltaTime, player1_sprite);
-         }
+             player2_logic.bailey_object.move_bailey(deltaTime, player2_sprite);
+           }
+
+           if (key == Keyboard::A)
+           {
+               player2_logic.bailey_object.move_bailey(deltaTime, player2_sprite);
+           }
     }
 }
 
@@ -412,8 +425,13 @@ void Screen::update_game(const float& deltaTime, Logic& _logic)
 
 void Screen::update_game_sprites(const float& deltaTime,Logic& _logic)
 {
-    _logic.update_bailey_jumps(player1_sprite,isJumping,deltaTime,isJumpingUp,isJumpingDown);
-    _logic.update_bailey(player1_sprite);
+ 
+        logic.update_bailey_jumps(player1_sprite, isJumping, deltaTime, isJumpingUp, isJumpingDown);
+        logic.update_bailey(player1_sprite);
+    
+        player2_logic.update_bailey_jumps(player2_sprite, isJumping, deltaTime, isJumpingUp, isJumpingDown);
+        player2_logic.update_bailey(player2_sprite);
+
     //_logic.update_ice(ice_blocks_sprites, deltaTime);
     //_logic.update_bear(bear_sprite, deltaTime);
     //_logic.update_enemies(crabs, clamps, birds, fish, deltaTime);

@@ -91,39 +91,74 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
 {
     RightKeyPressed = false;
     LeftKeyPressed = false;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        isMovingRight = true;
-        isMovingLeft = false;
-        player_sprite.move(left_right_const * deltaTime, 0);
-        x_position = player_sprite.getPosition().x;
-        RightKeyPressed = true;
 
-        if (x_position >= right_boundary)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            x_position = right_boundary;
-            player_sprite.setPosition(x_position, y_position);
+            isMovingRight = true;
+            isMovingLeft = false;
+            player_sprite.move(left_right_const * deltaTime, 0);
+            x_position = player_sprite.getPosition().x;
+            RightKeyPressed = true;
+
+            if (x_position >= right_boundary)
+            {
+                x_position = right_boundary;
+                player_sprite.setPosition(x_position, y_position);
+            }
         }
-    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        isMovingLeft = true;
-        isMovingRight = false;
-
-        // move player
-        player_sprite.move(-left_right_const * deltaTime, 0);
-        //update the x position
-        x_position = player_sprite.getPosition().x;
-        LeftKeyPressed = true;
-
-        //restrict player within screen
-        if (x_position <= left_boundary)
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            x_position = left_boundary;
-            player_sprite.setPosition(x_position, y_position);
+            isMovingLeft = true;
+            isMovingRight = false;
+
+            // move player
+            player_sprite.move(-left_right_const * deltaTime, 0);
+            //update the x position
+            x_position = player_sprite.getPosition().x;
+            LeftKeyPressed = true;
+
+            //restrict player within screen
+            if (x_position <= left_boundary)
+            {
+                x_position = left_boundary;
+                player_sprite.setPosition(x_position, y_position);
+            }
         }
-    }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            isMovingRight = true;
+            isMovingLeft = false;
+            player_sprite.move(left_right_const * deltaTime, 0);
+            x_position = player_sprite.getPosition().x;
+            RightKeyPressed = true;
+
+            if (x_position >= right_boundary)
+            {
+                x_position = right_boundary;
+                player_sprite.setPosition(x_position, y_position);
+            }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            isMovingLeft = true;
+            isMovingRight = false;
+
+            // move player
+            player_sprite.move(-left_right_const * deltaTime, 0);
+            //update the x position
+            x_position = player_sprite.getPosition().x;
+            LeftKeyPressed = true;
+
+            //restrict player within screen
+            if (x_position <= left_boundary)
+            {
+                x_position = left_boundary;
+                player_sprite.setPosition(x_position, y_position);
+            }
+        }
 }
 
 float Bailey::get_Ypos()
@@ -195,7 +230,6 @@ float Bailey::get_gravity() const
 void Bailey::jump_down(Sprite& bailey_sprite,const float& deltaTime, const float& start_position, 
     bool& isJumping, bool& isJumpingDown)
 {
-    std::cout << "Moving" << std::endl;
     speed -= gravity * deltaTime * speed_attenuater;
     bailey_sprite.move(0, -speed);
     y_position = bailey_sprite.getPosition().y;//update vertical position

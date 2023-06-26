@@ -113,7 +113,7 @@ private:
     Logic player2_logic;
 
     //Update game sprites
-    void update_game_sprites(const float&,Logic&);
+    void update_game_sprites(const float&, Logic&);
 
     //Update game
     void update_game(const float&, Logic&);
