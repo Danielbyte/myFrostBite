@@ -296,11 +296,13 @@ void Screen::keyboard_handling(Keyboard key, bool keyPressed, const float& delta
             if (key == Keyboard::Right)
             {
                 // window.setKeyRepeatEnabled(true);
+                std::cout << "Pressed 1" << std::endl;
                 logic.bailey_object.move_bailey(deltaTime, player1_sprite);
             }
    
            if (key == Keyboard::D)
            { 
+               std::cout<< "Pressed 2" << std::endl;
              window.setKeyRepeatEnabled(true);
              player2_logic.bailey_object.move_bailey(deltaTime, player2_sprite);
            }
