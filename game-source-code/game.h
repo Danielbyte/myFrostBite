@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
-#include "screen.h" //Screen/display manager
+//#include "screen.h" //Screen/display manager
+#include "Engine.h"
 
 class Game {
 public:

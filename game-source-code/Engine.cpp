@@ -5,21 +5,21 @@ Engine::Engine():
 	inMainMenu{true}, // game initially in main menu display
 	isPlaying{false} //game initially in not in game play mode
 {
-	vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
 
-	window.create(VideoMode(resolution.x, resolution.y), "FrostBite", sf::Style::Fullscreen);
+	window.create(VideoMode(windowWidth, windowHeight), "FrostBite", sf::Style::Default);
 
 	//Initialise main menu view
-	MainmenuView.reset(FloatRect(0, 0, resolution.x, resolution.y));
+	MainmenuView.reset(FloatRect(0, 0, windowWidth, windowHeight));
 
 	//Initialise fullsreen viw for single player mode
-	singlePlayerView.setSize(resolution);
+	singlePlayerView.setSize(windowWidth,windowHeight);
 
 	//Initialize split screen views
 	leftView.setViewport(FloatRect(0, 0, 0.5f, 1.0f));
 	rightView.setViewport(FloatRect(0.5f, 0, 0.5f, 1.0f));
+
+	LoadTextures();
+	SetSprites();
 }
 
 void Engine::run()
@@ -33,6 +33,16 @@ void Engine::run()
 		auto dtAsSeconds = dt.asSeconds();
 		MenuInput();
 		//update(dtAsSeconds);
-		//draw();
+		draw();
 	}
+}
+
+void Engine::LoadTextures()
+{
+	backgound_texture.loadFromFile("resources/menuscreen.png");
+}
+
+void Engine::SetSprites()
+{
+	background_sprite.setTexture(backgound_texture);
 }
