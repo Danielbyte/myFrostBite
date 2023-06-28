@@ -36,7 +36,7 @@ private:
 	sf::View RightViewB; //background of right window 
 
 	void MenuInput(); //handle input from main menu (function defined in Input.cpp)
-	void update(float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
+	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void draw(); //draw game characters
 
 	void LoadTextures();
