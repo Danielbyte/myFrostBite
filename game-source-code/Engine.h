@@ -28,7 +28,12 @@ private:
 	//main views for game play
 	sf::View singlePlayerView; // view for single player mode
 	sf::View leftView; // view for left side in multiplayer
-	sf::View rightView; //view for right side in multiplayer mode; 
+	sf::View rightView; //view for right side in multiplayer mode;
+
+	//views for the background
+	sf::View singlePlayerBG_View; // single player background
+	sf::View LeftViewB; // background of left window
+	sf::View RightViewB; //background of right window 
 
 	void MenuInput(); //handle input from main menu (function defined in Input.cpp)
 	void update(float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
@@ -37,8 +42,14 @@ private:
 	void LoadTextures();
 	void SetSprites();
 
-	Texture backgound_texture;
+	Texture menu_texture;
+	Sprite menu_sprite;
+
+	Texture background_texture;
 	Sprite background_sprite;
+
+	Texture line_texture;
+	Sprite line_sprite;
 };
 
 #endif // !ENGINE_H

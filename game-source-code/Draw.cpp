@@ -7,12 +7,32 @@ void Engine::draw()
 	if (!inMainMenu)
 	{
 		//Display other respective views if not in main menu
+		if (!splitScreen)
+		{
+			//single player mode
+			window.setView(singlePlayerView);
+			window.draw(background_sprite);
+		}
+		else
+		{
+			//multiplayer mode
+			//player1 side
+			window.setView(LeftViewB);
+			window.draw(background_sprite);
+			window.draw(line_sprite);
+			window.setView(leftView);
+
+			//player2 side
+			window.setView(RightViewB);
+			window.draw(background_sprite);
+			window.setView(rightView);
+		}
 	}
 	else
 	{
 		//Draw main menu view
 		window.setView(MainmenuView);
-		window.draw(background_sprite);
+		window.draw(menu_sprite);
 		window.draw(menu.getCursor());
 	}
 
