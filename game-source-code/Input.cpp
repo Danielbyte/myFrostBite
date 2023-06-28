@@ -70,5 +70,7 @@ void Engine::MenuInput()
 				window.close();
 			}
 		}
+
+		menu.update();
 	}
 }

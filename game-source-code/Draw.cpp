@@ -13,6 +13,7 @@ void Engine::draw()
 		//Draw main menu view
 		window.setView(MainmenuView);
 		window.draw(background_sprite);
+		window.draw(menu.getCursor());
 	}
 
 	window.display();
