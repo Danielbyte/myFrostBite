@@ -2,7 +2,8 @@
 
 Engine::Engine():
 	splitScreen{false},
-	inMainMenu{true} // game initially in main menu display
+	inMainMenu{true}, // game initially in main menu display
+	isPlaying{false} //game initially in not in game play mode
 {
 	vector2f resolution;
 	resolution.x = VideoMode::getDesktopMode().width;
@@ -31,7 +32,7 @@ void Engine::run()
 		auto dt = clock.restart();
 		auto dtAsSeconds = dt.asSeconds();
 		MenuInput();
-		update(dtAsSeconds);
-		draw();
+		//update(dtAsSeconds);
+		//draw();
 	}
 }

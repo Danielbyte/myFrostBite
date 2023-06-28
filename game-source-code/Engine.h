@@ -3,6 +3,7 @@
 #define ENGINE_H
 
 #include "SfmlLibrary.h"
+#include "Menu.h"
 
 
 class Engine
@@ -12,10 +13,13 @@ public:
 	void run(); //start game play
 
 private:
+	Menu menu;
+
 	//initialize single and multiplayer objects
 	
 	bool splitScreen; //for multiplayer mode
 	bool inMainMenu;
+	bool isPlaying;
 	sf::View MainmenuView; //view for main game menu
 
 	RenderWindow window; //normal game window
