@@ -12,6 +12,7 @@ void Engine::draw()
 			//single player mode
 			window.setView(singlePlayerView);
 			window.draw(background_sprite);
+			window.draw(player1.getSprite());
 		}
 		else
 		{

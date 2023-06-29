@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 Engine::Engine():
+	needToSpawn{true},
 	splitScreen{false},
 	inMainMenu{true}, // game initially in main menu display
 	isPlaying{false} //game initially in not in game play mode
@@ -47,7 +48,7 @@ void Engine::run()
 		auto dt = clock.restart();
 		auto dtAsSeconds = dt.asSeconds();
 		MenuInput();
-		//update(dtAsSeconds);
+		update(dtAsSeconds);
 		draw();
 	}
 }

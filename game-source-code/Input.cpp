@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-//This file handles the input from the main menu
+//This file handles the input from the main menu and gameplay
 void Engine::MenuInput()
 {
 	Event event;
@@ -51,6 +51,7 @@ void Engine::MenuInput()
 			{
 				inMainMenu = false;
 				splitScreen = false;
+				isPlaying = true;
 			}
 
 			if (menu.getCursorLevel() == 2)
@@ -73,4 +74,6 @@ void Engine::MenuInput()
 
 		menu.update();
 	}
+
+	player1.handleInput();
 }
