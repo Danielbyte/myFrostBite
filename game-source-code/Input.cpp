@@ -58,6 +58,7 @@ void Engine::MenuInput()
 			{
 				inMainMenu = false;
 				splitScreen = true;
+				isPlaying = true;
 			}
 
 			if (menu.getCursorLevel() == 3)
@@ -76,4 +77,5 @@ void Engine::MenuInput()
 	}
 
 	player1.handleInput();
+	player2.handleInput();
 }

@@ -22,11 +22,13 @@ void Engine::draw()
 			window.draw(background_sprite);
 			window.draw(line_sprite);
 			window.setView(leftView);
-
+			window.draw(player1.getSprite());
+			
 			//player2 side
 			window.setView(RightViewB);
 			window.draw(background_sprite);
 			window.setView(rightView);
+			window.draw(player2.getSprite());
 		}
 	}
 	else

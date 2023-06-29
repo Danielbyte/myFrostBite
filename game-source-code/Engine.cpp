@@ -18,7 +18,7 @@ Engine::Engine():
 	//Initialize split screen views
 	leftView.setViewport(FloatRect(0, 0, 0.5f, 1.0f));
 	leftView.setSize(windowWidth / 2.0f, windowHeight);
-	leftView.setCenter(windowWidth / 2.0f, windowHeight / 2.0F);
+	leftView.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
 	
 
 	LeftViewB.setViewport(FloatRect(0, 0, 0.5f, 1.0f));
@@ -27,7 +27,7 @@ Engine::Engine():
 
 
 	rightView.setViewport(FloatRect(0.5f, 0, 0.5f, 1.0f));
-	rightView.setSize(windowWidth / 2.0f, windowHeight / 2.0f);
+	rightView.setSize(windowWidth / 2.0f, windowHeight);
 	rightView.setCenter(windowWidth / 2.0f, windowHeight / 2.0f);
 
 	RightViewB.setViewport(FloatRect(0.5f, 0, 0.5f, 1.0f));

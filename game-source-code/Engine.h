@@ -5,6 +5,7 @@
 #include "SfmlLibrary.h"
 #include "Menu.h"
 #include "Player1.h"
+#include "Player2.h"
 #include "gameConstants.h"
 
 
@@ -17,6 +18,7 @@ public:
 private:
 	Menu menu;
 	Player1 player1;
+	Player2 player2;
 
 	bool needToSpawn; //flag if need to spawn players
 	
