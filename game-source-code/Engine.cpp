@@ -47,8 +47,11 @@ void Engine::run()
 	{
 		auto dt = clock.restart();
 		auto dtAsSeconds = dt.asSeconds();
-		MenuInput();
+		//Handle input
+		handleInput();
+		//Update game
 		update(dtAsSeconds);
+		//Draw game entities
 		draw();
 	}
 }

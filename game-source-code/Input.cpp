@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 //This file handles the input from the main menu and gameplay
-void Engine::MenuInput()
+void Engine::handleInput()
 {
 	Event event;
 	while (window.pollEvent(event))
@@ -14,6 +14,7 @@ void Engine::MenuInput()
 				inMainMenu = true;
 				isPlaying = false;
 				splitScreen = false;
+				needToSpawn = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(Keyboard::Down) && inMainMenu)
@@ -42,7 +43,7 @@ void Engine::MenuInput()
 		}
 	}
 
-	//Butto handling
+	//Button handling
 	if (inMainMenu)
 	{
 		if (sf::Keyboard::isKeyPressed(Keyboard::Enter))
@@ -76,6 +77,10 @@ void Engine::MenuInput()
 		menu.update();
 	}
 
-	player1.handleInput();
-	player2.handleInput();
+	if (isPlaying)
+	{
+		player1.handleInput();
+		player2.handleInput();
+	}
+
 }
