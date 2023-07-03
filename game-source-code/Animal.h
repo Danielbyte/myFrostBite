@@ -15,9 +15,10 @@ public:
 protected:
 	bool spawned_left;
 	bool spawned_right;
+	vector2f position;
 
 private:
-	vector2f position;
+	
 };
 
 #endif // !ANIMAL_H

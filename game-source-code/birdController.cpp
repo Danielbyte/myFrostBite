@@ -17,13 +17,13 @@ void BirdController::update_birds(vector<shared_ptr<Sprite>>& bird_sprites,
 		while (bird_obj != bird_objects.end())
 		{
 			animate(*bird_sprite, *bird_obj);
-			auto [left, right] = (*bird_obj)->get_side();
+			auto [left, right] = (*bird_obj)->getSide();
 
 			if (left)
 			{
 				(*bird_sprite)->move(speed_controller * deltaTime, 0);
 				vector2f pos = (*bird_sprite)->getPosition();
-				(*bird_obj)->set_position(pos);
+				(*bird_obj)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
 				auto outOfBounds = windowWidth + (bird_width / 2.0f);
@@ -40,7 +40,7 @@ void BirdController::update_birds(vector<shared_ptr<Sprite>>& bird_sprites,
 			{
 				(*bird_sprite)->move(-speed_controller * deltaTime, 0);
 				vector2f pos = (*bird_sprite)->getPosition();
-				(*bird_obj)->set_position(pos);
+				(*bird_obj)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
 				auto outOfBounds = -bird_width / 2.0f;
@@ -81,7 +81,7 @@ void BirdController::load_textures()
 void BirdController::animate(shared_ptr<Sprite>& bird_sprite, shared_ptr<Bird>& birdObj)
 {
 	birdObj->increment_counter();
-	auto [left, right] = birdObj->get_side();
+	auto [left, right] = birdObj->getSide();
 	auto counter = birdObj->get_counter();
 
 	if (left)
