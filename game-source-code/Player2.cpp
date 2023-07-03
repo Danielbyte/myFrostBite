@@ -7,17 +7,17 @@ Player2::Player2()
 
 void Player2::handleInput()
 {
-	if (sf::Keyboard::isKeyPressed(Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Up))
 	{
 		//Logic for jumping up
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Down))
 	{
 		//Logic for jumping down
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		leftPressed = true;
 	}
@@ -26,7 +26,7 @@ void Player2::handleInput()
 		leftPressed = false;
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Right))
 	{
 		rightPressed = true;
 	}
