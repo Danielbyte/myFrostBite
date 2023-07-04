@@ -25,29 +25,31 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 		{
 			//First select type of enemy to be spawned
 			auto enemyType = generate_enemy_type();
-			if (enemyType == crab_)
+			switch (enemyType)
 			{
+			case crab_:
 				place_animal(crabsObj, region1Position);
 				animalInRegion1 = AnimalType::crabs;
-			}
+				break;
 
-			else if (enemyType == clamp_)
-			{
+			case clamp_:
 				//create clamps
-				place_animal(crabsObj, region1Position);
+				place_animal(clampsObj, region1Position);
 				animalInRegion1 = AnimalType::clamps;
-			}
+				break;
 
-			else if (enemyType == fish_)
-			{
+			case fish_:
 				place_animal(fishObj, region1Position);
 				animalInRegion1 = AnimalType::fish;
-			}
+				break;
 
-			else if (enemyType == bird_)
-			{
+			case bird_:
 				place_animal(birdsObj, region1Position);
 				animalInRegion1 = AnimalType::birds;
+				break;
+
+			default:
+				break;
 			}
 			region1 = true; //region 1 is occupied
 		}
@@ -55,29 +57,31 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 		if (regionPos == region2Position)
 		{
 			auto enemyType = generate_enemy_type();
-			if (enemyType == crab_)
+
+			switch (enemyType)
 			{
+			case crab_:
 				place_animal(crabsObj, region2Position);
 				animalInRegion2 = AnimalType::crabs;
-			}
+				break;
 
-			else if (enemyType == clamp_)
-			{
-				//create clamps
-				place_animal(crabsObj, region2Position);
+			case clamp_:
+				place_animal(clampsObj, region2Position);
 				animalInRegion2 = AnimalType::clamps;
-			}
+				break;
 
-			else if (enemyType == fish_)
-			{
+			case fish_:
 				place_animal(fishObj, region2Position);
 				animalInRegion2 = AnimalType::fish;
-			}
+				break;
 
-			else if (enemyType == bird_)
-			{
+			case bird_:
 				place_animal(birdsObj, region2Position);
 				animalInRegion2 = AnimalType::birds;
+				break;
+
+			default:
+				break;
 			}
 			region2 = true;
 		}
@@ -85,29 +89,31 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 		if (regionPos == region3Position)
 		{
 			auto enemyType = generate_enemy_type();
-			if (enemyType == crab_)
+
+			switch (enemyType)
 			{
+			case crab_:
 				place_animal(crabsObj, region3Position);
 				animalInRegion3 = AnimalType::crabs;
-			}
+				break;
 
-			else if (enemyType == clamp_)
-			{
-				//create clamps
+			case clamp_:
 				place_animal(clampsObj, region3Position);
 				animalInRegion3 = AnimalType::clamps;
-			}
+				break;
 
-			else if (enemyType == fish_)
-			{
+			case fish_:
 				place_animal(fishObj, region3Position);
 				animalInRegion3 = AnimalType::fish;
-			}
+				break;
 
-			else if (enemyType == bird_)
-			{
+			case bird_:
 				place_animal(birdsObj, region3Position);
 				animalInRegion3 = AnimalType::birds;
+				break;
+
+			default:
+				break;
 			}
 			region3 = true;
 		}
@@ -115,28 +121,30 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 		if (regionPos == region4Position)
 		{
 			auto enemyType = generate_enemy_type();
-			if (enemyType == crab_)
+			switch (enemyType)
 			{
+			case crab_:
 				place_animal(crabsObj, region4Position);
 				animalInRegion4 = AnimalType::crabs;
-			}
+				break;
 
-			else if (enemyType == clamp_)
-			{
-				place_animal(crabsObj, region4Position);
+			case clamp_:
+				place_animal(clampsObj, region4Position);
 				animalInRegion4 = AnimalType::clamps;
-			}
+				break;
 
-			else if (enemyType == fish_)
-			{
+			case fish_:
 				place_animal(fishObj, region4Position);
 				animalInRegion4 = AnimalType::fish;
-			}
+				break;
 
-			else if (enemyType == bird_)
-			{
+			case bird_:
 				place_animal(birdsObj, region4Position);
 				animalInRegion4 = AnimalType::birds;
+				break;
+
+			default:
+				break;
 			}
 			region4 = true;
 		}
@@ -178,7 +186,3 @@ bool OverWorld::Isanimal_in_region4() const
 	return region4;
 }
 
-/*T OverWorld::place_animal(vector<shared_ptr<T>>_animal, const float _regionPos)
-{
-
-}*/
