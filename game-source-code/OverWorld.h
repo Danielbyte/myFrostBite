@@ -24,10 +24,6 @@ public:
 	//Create animals
 	void create_animal(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&,
 		vector<shared_ptr<Fish>>&, const float&);
-	//void create_crabs(vector<shared_ptr<Crab>>&, const float&);
-	//void create_clamps(vector<shared_ptr<Clamp>>&, const float&);
-	//void create_fish(vector<shared_ptr<Fish>>&, const float&);
-	//void create_birds(vector<shared_ptr<Bird>>&, const float&);
 
 private:
 
@@ -47,17 +43,13 @@ private:
 
 	int pick_side();
 	int generate_enemy_type();
-
-	//check for sea animals in each region to update status of each region to empty or not
-	void check_for_crabs_in_region(vector<shared_ptr<Crab>>&);
-	void check_for_clamps_in_region(vector<shared_ptr<Clamp>>&);
-	void check_for_birds_in_region(vector<shared_ptr<Bird>>&);
-	void check_for_fish_in_region(vector<shared_ptr<Fish>>&);
-
-	void reset_regions();
+	void clear_regions();
 	void clear_animals();
 
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
+
+	void update_animals_in_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
 
 	template<typename T>
 	T place_animal(vector<shared_ptr<T>>& animal, const float region)
@@ -72,6 +64,40 @@ private:
 		shared_ptr<T>animal_ptr2(new T(EnemySide, region));
 		animal_ptr2->set_x_position(gapBetweeenAnimals);
 		animal.push_back(animal_ptr2);
+	}
+
+	template<typename _Animal, typename _AnimalType>
+	_Animal update_regions(const vector<shared_ptr<_Animal>>& animal, const _AnimalType animal_type)
+	{
+		auto animal_ptr = animal.begin();
+		while (animal_ptr != animal.end())
+		{
+			auto y_pos = ((*animal_ptr)->getPosition()).y;
+			//update the first region if it has not been updated
+			if (y_pos == region1Position && !region1)
+			{
+				region1 = true;
+				animalInRegion1 = animal_type;
+			}
+
+			if (y_pos == region2Position && !region2)
+			{
+				region2 = true;
+				animalInRegion2 = animal_type;
+			}
+
+			if (y_pos == region3Position && !region3)
+			{
+				region3 = true;
+				animalInRegion3 = animal_type;
+			}
+			if (y_pos == region4Position && !region4)
+			{
+				region4 = true;
+				animalInRegion4 = animal_type;
+			}
+			++animal_ptr;
+		}
 	}
 };
 

@@ -166,6 +166,56 @@ int OverWorld::pick_side()
 	return side;
 }
 
+void OverWorld::update_animals_in_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_ptr<Clamp>>& clamps,
+	vector<shared_ptr<Bird>>& birds, vector<shared_ptr<Fish>>& fish)
+{
+	//clear state of regions
+	clear_regions();
+	//clear animals in regions
+	clear_animals();
+
+	if (!crabs.empty())
+	{
+		//update each region wrt crabs
+		//update_regions(crabs, AnimalType::crabs);
+
+	}
+
+	if (!clamps.empty())
+	{
+		//update regions wrt clamps
+		//update_regions(clamps, AnimalType::clamps);
+	}
+
+	if (!birds.empty())
+	{
+		//update regions wrt birds
+		update_regions(birds, AnimalType::birds);
+	}
+
+	if (!fish.empty())
+	{
+		//update regions wrt fish
+		//update_regions(fish, AnimalType::fish);
+	}
+}
+
+void OverWorld::clear_regions()
+{
+	region1 = false;
+	region2 = false;
+	region3 = false;
+	region4 = false;
+}
+
+void OverWorld::clear_animals()
+{
+	animalInRegion1 = AnimalType::none;
+	animalInRegion2 = AnimalType::none;
+	animalInRegion3 = AnimalType::none;
+	animalInRegion4 = AnimalType::none;
+}
+
 bool OverWorld::Isanimal_in_region1() const
 {
 	return region1;
