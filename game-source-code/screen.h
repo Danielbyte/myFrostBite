@@ -1,4 +1,4 @@
-#ifndef SCREEN_H
+/*#ifndef SCREEN_H
 #define SCREEN
 #include "SfmlLibrary.h"
 #include "Logic.h"
@@ -147,3 +147,4 @@ private:
 };
 
 #endif // SCREEN_H
+*/

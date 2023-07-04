@@ -74,7 +74,6 @@ const auto instructions_back_y = 472.0f;//y-coordinate of back sign in instructi
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};
-enum class Animal {crabs, clamps, birds, fish, none};
 
 enum animals
 {

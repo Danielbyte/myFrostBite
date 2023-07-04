@@ -19,3 +19,8 @@ void Animal::setPosition(const vector2f _position)
 {
 	position = _position;
 }
+
+Sprite Animal::getSprite() const
+{
+	return animal_sprite;
+}

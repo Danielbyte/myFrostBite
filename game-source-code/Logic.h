@@ -1,4 +1,4 @@
-#ifndef LOGIC_H
+/*#ifndef LOGIC_H
 #define LOGIC_H
 #include <tuple>
 #include "bailey.h"
@@ -104,3 +104,4 @@ private:
     Collision collision;
 };
 #endif // LOGIC_H
+*/

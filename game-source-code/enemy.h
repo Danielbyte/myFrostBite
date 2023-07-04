@@ -1,3 +1,4 @@
+/*
 #ifndef ENEMY_H
 #define ENEMY_H
 
@@ -74,6 +75,7 @@ private:
 	void reset_regions();
 
 	Animal region1_animal, region2_animal, region3_animal, region4_animal;
-	void reset_animal_presence();
+	//void reset_animal_presence();
 };
 #endif
+*/

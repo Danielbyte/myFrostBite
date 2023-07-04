@@ -7,6 +7,7 @@
 #include "Player1.h"
 #include "Player2.h"
 #include "gameConstants.h"
+#include "OverWorld.h"
 
 
 class Engine
@@ -19,6 +20,7 @@ private:
 	Menu menu;
 	Player1 player1;
 	Player2 player2;
+	OverWorld overworld;
 
 	bool needToSpawn; //flag if need to spawn players
 	

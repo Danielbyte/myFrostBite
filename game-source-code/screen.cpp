@@ -1,3 +1,4 @@
+/*
 #include "screen.h"
 
 Screen::Screen():
@@ -34,7 +35,7 @@ void Screen::initialize_screen()
     splash_screen_display.setStyle(Text::Regular);
     splash_screen_display.setFillColor(Color::Red);
     splash_screen_display.setPosition(10,180);
-    /*splash_screen_display.setString("Welcome to Frostbite");*/
+    //splash_screen_display.setString("Welcome to Frostbite");
 
     _mainscreen.setTexture(mainscreen);
     _instructions.setTexture(instructions);
@@ -735,3 +736,4 @@ Screen::~Screen()
     birds.clear();
     fish.clear();
 }
+*/

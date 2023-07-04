@@ -1,3 +1,4 @@
+/*
 #include "enemy.h"
 
 Enemy::Enemy(): 
@@ -12,11 +13,11 @@ Enemy::Enemy():
 	region4Pos{506.0f},
 	gapBetweeenAnimals{120.0f}
 {
-	reset_animal_presence(); //initially, there are no animals
+	//reset_animal_presence(); //initially, there are no animals
 	load_textures();
 }
-
-void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sprite>>& clamps,
+*/
+/*void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sprite>>& clamps,
 	vector<shared_ptr<Sprite>>& birds, vector<shared_ptr<Sprite>>& fish,
 	vector<shared_ptr<Crab>>& crabsObj, vector<shared_ptr<Clamp>>& clampsObj,
 	vector<shared_ptr<Bird>>& birdsObj, vector<shared_ptr<Fish>>& fishObj, const float& regionPos)
@@ -141,8 +142,8 @@ void Enemy::create_enemy(vector<shared_ptr<Sprite>>& crabs, vector<shared_ptr<Sp
 		}
 		region4 = true;
 	}
-}
-
+}*/
+/*
 bool Enemy::enemy_in_region1() const
 {
 	return region1;
@@ -161,25 +162,25 @@ bool Enemy::enemy_in_region3() const
 bool Enemy::enemy_in_region4() const
 {
 	return region4;
-}
+}*/
 
-int Enemy::pick_side()
+/*int Enemy::pick_side()
 {
 	std::random_device rd;
 	std::uniform_int_distribution<int>dist(1, 2);
 	auto side = dist(rd);
 	return side;
-}
+}*/
 
-int Enemy::generate_enemy_type()
+/*int Enemy::generate_enemy_type()
 {
 	std::random_device rd;
 	std::uniform_int_distribution<int>dist(1, 4);
 	auto enemyType = dist(rd);
 	return enemyType;
-}
+}*/
 
-void Enemy::load_textures()
+/*void Enemy::load_textures()
 {
 	_crab.loadFromFile("resources/crab1.png");
 	_clamp_left.loadFromFile("resources/clamp1_left.png");
@@ -236,9 +237,9 @@ void Enemy::create_crabs(vector<shared_ptr<Sprite>>& _crab_sprite, vector<shared
 	auto pos_ = crab_ptr2->get_position();
 	crab_sprite2->setPosition(pos_);
 	_crab_sprite.push_back(crab_sprite2);
-}
+}*/
 
-void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shared_ptr<Clamp>>& clampObj,
+/*void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shared_ptr<Clamp>>& clampObj,
 	const float& regionPos)
 {
 	//select side
@@ -267,9 +268,9 @@ void Enemy::create_clamps(vector<shared_ptr<Sprite>>& _clamp_sprite, vector<shar
 	auto pos2 = clamp_ptr2->get_position();
 	clamp_sprite2->setPosition(pos2);
 	_clamp_sprite.push_back(clamp_sprite2);
-}
+}*/
 
-void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_ptr<Fish>>& fishObj,
+/*void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_ptr<Fish>>& fishObj,
 	const float& regionPos)
 {
 	//select side
@@ -298,9 +299,9 @@ void Enemy::create_fish(vector<shared_ptr<Sprite>>& _fish_sprite, vector<shared_
 	auto pos2 = fish_ptr2->get_position();
 	fish_sprite2->setPosition(pos2);
 	_fish_sprite.push_back(fish_sprite2);
-}
+}*/
 
-void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared_ptr<Bird>>& birdObj,
+/*void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared_ptr<Bird>>& birdObj,
 	const float& regionPos)
 {
 	//select side
@@ -329,15 +330,15 @@ void Enemy::create_birds(vector<shared_ptr<Sprite>>& _bird_sprite, vector<shared
 	auto pos2 = bird_ptr2->get_position();
 	bird_sprite2->setPosition(pos2);
 	_bird_sprite.push_back(bird_sprite2);
-}
+}*/
 
-void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_ptr<Clamp>>& clamps,
+/*void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_ptr<Clamp>>& clamps,
 	vector<shared_ptr<Bird>>& birds, vector<shared_ptr<Fish>>& fish)
 {
 	//reset regions to be re-updated
 	reset_regions();
 	//reset  aimals in region
-	reset_animal_presence();
+	//reset_animal_presence();
 	//crabs in the sea
 	if (!crabs.empty())
 	{
@@ -363,9 +364,9 @@ void Enemy::update_enemy_regions(vector<shared_ptr<Crab>>& crabs, vector<shared_
 		//check for fish in region
 		fish_in_region(fish);
 	}
-}
+}*/
 
-void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
+/*void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
 {
 	auto bird_ptr = birds.begin();
 	while (bird_ptr != birds.end())
@@ -396,9 +397,9 @@ void Enemy::birds_in_region(vector<shared_ptr<Bird>>& birds)
 		}
 		++bird_ptr;
 	}
-}
+}*/
 
-void Enemy::crabs_in_region(vector<shared_ptr<Crab>>& crabs)
+/*void Enemy::crabs_in_region(vector<shared_ptr<Crab>>& crabs)
 {
 	auto crab_ptr = crabs.begin();
 	while (crab_ptr != crabs.end())
@@ -495,16 +496,16 @@ void Enemy::clamps_in_region(vector<shared_ptr<Clamp>>& clamps)
 		}
 		++clamp_ptr;
 	}
-}
+}*/
 
-void Enemy::reset_animal_presence()
+/*void Enemy::reset_animal_presence()
 {
 	region1_animal = Animal::none;
 	region2_animal = Animal::none;
 	region3_animal = Animal::none;
 	region4_animal = Animal::none;
-}
-
+}*/
+/*
 void Enemy::reset_regions()
 {
 	//reset regions to be re-updated
@@ -518,3 +519,4 @@ std::tuple<Animal, Animal, Animal, Animal> Enemy::get_animals_in_regions() const
 {
 	return{ region1_animal,region2_animal,region3_animal,region4_animal };
 }
+*/
