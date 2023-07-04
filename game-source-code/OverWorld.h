@@ -25,6 +25,8 @@ public:
 	void create_animal(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&,
 		vector<shared_ptr<Fish>>&, const float&);
 
+	std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> get_type_of_animal_in_region() const;
+
 private:
 
 	//Regions where animals can be possibly spawned

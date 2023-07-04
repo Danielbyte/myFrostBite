@@ -200,6 +200,11 @@ void OverWorld::update_animals_in_regions(vector<shared_ptr<Crab>>& crabs, vecto
 	}
 }
 
+std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> OverWorld::get_type_of_animal_in_region() const
+{
+	return { animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4 };
+}
+
 void OverWorld::clear_regions()
 {
 	region1 = false;
