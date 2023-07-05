@@ -18,7 +18,7 @@ public:
 	Texture crab1, crab2, crab3, crab4, crab5, crab6;
 
 	void load_textures();
-	void animate(shared_ptr<Sprite>&, shared_ptr<Crab>&);
+	void animate(shared_ptr<Crab>&);
 
 private:
 	float speed_controller;

@@ -22,6 +22,15 @@ void Engine::draw()
 					window.draw(bird->getSprite());
 				}
 			}
+
+			//Draw crabs
+			if (!crabs.empty())
+			{
+				for (auto& crab : crabs)
+				{
+					window.draw(crab->getSprite());
+				}
+			}
 		}
 		else
 		{

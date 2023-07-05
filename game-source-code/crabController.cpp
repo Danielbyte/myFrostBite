@@ -15,8 +15,6 @@ void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float de
 
 		while (crab_iter != crabs.end())
 		{
-			//animate(*crab_spritePtr, *crab_ptr);
-
 			auto cycle = (*crab_iter)->get_cycle();
 			if (cycle == first_cycle)
 			{
@@ -52,6 +50,7 @@ void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float de
 					}
 				}
 			}
+			animate(*crab_iter);
 			++crab_iter;
 		}
 	}
@@ -67,46 +66,52 @@ void CrabController::load_textures()
 	crab6.loadFromFile("resources/crab6.png");
 }
 
-void CrabController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Crab>& obj_ptr)
+void CrabController::animate(shared_ptr<Crab>& crab)
 {
-	obj_ptr ->increment_counter();
-	auto counter = obj_ptr->get_counter();
+	crab ->increment_counter();
+	auto counter = crab->get_counter();
 
-	if (counter > 0 && counter <= 10)
+	if (counter > 0 && counter <= 100)
 	{
-		sprite_ptr->setTexture(crab1);
+		crab->updateSpriteTexture(crab1);
+		crab->updateSpritePosition();
 	}
 
-	else if (counter > 10 && counter <= 20)
+	else if (counter > 100 && counter <= 200)
 	{
-		sprite_ptr->setTexture(crab2);
+		crab->updateSpriteTexture(crab2);
+		crab->updateSpritePosition();
 	}
 
-	else if (counter > 20 && counter <= 30)
+	else if (counter > 200 && counter <= 300)
 	{
-		sprite_ptr->setTexture(crab3);
+		crab->updateSpriteTexture(crab3);
+		crab->updateSpritePosition();
 	}
 
-	else if (counter > 30 && counter <= 40)
+	else if (counter > 300 && counter <= 400)
 	{
-		sprite_ptr->setTexture(crab4);
+		crab->updateSpriteTexture(crab4);
+		crab->updateSpritePosition();
 	}
 
-	else if (counter > 40 && counter <= 50)
+	else if (counter > 400 && counter <= 500)
 	{
-		sprite_ptr->setTexture(crab5);
+		crab->updateSpriteTexture(crab5);
+		crab->updateSpritePosition();
 	}
 
-	else if (counter > 50 && counter <= 60)
+	else if (counter > 500 && counter <= 600)
 	{
-		sprite_ptr->setTexture(crab6);
-		obj_ptr->reset_counter();
-		auto cycle = obj_ptr->get_cycle();
-		obj_ptr->increment_cycle();
+		crab->updateSpriteTexture(crab6);
+		crab->updateSpritePosition();
+		crab->reset_counter();
+		auto cycle = crab->get_cycle();
+		crab->increment_cycle();
 	
 		if (cycle > second_cycle)
 		{
-			obj_ptr->reset_cycle();
+			crab->reset_cycle();
 		}
 	}
 }

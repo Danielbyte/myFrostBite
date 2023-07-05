@@ -177,7 +177,7 @@ void OverWorld::update_animals_in_regions(vector<shared_ptr<Crab>>& crabs, vecto
 	if (!crabs.empty())
 	{
 		//update each region wrt crabs
-		//update_regions(crabs, AnimalType::crabs);
+		update_regions(crabs, AnimalType::crabs);
 
 	}
 

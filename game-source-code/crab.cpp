@@ -1,6 +1,9 @@
 #include "crab.h"
 
-Crab::Crab(){}
+Crab::Crab():
+	counter{ 0 },
+	cycle{ 1 }
+{}
 
 Crab::Crab(const int& side, const float& region):
 	counter{0},
@@ -8,12 +11,14 @@ Crab::Crab(const int& side, const float& region):
 {
 	position.y = region;
 	auto gapBetweeenCrabs = 120.0f;
+	animal_sprite.setOrigin(crab_width / 2.0f, crab_height / 2.0f);
 	if (side == right)
 	{
 		auto x_position = windowWidth + (crab_width / 2) + gapBetweeenCrabs;
 		position.x = x_position;
 		spawned_left = false;
 		spawned_right = true;
+		animal_sprite.setPosition(position);
 	}
 
 	if (side == left)
@@ -22,6 +27,7 @@ Crab::Crab(const int& side, const float& region):
 		position.x = x_position;
 		spawned_left = true;
 		spawned_right = false;
+		animal_sprite.setPosition(position);
 	}
 }
 
