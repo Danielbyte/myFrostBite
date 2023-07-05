@@ -15,7 +15,7 @@ public:
 	Texture bird1_right, bird2_right, bird3_right, bird4_right, bird5_right, bird6_right;
 	void load_textures();
 
-	void update_birds(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Bird>>&, const float&);
+	void update_birds(vector<shared_ptr<Bird>>&, const float deltaTime);
 	void animate(shared_ptr<Sprite>&, shared_ptr<Bird>&);
 
 private:

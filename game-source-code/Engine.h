@@ -8,6 +8,11 @@
 #include "Player2.h"
 #include "gameConstants.h"
 #include "OverWorld.h"
+#include "stopwatch.h"
+#include "clampController.h"
+#include "birdController.h"
+#include "crabController.h"
+#include "fishController.h"
 
 
 class Engine
@@ -21,6 +26,11 @@ private:
 	Player1 player1;
 	Player2 player2;
 	OverWorld overworld;
+	Stopwatch overworld_watch;
+	BirdController control_birds;
+	CrabController control_crabs;
+	ClampController control_clamps;
+	FishController control_fish;
 
 	bool needToSpawn; //flag if need to spawn players
 	
@@ -46,6 +56,7 @@ private:
 
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
 	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
+	void update_over_world(const float deltaTime);
 	void draw(); //draw game characters
 
 	void LoadTextures();
@@ -59,6 +70,12 @@ private:
 
 	Texture line_texture;
 	Sprite line_sprite;
+
+	//vectors of animals
+	vector <shared_ptr<Crab>> crabs;
+	vector <shared_ptr<Clamp>> clamps;
+	vector <shared_ptr<Bird>> birds;
+	vector <shared_ptr<Fish>> fish;
 };
 
 #endif // !ENGINE_H

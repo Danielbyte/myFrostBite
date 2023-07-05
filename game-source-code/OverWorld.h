@@ -21,11 +21,20 @@ public:
 	bool Isanimal_in_region3() const;
 	bool Isanimal_in_region4() const;
 
+	float getRegion1Position() const;
+	float getRegion2Position() const;
+	float getRegion3Position() const;
+	float getRegion4Position() const;
+
+
 	//Create animals
 	void create_animal(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&,
 		vector<shared_ptr<Fish>>&, const float&);
 
 	std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> get_type_of_animal_in_region() const;
+
+	void update_animals_in_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
 
 private:
 
@@ -50,20 +59,17 @@ private:
 
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
 
-	void update_animals_in_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
-		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
-
 	template<typename T>
 	T place_animal(vector<shared_ptr<T>>& animal, const float region)
 	{
 		//select side
-		auto EnemySide = pick_side();
+		auto side = pick_side();
 		//create new animal object
-		shared_ptr<T>animal_ptr(new T(EnemySide, region));
+		shared_ptr<T>animal_ptr(new T(side, region));
 		animal.push_back(animal_ptr);
 
 		//crate second animal
-		shared_ptr<T>animal_ptr2(new T(EnemySide, region));
+		shared_ptr<T>animal_ptr2(new T(side, region));
 		animal_ptr2->set_x_position(gapBetweeenAnimals);
 		animal.push_back(animal_ptr2);
 	}

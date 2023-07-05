@@ -221,6 +221,25 @@ void OverWorld::clear_animals()
 	animalInRegion4 = AnimalType::none;
 }
 
+float OverWorld::getRegion1Position() const
+{
+	return region1Position;
+}
+
+float OverWorld::getRegion2Position() const
+{
+	return region2Position;
+}
+float OverWorld::getRegion3Position() const
+{
+	return region3Position;
+}
+
+float OverWorld::getRegion4Position() const
+{
+	return region4Position;
+}
+
 bool OverWorld::Isanimal_in_region1() const
 {
 	return region1;

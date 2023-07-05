@@ -4,19 +4,19 @@ Bird::Bird():
 	counter{0}
 {}
 
-Bird::Bird(const int& enemySide, const float& region):
+Bird::Bird(const int& side, const float& region):
 	counter{0}
 {
 	position.y = region;
 	auto gapBetweenBirds = 120.0f;
 
-	if (enemySide == right)
+	if (side == right)
 	{
 		position.x = windowWidth + (bird_width / 2.0f) + gapBetweenBirds;
 		spawned_right = true;
 	}
 
-	else if (enemySide == left)
+	else if (side == left)
 	{
 		position.x = (-bird_width / 2.0f) - gapBetweenBirds;
 		spawned_left = true;

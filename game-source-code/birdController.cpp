@@ -6,55 +6,51 @@ BirdController::BirdController():
 	load_textures();
 }
 
-void BirdController::update_birds(vector<shared_ptr<Sprite>>& bird_sprites,
-	vector<shared_ptr<Bird>>& bird_objects, const float& deltaTime)
+void BirdController::update_birds(vector<shared_ptr<Bird>>& birds, const float deltaTime)
 {
-	if (!bird_objects.empty())
+	if (!birds.empty())
 	{
-		auto bird_obj = bird_objects.begin();
-		auto bird_sprite = bird_sprites.begin();
+		auto bird_iter = birds.begin();
+		//auto bird_sprite = bird_sprites.begin();
 
-		while (bird_obj != bird_objects.end())
+		while (bird_iter != birds.end())
 		{
-			animate(*bird_sprite, *bird_obj);
-			auto [left, right] = (*bird_obj)->getSide();
+			//animate(*bird_sprite, *bird_obj);
+			auto [left, right] = (*bird_iter)->getSide();
 
 			if (left)
 			{
-				(*bird_sprite)->move(speed_controller * deltaTime, 0);
-				vector2f pos = (*bird_sprite)->getPosition();
-				(*bird_obj)->setPosition(pos);
+				//(*bird_sprite)->move(speed_controller * deltaTime, 0);
+				vector2f pos = (*bird_iter)->getPosition();
+				pos.x  += speed_controller * deltaTime;
+				(*bird_iter)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
 				auto outOfBounds = windowWidth + (bird_width / 2.0f);
 				if (pos.x >= outOfBounds)
 				{
 					//delete bird object
-					bird_objects.erase(bird_obj);
-					bird_sprites.erase(bird_sprite);
+					birds.erase(bird_iter);
 					return;
 				}
 			}
 
 			else if (right)
 			{
-				(*bird_sprite)->move(-speed_controller * deltaTime, 0);
-				vector2f pos = (*bird_sprite)->getPosition();
-				(*bird_obj)->setPosition(pos);
+				vector2f pos = (*bird_iter)->getPosition();
+				pos.x -= speed_controller * deltaTime;
+				(*bird_iter)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
 				auto outOfBounds = -bird_width / 2.0f;
 				if (pos.x <= outOfBounds)
 				{
 					//delete bird object
-					bird_objects.erase(bird_obj);
-					bird_sprites.erase(bird_sprite);
+					birds.erase(bird_iter);
 					return;
 				}
 			}
-
-			++bird_obj;
-			++bird_sprite;
+			++bird_iter;
 		}
 	}
 }

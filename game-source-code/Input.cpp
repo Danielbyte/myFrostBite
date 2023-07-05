@@ -53,6 +53,7 @@ void Engine::handleInput()
 				inMainMenu = false;
 				splitScreen = false;
 				isPlaying = true;
+				overworld_watch.restart_timer();
 			}
 
 			if (menu.getCursorLevel() == 2)
@@ -60,6 +61,7 @@ void Engine::handleInput()
 				inMainMenu = false;
 				splitScreen = true;
 				isPlaying = true;
+				overworld_watch.restart_timer();
 			}
 
 			if (menu.getCursorLevel() == 3)
