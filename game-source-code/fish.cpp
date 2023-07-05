@@ -9,15 +9,18 @@ Fish::Fish(const int& side, const float& region):
 {
 	position.y = region;
 	auto gapBetweenFish = 130.0f;
+	animal_sprite.setOrigin(fish_width / 2.0f, fish_height / 2.0f);
 	if (side == right)
 	{
 		position.x = windowWidth + (fish_width / 2.0f) + gapBetweenFish;
 		spawned_right = true;
+		animal_sprite.setPosition(position);
 	}
 	else if (side == left)
 	{
 		position.x = (-fish_width / 2.0f) - gapBetweenFish;
 		spawned_left = true;
+		animal_sprite.setPosition(position);
 	}
 }
 

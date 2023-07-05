@@ -15,7 +15,6 @@ void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float del
 
 		while (fish_iter != fish.end())
 		{
-			//animate(*fish_sprite, *fish_obj);
 			auto [left, right] = (*fish_iter)->getSide();
 
 			if (left)
@@ -47,64 +46,75 @@ void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float del
 					return;
 				}
 			}
+			animate(*fish_iter);
 			++fish_iter;
 		}
 	}
 }
 
-void FishController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Fish>& fishObj)
+void FishController::animate(shared_ptr<Fish>& fish)
 {
-	fishObj->increment_counter();
-	auto [left, right] = fishObj->getSide();
-	auto counter = fishObj->get_counter();
+	fish->increment_counter();
+	auto [left, right] = fish->getSide();
+	auto counter = fish->get_counter();
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 8)
+		if (counter > 0 && counter <= 80)
 		{
-			sprite_ptr->setTexture(fish1_left);
+			fish->updateSpriteTexture(fish1_left);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 8 && counter <= 16)
+		else if (counter > 80 && counter <= 160)
 		{
-			sprite_ptr->setTexture(fish2_left);
+			fish->updateSpriteTexture(fish2_left);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 16 && counter <= 24)
+		else if (counter > 160 && counter <= 240)
 		{
-			sprite_ptr->setTexture(fish3_left);
+			fish->updateSpriteTexture(fish3_left);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 24 && counter <= 32)
+		else if (counter > 240 && counter <= 320)
 		{
-			sprite_ptr->setTexture(fish4_left);
+			fish->updateSpriteTexture(fish4_left);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 32 && counter <= 40)
+		else if (counter > 320 && counter <= 400)
 		{
-			sprite_ptr->setTexture(fish5_left);
-			fishObj->reset_counter();
+			fish->updateSpriteTexture(fish5_left);
+			fish->updateSpritePosition();
+			fish->reset_counter();
 		}
 	}
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 8)
+		if (counter > 0 && counter <= 80)
 		{
-			sprite_ptr->setTexture(fish1_right);
+			fish->updateSpriteTexture(fish1_right);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 8 && counter <= 16)
+		else if (counter > 80 && counter <= 160)
 		{
-			sprite_ptr->setTexture(fish2_right);
+			fish->updateSpriteTexture(fish2_right);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 16 && counter <= 24)
+		else if (counter > 160 && counter <= 240)
 		{
-			sprite_ptr->setTexture(fish3_right);
+			fish->updateSpriteTexture(fish3_right);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 24 && counter <= 32)
+		else if (counter > 240 && counter <= 320)
 		{
-			sprite_ptr->setTexture(fish4_right);
+			fish->updateSpriteTexture(fish4_right);
+			fish->updateSpritePosition();
 		}
-		else if (counter > 32 && counter <= 40)
+		else if (counter > 320 && counter <= 400)
 		{
-			sprite_ptr->setTexture(fish5_right);
-			fishObj->reset_counter();
+			fish->updateSpriteTexture(fish5_right);
+			fish->updateSpritePosition();
+			fish->reset_counter();
 		}
 	}
 }
