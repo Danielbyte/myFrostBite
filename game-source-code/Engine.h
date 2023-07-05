@@ -76,6 +76,19 @@ private:
 	vector <shared_ptr<Clamp>> clamps;
 	vector <shared_ptr<Bird>> birds;
 	vector <shared_ptr<Fish>> fish;
+
+	//template function to draw all types of animals
+	template<typename _Animal>
+	void draw_animals(const vector<shared_ptr<_Animal>>& _animals)
+	{
+		if (!_animals.empty())
+		{
+			for (auto& _animal : _animals)
+			{
+				window.draw(_animal->getSprite());
+			}
+		}
+	}
 };
 
 #endif // !ENGINE_H

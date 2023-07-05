@@ -15,22 +15,9 @@ void Engine::draw()
 			window.draw(player1.getSprite());
 
 			//Draw birds
-			if (!birds.empty())
-			{
-				for (auto& bird : birds)
-				{
-					window.draw(bird->getSprite());
-				}
-			}
-
+			draw_animals(birds);
 			//Draw crabs
-			if (!crabs.empty())
-			{
-				for (auto& crab : crabs)
-				{
-					window.draw(crab->getSprite());
-				}
-			}
+			draw_animals(crabs);
 		}
 		else
 		{
@@ -43,13 +30,9 @@ void Engine::draw()
 			window.draw(player1.getSprite());
 
 			//Draw birds
-			if (!birds.empty())
-			{
-				for (auto& bird : birds)
-				{
-					window.draw(bird->getSprite());
-				}
-			}
+			draw_animals(birds);
+			//Draw crabs
+			draw_animals(crabs);
 			
 			//player2 side
 			window.setView(RightViewB);
