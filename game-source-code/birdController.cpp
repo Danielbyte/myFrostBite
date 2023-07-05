@@ -15,7 +15,6 @@ void BirdController::update_birds(vector<shared_ptr<Bird>>& birds, const float d
 
 		while (bird_iter != birds.end())
 		{
-			//animate(*bird_sprite, *bird_obj);
 			auto [left, right] = (*bird_iter)->getSide();
 
 			if (left)
@@ -50,6 +49,7 @@ void BirdController::update_birds(vector<shared_ptr<Bird>>& birds, const float d
 					return;
 				}
 			}
+			animate(*bird_iter);
 			++bird_iter;
 		}
 	}
@@ -74,68 +74,80 @@ void BirdController::load_textures()
 	bird6_right.loadFromFile("resources/bird6_right.png");
 }
 
-void BirdController::animate(shared_ptr<Sprite>& bird_sprite, shared_ptr<Bird>& birdObj)
+void BirdController::animate(shared_ptr<Bird>& bird)
 {
-	birdObj->increment_counter();
-	auto [left, right] = birdObj->getSide();
-	auto counter = birdObj->get_counter();
+	bird->increment_counter();
+	auto [left, right] = bird->getSide();
+	auto counter = bird->get_counter();
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 8)
+		if (counter > 0 && counter <= 80)
 		{
-			bird_sprite->setTexture(bird1_left);
+			bird->updateSpriteTexture(bird1_left);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 8 && counter <= 16)
+		else if (counter > 80 && counter <= 160)
 		{
-			bird_sprite->setTexture(bird2_left);
+			bird->updateSpriteTexture(bird2_left);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 16 && counter <= 24)
+		else if (counter > 160 && counter <= 240)
 		{
-			bird_sprite->setTexture(bird3_left);
+			bird->updateSpriteTexture(bird3_left);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 24 && counter <= 32)
+		else if (counter > 240 && counter <= 320)
 		{
-			bird_sprite->setTexture(bird4_left);
+			bird->updateSpriteTexture(bird4_left);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 32 && counter <= 40)
+		else if (counter > 320 && counter <= 400)
 		{
-			bird_sprite->setTexture(bird5_left);
+			bird->updateSpriteTexture(bird5_left);
+			bird->updateSpritePosition();
 		}
 
-		else if (counter > 40 && counter <= 48)
+		else if (counter > 400 && counter <= 480)
 		{
-			bird_sprite->setTexture(bird6_left);
-			birdObj->reset_counter();
+			bird->updateSpriteTexture(bird6_left);
+			bird->updateSpritePosition();
+			bird->reset_counter();
 		}
 	}
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 8)
+		if (counter > 0 && counter <= 80)
 		{
-			bird_sprite->setTexture(bird1_right);
+			bird->updateSpriteTexture(bird1_right);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 8 && counter <= 16)
+		else if (counter > 80 && counter <= 160)
 		{
-			bird_sprite->setTexture(bird2_right);
+			bird->updateSpriteTexture(bird2_right);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 16 && counter <= 24)
+		else if (counter > 160 && counter <= 240)
 		{
-			bird_sprite->setTexture(bird3_right);
+			bird->updateSpriteTexture(bird3_right);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 24 && counter <= 32)
+		else if (counter > 240 && counter <= 320)
 		{
-			bird_sprite->setTexture(bird4_right);
+			bird->updateSpriteTexture(bird4_right);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 32 && counter <= 40)
+		else if (counter > 320 && counter <= 400)
 		{
-			bird_sprite->setTexture(bird5_right);
+			bird->updateSpriteTexture(bird5_right);
+			bird->updateSpritePosition();
 		}
-		else if (counter > 40 && counter <= 48)
+		else if (counter > 400 && counter <= 480)
 		{
-			bird_sprite->setTexture(bird6_right);
-			birdObj->reset_counter();
+			bird->updateSpriteTexture(bird6_right);
+			bird->updateSpritePosition();
+			bird->reset_counter();
 		}
 	}
 }

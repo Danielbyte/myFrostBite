@@ -13,6 +13,15 @@ void Engine::draw()
 			window.setView(singlePlayerView);
 			window.draw(background_sprite);
 			window.draw(player1.getSprite());
+
+			//Draw birds
+			if (!birds.empty())
+			{
+				for (auto& bird : birds)
+				{
+					window.draw(bird->getSprite());
+				}
+			}
 		}
 		else
 		{
@@ -23,6 +32,15 @@ void Engine::draw()
 			window.draw(line_sprite);
 			window.setView(leftView);
 			window.draw(player1.getSprite());
+
+			//Draw birds
+			if (!birds.empty())
+			{
+				for (auto& bird : birds)
+				{
+					window.draw(bird->getSprite());
+				}
+			}
 			
 			//player2 side
 			window.setView(RightViewB);

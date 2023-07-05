@@ -9,17 +9,20 @@ Bird::Bird(const int& side, const float& region):
 {
 	position.y = region;
 	auto gapBetweenBirds = 120.0f;
+	animal_sprite.setOrigin(bird_width / 2.0f, bird_height / 2.0f);
 
 	if (side == right)
 	{
 		position.x = windowWidth + (bird_width / 2.0f) + gapBetweenBirds;
 		spawned_right = true;
+		animal_sprite.setPosition(position);
 	}
 
 	else if (side == left)
 	{
 		position.x = (-bird_width / 2.0f) - gapBetweenBirds;
 		spawned_left = true;
+		animal_sprite.setPosition(position);
 	}
 }
 

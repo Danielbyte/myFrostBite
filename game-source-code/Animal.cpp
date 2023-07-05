@@ -24,3 +24,13 @@ Sprite Animal::getSprite() const
 {
 	return animal_sprite;
 }
+
+void Animal::updateSpritePosition()
+{
+	animal_sprite.setPosition(position);
+}
+
+void Animal::updateSpriteTexture(const Texture& _texture)
+{
+	animal_sprite.setTexture(_texture);
+}

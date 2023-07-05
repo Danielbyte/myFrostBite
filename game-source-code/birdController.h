@@ -16,7 +16,7 @@ public:
 	void load_textures();
 
 	void update_birds(vector<shared_ptr<Bird>>&, const float deltaTime);
-	void animate(shared_ptr<Sprite>&, shared_ptr<Bird>&);
+	void animate(shared_ptr<Bird>&);
 
 private:
 	float speed_controller;

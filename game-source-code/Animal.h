@@ -12,7 +12,8 @@ public:
 	void setPosition(const vector2f _position);
 	std::tuple<bool, bool> getSide() const;
 	Sprite getSprite() const;
-
+	void updateSpritePosition();
+	void updateSpriteTexture(const Texture&);
 protected:
 	bool spawned_left;
 	bool spawned_right;
