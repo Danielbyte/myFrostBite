@@ -32,6 +32,7 @@ void Engine::update(const float dtAsSeconds)
 		{
 			//update single player mode
 			player1.update(dtAsSeconds);
+            update_over_world(dtAsSeconds);
 		}
 
 		else
@@ -39,6 +40,7 @@ void Engine::update(const float dtAsSeconds)
 			//update multiplayer mode (both players)
 			player1.update(dtAsSeconds);
 			player2.update(dtAsSeconds);
+            update_over_world(dtAsSeconds);
 		}
 	}
 }

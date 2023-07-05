@@ -60,7 +60,7 @@ private:
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
 
 	template<typename T>
-	T place_animal(vector<shared_ptr<T>>& animal, const float region)
+	void place_animal(vector<shared_ptr<T>>& animal, const float region)
 	{
 		//select side
 		auto side = pick_side();
@@ -75,7 +75,7 @@ private:
 	}
 
 	template<typename _Animal, typename _AnimalType>
-	_Animal update_regions(const vector<shared_ptr<_Animal>>& animal, const _AnimalType animal_type)
+	void update_regions(const vector<shared_ptr<_Animal>>& animal, const _AnimalType animal_type)
 	{
 		auto animal_ptr = animal.begin();
 		while (animal_ptr != animal.end())
