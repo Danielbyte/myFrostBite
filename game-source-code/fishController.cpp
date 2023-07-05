@@ -6,51 +6,48 @@ FishController::FishController():
 	load_textures();
 }
 
-void FishController::update_fish(vector<shared_ptr<Sprite>>& fish_sprites,
-	vector<shared_ptr<Fish>>& fish_objects, const float& deltaTime)
+void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float deltaTime)
 {
-	if (!fish_objects.empty())
+	if (!fish.empty())
 	{
-		auto fish_obj = fish_objects.begin();
-		auto fish_sprite = fish_sprites.begin();
+		auto fish_iter = fish.begin();
+		//auto fish_sprite = fish_sprites.begin();
 
-		while (fish_obj != fish_objects.end())
+		while (fish_iter != fish.end())
 		{
-			animate(*fish_sprite, *fish_obj);
-			auto [left, right] = (*fish_obj)->get_side();
+			//animate(*fish_sprite, *fish_obj);
+			auto [left, right] = (*fish_iter)->getSide();
 
 			if (left)
 			{
-				(*fish_sprite)->move(speed_controller * deltaTime, 0);
-				vector2f pos = (*fish_sprite)->getPosition();
-				(*fish_obj)->set_position(pos);
+				//(*fish_sprite)->move(speed_controller * deltaTime, 0);
+				vector2f pos = (*fish_iter)->getPosition();
+				pos.x += speed_controller * deltaTime;
+				(*fish_iter)->setPosition(pos);
 
 				auto outOfBounds = windowWidth + (fish_width / 2.0f);
 				if (pos.x >= outOfBounds)
 				{
-					fish_objects.erase(fish_obj);
-					fish_sprites.erase(fish_sprite);
+					fish.erase(fish_iter);
 					return;
 				}
 			}
 
 			else if (right)
 			{
-				(*fish_sprite)->move(-speed_controller * deltaTime, 0);
-				vector2f pos = (*fish_sprite)->getPosition();
-				(*fish_obj)->set_position(pos);
+				//(*fish_sprite)->move(-speed_controller * deltaTime, 0);
+				vector2f pos = (*fish_iter)->getPosition();
+				pos.x -= speed_controller * deltaTime;
+				(*fish_iter)->setPosition(pos);
 
 				auto outOfBounds = -fish_width / 2.0f;
 				if (pos.x <= outOfBounds)
 				{
-					fish_objects.erase(fish_obj);
-					fish_sprites.erase(fish_sprite);
+					fish.erase(fish_iter);
 					return;
 				}
 			}
-
-			++fish_obj;
-			++fish_sprite;
+			++fish_iter;
 		}
 	}
 }
@@ -58,7 +55,7 @@ void FishController::update_fish(vector<shared_ptr<Sprite>>& fish_sprites,
 void FishController::animate(shared_ptr<Sprite>& sprite_ptr, shared_ptr<Fish>& fishObj)
 {
 	fishObj->increment_counter();
-	auto [left, right] = fishObj->get_side();
+	auto [left, right] = fishObj->getSide();
 	auto counter = fishObj->get_counter();
 
 	if (left)

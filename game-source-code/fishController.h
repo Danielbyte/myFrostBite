@@ -7,7 +7,7 @@ class FishController
 {
 public:
 	FishController();
-	void update_fish(vector<shared_ptr<Sprite>>&, vector<shared_ptr<Fish>>&, const float&);
+	void update_fish(vector<shared_ptr<Fish>>&, const float deltaTime);
 	void animate(shared_ptr<Sprite>&, shared_ptr<Fish>&);
 
 	Texture fish1_left, fish2_left, fish3_left, fish4_left, fish5_left;

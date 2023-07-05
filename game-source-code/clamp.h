@@ -3,16 +3,14 @@
 
 #include "gameConstants.h"
 #include "SfmlLibrary.h"
+#include "Animal.h"
 
-class Clamp
+class Clamp : public Animal
 {
 public:
 	Clamp();
 	Clamp(const int&, const float&);
 	void set_x_position(const float& _x);
-	vector2f get_position() const;
-	std::tuple<bool, bool> get_side();
-	void set_postion(const vector2f&);
 
 	void increment_counter();
 	void reset_counter();
@@ -23,14 +21,8 @@ public:
 	int get_cycle() const;
 
 private:
-	vector2f pos;
-
 	//animation of clamp entity
 	int counter;
 	int cycle;
-
-	//mark initial side of clamp object
-	bool spawned_left;
-	bool spawned_right;
 };
 #endif

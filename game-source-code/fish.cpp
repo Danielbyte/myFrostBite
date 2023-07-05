@@ -1,51 +1,37 @@
 #include "fish.h"
 
 Fish::Fish():
-	spawned_left{ false },
-	spawned_right{ false },
 	counter{ 0 }
 {}
 
 Fish::Fish(const int& side, const float& region):
-	spawned_left{false},
-	spawned_right{ false },
 	counter {0}
 {
-	pos.y = region;
+	position.y = region;
 	auto gapBetweenFish = 130.0f;
 	if (side == right)
 	{
-		pos.x = windowWidth + (fish_width / 2.0f) + gapBetweenFish;
+		position.x = windowWidth + (fish_width / 2.0f) + gapBetweenFish;
 		spawned_right = true;
 	}
 	else if (side == left)
 	{
-		pos.x = (-fish_width / 2.0f) - gapBetweenFish;
+		position.x = (-fish_width / 2.0f) - gapBetweenFish;
 		spawned_left = true;
 	}
 }
 
-vector2f Fish::get_position() const
-{
-	return pos;
-}
-
 void Fish::set_x_position(const float& _x)
 {
-	if (pos.x > (fish_width / 2.0f))
+	if (position.x > (fish_width / 2.0f))
 	{
-		pos.x -= _x;
+		position.x -= _x;
 	}
 
 	else
 	{
-		pos.x += _x;
+		position.x += _x;
 	}
-}
-
-std::tuple<bool, bool> Fish::get_side()
-{
-	return { spawned_left, spawned_right };
 }
 
 int Fish::get_counter() const
@@ -61,9 +47,4 @@ void Fish::reset_counter()
 void Fish::increment_counter()
 {
 	++counter;
-}
-
-void Fish::set_position(const vector2f& _pos)
-{
-	pos = _pos;
 }

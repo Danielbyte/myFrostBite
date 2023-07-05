@@ -6,56 +6,52 @@ ClampController::ClampController():
 	load_tectures();
 }
 
-void ClampController::update_clamp(vector<shared_ptr<Sprite>>& clamp_sprites,
-	vector<shared_ptr<Clamp>>& clampObj, const float& deltaTime)
+void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const float deltaTime)
 {
-	if (!clampObj.empty())
+	if (!clamps.empty())
 	{
-		auto sprite_ptr = clamp_sprites.begin();
-		auto obj_ptr = clampObj.begin();
+		auto clamp_iter = clamps.begin();
 
-		while (obj_ptr != clampObj.end())
+		while (clamp_iter != clamps.end())
 		{
-			animate(*sprite_ptr, *obj_ptr);
-			auto cycle = (*obj_ptr)->get_cycle();
+			//animate(*sprite_ptr, *obj_ptr);
+			auto cycle = (*clamp_iter)->get_cycle();
 
 			if (cycle == clamp_first_cycle) //move clamp for first cycle, else stationary
 			{
-				auto [left, right] = (*obj_ptr)->get_side();
+				auto [left, right] = (*clamp_iter)->getSide();
 
 				if (left) //clamp was spawned on the left
 				{
-					(*sprite_ptr)->move(deltaTime * speed_controller, 0);
-					vector2f pos = (*sprite_ptr)->getPosition();
-					(*obj_ptr)->set_postion(pos);
+					//(*sprite_ptr)->move(deltaTime * speed_controller, 0);
+					vector2f pos = (*clamp_iter)->getPosition();
+					pos.x += speed_controller * deltaTime;
+					(*clamp_iter)->setPosition(pos);
 
 					auto outOfBounds = windowWidth + (clamp_width / 2.0f);
 					if (pos.x >= outOfBounds)
 					{
-						clampObj.erase(obj_ptr);
-						clamp_sprites.erase(sprite_ptr);
+						clamps.erase(clamp_iter);
 						return;
 					}
 				}
 
 				else if (right) //clamp was spawned on the right
 				{
-					(*sprite_ptr)->move(-deltaTime * speed_controller, 0);
-					vector2f pos = (*sprite_ptr)->getPosition();
-					(*obj_ptr)->set_postion(pos);
+					//(*sprite_ptr)->move(-deltaTime * speed_controller, 0);
+					vector2f pos = (*clamp_iter)->getPosition();
+					pos.x -= speed_controller * deltaTime;
+					(*clamp_iter)->setPosition(pos);
 
 					auto outOfBounds = -clamp_width / 2.0f;
 					if (pos.x <= outOfBounds)
 					{
-						clampObj.erase(obj_ptr);
-						clamp_sprites.erase(sprite_ptr);
+						clamps.erase(clamp_iter);
 						return;
 					}
 				}
 			}
-
-			++obj_ptr;
-			++sprite_ptr;
+			++clamp_iter;
 		}
 	}
 }
@@ -64,7 +60,7 @@ void ClampController::animate(shared_ptr<Sprite>& _sprite, shared_ptr<Clamp>& _o
 {
 	_obj->increment_counter();
 	auto counter = _obj->get_counter();
-	auto [left, right] = _obj->get_side();
+	auto [left, right] = _obj->getSide();
 
 	if (left)
 	{
