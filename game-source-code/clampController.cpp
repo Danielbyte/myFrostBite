@@ -14,7 +14,6 @@ void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const floa
 
 		while (clamp_iter != clamps.end())
 		{
-			//animate(*sprite_ptr, *obj_ptr);
 			auto cycle = (*clamp_iter)->get_cycle();
 
 			if (cycle == clamp_first_cycle) //move clamp for first cycle, else stationary
@@ -23,7 +22,6 @@ void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const floa
 
 				if (left) //clamp was spawned on the left
 				{
-					//(*sprite_ptr)->move(deltaTime * speed_controller, 0);
 					vector2f pos = (*clamp_iter)->getPosition();
 					pos.x += speed_controller * deltaTime;
 					(*clamp_iter)->setPosition(pos);
@@ -51,117 +49,138 @@ void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const floa
 					}
 				}
 			}
+			animate(*clamp_iter);
 			++clamp_iter;
 		}
 	}
 }
 
-void ClampController::animate(shared_ptr<Sprite>& _sprite, shared_ptr<Clamp>& _obj)
+void ClampController::animate(shared_ptr<Clamp>& clamp)
 {
-	_obj->increment_counter();
-	auto counter = _obj->get_counter();
-	auto [left, right] = _obj->getSide();
+	clamp->increment_counter();
+	auto counter = clamp->get_counter();
+	auto [left, right] = clamp->getSide();
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 10)
+		if (counter > 0 && counter <= 100)
 		{
-			_sprite->setTexture(clamp1_left);
+			clamp->updateSpriteTexture(clamp1_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 10 && counter <= 20)
+		else if (counter > 100 && counter <= 200)
 		{
-			_sprite->setTexture(clamp2_left);
+			clamp->updateSpriteTexture(clamp2_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 20 && counter <= 30)
+		else if (counter > 200 && counter <= 300)
 		{
-			_sprite->setTexture(clamp3_left);
+			clamp->updateSpriteTexture(clamp3_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 30 && counter <= 40)
+		else if (counter > 300 && counter <= 400)
 		{
-			_sprite->setTexture(clamp4_left);
+			clamp->updateSpriteTexture(clamp4_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 40 && counter <= 50)
+		else if (counter > 400 && counter <= 500)
 		{
-			_sprite->setTexture(clamp5_left);
+			clamp->updateSpriteTexture(clamp5_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 50 && counter <= 60)
+		else if (counter > 500 && counter <= 600)
 		{
-			_sprite->setTexture(clamp6_left);
+			clamp->updateSpriteTexture(clamp6_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 60 && counter <= 70)
+		else if (counter > 600 && counter <= 700)
 		{
-			_sprite->setTexture(clamp7_left);
+			clamp->updateSpriteTexture(clamp7_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 70 && counter <= 80)
+		else if (counter > 7000 && counter <= 800)
 		{
-			_sprite->setTexture(clamp8_left);
+			clamp->updateSpriteTexture(clamp8_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 90)
+		else if (counter > 800 && counter <= 900)
 		{
-			_sprite->setTexture(clamp9_left);
+			clamp->updateSpriteTexture(clamp9_left);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 90 && counter <= 100)
+		else if (counter > 900 && counter <= 1000)
 		{
-			_sprite->setTexture(clamp10_left);
-			_obj->reset_counter();
-			_obj->increment_cycle();
-			auto cycle = _obj->get_cycle();
+			clamp->updateSpriteTexture(clamp10_left);
+			clamp->updateSpritePosition();
+			clamp->reset_counter();
+			clamp->increment_cycle();
+			auto cycle = clamp->get_cycle();
 			if (cycle > clamp_second_cycle)
 			{
 				//past the last cycle of the movement pattern
-				_obj->reset_cycle();//start over again
+				clamp->reset_cycle();//start over again
 			}
 		}
 	}
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 10)
+		if (counter > 0 && counter <= 100)
 		{
-			_sprite->setTexture(clamp1_right);
+			clamp->updateSpriteTexture(clamp1_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 10 && counter <= 20)
+		else if (counter > 100 && counter <= 200)
 		{
-			_sprite->setTexture(clamp2_right);
+			clamp->updateSpriteTexture(clamp2_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 20 && counter <= 30)
+		else if (counter > 200 && counter <= 300)
 		{
-			_sprite->setTexture(clamp3_right);
+			clamp->updateSpriteTexture(clamp3_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 30 && counter <= 40)
+		else if (counter > 300 && counter <= 400)
 		{
-			_sprite->setTexture(clamp4_right);
+			clamp->updateSpriteTexture(clamp4_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 40 && counter <= 50)
+		else if (counter > 400 && counter <= 500)
 		{
-			_sprite->setTexture(clamp5_right);
+			clamp->updateSpriteTexture(clamp5_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 50 && counter <= 60)
+		else if (counter > 500 && counter <= 600)
 		{
-			_sprite->setTexture(clamp6_right);
+			clamp->updateSpriteTexture(clamp6_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 60 && counter <= 70)
+		else if (counter > 600 && counter <= 700)
 		{
-			_sprite->setTexture(clamp7_right);
+			clamp->updateSpriteTexture(clamp7_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 70 && counter <= 80)
+		else if (counter > 700 && counter <= 800)
 		{
-			_sprite->setTexture(clamp8_right);
+			clamp->updateSpriteTexture(clamp8_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 90)
+		else if (counter > 800 && counter <= 900)
 		{
-			_sprite->setTexture(clamp9_right);
+			clamp->updateSpriteTexture(clamp9_right);
+			clamp->updateSpritePosition();
 		}
-		else if (counter > 90 && counter <= 100)
+		else if (counter > 900 && counter <= 1000)
 		{
-			_sprite->setTexture(clamp10_right);
-			_obj->reset_counter();
-			_obj->increment_cycle();
-			auto cycle = _obj->get_cycle();
+			clamp->updateSpriteTexture(clamp10_right);
+			clamp->updateSpritePosition();
+			clamp->reset_counter();
+			clamp->increment_cycle();
+			auto cycle = clamp->get_cycle();
 			if (cycle > clamp_second_cycle)
 			{
 				//past the last cycle of the movement pattern
-				_obj->reset_cycle();//start over again
+				clamp->reset_cycle();//start over again
 			}
 		}
 	}

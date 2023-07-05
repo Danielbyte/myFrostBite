@@ -13,7 +13,7 @@ class ClampController
 public:
 	ClampController();
 	void update_clamp(vector<shared_ptr<Clamp>>&, const float deltaTime);
-	void animate(shared_ptr<Sprite>&, shared_ptr<Clamp>&);
+	void animate(shared_ptr<Clamp>&);
 
 	//Textures if clamp spawned from left
 	Texture clamp1_left, clamp2_left, clamp3_left, clamp4_left, clamp5_left, clamp6_left,

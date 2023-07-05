@@ -184,7 +184,7 @@ void OverWorld::update_animals_in_regions(vector<shared_ptr<Crab>>& crabs, vecto
 	if (!clamps.empty())
 	{
 		//update regions wrt clamps
-		//update_regions(clamps, AnimalType::clamps);
+		update_regions(clamps, AnimalType::clamps);
 	}
 
 	if (!birds.empty())

@@ -18,6 +18,8 @@ void Engine::draw()
 			draw_animals(birds);
 			//Draw crabs
 			draw_animals(crabs);
+			//Draw clamps
+			draw_animals(clamps);
 		}
 		else
 		{
@@ -33,6 +35,8 @@ void Engine::draw()
 			draw_animals(birds);
 			//Draw crabs
 			draw_animals(crabs);
+			//Draw clamps
+			draw_animals(clamps);
 			
 			//player2 side
 			window.setView(RightViewB);

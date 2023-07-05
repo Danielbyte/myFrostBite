@@ -11,11 +11,13 @@ Clamp::Clamp(const int& side, const float& region):
 {
 	position.y = region;
 	auto gapBetweenClamps = 120.0f;
+	animal_sprite.setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
 	if (side == right)
 	{
 		auto x_position = windowWidth + (clamp_width / 2) + gapBetweenClamps;
 		position.x = x_position;
 		spawned_right = true;
+		animal_sprite.setPosition(position);
 	}
 
 	if (side == left)
@@ -23,6 +25,7 @@ Clamp::Clamp(const int& side, const float& region):
 		auto x_position = (-clamp_width / 2.0f) - gapBetweenClamps;
 		position.x = x_position;
 		spawned_left = true;
+		animal_sprite.setPosition(position);
 	}
 }
 
