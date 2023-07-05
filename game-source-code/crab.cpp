@@ -4,16 +4,14 @@ Crab::Crab(){}
 
 Crab::Crab(const int& side, const float& region):
 	counter{0},
-	cycle{1},
-	spawned_left{false},
-	spawned_right{false}
+	cycle{1}
 {
-	pos.y = region;
+	position.y = region;
 	auto gapBetweeenCrabs = 120.0f;
 	if (side == right)
 	{
 		auto x_position = windowWidth + (crab_width / 2) + gapBetweeenCrabs;
-		pos.x = x_position;
+		position.x = x_position;
 		spawned_left = false;
 		spawned_right = true;
 	}
@@ -21,28 +19,23 @@ Crab::Crab(const int& side, const float& region):
 	if (side == left)
 	{
 		auto x_position = (- crab_width / 2.0f) - gapBetweeenCrabs;
-		pos.x = x_position;
+		position.x = x_position;
 		spawned_left = true;
 		spawned_right = false;
 	}
-}
-
-vector2f Crab::get_position() const
-{
-	return pos;
 }
 
 void Crab::set_x_position(const float& x_)
 {
 	//second crab horizontal position
 	//if spawned at the far right
-	if (pos.x > (crab_width / 2.0f))
+	if (position.x > (crab_width / 2.0f))
 	{
-		pos.x -= x_;
+		position.x -= x_;
 	}
 	//else spawned at the far left
 	else {
-		pos.x += x_;
+		position.x += x_;
 	}
 	
 }
@@ -76,16 +69,5 @@ void Crab::reset_cycle()
 {
 	cycle = 1;
 }
-
-std::tuple<bool, bool> Crab::get_spawn_side()
-{
-	return { spawned_left, spawned_right };
-}
-
-void Crab::set_position(const vector2f& pos_)
-{
-	pos = pos_;
-}
-
 
 

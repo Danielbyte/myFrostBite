@@ -6,56 +6,53 @@ CrabController::CrabController():
 	load_textures();
 }
 
-void CrabController::update_crab(vector<shared_ptr<Sprite>>& crab_sprites,
-	vector<shared_ptr<Crab>>& crabObj, const float& deltaTime)
+void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float deltaTime)
 {
-	if (!crabObj.empty())
+	if (!crabs.empty())
 	{
-		auto crab_ptr = crabObj.begin();
-		auto crab_spritePtr = crab_sprites.begin();
+		auto crab_iter = crabs.begin();
+		//auto crab_spritePtr = crab_sprites.begin();
 
-		while (crab_ptr != crabObj.end())
+		while (crab_iter != crabs.end())
 		{
-			animate(*crab_spritePtr, *crab_ptr);
+			//animate(*crab_spritePtr, *crab_ptr);
 
-			auto cycle = (*crab_ptr)->get_cycle();
+			auto cycle = (*crab_iter)->get_cycle();
 			if (cycle == first_cycle)
 			{
 				//the crab should move
-				auto [left, right] = (*crab_ptr)->get_spawn_side();
+				auto [left, right] = (*crab_iter)->getSide();
 				if (left)
 				{
-					(*crab_spritePtr)->move(deltaTime * speed_controller, 0);
-					vector2f pos = (*crab_spritePtr)->getPosition();
-					(*crab_ptr)->set_position(pos);
+					//(*crab_spritePtr)->move(deltaTime * speed_controller, 0);
+					vector2f pos = (*crab_iter)->getPosition();
+					pos.x += speed_controller * deltaTime;
+					(*crab_iter)->setPosition(pos);
 
 					auto outOfBounds = windowWidth + (crab_width / 2.0f);
 					if (pos.x >= outOfBounds)
 					{
-						crabObj.erase(crab_ptr);
-						crab_sprites.erase(crab_spritePtr);
+						crabs.erase(crab_iter);
 						return;
 					}
 				}
 
 				else if (right)
 				{
-					(*crab_spritePtr)->move(-deltaTime * speed_controller, 0);
-					vector2f pos = (*crab_spritePtr)->getPosition();
-					(*crab_ptr)->set_position(pos);
+					//(*crab_spritePtr)->move(-deltaTime * speed_controller, 0);
+					vector2f pos = (*crab_iter)->getPosition();
+					pos.x -= speed_controller * deltaTime;
+					(*crab_iter)->setPosition(pos);
 
 					auto outOfBounds = -crab_width / 2.0f;
 					if (pos.x <= outOfBounds)
 					{
-						crabObj.erase(crab_ptr);
-						crab_sprites.erase(crab_spritePtr);
+						crabs.erase(crab_iter);
 						return;
 					}
 				}
 			}
-
-			++crab_ptr;
-			++crab_spritePtr;
+			++crab_iter;
 		}
 	}
 }
