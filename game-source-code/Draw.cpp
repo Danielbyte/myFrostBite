@@ -15,13 +15,15 @@ void Engine::draw()
 			window.draw(player1.getSprite());
 
 			//Draw birds
-			draw_animals(birds);
+			draw_overWorld(birds);
 			//Draw crabs
-			draw_animals(crabs);
+			draw_overWorld(crabs);
 			//Draw clamps
-			draw_animals(clamps);
+			draw_overWorld(clamps);
 			//Draw fish
-			draw_animals(fish);
+			draw_overWorld(fish);
+			//Draw ice
+			draw_overWorld(iceblocks);
 		}
 		else
 		{
@@ -29,18 +31,22 @@ void Engine::draw()
 			//player1 side
 			window.setView(LeftViewB);
 			window.draw(background_sprite);
-			window.draw(line_sprite);
 			window.setView(leftView);
 			window.draw(player1.getSprite());
 
 			//Draw birds
-			draw_animals(birds);
+			draw_overWorld(birds);
 			//Draw crabs
-			draw_animals(crabs);
+			draw_overWorld(crabs);
 			//Draw clamps
-			draw_animals(clamps);
+			draw_overWorld(clamps);
 			//Draw fish
-			draw_animals(fish);
+			draw_overWorld(fish);
+			//Draw ice
+			draw_overWorld(iceblocks);
+
+			//Draw line that separates two screens
+			window.draw(line_sprite);
 			
 			//player2 side
 			window.setView(RightViewB);

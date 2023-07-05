@@ -53,6 +53,7 @@ void Engine::handleInput()
 				inMainMenu = false;
 				splitScreen = false;
 				isPlaying = true;
+				canCreateIce = true;
 				overworld_watch.restart_timer();
 			}
 
@@ -61,6 +62,7 @@ void Engine::handleInput()
 				inMainMenu = false;
 				splitScreen = true;
 				isPlaying = true;
+				canCreateIce = true;
 				overworld_watch.restart_timer();
 			}
 

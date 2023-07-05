@@ -4,7 +4,8 @@ Engine::Engine():
 	needToSpawn{true},
 	splitScreen{false},
 	inMainMenu{true}, // game initially in main menu display
-	isPlaying{false} //game initially in not in game play mode
+	isPlaying{false}, //game initially in not in game play mode
+	canCreateIce{false}
 {
 
 	window.create(VideoMode(windowWidth, windowHeight), "FrostBite", sf::Style::Default);

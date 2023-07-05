@@ -7,6 +7,7 @@
 #include "clamp.h"
 #include "bird.h"
 #include "fish.h"
+#include "IceBlocks.h"
 
 enum class AnimalType { crabs, clamps, birds, fish, none };
 
@@ -35,6 +36,8 @@ public:
 
 	void update_animals_in_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
+
+	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
 private:
 

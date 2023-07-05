@@ -13,6 +13,7 @@
 #include "birdController.h"
 #include "crabController.h"
 #include "fishController.h"
+#include "IceBlockController.h"
 
 
 class Engine
@@ -31,6 +32,7 @@ private:
 	CrabController control_crabs;
 	ClampController control_clamps;
 	FishController control_fish;
+	IceBlockController control_ice;
 
 	bool needToSpawn; //flag if need to spawn players
 	
@@ -77,9 +79,13 @@ private:
 	vector <shared_ptr<Bird>> birds;
 	vector <shared_ptr<Fish>> fish;
 
-	//template function to draw all types of animals
+	//Iceblocks
+	vector <shared_ptr<IceBlocks>> iceblocks;
+	bool canCreateIce;
+
+	//template function to draw all entities in the game over world
 	template<typename _Animal>
-	void draw_animals(const vector<shared_ptr<_Animal>>& _animals)
+	void draw_overWorld(const vector<shared_ptr<_Animal>>& _animals)
 	{
 		if (!_animals.empty())
 		{

@@ -200,6 +200,45 @@ void OverWorld::update_animals_in_regions(vector<shared_ptr<Crab>>& crabs, vecto
 	}
 }
 
+void OverWorld::create_ice(vector<shared_ptr<IceBlocks>>& iceBlocks)
+{
+		//Create first row of ice
+		vector2f _pos1;
+		_pos1.x = 550.0f;
+		_pos1.y = 305.0f;
+		shared_ptr<IceBlocks>ice1(new IceBlocks(_pos1));
+		ice1->set_region(IceRegion::R1);
+		ice1->set_direction(IceDirection::L);
+		iceBlocks.push_back(ice1);
+
+		//Create second row of ice
+		vector2f _pos2;
+		_pos2.x = 250.0f;
+		_pos2.y = 387.0f;
+		shared_ptr<IceBlocks>ice2(new IceBlocks(_pos2));
+		ice2->set_region(IceRegion::R2);
+		ice2->set_direction(IceDirection::R);
+		iceBlocks.push_back(ice2);
+
+		//create third row of ice
+		vector2f _pos3;
+		_pos3.x = 550.0f;
+		_pos3.y = 469.0f;
+		shared_ptr<IceBlocks>ice3(new IceBlocks(_pos3));
+		ice3->set_region(IceRegion::R3);
+		ice3->set_direction(IceDirection::L);
+		iceBlocks.push_back(ice3);
+
+		//create fourth row of ice
+		vector2f _pos4;
+		_pos4.x = 250.0f;
+		_pos4.y = 551.0f;
+		shared_ptr<IceBlocks>ice4(new IceBlocks(_pos4));
+		ice4->set_region(IceRegion::R4);
+		ice4->set_direction(IceDirection::R);
+		iceBlocks.push_back(ice4);
+}
+
 std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> OverWorld::get_type_of_animal_in_region() const
 {
 	return { animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4 };

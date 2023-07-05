@@ -94,4 +94,12 @@ void Engine::update_over_world(const float deltaTime)
     control_birds.update_birds(birds, deltaTime);
 
     overworld.update_animals_in_regions(crabs, clamps, birds, fish);
+
+    if (canCreateIce)
+    {
+        canCreateIce = false;
+        overworld.create_ice(iceblocks);
+    }
+    control_ice.update_iceblocks(iceblocks, deltaTime);
+    control_ice.update_ice_texture(iceblocks);
 }

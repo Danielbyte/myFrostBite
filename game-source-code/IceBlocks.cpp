@@ -14,9 +14,10 @@ IceBlocks::IceBlocks(const vector2f& pos_):
     level{ NULL }
 {
     region = IceRegion::unknown;
-    pos = pos_;
+    position = pos_;
     direction = IceDirection::S;
     color = IceColor::White;
+    ice_sprite.setOrigin(ice_width / 2.0f, ice_height / 2.0f);
 }
 
 void IceBlocks::set_region(const IceRegion& _region)
@@ -24,9 +25,9 @@ void IceBlocks::set_region(const IceRegion& _region)
     region = _region;
 }
 
-void IceBlocks::set_position(const vector2f& position)
+void IceBlocks::set_position(const vector2f& _position)
 {
-   pos = position;
+   position = _position;
 }
 
 IceDirection IceBlocks::get_direction() const
@@ -41,7 +42,7 @@ void IceBlocks::set_direction(const IceDirection& dir)
 
 vector2f IceBlocks::get_position() const
 {
-    return pos;
+    return position;
 }
 
 void IceBlocks::set_level(int level_)
@@ -73,4 +74,19 @@ IceColor IceBlocks::get_color() const
 IceRegion IceBlocks::get_region() const
 {
     return region;
+}
+
+Sprite IceBlocks::getSprite() const
+{
+    return ice_sprite;
+}
+
+void IceBlocks::updateIceSprite(const Texture& newTexture)
+{
+    ice_sprite.setTexture(newTexture);
+}
+
+void IceBlocks::updateSpritePosition()
+{
+    ice_sprite.setPosition(position);
 }

@@ -32,9 +32,13 @@ public:
     void set_region(const IceRegion&);
     IceColor get_color() const;
 
+    Sprite getSprite() const;
+    void updateIceSprite(const Texture& newTexture);
+    void updateSpritePosition();
+
 private:
     float ice_speed;
-    vector2f pos;
+    vector2f position;
     int level;
 
     //marks if there is ice in different regions
@@ -45,5 +49,8 @@ private:
 
     //Color
     IceColor color;
+
+    Texture ice_texture;
+    Sprite ice_sprite;
 };
 #endif // ICEBLOCKS_H
