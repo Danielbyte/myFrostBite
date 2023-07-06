@@ -3,6 +3,8 @@
 Player::Player():
 	rightPressed{false},
 	leftPressed{false},
+	upPressed{false},
+	downPressed{false},
 	gravity{10}
 {}
 
@@ -27,6 +29,15 @@ void Player::update(float timeElapsed)
 		position.x -= 180 * timeElapsed;
 	}
 
+	if (downPressed)
+	{
+		//Frostbite needs to jump down
+	}
+
+	if (upPressed)
+	{
+		//Frostbite needs to jump up
+	}
 	player_sprite.setPosition(position);
 }
 

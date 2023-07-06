@@ -9,12 +9,12 @@ void Player2::handleInput()
 {
 	if (sf::Keyboard::isKeyPressed(Keyboard::Up))
 	{
-		//Logic for jumping up
+		upPressed = true;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::Down))
 	{
-		//Logic for jumping down
+		downPressed = true;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::Left))

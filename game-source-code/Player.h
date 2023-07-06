@@ -21,6 +21,8 @@ protected:
     //Direction the player is currently moving
     bool rightPressed;
     bool leftPressed;
+    bool upPressed;
+    bool downPressed;
  
 private:
     vector2f position;
