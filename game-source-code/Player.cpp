@@ -6,7 +6,8 @@ Player::Player():
 	upPressed{false},
 	downPressed{false},
 	gravity{10},
-	right_boundary{ 776.0f }
+	right_boundary{ 776.0f },
+	left_boundary{ 24.0f }
 {}
 
 void Player::spawnPlayer(vector2f initPosition)
@@ -34,8 +35,17 @@ void Player::update(float timeElapsed)
 
 	if (leftPressed)
 	{
+
+        // move player
 		position.x -= 180 * timeElapsed;
 		player_sprite.setPosition(position);
+
+        //restrict player within screen
+        if (position.x <= left_boundary)
+        {
+     	 position.x = left_boundary;
+	     player_sprite.setPosition(position);
+        }
 	}
 
 	if (downPressed)

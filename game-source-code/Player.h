@@ -28,6 +28,7 @@ private:
     vector2f position;
     float gravity;
     float right_boundary;
+    float left_boundary;
 };
 
 #endif // !PLAYER_H
