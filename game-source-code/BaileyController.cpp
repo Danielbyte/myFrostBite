@@ -117,9 +117,9 @@ void BaileyController::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_sprite)
+void BaileyController::animate_bailey(Player& player, Sprite& bailey_sprite)
 {
-	auto right = bailey_object.get_if_moving_right();
+/*	auto right = player.get_if_moving_right();
 	auto left = bailey_object.get_if_moving_left();
 	auto isRightKeyPressed = bailey_object.get_if_right_key_pressed();
 	auto isLeftKeyPressed = bailey_object.get_if_left_key_pressed();
@@ -179,7 +179,7 @@ void BaileyController::animate_bailey(Bailey& bailey_object, Sprite& bailey_spri
 	 if (!isBaileyJumping && (left && !isLeftKeyPressed))
 	 {
 		 bailey_sprite.setTexture(bailey_texture3);
-	 }
+	 }*/
 }
 
 void BaileyController::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)

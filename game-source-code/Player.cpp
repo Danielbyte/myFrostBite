@@ -5,7 +5,8 @@ Player::Player():
 	leftPressed{false},
 	upPressed{false},
 	downPressed{false},
-	gravity{10}
+	gravity{10},
+	right_boundary{ 776.0f }
 {}
 
 void Player::spawnPlayer(vector2f initPosition)
@@ -22,11 +23,19 @@ void Player::update(float timeElapsed)
 	if (rightPressed)
 	{
 		position.x += 180 * timeElapsed;
+		player_sprite.setPosition(position);
+
+        if (position.x >= right_boundary)
+        {
+	      position.x = right_boundary;
+	      player_sprite.setPosition(position);
+        }
 	}
 
 	if (leftPressed)
 	{
 		position.x -= 180 * timeElapsed;
+		player_sprite.setPosition(position);
 	}
 
 	if (downPressed)
@@ -38,7 +47,6 @@ void Player::update(float timeElapsed)
 	{
 		//Frostbite needs to jump up
 	}
-	player_sprite.setPosition(position);
 }
 
 Sprite Player::getSprite() const

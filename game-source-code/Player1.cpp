@@ -11,10 +11,18 @@ void Player1::handleInput()
 	{
 		upPressed = true;
 	}
+	else
+	{
+		upPressed = false;
+	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::S))
 	{
 		downPressed = true;
+	}
+	else
+	{
+		downPressed = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::A))

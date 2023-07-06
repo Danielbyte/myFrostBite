@@ -94,7 +94,7 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-            isMovingRight = true;
+           /* isMovingRight = true;
             isMovingLeft = false;
             player_sprite.move(left_right_const * deltaTime, 0);
             x_position = player_sprite.getPosition().x;
@@ -104,7 +104,7 @@ void Bailey::move_bailey(const float& deltaTime, Sprite& player_sprite)
             {
                 x_position = right_boundary;
                 player_sprite.setPosition(x_position, y_position);
-            }
+            }*/
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
