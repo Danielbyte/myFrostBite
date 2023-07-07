@@ -16,6 +16,7 @@ public:
     Sprite getSprite() const;
     void update(const float timeElapsed);
     void jump_down(const float& deltaTime, const float start_position);
+    void jump_up(const float deltaTime, const float start_position);
     void calibrate();
     void update_bailey_region();
     void setSpeed(const float _Force);
@@ -47,11 +48,12 @@ private:
     float Region3;
     float Region4;
     float safe_zone_boundary;
-    float JumpForce;
+    float downJumpForce;
     float player_mass;
     float prevRegion;
     bool isJumpingDown;
     bool isJumpingUp;
+    float upJumpForce;
 };
 
 #endif // !PLAYER_H

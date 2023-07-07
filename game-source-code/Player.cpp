@@ -17,11 +17,12 @@ Player::Player():
 	Region3{ 445.0f },
 	Region4{ 527.0f },
 	safe_zone_boundary{ 199.0f },
-	JumpForce{ 80.0f },
+	downJumpForce{ 80.0f },
 	player_mass{75.0f},
 	prevRegion{0.0f},
 	isJumpingDown{false},
-	isJumpingUp{false}
+	isJumpingUp{false},
+	upJumpForce{ 410.0f }
 {
 	bailey_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
@@ -69,16 +70,21 @@ void Player::update(float timeElapsed)
 		//Frostbite needs to jump down
 		playerJumping = true;
 		isJumpingDown = true;
-		setSpeed(JumpForce);
+		setSpeed(downJumpForce);
 		prevRegion = position.y;
 	}
 
-	if (upPressed)
+	if (upPressed && !playerJumping)
 	{
 		//Frostbite needs to jump up
+		playerJumping = true;
+		isJumpingUp = true;
+		setSpeed(upJumpForce);
+		prevRegion = position.y;
 	}
 
 	if (playerJumping && isJumpingDown) { jump_down(timeElapsed, prevRegion); }
+	if (playerJumping && isJumpingUp) { jump_up(timeElapsed, prevRegion); }
 }
 
 void Player::jump_down(const float& deltaTime, const float start_position)
@@ -99,6 +105,35 @@ void Player::jump_down(const float& deltaTime, const float start_position)
 		playerJumping = false;
 		isJumpingDown = false;
 		update_bailey_region();
+	}
+}
+
+void Player::jump_up(const float deltaTime, const float start_position)
+{
+
+	if (position.y > safe_zone_boundary)
+	{
+		speed -= gravity * deltaTime;
+		player_sprite.move(0, -speed);
+		position.y = player_sprite.getPosition().y;
+		auto jumped_distance = start_position - position.y;
+
+		if (speed < 0 && position.y >= (start_position - distance_between_iceRows))
+		{
+			position.y = start_position - distance_between_iceRows;
+			player_sprite.setPosition(position);
+			playerJumping = false;
+			isJumpingUp = false;
+			upPressed = false;
+			update_bailey_region();
+		}
+	}
+
+	else if (position.y <= safe_zone_boundary)
+	{
+		playerJumping = false;
+		upPressed = false;
+		isJumpingUp = false;
 	}
 }
 
