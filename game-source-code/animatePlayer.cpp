@@ -9,21 +9,6 @@ BaileyController::BaileyController():
 	load_textures();
 }
 
-void BaileyController::update_bailey(vector2f& prev_position, bool& bailey_moving,
-	const float& current_x_pos, const float& current_y_pos)
-{
-	if (prev_position.x == current_x_pos && prev_position.y == current_y_pos)
-	{
-		bailey_moving = false;
-	}
-	else
-	{
-		prev_position.x = current_x_pos;
-		prev_position.y = current_y_pos;
-		bailey_moving = true;
-	}
-}
-
 void BaileyController::reset_frame()
 {
 	frame_counter = 0;
@@ -117,24 +102,24 @@ void BaileyController::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void BaileyController::animate_bailey(Player& player, Sprite& bailey_sprite)
+void BaileyController::animate_bailey(Player& player)
 {
-/*	auto right = player.get_if_moving_right();
-	auto left = bailey_object.get_if_moving_left();
-	auto isRightKeyPressed = bailey_object.get_if_right_key_pressed();
-	auto isLeftKeyPressed = bailey_object.get_if_left_key_pressed();
-	auto isBaileyJumping = bailey_object.isBaileyJumping();
+	auto facing_right = player.isFacingRight();
+	auto facing_left = player.isFacingLeft();
+	auto isRightKeyPressed = player.isRightPressed();
+	auto isLeftKeyPressed = player.isLeftPressed();
+	auto isBaileyJumping = player.isPlayerJumping();
 
-	if (right && isRightKeyPressed && !isBaileyJumping)
+	if (facing_right && isRightKeyPressed && !isBaileyJumping)
 	{
 		increment_frame();
 		if (frame_counter <= 10)
 		{
-			bailey_sprite.setTexture(bailey_texture1);
+			player.updateSprite(bailey_texture1);
 		}
 		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			bailey_sprite.setTexture(bailey_texture2);
+			player.updateSprite(bailey_texture2);
 		}
 		else
 		{
@@ -143,16 +128,16 @@ void BaileyController::animate_bailey(Player& player, Sprite& bailey_sprite)
 
 	}
 
-    if (left && isLeftKeyPressed && !isBaileyJumping)
+    if (facing_left && isLeftKeyPressed && !isBaileyJumping)
 	{
 		increment_frame();
 		if (frame_counter <= 10)
 		{
-			bailey_sprite.setTexture(bailey_texture3);
+			player.updateSprite(bailey_texture3);
 		}
 		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			bailey_sprite.setTexture(bailey_texture4);
+			player.updateSprite(bailey_texture4);
 		}
 
 		else
@@ -161,25 +146,25 @@ void BaileyController::animate_bailey(Player& player, Sprite& bailey_sprite)
 		}
 	}
 
-	 if (isBaileyJumping && left)
+	 if (isBaileyJumping && facing_left)
 	{
-		bailey_sprite.setTexture(bailey_texture5);
+		player.updateSprite(bailey_texture5);
 	}
 
-	 if (isBaileyJumping && right)
+	 if (isBaileyJumping && facing_right)
 	 {
-		 bailey_sprite.setTexture(bailey_texture6);
+		 player.updateSprite(bailey_texture6);
 	 }
 
-	 if (!isBaileyJumping && (right && !isRightKeyPressed))
+	 if (!isBaileyJumping && (facing_right && !isRightKeyPressed))
 	 {
-		 bailey_sprite.setTexture(bailey_texture1);
+		 player.updateSprite(bailey_texture1);
 	 }
 
-	 if (!isBaileyJumping && (left && !isLeftKeyPressed))
+	 if (!isBaileyJumping && (facing_left && !isLeftKeyPressed))
 	 {
-		 bailey_sprite.setTexture(bailey_texture3);
-	 }*/
+		 player.updateSprite(bailey_texture3);
+	 }
 }
 
 void BaileyController::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)
@@ -296,7 +281,7 @@ void BaileyController::drowning_bailey(const float& deltaTime, Sprite& bailey_sp
 	{
 		bailey_sprite.setTexture(drown5);
 	}
-	if (deltaTime > 0 && deltaTime <= 6*drowningTimePerFrame)
+	if (deltaTime > 5 * drowningTimePerFrame && deltaTime <= 6*drowningTimePerFrame)
 	{
 		bailey_sprite.setTexture(drown6);
 	}
