@@ -20,6 +20,13 @@ public:
     void calibrate();
     void update_bailey_region();
     void setSpeed(const float _Force);
+    bool IsplayerMoving();
+    bool isRightPressed() const;
+    bool isLeftPressed() const;
+    bool isPlayerJumping() const;
+    bool isFacingRight() const;
+    bool isFacingLeft() const;
+    void updateSprite(Texture& newTexture);
 
 protected:
     Sprite player_sprite;
@@ -54,6 +61,10 @@ private:
     bool isJumpingDown;
     bool isJumpingUp;
     float upJumpForce;
+    bool playerMoving;
+    vector2f prevPosition;
+    bool facingRight;
+    bool facingLeft;
 };
 
 #endif // !PLAYER_H

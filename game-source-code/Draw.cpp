@@ -31,7 +31,6 @@ void Engine::draw()
 			window.setView(LeftViewB);
 			window.draw(background_sprite);
 			window.setView(leftView);
-			window.draw(player1.getSprite());
 
 			//Draw birds
 			draw_overWorld(birds);
@@ -43,6 +42,7 @@ void Engine::draw()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
+			window.draw(player1.getSprite());
 
 			//Draw line that separates two screens
 			window.draw(line_sprite);

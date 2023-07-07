@@ -14,6 +14,7 @@
 #include "crabController.h"
 #include "fishController.h"
 #include "IceBlockController.h"
+#include "BaileyController.h"
 
 
 class Engine
@@ -33,6 +34,7 @@ private:
 	ClampController control_clamps;
 	FishController control_fish;
 	IceBlockController control_ice;
+	BaileyController control_bailey;
 
 	bool needToSpawn; //flag if need to spawn players
 	

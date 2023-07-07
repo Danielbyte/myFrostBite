@@ -7,22 +7,14 @@ Player2::Player2()
 
 void Player2::handleInput()
 {
-	if (sf::Keyboard::isKeyPressed(Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Up) && !upPressed)
 	{
 		upPressed = true;
 	}
-	else
-	{
-		upPressed = false;
-	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::Down))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Down) && !downPressed)
 	{
 		downPressed = true;
-	}
-	else
-	{
-		downPressed = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::Left))

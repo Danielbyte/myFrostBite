@@ -22,18 +22,21 @@ Player::Player():
 	prevRegion{0.0f},
 	isJumpingDown{false},
 	isJumpingUp{false},
-	upJumpForce{ 410.0f }
+	upJumpForce{ 410.0f },
+	playerMoving{false},
+	facingRight{false},
+	facingLeft{false}
 {
 	bailey_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
 
 void Player::spawnPlayer(vector2f initPosition)
 {
-	position.x = initPosition.x;
-	position.y = initPosition.y;
+	position= initPosition;
 	player_sprite.setOrigin(bailey_width / 2.0, bailey_height / 2.0);
 	player_sprite.setPosition(position);
 	player_sprite.setTexture(player_texture);
+	prevPosition = initPosition;
 }
 
 void Player::update(float timeElapsed)
@@ -42,6 +45,8 @@ void Player::update(float timeElapsed)
 	{
 		position.x += 180 * timeElapsed;
 		player_sprite.setPosition(position);
+		facingRight = true;
+		facingLeft = false;
 
         if (position.x >= right_boundary)
         {
@@ -56,6 +61,8 @@ void Player::update(float timeElapsed)
         // move player
 		position.x -= 180 * timeElapsed;
 		player_sprite.setPosition(position);
+		facingRight = false;
+		facingLeft = true;
 
         //restrict player within screen
         if (position.x <= left_boundary)
@@ -93,7 +100,6 @@ void Player::jump_down(const float& deltaTime, const float start_position)
 	player_sprite.move(0, -speed);
 	position.y = player_sprite.getPosition().y;//update vertical position
 	auto jumped_distance = position.y - start_position;//calculate total distance jumped by frostbite
-	//is_bailey_jumping = isJumping;
 	
 	if (jumped_distance > distance_between_iceRows)
 	{
@@ -182,4 +188,48 @@ void Player::update_bailey_region()
 Sprite Player::getSprite() const
 {
 	return player_sprite;
+}
+
+bool Player::IsplayerMoving()
+{
+	if (prevPosition == position)
+	{
+		playerMoving = false;
+	}
+	else
+	{
+		prevPosition = position;
+		playerMoving = true;
+	}
+
+	return playerMoving;
+}
+
+bool Player::isRightPressed() const
+{
+	return rightPressed;
+}
+
+bool Player::isLeftPressed() const
+{
+	return leftPressed;
+}
+
+bool Player::isPlayerJumping() const
+{
+	return playerJumping;
+}
+
+bool Player::isFacingRight() const
+{
+	return facingRight;
+}
+bool Player::isFacingLeft() const
+{
+	return facingLeft;
+}
+
+void Player::updateSprite(Texture& newTexture)
+{
+	player_sprite.setTexture(newTexture);
 }
