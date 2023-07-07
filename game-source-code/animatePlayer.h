@@ -1,12 +1,12 @@
-#ifndef BAILEYCONTROLLER_H
-#define BAILEYCONTROLLER_H
+#ifndef ANIMATEPLAYER_H
+#define ANIAMATEPLAYER_H
 
 #include "Player.h"
 
-class BaileyController
+class AnimatePlayer
 {
 public:
-	BaileyController();
+	AnimatePlayer();
 	//~BaileyController();
 	Texture bailey_texture1;
 	Texture bailey_texture2;

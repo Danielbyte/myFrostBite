@@ -1,6 +1,6 @@
-#include "BaileyController.h"
+#include "AnimatePlayer.h"
 
-BaileyController::BaileyController():
+AnimatePlayer::AnimatePlayer():
 	frame_counter{0},
 	drowningTimePerFrame{0.06f},
 	CWSCTPF{0.17f},
@@ -9,22 +9,22 @@ BaileyController::BaileyController():
 	load_textures();
 }
 
-void BaileyController::reset_frame()
+void AnimatePlayer::reset_frame()
 {
 	frame_counter = 0;
 }
 
-int BaileyController::get_frame() const
+int AnimatePlayer::get_frame() const
 {
 	return frame_counter;
 }
 
-void BaileyController::increment_frame()
+void AnimatePlayer::increment_frame()
 {
 	++frame_counter;
 }
 
-void BaileyController::load_textures()
+void AnimatePlayer::load_textures()
 {
 	//load textures once for optimization
 	bailey_texture1.loadFromFile("resources/bailey.png");
@@ -102,7 +102,7 @@ void BaileyController::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void BaileyController::animate_bailey(Player& player)
+void AnimatePlayer::animate_bailey(Player& player)
 {
 	auto facing_right = player.isFacingRight();
 	auto facing_left = player.isFacingLeft();
@@ -167,7 +167,7 @@ void BaileyController::animate_bailey(Player& player)
 	 }
 }
 
-void BaileyController::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)
+void AnimatePlayer::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)
 {
 	if (deltaTime >= 0 && deltaTime <= CWSCTPF)
 	{
@@ -195,7 +195,7 @@ void BaileyController::collision_with_sea_animal(const float& deltaTime, Sprite&
 	}
 }
 
-void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite)
+void AnimatePlayer::bailey_death(const float& deltaTime,Sprite& bailey_sprite)
 {
 	
 	if (deltaTime >0 && deltaTime <= 0.07)
@@ -259,7 +259,7 @@ void BaileyController::bailey_death(const float& deltaTime,Sprite& bailey_sprite
 	}
 }
 
-void BaileyController::drowning_bailey(const float& deltaTime, Sprite& bailey_sprite)
+void AnimatePlayer::drowning_bailey(const float& deltaTime, Sprite& bailey_sprite)
 {
 	if (deltaTime >= 0 && deltaTime <= drowningTimePerFrame)
 	{
@@ -331,7 +331,7 @@ void BaileyController::drowning_bailey(const float& deltaTime, Sprite& bailey_sp
 	}
 }
 
-void BaileyController::freezing_animation(const float& deltaTime, Sprite& bailey_sprite)
+void AnimatePlayer::freezing_animation(const float& deltaTime, Sprite& bailey_sprite)
 {
 	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
 	{
@@ -399,7 +399,7 @@ void BaileyController::freezing_animation(const float& deltaTime, Sprite& bailey
 	}
 }
 
-void BaileyController::go_inside_igloo(const float& y_pos, Sprite& bailey_sprite)
+void AnimatePlayer::go_inside_igloo(const float& y_pos, Sprite& bailey_sprite)
 {
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
