@@ -35,7 +35,7 @@ public:
 	Texture enterIgloo1, enterIgloo2, enterIgloo3, enterIgloo4;
 
 	int get_frame() const;
-	void animate_bailey(Player&);
+	void animate_player(Player&);
 	void bailey_death(const float&, Sprite&); //when frostbite collides with bear
 	void drowning_bailey(const float&, Sprite&);
 	void collision_with_sea_animal(const float&, Sprite&);

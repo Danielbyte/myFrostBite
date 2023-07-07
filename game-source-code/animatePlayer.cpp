@@ -102,7 +102,7 @@ void AnimatePlayer::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void AnimatePlayer::animate_bailey(Player& player)
+void AnimatePlayer::animate_player(Player& player)
 {
 	auto facing_right = player.isFacingRight();
 	auto facing_left = player.isFacingLeft();

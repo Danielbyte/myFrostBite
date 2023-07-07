@@ -33,7 +33,7 @@ void Engine::update(const float dtAsSeconds)
 			//update single player mode
 			player1.update(dtAsSeconds);
             update_over_world(dtAsSeconds);
-            animate.animate_bailey(player1);
+            animate.animate_player(player1);
 		}
 
 		else
@@ -42,8 +42,8 @@ void Engine::update(const float dtAsSeconds)
 			player1.update(dtAsSeconds);
 			player2.update(dtAsSeconds);
             update_over_world(dtAsSeconds);
-            animate.animate_bailey(player1);
-            animate.animate_bailey(player2);
+            animate.animate_player(player1);
+            animate.animate_player(player2);
 		}
 	}
 }
