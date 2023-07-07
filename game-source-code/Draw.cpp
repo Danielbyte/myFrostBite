@@ -12,8 +12,6 @@ void Engine::draw()
 			//single player mode
 			window.setView(singlePlayerView);
 			window.draw(background_sprite);
-			window.draw(player1.getSprite());
-
 			//Draw birds
 			draw_overWorld(birds);
 			//Draw crabs
@@ -24,6 +22,7 @@ void Engine::draw()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
+			window.draw(player1.getSprite());
 		}
 		else
 		{

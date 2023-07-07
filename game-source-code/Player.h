@@ -18,6 +18,7 @@ public:
     void jump_down(const float& deltaTime, const float start_position);
     void calibrate();
     void update_bailey_region();
+    void setSpeed(const float _Force);
 
 protected:
     Sprite player_sprite;
@@ -48,6 +49,9 @@ private:
     float safe_zone_boundary;
     float JumpForce;
     float player_mass;
+    float prevRegion;
+    bool isJumpingDown;
+    bool isJumpingUp;
 };
 
 #endif // !PLAYER_H

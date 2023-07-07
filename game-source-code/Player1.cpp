@@ -7,23 +7,14 @@ Player1::Player1()
 
 void Player1::handleInput()
 {
-	if (sf::Keyboard::isKeyPressed(Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(Keyboard::W) && !upPressed)
 	{
 		upPressed = true;
-	}
-	else
-	{
-		//upPressed = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::S) && !downPressed)
 	{
 		downPressed = true;
-		//playerJumping = true;
-	}
-	else
-	{
-		downPressed = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::A))
