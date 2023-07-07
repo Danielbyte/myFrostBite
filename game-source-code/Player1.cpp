@@ -13,12 +13,13 @@ void Player1::handleInput()
 	}
 	else
 	{
-		upPressed = false;
+		//upPressed = false;
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(Keyboard::S) && !downPressed)
 	{
 		downPressed = true;
+		//playerJumping = true;
 	}
 	else
 	{

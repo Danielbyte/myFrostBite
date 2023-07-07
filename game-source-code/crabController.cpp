@@ -71,37 +71,37 @@ void CrabController::animate(shared_ptr<Crab>& crab)
 	crab ->increment_counter();
 	auto counter = crab->get_counter();
 
-	if (counter > 0 && counter <= 100)
+	if (counter > 0 && counter <= 10)
 	{
 		crab->updateSpriteTexture(crab1);
 		crab->updateSpritePosition();
 	}
 
-	else if (counter > 100 && counter <= 200)
+	else if (counter > 10 && counter <= 20)
 	{
 		crab->updateSpriteTexture(crab2);
 		crab->updateSpritePosition();
 	}
 
-	else if (counter > 200 && counter <= 300)
+	else if (counter > 20 && counter <= 30)
 	{
 		crab->updateSpriteTexture(crab3);
 		crab->updateSpritePosition();
 	}
 
-	else if (counter > 300 && counter <= 400)
+	else if (counter > 30 && counter <= 40)
 	{
 		crab->updateSpriteTexture(crab4);
 		crab->updateSpritePosition();
 	}
 
-	else if (counter > 400 && counter <= 500)
+	else if (counter > 40 && counter <= 50)
 	{
 		crab->updateSpriteTexture(crab5);
 		crab->updateSpritePosition();
 	}
 
-	else if (counter > 500 && counter <= 600)
+	else if (counter > 50 && counter <= 60)
 	{
 		crab->updateSpriteTexture(crab6);
 		crab->updateSpritePosition();

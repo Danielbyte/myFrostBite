@@ -9,6 +9,8 @@ Engine::Engine():
 {
 
 	window.create(VideoMode(windowWidth, windowHeight), "FrostBite", sf::Style::Default);
+	window.setVerticalSyncEnabled(true);
+	window.setFramerateLimit(60);
 
 	//Initialise main menu view
 	MainmenuView.reset(FloatRect(0, 0, windowWidth, windowHeight));

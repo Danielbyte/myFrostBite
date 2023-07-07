@@ -63,52 +63,52 @@ void ClampController::animate(shared_ptr<Clamp>& clamp)
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 100)
+		if (counter > 0 && counter <= 10)
 		{
 			clamp->updateSpriteTexture(clamp1_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 100 && counter <= 200)
+		else if (counter > 10 && counter <= 20)
 		{
 			clamp->updateSpriteTexture(clamp2_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 200 && counter <= 300)
+		else if (counter > 20 && counter <= 30)
 		{
 			clamp->updateSpriteTexture(clamp3_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 300 && counter <= 400)
+		else if (counter > 30 && counter <= 40)
 		{
 			clamp->updateSpriteTexture(clamp4_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 400 && counter <= 500)
+		else if (counter > 40 && counter <= 50)
 		{
 			clamp->updateSpriteTexture(clamp5_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 500 && counter <= 600)
+		else if (counter > 50 && counter <= 60)
 		{
 			clamp->updateSpriteTexture(clamp6_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 600 && counter <= 700)
+		else if (counter > 60 && counter <= 70)
 		{
 			clamp->updateSpriteTexture(clamp7_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 7000 && counter <= 800)
+		else if (counter > 70 && counter <= 80)
 		{
 			clamp->updateSpriteTexture(clamp8_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 800 && counter <= 900)
+		else if (counter > 80 && counter <= 90)
 		{
 			clamp->updateSpriteTexture(clamp9_left);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 900 && counter <= 1000)
+		else if (counter > 90 && counter <= 100)
 		{
 			clamp->updateSpriteTexture(clamp10_left);
 			clamp->updateSpritePosition();
@@ -125,52 +125,52 @@ void ClampController::animate(shared_ptr<Clamp>& clamp)
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 100)
+		if (counter > 0 && counter <= 10)
 		{
 			clamp->updateSpriteTexture(clamp1_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 100 && counter <= 200)
+		else if (counter > 10 && counter <= 20)
 		{
 			clamp->updateSpriteTexture(clamp2_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 200 && counter <= 300)
+		else if (counter > 20 && counter <= 30)
 		{
 			clamp->updateSpriteTexture(clamp3_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 300 && counter <= 400)
+		else if (counter > 30 && counter <= 40)
 		{
 			clamp->updateSpriteTexture(clamp4_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 400 && counter <= 500)
+		else if (counter > 40 && counter <= 50)
 		{
 			clamp->updateSpriteTexture(clamp5_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 500 && counter <= 600)
+		else if (counter > 50 && counter <= 60)
 		{
 			clamp->updateSpriteTexture(clamp6_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 600 && counter <= 700)
+		else if (counter > 60 && counter <= 70)
 		{
 			clamp->updateSpriteTexture(clamp7_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 700 && counter <= 800)
+		else if (counter > 70 && counter <= 80)
 		{
 			clamp->updateSpriteTexture(clamp8_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 800 && counter <= 900)
+		else if (counter > 80 && counter <= 90)
 		{
 			clamp->updateSpriteTexture(clamp9_right);
 			clamp->updateSpritePosition();
 		}
-		else if (counter > 900 && counter <= 1000)
+		else if (counter > 90 && counter <= 100)
 		{
 			clamp->updateSpriteTexture(clamp10_right);
 			clamp->updateSpritePosition();

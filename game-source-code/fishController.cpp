@@ -60,27 +60,27 @@ void FishController::animate(shared_ptr<Fish>& fish)
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 80)
+		if (counter > 0 && counter <= 8)
 		{
 			fish->updateSpriteTexture(fish1_left);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 160)
+		else if (counter > 8 && counter <= 16)
 		{
 			fish->updateSpriteTexture(fish2_left);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 160 && counter <= 240)
+		else if (counter > 16 && counter <= 24)
 		{
 			fish->updateSpriteTexture(fish3_left);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 240 && counter <= 320)
+		else if (counter > 24 && counter <= 32)
 		{
 			fish->updateSpriteTexture(fish4_left);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 320 && counter <= 400)
+		else if (counter > 32 && counter <= 40)
 		{
 			fish->updateSpriteTexture(fish5_left);
 			fish->updateSpritePosition();
@@ -90,27 +90,27 @@ void FishController::animate(shared_ptr<Fish>& fish)
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 80)
+		if (counter > 0 && counter <= 8)
 		{
 			fish->updateSpriteTexture(fish1_right);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 160)
+		else if (counter > 8 && counter <= 16)
 		{
 			fish->updateSpriteTexture(fish2_right);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 160 && counter <= 240)
+		else if (counter > 16 && counter <= 24)
 		{
 			fish->updateSpriteTexture(fish3_right);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 240 && counter <= 320)
+		else if (counter > 24 && counter <= 32)
 		{
 			fish->updateSpriteTexture(fish4_right);
 			fish->updateSpritePosition();
 		}
-		else if (counter > 320 && counter <= 400)
+		else if (counter > 32 && counter <= 40)
 		{
 			fish->updateSpriteTexture(fish5_right);
 			fish->updateSpritePosition();

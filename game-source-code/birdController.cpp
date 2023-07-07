@@ -82,33 +82,33 @@ void BirdController::animate(shared_ptr<Bird>& bird)
 
 	if (left)
 	{
-		if (counter > 0 && counter <= 80)
+		if (counter > 0 && counter <= 8)
 		{
 			bird->updateSpriteTexture(bird1_left);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 160)
+		else if (counter > 8 && counter <= 16)
 		{
 			bird->updateSpriteTexture(bird2_left);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 160 && counter <= 240)
+		else if (counter > 16 && counter <= 24)
 		{
 			bird->updateSpriteTexture(bird3_left);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 240 && counter <= 320)
+		else if (counter > 24 && counter <= 32)
 		{
 			bird->updateSpriteTexture(bird4_left);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 320 && counter <= 400)
+		else if (counter > 32 && counter <= 40)
 		{
 			bird->updateSpriteTexture(bird5_left);
 			bird->updateSpritePosition();
 		}
 
-		else if (counter > 400 && counter <= 480)
+		else if (counter > 40 && counter <= 48)
 		{
 			bird->updateSpriteTexture(bird6_left);
 			bird->updateSpritePosition();
@@ -118,32 +118,32 @@ void BirdController::animate(shared_ptr<Bird>& bird)
 
 	else if (right)
 	{
-		if (counter > 0 && counter <= 80)
+		if (counter > 0 && counter <= 8)
 		{
 			bird->updateSpriteTexture(bird1_right);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 80 && counter <= 160)
+		else if (counter > 8 && counter <= 16)
 		{
 			bird->updateSpriteTexture(bird2_right);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 160 && counter <= 240)
+		else if (counter > 16 && counter <= 24)
 		{
 			bird->updateSpriteTexture(bird3_right);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 240 && counter <= 320)
+		else if (counter > 24 && counter <= 32)
 		{
 			bird->updateSpriteTexture(bird4_right);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 320 && counter <= 400)
+		else if (counter > 32 && counter <= 40)
 		{
 			bird->updateSpriteTexture(bird5_right);
 			bird->updateSpritePosition();
 		}
-		else if (counter > 400 && counter <= 480)
+		else if (counter > 40 && counter <= 48)
 		{
 			bird->updateSpriteTexture(bird6_right);
 			bird->updateSpritePosition();
