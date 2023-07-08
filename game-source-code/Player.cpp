@@ -25,7 +25,11 @@ Player::Player():
 	upJumpForce{ 410.0f },
 	playerMoving{false},
 	facingRight{false},
-	facingLeft{false}
+	facingLeft{false},
+	playerInSafeZone{true},
+	new_speed{ 88.5f },
+	playerDrown{false},
+	isDead{false}
 {
 	bailey_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
@@ -224,12 +228,73 @@ bool Player::isFacingRight() const
 {
 	return facingRight;
 }
+
 bool Player::isFacingLeft() const
 {
 	return facingLeft;
 }
 
+vector2f Player::getPosition() const
+{
+	return position;
+}
+
 void Player::updateSprite(Texture& newTexture)
 {
 	player_sprite.setTexture(newTexture);
+}
+
+bool Player::isPlayerInSafeZone()
+{
+	if (position.y > safe_zone_boundary) { playerInSafeZone = false; }
+	else if (position.y <= safe_zone_boundary && !playerJumping) { playerInSafeZone = true; }
+	return playerInSafeZone;
+}
+
+void Player::setPlayerToMoveWithIce(const Direction& dir, const float deltaTime)
+{
+	switch (dir)
+	{
+	case Direction::Left:
+		player_sprite.move(-new_speed * deltaTime, 0);
+		//update frostbite's horizontal direction
+		position = player_sprite.getPosition();
+
+		//Restrict frostbite to left screen border
+		if (position.x <= left_boundary)
+		{
+			position.x = left_boundary;
+			player_sprite.setPosition(position);
+		}
+		break;
+
+	case Direction::Right:
+		player_sprite.move(new_speed * deltaTime, 0);
+		position = player_sprite.getPosition();
+		if (position.x >= right_boundary)
+		{
+		    position.x = right_boundary;
+			player_sprite.setPosition(position);
+		}
+		break;
+
+	    default:
+		break;
+	}
+
+}
+
+void Player::playerShouldDrown(const bool should_drown)
+{
+	playerDrown = should_drown;
+}
+
+bool Player::isPlayerDrowning() const
+{
+	return playerDrown;
+}
+
+void Player::set_to_dead()
+{
+	isDead = true;
 }

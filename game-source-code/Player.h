@@ -27,6 +27,12 @@ public:
     bool isFacingRight() const;
     bool isFacingLeft() const;
     void updateSprite(Texture& newTexture);
+    bool isPlayerInSafeZone();
+    vector2f getPosition() const;
+    void setPlayerToMoveWithIce(const Direction& dir, const float deltaTime);
+    void playerShouldDrown(const bool should_drown);
+    bool isPlayerDrowning() const;
+    void set_to_dead();
 
 protected:
     Sprite player_sprite;
@@ -65,6 +71,10 @@ private:
     vector2f prevPosition;
     bool facingRight;
     bool facingLeft;
+    bool playerInSafeZone;
+    float new_speed;
+    bool playerDrown;
+    bool isDead;
 };
 
 #endif // !PLAYER_H

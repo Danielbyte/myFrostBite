@@ -34,6 +34,7 @@ void Engine::update(const float dtAsSeconds)
 			player1.update(dtAsSeconds);
             update_over_world(dtAsSeconds);
             animate.animate_player(player1);
+            manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds);
 		}
 
 		else

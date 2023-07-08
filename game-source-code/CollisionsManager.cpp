@@ -34,7 +34,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                     {
                         auto _color = (*ice_iter)->get_color();
                         auto region = (*ice_iter)->get_region();
-                        update_other_ice(region, _color);
+                        update_other_ice(region, _color, ice);
                     }
                     ++NOBI;
                 }
@@ -44,47 +44,107 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                 {
                     auto ice_direction = (*ice_iter)->get_direction();
                     //bailey should move with ice if stagnant
-                    setBaileyToMoveWithIce(bailey_sprite, ice_direction, deltaTime);
+                    setPlayerToMoveWithIce(player, ice_direction, deltaTime);
 
                 }
-                check_frostbite_on_ice_patch(*iceObj_iter);
+                check_player_on_ice_patch(*ice_iter, player);
             }
 
-            ++iceObj_iter;
+            ++ice_iter;
         }
 
         if (NOBI == 4)
         {
-            set_all_ice_to_white();
+            set_all_ice_to_white(ice);
             NOBI = 0;
         }
     }
 
-    auto isIglooComplete = mark_if_igloo_is_complete();
+    /*auto isIglooComplete = mark_if_igloo_is_complete();
     if (isIglooComplete)
     {
         set_all_ice_batches_to_blue();
-    }
-
-    if (plungedInWater) { collided = false; }
-
-    return collided;
+    }*/
 }
 
-void CollisionsManager::setBaileyToMoveWithIce(Player& player, const IceDirection& ice_dir,
+void CollisionsManager::setPlayerToMoveWithIce(Player& player, const IceDirection& ice_dir,
     const float& deltaTime)
 {
     switch (ice_dir)
     {
     case IceDirection::L:
-        bailey_object.setBaileyToMoveWithIce(Direction::Left, bailey_sprite, deltaTime);
+        player.setPlayerToMoveWithIce(Direction::Left, deltaTime);
         break;
 
     case IceDirection::R:
-        bailey_object.setBaileyToMoveWithIce(Direction::Right, bailey_sprite, deltaTime);
+        player.setPlayerToMoveWithIce(Direction::Right, deltaTime);
         break;
 
     default:
         break;
+    }
+}
+
+void CollisionsManager::check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, Player& player)
+{
+    auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;
+    auto bailey_x_pos = player.getPosition().x - bailey_width_offset;
+    auto point1_offset = 37.0f;
+    auto point1 = ice_x_pos - point1_offset;
+    auto point2_offset = 26.0f;
+    auto point2 = (ice_x_pos + point2_offset) + ice_patch_width;
+    auto EOI_offset = 16.0f; // end of ice offset
+    auto end_of_ice = ice_x_pos + ice_width - EOI_offset;
+    player.playerShouldDrown(true);
+
+    if (bailey_x_pos >= point1 && bailey_x_pos <= end_of_ice)
+    {
+        if (bailey_x_pos >= point1 && ((bailey_x_pos + bailey_width) <= point2))
+        {
+            player.playerShouldDrown(false);
+        }
+
+        auto point3_offset = 26.5f;
+        auto point3 = point2 - point3_offset;
+        auto point4_offset = 50.5f;
+        auto point4 = point3 + ice_patch_width + point4_offset;
+        if (bailey_x_pos >= point3 && ((bailey_x_pos + bailey_width) <= point4))
+        {
+            player.playerShouldDrown(false);
+        }
+
+        auto point5_offset = 29.8f;
+        auto point5 = point4 - point5_offset;
+        if (bailey_x_pos >= point5)
+        {
+            player.playerShouldDrown(false);
+        }
+
+    }
+}
+
+void CollisionsManager::update_other_ice(const IceRegion region, const IceColor color, 
+    vector<shared_ptr<IceBlocks>>& ice)
+{
+    auto ice_iter = ice.begin();
+
+    while (ice_iter != ice.end())
+    {
+        auto _region = (*ice_iter)->get_region();
+        if (_region == region)
+        {
+            (*ice_iter)->set_color(color);
+        }
+        ++ice_iter;
+    }
+}
+
+void CollisionsManager::set_all_ice_to_white(vector<shared_ptr<IceBlocks>>& ice)
+{
+    auto ice_iter = ice.begin();
+    while (ice_iter != ice.end())
+    {
+        (*ice_iter)->set_color(IceColor::White);
+        ++ice_iter;
     }
 }

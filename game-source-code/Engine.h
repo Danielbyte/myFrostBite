@@ -15,7 +15,7 @@
 #include "fishController.h"
 #include "IceBlockController.h"
 #include "AnimatePlayer.h"
-
+#include "CollisionsManager.h"
 
 class Engine
 {
@@ -35,6 +35,7 @@ private:
 	FishController control_fish;
 	IceBlockController control_ice;
 	AnimatePlayer animate;
+	CollisionsManager manage_collisions;
 
 	bool needToSpawn; //flag if need to spawn players
 	
