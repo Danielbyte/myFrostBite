@@ -60,6 +60,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
         }
     }
 
+    if (!collided) { player.playerShouldDrown(true); }
     /*auto isIglooComplete = mark_if_igloo_is_complete();
     if (isIglooComplete)
     {
