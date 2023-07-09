@@ -236,3 +236,20 @@ void CollisionsManager::player_animal_collisions(Player& player, vector<shared_p
         player.KilledByAnimal();
     }
 }
+
+void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, Player& player)
+{
+    auto bear_position = bear->get_position();
+    vector2f player_position = player.getPosition();
+
+
+    auto isCollided = collision.entity_collision(player_position, bailey_width, bailey_height,
+        bear_position, bear_with, bear_height);
+
+    //bailey needs to be in safe zone
+    auto baileyInSafeZone = player.isPlayerInSafeZone();
+    if (isCollided && baileyInSafeZone)
+    {
+        player.deathByBear();
+    }
+}

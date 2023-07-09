@@ -36,7 +36,7 @@ public:
 
 	int get_frame() const;
 	void animate_player(Player&);
-	void bailey_death(const float&, Sprite&); //when frostbite collides with bear
+	void killed_by_bear(const float&, Player& player); //when frostbite collides with bear
 	void drowning_player(const float deltaTime, Player& player);
 	void collision_with_sea_animal(const float&, Player&);
 	void freezing_animation(const float&, Sprite&);

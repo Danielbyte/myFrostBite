@@ -31,7 +31,8 @@ Player::Player():
 	new_speed{ 88.5f },
 	playerDrown{false},
 	isDead{false},
-	playerKilledByAnimal{false}
+	playerKilledByAnimal{false},
+	killedByBear{false}
 {
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
@@ -334,4 +335,14 @@ float Player::rightBoundary() const
 float Player::leftBoundary() const
 {
 	return left_boundary;
+}
+
+bool Player::isKilledByBear() const
+{
+	return killedByBear;
+}
+
+void Player::deathByBear()
+{
+	killedByBear = true;
 }

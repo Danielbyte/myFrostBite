@@ -40,6 +40,8 @@ public:
     void KilledByAnimal();
     float rightBoundary() const;
     float leftBoundary() const;
+    bool isKilledByBear() const;
+    void deathByBear();
 
 protected:
     Sprite player_sprite;
@@ -84,6 +86,7 @@ private:
     bool playerDrown;
     bool isDead;
     bool playerKilledByAnimal;
+    bool killedByBear;
 };
 
 #endif // !PLAYER_H

@@ -10,6 +10,7 @@
 #include "bird.h"
 #include "fish.h"
 #include "igloo.h"
+#include "bear.h"
 
 class CollisionsManager
 {
@@ -24,6 +25,7 @@ public:
 	void check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, Player& player);
 	void update_other_ice(const IceRegion region, const IceColor color,vector<shared_ptr<IceBlocks>>& ice);
 	void reverse_ice_direction(vector<shared_ptr<IceBlocks>>& ice, shared_ptr<IceBlocks>& ice_ptr);
+	void player_bear_collisions(shared_ptr<Bear>& bear, Player& player);
 
 private:
 	int NOBI; //Number Of Blue Ice blocks

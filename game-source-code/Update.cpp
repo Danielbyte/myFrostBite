@@ -37,6 +37,7 @@ void Engine::update(const float dtAsSeconds)
             animate.animate_player(player1);
             bear->update_bear(dtAsSeconds,player1);
             manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
+            manage_collisions.player_bear_collisions(bear, player1);
             igloo_house->update_igloo();
 		}
 
