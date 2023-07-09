@@ -30,9 +30,10 @@ Player::Player():
 	facingLeft{false},
 	new_speed{ 88.5f },
 	playerDrown{false},
-	isDead{false}
+	isDead{false},
+	playerKilledByAnimal{false}
 {
-	bailey_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
+	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
 
 void Player::spawnPlayer(vector2f initPosition)
@@ -166,27 +167,27 @@ void Player::update_bailey_region()
 {
 	if (position.y == Region1)
 	{
-		bailey_region = PlayerRegion::region1;
+		player_region = PlayerRegion::region1;
 	}
 
 	if (position.y == Region2)
 	{
-		bailey_region = PlayerRegion::region2;
+		player_region = PlayerRegion::region2;
 	}
 
 	if (position.y == Region3)
 	{
-		bailey_region = PlayerRegion::region3;
+		player_region = PlayerRegion::region3;
 	}
 
 	if (position.y == Region4)
 	{
-		bailey_region = PlayerRegion::region4;
+		player_region = PlayerRegion::region4;
 	}
 
 	if (position.y <= safe_zone_boundary || position.y > Region4)
 	{
-		bailey_region = PlayerRegion::unknown;
+		player_region = PlayerRegion::unknown;
 	}
 }
 
@@ -308,4 +309,19 @@ bool Player::isReverseBtnPressed() const
 void Player::resetReverseBtnPress()
 {
 	reverseBtnPressed = false;
+}
+
+PlayerRegion Player::get_bailey_region() const
+{
+	return player_region;
+}
+
+bool Player::isPlayerKilledByAnimal() const
+{
+	return playerKilledByAnimal;
+}
+
+void Player::KilledByAnimal()
+{
+	playerKilledByAnimal = true;
 }

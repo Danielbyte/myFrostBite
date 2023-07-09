@@ -35,6 +35,7 @@ void Engine::update(const float dtAsSeconds)
             manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds);
             update_over_world(dtAsSeconds);
             animate.animate_player(player1);
+            manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
 		}
 
 		else

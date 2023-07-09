@@ -36,6 +36,7 @@ public:
 
 	void update_animals_in_regions(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
+	std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> get_animals_in_regions() const;
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 

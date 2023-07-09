@@ -299,3 +299,7 @@ bool OverWorld::Isanimal_in_region4() const
 	return region4;
 }
 
+std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> OverWorld::get_animals_in_regions() const
+{
+	return {animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4 };
+}

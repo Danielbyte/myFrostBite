@@ -2,7 +2,7 @@
 
 CollisionsManager::CollisionsManager():
     NOBI{0},
-    counter{0}
+    playerCollidedWithAnimal{false}
 {}
 
 void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,
@@ -199,5 +199,22 @@ void CollisionsManager::updateOtherIceToChangeDirection(const IceRegion& region,
             (*iter)->set_direction(direction);
         }
         ++iter;
+    }
+}
+
+void CollisionsManager::player_animal_collisions(Player& player, vector<shared_ptr<Crab>>& _crabs,
+    vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish)
+{
+    playerCollidedWithAnimal = false;
+    auto isFish = false;
+    region_collisions(player, _crabs, crab_width, crab_height, isFish);
+    region_collisions(player, _clamps, crab_width, crab_height, isFish);
+    region_collisions(player, _birds, bird_width, bird_height, isFish);
+    isFish = true;
+    region_collisions(player, _fish, fish_width, fish_height, isFish);
+
+    if (playerCollidedWithAnimal)
+    {
+        player.KilledByAnimal();
     }
 }

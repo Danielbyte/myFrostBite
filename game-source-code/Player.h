@@ -35,6 +35,9 @@ public:
     void set_to_dead();
     bool isReverseBtnPressed() const;
     void resetReverseBtnPress();
+    PlayerRegion get_bailey_region() const;
+    bool isPlayerKilledByAnimal() const;
+    void KilledByAnimal();
 
 protected:
     Sprite player_sprite;
@@ -59,7 +62,7 @@ private:
     float distance_between_iceRows;
 
     //Regions
-    PlayerRegion bailey_region;
+    PlayerRegion player_region;
     float Region1;
     float Region2;
     float Region3;
@@ -78,6 +81,7 @@ private:
     float new_speed;
     bool playerDrown;
     bool isDead;
+    bool playerKilledByAnimal;
 };
 
 #endif // !PLAYER_H

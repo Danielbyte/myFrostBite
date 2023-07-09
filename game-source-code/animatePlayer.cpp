@@ -167,31 +167,31 @@ void AnimatePlayer::animate_player(Player& player)
 	 }
 }
 
-void AnimatePlayer::collision_with_sea_animal(const float& deltaTime, Sprite& bailey_sprite)
+void AnimatePlayer::collision_with_sea_animal(const float& deltaTime, Player& player)
 {
 	if (deltaTime >= 0 && deltaTime <= CWSCTPF)
 	{
-		bailey_sprite.setTexture(die1);
+		player.updateSprite(die1);
 	}
 	if (deltaTime >= CWSCTPF && deltaTime <= 2*CWSCTPF)
 	{
-		bailey_sprite.setTexture(die2);
+		player.updateSprite(die2);
 	}
 	if (deltaTime >= 2 * CWSCTPF && deltaTime <= 3 * CWSCTPF)
 	{
-		bailey_sprite.setTexture(die3);
+		player.updateSprite(die3);
 	}
 	if (deltaTime >= 3 * CWSCTPF && deltaTime <= 4 * CWSCTPF)
 	{
-		bailey_sprite.setTexture(die4);
+		player.updateSprite(die4);
 	}
 	if (deltaTime >= 4 * CWSCTPF && deltaTime <= 5 * CWSCTPF)
 	{
-		bailey_sprite.setTexture(die5);
+		player.updateSprite(die5);
 	}
 	if (deltaTime >= 5 * CWSCTPF && deltaTime <= 6 * CWSCTPF)
 	{
-		bailey_sprite.setTexture(die6);
+		player.updateSprite(die6);
 	}
 }
 
