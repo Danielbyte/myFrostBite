@@ -4,10 +4,12 @@
 void Engine::handleInput()
 {
 	Event event;
-	while (window.pollEvent(event))
+	auto keyPressed = false;
+	while (window->pollEvent(event))
 	{
 		if (event.type == Event::KeyPressed)
 		{
+			keyPressed = true;
 			//handle player quiting game play screen
 			if (sf::Keyboard::isKeyPressed(Keyboard::Escape))
 			{
@@ -74,7 +76,7 @@ void Engine::handleInput()
 			if (menu.getCursorLevel() == 4)
 			{
 				//close game if player clicks on quit game
-				window.close();
+				window->close();
 			}
 		}
 
@@ -83,8 +85,8 @@ void Engine::handleInput()
 
 	if (isPlaying)
 	{
-		player1.handleInput();
-		player2.handleInput();
+		player1.handleInput(keyPressed);
+		player2.handleInput(keyPressed);
 	}
 
 }

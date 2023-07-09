@@ -12,7 +12,7 @@ class Player
 public:
 	Player();
     void spawnPlayer(vector2f initPosition);
-    void virtual handleInput() = 0;
+    void virtual handleInput(bool keyPressed) = 0;
     Sprite getSprite() const;
     void update(const float timeElapsed);
     void jump_down(const float& deltaTime, const float start_position);
@@ -33,6 +33,8 @@ public:
     void playerShouldDrown(const bool should_drown);
     bool isPlayerDrowning() const;
     void set_to_dead();
+    bool isReverseBtnPressed() const;
+    void resetReverseBtnPress();
 
 protected:
     Sprite player_sprite;
@@ -44,6 +46,8 @@ protected:
     bool upPressed;
     bool downPressed;
     bool playerJumping;
+    bool reverseBtnPressed;
+    bool playerInSafeZone;
  
 private:
     vector2f position;
@@ -71,7 +75,6 @@ private:
     vector2f prevPosition;
     bool facingRight;
     bool facingLeft;
-    bool playerInSafeZone;
     float new_speed;
     bool playerDrown;
     bool isDead;

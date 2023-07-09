@@ -47,7 +47,8 @@ private:
 	bool isPlaying;
 	sf::View MainmenuView; //view for main game menu
 
-	RenderWindow window; //normal game window
+	shared_ptr<sf::RenderWindow> window = shared_ptr<RenderWindow>(new sf::RenderWindow(VideoMode
+	(windowWidth, windowHeight), "FrostBite", sf::Style::Default)); //normal game window
 
 	//main views for game play
 	sf::View singlePlayerView; // view for single player mode
@@ -58,7 +59,6 @@ private:
 	sf::View singlePlayerBG_View; // single player background
 	sf::View LeftViewB; // background of left window
 	sf::View RightViewB; //background of right window 
-
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
 	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime);
@@ -94,7 +94,7 @@ private:
 		{
 			for (auto& _animal : _animals)
 			{
-				window.draw(_animal->getSprite());
+				window->draw(_animal->getSprite());
 			}
 		}
 	}

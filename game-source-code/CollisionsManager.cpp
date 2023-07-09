@@ -1,7 +1,8 @@
 #include "CollisionsManager.h"
 
 CollisionsManager::CollisionsManager():
-    NOBI{0}
+    NOBI{0},
+    counter{0}
 {}
 
 void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,
@@ -48,8 +49,15 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
 
                 }
                 check_player_on_ice_patch(*ice_iter, player);
-            }
 
+                //reverse ice direction if player decides to
+                auto reverse = player.isReverseBtnPressed();
+                if (reverse)
+                {
+                    reverse_ice_direction(ice, *ice_iter);
+                    player.resetReverseBtnPress();
+                }
+            }
             ++ice_iter;
         }
 
@@ -60,7 +68,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
         }
     }
 
-    if (!collided) { player.playerShouldDrown(true); }
+   if (!collided) { player.playerShouldDrown(true); }
     /*auto isIglooComplete = mark_if_igloo_is_complete();
     if (isIglooComplete)
     {
@@ -124,7 +132,7 @@ void CollisionsManager::check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr
     }
 }
 
-void CollisionsManager::update_other_ice(const IceRegion region, const IceColor color, 
+void CollisionsManager::update_other_ice(const IceRegion region, const IceColor color,
     vector<shared_ptr<IceBlocks>>& ice)
 {
     auto ice_iter = ice.begin();
@@ -147,5 +155,49 @@ void CollisionsManager::set_all_ice_to_white(vector<shared_ptr<IceBlocks>>& ice)
     {
         (*ice_iter)->set_color(IceColor::White);
         ++ice_iter;
+    }
+}
+
+void CollisionsManager::reverse_ice_direction(vector<shared_ptr<IceBlocks>>& ice,shared_ptr<IceBlocks>& ice_ptr)
+{
+            auto region = ice_ptr->get_region();
+            IceDirection temp_direction = IceDirection::S;
+            auto dir = ice_ptr->get_direction();
+
+            if (dir == IceDirection::L)
+            {
+                ice_ptr->set_direction(IceDirection::R);
+                //igloo_object->subract_igloo_block();
+                //igloo_object->update_igloo(igloo_sprites);
+                temp_direction = IceDirection::R;
+            }
+            if (dir == IceDirection::R)
+            {
+                ice_ptr->set_direction(IceDirection::L);
+                // igloo_object->subract_igloo_block();
+                // igloo_object->update_igloo(igloo_sprites);
+                temp_direction = IceDirection::L;
+            }
+
+            auto numberOfIce = ice.size();
+            if (numberOfIce > 4)
+            {
+                updateOtherIceToChangeDirection(region, temp_direction, ice);
+            }      
+}
+
+void CollisionsManager::updateOtherIceToChangeDirection(const IceRegion& region, const IceDirection& direction,
+    vector<shared_ptr<IceBlocks>>& ice)
+{
+    auto iter = ice.begin();
+    while (iter != ice.end())
+    {
+        auto _region = (*iter)->get_region();
+
+        if (_region == region)
+        {
+            (*iter)->set_direction(direction);
+        }
+        ++iter;
     }
 }

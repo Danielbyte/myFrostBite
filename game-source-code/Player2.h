@@ -8,7 +8,7 @@ class Player2 : public Player
 {
 public:
 	Player2();
-	void virtual handleInput();
+	void virtual handleInput(bool keyPressed);
 };
 
 #endif // !PLAYER2_H

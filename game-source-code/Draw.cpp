@@ -2,7 +2,7 @@
 
 void Engine::draw()
 {
-	window.clear(Color::White);
+	window->clear(Color::White);
 	//Draw main menu
 	if (!inMainMenu)
 	{
@@ -10,8 +10,8 @@ void Engine::draw()
 		if (!splitScreen)
 		{
 			//single player mode
-			window.setView(singlePlayerView);
-			window.draw(background_sprite);
+			window->setView(singlePlayerView);
+			window->draw(background_sprite);
 			//Draw birds
 			draw_overWorld(birds);
 			//Draw crabs
@@ -22,7 +22,7 @@ void Engine::draw()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
-			window.draw(player1.getSprite());
+			window->draw(player1.getSprite());
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
 			auto isJumping = player1.isPlayerJumping();
@@ -38,7 +38,7 @@ void Engine::draw()
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
 						animate.drowning_player(TimeElapsed, player1);
-						window.draw(background_sprite);
+						window->draw(background_sprite);
 						//Draw birds
 						draw_overWorld(birds);
 						//Draw crabs
@@ -49,9 +49,9 @@ void Engine::draw()
 						draw_overWorld(fish);
 						//Draw ice
 						draw_overWorld(iceblocks);
-						window.draw(player1.getSprite());
-						window.display();
-						window.clear();
+						window->draw(player1.getSprite());
+						window->display();
+						window->clear(Color::White);
 						if (TimeElapsed >= 1.03f)
 						{
 							isAnimating = false;
@@ -64,9 +64,9 @@ void Engine::draw()
 		{
 			//multiplayer mode
 			//player1 side
-			window.setView(LeftViewB);
-			window.draw(background_sprite);
-			window.setView(leftView);
+			window->setView(LeftViewB);
+			window->draw(background_sprite);
+			window->setView(leftView);
 
 			//Draw birds
 			draw_overWorld(birds);
@@ -78,25 +78,25 @@ void Engine::draw()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
-			window.draw(player1.getSprite());
+			window->draw(player1.getSprite());
 
 			//Draw line that separates two screens
-			window.draw(line_sprite);
+			window->draw(line_sprite);
 			
 			//player2 side
-			window.setView(RightViewB);
-			window.draw(background_sprite);
-			window.setView(rightView);
-			window.draw(player2.getSprite());
+			window->setView(RightViewB);
+			window->draw(background_sprite);
+			window->setView(rightView);
+			window->draw(player2.getSprite());
 		}
 	}
 	else
 	{
 		//Draw main menu view
-		window.setView(MainmenuView);
-		window.draw(menu_sprite);
-		window.draw(menu.getCursor());
+		window->setView(MainmenuView);
+		window->draw(menu_sprite);
+		window->draw(menu.getCursor());
 	}
 
-	window.display();
+	window->display();
 }

@@ -6,6 +6,8 @@ Player::Player():
 	upPressed{false},
 	downPressed{false},
 	playerJumping{ false },
+	reverseBtnPressed{false},
+	playerInSafeZone{ true },
 	gravity{10.0f},
 	right_boundary{ 776.0f },
 	left_boundary{ 24.0f },
@@ -26,7 +28,6 @@ Player::Player():
 	playerMoving{false},
 	facingRight{false},
 	facingLeft{false},
-	playerInSafeZone{true},
 	new_speed{ 88.5f },
 	playerDrown{false},
 	isDead{false}
@@ -297,4 +298,14 @@ bool Player::isPlayerDrowning() const
 void Player::set_to_dead()
 {
 	isDead = true;
+}
+
+bool Player::isReverseBtnPressed() const
+{
+	return reverseBtnPressed;
+}
+
+void Player::resetReverseBtnPress()
+{
+	reverseBtnPressed = false;
 }

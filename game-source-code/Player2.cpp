@@ -5,7 +5,7 @@ Player2::Player2()
 	player_texture.loadFromFile("resources/bailey.png");
 }
 
-void Player2::handleInput()
+void Player2::handleInput(bool keyPressed)
 {
 	if (sf::Keyboard::isKeyPressed(Keyboard::Up) && !upPressed)
 	{
@@ -33,5 +33,10 @@ void Player2::handleInput()
 	else
 	{
 		rightPressed = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(Keyboard::Space) && (!reverseBtnPressed && !playerInSafeZone))
+	{
+		reverseBtnPressed = true;
 	}
 }

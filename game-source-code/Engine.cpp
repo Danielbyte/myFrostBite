@@ -7,10 +7,8 @@ Engine::Engine():
 	isPlaying{false}, //game initially in not in game play mode
 	canCreateIce{false}
 {
-
-	window.create(VideoMode(windowWidth, windowHeight), "FrostBite", sf::Style::Default);
-	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window->setVerticalSyncEnabled(true);
+	window->setFramerateLimit(60);
 
 	//Initialise main menu view
 	MainmenuView.reset(FloatRect(0, 0, windowWidth, windowHeight));
@@ -46,7 +44,7 @@ void Engine::run()
 	Clock clock;
 	inMainMenu = true;
 
-	while (window.isOpen())
+	while (window->isOpen())
 	{
 		auto dt = clock.restart();
 		auto dtAsSeconds = dt.asSeconds();
