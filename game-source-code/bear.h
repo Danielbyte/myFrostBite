@@ -3,7 +3,7 @@
 
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
-#include "bailey.h"
+#include "Player.h"
 #include "stopwatch.h"
 
 
@@ -13,8 +13,9 @@ class Bear : public Stopwatch //Inherit from stop watch baase class
 public:
 	Bear();
 	vector2f get_position() const;
-	void update_bear(Sprite&, const float&);
+	void update_bear(const float deltaTime, Player& player);
 	void set_bear_direction(const Direction&);
+	Sprite getSprite() const;
 	
 	//Textures
 	Texture bear_left1;
@@ -29,9 +30,11 @@ private:
 	Direction bear_direction;
 	void load_textures();
 	float bear_speed;
-	void animate_bear(Sprite&);
+	void animate_bear();
 	int counter;
 	void increment_counter();
 	void reset_counter();
+	Sprite bear_sprite;
+	void set_to_track_player(Player& player);
 };
 #endif

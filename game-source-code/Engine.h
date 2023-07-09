@@ -17,6 +17,7 @@
 #include "AnimatePlayer.h"
 #include "CollisionsManager.h"
 #include "igloo.h"
+#include "bear.h"
 
 class Engine
 {
@@ -82,6 +83,7 @@ private:
 	vector <shared_ptr<Clamp>> clamps;
 	vector <shared_ptr<Bird>> birds;
 	vector <shared_ptr<Fish>> fish;
+	shared_ptr<Bear>bear = std::make_shared<Bear>(Bear());
 
 	//Iceblocks
 	vector <shared_ptr<IceBlocks>> iceblocks;

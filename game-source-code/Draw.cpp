@@ -23,6 +23,7 @@ void Engine::draw()
 			//Draw ice
 			draw_overWorld(iceblocks);
 			window->draw(igloo_house->getSprite());
+			window->draw(bear->getSprite());
 			window->draw(player1.getSprite());
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
@@ -51,6 +52,8 @@ void Engine::draw()
 						draw_overWorld(fish);
 						//Draw ice
 						draw_overWorld(iceblocks);
+						window->draw(igloo_house->getSprite());
+						window->draw(bear->getSprite());
 						window->draw(player1.getSprite());
 						window->display();
 						window->clear(Color::White);
@@ -82,6 +85,8 @@ void Engine::draw()
 					draw_overWorld(fish);
 					//Draw ice
 					draw_overWorld(iceblocks);
+					window->draw(igloo_house->getSprite());
+					window->draw(bear->getSprite());
 					window->draw(player1.getSprite());
 					window->display();
 					window->clear(Color::White);

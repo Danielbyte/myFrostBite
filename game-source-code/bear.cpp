@@ -7,6 +7,8 @@ Bear::Bear():
 	counter{0}
 {
 	load_textures();
+	bear_sprite.setOrigin(bear_with / 2.0f, bear_height / 2.0f);
+	bear_sprite.setPosition(bear_position);
 }
 
 vector2f Bear::get_position() const
@@ -24,8 +26,9 @@ void Bear::load_textures()
 	bear_right3.loadFromFile("resources/bear3_right.png");
 }
 
-void Bear::update_bear(Sprite& bear_sprite, const float& deltaTime)
+void Bear::update_bear(const float deltaTime, Player& player)
 {
+	set_to_track_player(player);
 	if (bear_direction == Direction::Left)
 	{
 		bear_sprite.move(-bear_speed * deltaTime, 0);
@@ -60,10 +63,10 @@ void Bear::update_bear(Sprite& bear_sprite, const float& deltaTime)
 		bear_sprite.move(0, 0);
 	}
 
-	animate_bear(bear_sprite);
+	animate_bear();
 }
 
-void Bear::animate_bear(Sprite& bear_sprite)
+void Bear::animate_bear()
 {
 	if (bear_direction == Direction::Left)
 	{
@@ -119,4 +122,50 @@ void Bear::increment_counter()
 void Bear::set_bear_direction(const Direction& direction)
 {
 	bear_direction = direction;
+}
+
+Sprite Bear::getSprite() const
+{
+	return bear_sprite;
+}
+
+void Bear::set_to_track_player(Player& player)
+{
+	auto timePassed = elapsed_time();
+
+	// Bear should track bailey's position after every 1 second
+	if (timePassed >= 2.0f)
+	{
+		auto PlayerPosition = player.getPosition();
+		//get the distance between bear and frostbite
+		auto distance_between = abs(PlayerPosition.x - bear_position.x);
+		auto safe_zone = player.isPlayerInSafeZone();
+
+		//left and right boundaries
+		auto leftBoundary = player.leftBoundary();
+		auto rightBoundary = player.rightBoundary();
+
+		//bear should not move if bailey is at the ends of screen
+		if (!safe_zone && distance_between <= 31.0f &&
+			(PlayerPosition.x <= leftBoundary || PlayerPosition.x >= rightBoundary))
+		{
+			set_bear_direction(Direction::unknown);
+		}
+
+		else
+		{
+			if (PlayerPosition.x < bear_position.x)
+			{
+				set_bear_direction(Direction::Left);
+			}
+
+			else if (PlayerPosition.x > bear_position.x)
+			{
+				set_bear_direction(Direction::Right);
+			}
+		}
+
+		//restart stop watch
+		restart_timer();
+	}
 }

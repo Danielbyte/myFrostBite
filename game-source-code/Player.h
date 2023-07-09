@@ -38,6 +38,8 @@ public:
     PlayerRegion get_bailey_region() const;
     bool isPlayerKilledByAnimal() const;
     void KilledByAnimal();
+    float rightBoundary() const;
+    float leftBoundary() const;
 
 protected:
     Sprite player_sprite;

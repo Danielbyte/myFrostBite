@@ -325,3 +325,13 @@ void Player::KilledByAnimal()
 {
 	playerKilledByAnimal = true;
 }
+
+float Player::rightBoundary() const
+{
+	return right_boundary;
+}
+
+float Player::leftBoundary() const
+{
+	return left_boundary;
+}
