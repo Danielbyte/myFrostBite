@@ -9,12 +9,14 @@
 #include "clamp.h"
 #include "bird.h"
 #include "fish.h"
+#include "igloo.h"
 
 class CollisionsManager
 {
 public:
 	CollisionsManager();
-	void player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,const float deltaTime);
+	void player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,const float deltaTime,
+	shared_ptr<Igloo>& igloo);
 	void player_animal_collisions(Player& player, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
 	//void region_collisions(Player& player,vector<shared_ptr<Animal>>& _animal, float width, float height);
@@ -22,10 +24,12 @@ public:
 	void check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, Player& player);
 	void update_other_ice(const IceRegion region, const IceColor color,vector<shared_ptr<IceBlocks>>& ice);
 	void reverse_ice_direction(vector<shared_ptr<IceBlocks>>& ice, shared_ptr<IceBlocks>& ice_ptr);
+
 private:
 	int NOBI; //Number Of Blue Ice blocks
 	Collision collision;
 	void set_all_ice_to_white(vector<shared_ptr<IceBlocks>>& ice);
+	void set_all_ice_to_blue(vector<shared_ptr<IceBlocks>>& ice);
 	void updateOtherIceToChangeDirection(const IceRegion& region, const IceDirection& direction,
 		vector<shared_ptr<IceBlocks>>& ice);
 	bool playerCollidedWithAnimal;

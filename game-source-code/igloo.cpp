@@ -1,21 +1,20 @@
 #include "igloo.h"
 
 Igloo::Igloo():
-    x_position{612.0f},
-    y_position{130.0f},
-    igloo_blocks{0}
+    igloo_blocks{0},
+    complete{false}
 {
+    position.x = 612.0f;
+    position.y = 130.0f;
     load_textures();
+    iglooSprite.setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
+    iglooSprite.setPosition(position);
 }
 
-float Igloo::get_x_position() const
-{
-    return x_position;
-}
 
-float Igloo::get_y_position() const
+vector2f Igloo::getPosition() const
 {
-    return y_position;
+    return position;
 }
 
 void Igloo::add_igloo_blocks()
@@ -29,6 +28,16 @@ void Igloo::add_igloo_blocks()
     {
         igloo_blocks = 14;
     }
+}
+
+Sprite Igloo::getSprite() const
+{
+    return iglooSprite;
+}
+
+void Igloo::updateSprite(Texture& newTexture)
+{
+    iglooSprite.setTexture(newTexture);
 }
 
 void Igloo::subract_igloo_block()
@@ -47,114 +56,113 @@ int Igloo::get_number_of_igloo_blocks() const
     return igloo_blocks;
 }
 
-void Igloo::update_igloo(shared_ptr<Sprite>& igloo_sprite)
+void Igloo::update_igloo()
 {
     if (igloo_blocks == 0)
     {
-        igloo_sprite->setTexture(igloo_texture1);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture1);
         return;
     }
 
     else if (igloo_blocks == 1)
     {
-        igloo_sprite->setTexture(igloo_texture2);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture2);
         return;
     }
 
     else if (igloo_blocks == 2)
     {
 
-        igloo_sprite -> setTexture(igloo_texture3);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture3);
         return;
     }
 
     else if (igloo_blocks == 3)
     {
-        igloo_sprite -> setTexture(igloo_texture4);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture4);
         return;
     }
 
     else if (igloo_blocks == 4)
     {
-        igloo_sprite -> setTexture(igloo_texture5);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture5);
         return;
     }
 
     else if (igloo_blocks == 5)
     {
-        igloo_sprite->setTexture(igloo_texture6);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture6);
         return;
     }
 
     else if (igloo_blocks == 6)
     {
-        igloo_sprite -> setTexture(igloo_texture7);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture7);
         return;
     }
 
     else if (igloo_blocks == 7)
     {
-        igloo_sprite -> setTexture(igloo_texture8);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture8);
         return;
     }
 
     else if (igloo_blocks == 8)
     {
-        igloo_sprite -> setTexture(igloo_texture9);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture9);
         return;
     }
 
     else if (igloo_blocks == 9)
     {
-        igloo_sprite -> setTexture(igloo_texture10);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture10);
         return;
     }
 
     else if (igloo_blocks == 10)
     {
 
-        igloo_sprite -> setTexture(igloo_texture11);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture11);
         return;
     }
 
     else if (igloo_blocks == 11)
     {
-        igloo_sprite -> setTexture(igloo_texture12);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture12);
         return;
     }
 
     else if (igloo_blocks == 12)
     {
-        igloo_sprite -> setTexture(igloo_texture13);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture13);
         return;
     }
 
     else if (igloo_blocks == 13)
     {
-        igloo_sprite -> setTexture(igloo_texture14);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture14);
         return;
     }
 
     else if (igloo_blocks == 14)
     {
-        igloo_sprite -> setTexture(igloo_texture15);
-        igloo_sprite->setPosition(x_position, y_position);
+        iglooSprite.setTexture(igloo_texture15);
         return;
     }
+}
+
+bool Igloo::isComplete()
+{
+    if (igloo_blocks == 14)
+    {
+        complete = true;
+    }
+    else
+    {
+        complete = false;
+    }
+    
+    return complete;
 }
 
 void Igloo::load_textures()

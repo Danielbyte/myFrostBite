@@ -32,10 +32,11 @@ void Engine::update(const float dtAsSeconds)
 		{
 			//update single player mode
 			player1.update(dtAsSeconds);
-            manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds);
+            manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds, igloo_house);
             update_over_world(dtAsSeconds);
             animate.animate_player(player1);
             manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
+            igloo_house->update_igloo();
 		}
 
 		else
@@ -46,7 +47,9 @@ void Engine::update(const float dtAsSeconds)
             update_over_world(dtAsSeconds);
             animate.animate_player(player1);
             animate.animate_player(player2);
-            manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds);
+            manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds, igloo_house);
+            manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
+            //manage_collisions.player_animal_collisions(player2, crabs, clamps, birds, fish);
             //manage_collisions.player_ice_collisions(player2, iceblocks, dtAsSeconds);
 		}
 	}

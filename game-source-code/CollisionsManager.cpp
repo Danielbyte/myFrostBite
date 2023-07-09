@@ -6,7 +6,7 @@ CollisionsManager::CollisionsManager():
 {}
 
 void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,
-    const float deltaTime)
+    const float deltaTime, shared_ptr<Igloo>& igloo)
 {
     auto collided = false;
     auto playerInSafeZone = player.isPlayerInSafeZone();
@@ -28,8 +28,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                 if (color == IceColor::White)
                 {
                     (*ice_iter)->set_color(IceColor::Blue);
-                    //igloo_object->add_igloo_blocks();
-                    //igloo_object->update_igloo(IglooHouseSprite);
+                    igloo->add_igloo_blocks();
                     auto ice_size = ice.size();
                     if (ice_size > 4)
                     {
@@ -52,10 +51,12 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
 
                 //reverse ice direction if player decides to
                 auto reverse = player.isReverseBtnPressed();
-                if (reverse)
+                auto numberOfIglooBlocks = igloo->get_number_of_igloo_blocks();
+                if (reverse && (numberOfIglooBlocks > 0 && numberOfIglooBlocks < 14))
                 {
                     reverse_ice_direction(ice, *ice_iter);
                     player.resetReverseBtnPress();
+                    igloo->subract_igloo_block();
                 }
             }
             ++ice_iter;
@@ -69,11 +70,11 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
     }
 
    if (!collided) { player.playerShouldDrown(true); }
-    /*auto isIglooComplete = mark_if_igloo_is_complete();
+    auto isIglooComplete = igloo->isComplete();
     if (isIglooComplete)
     {
-        set_all_ice_batches_to_blue();
-    }*/
+        set_all_ice_to_blue(ice);
+    }
 }
 
 void CollisionsManager::setPlayerToMoveWithIce(Player& player, const IceDirection& ice_dir,
@@ -155,6 +156,17 @@ void CollisionsManager::set_all_ice_to_white(vector<shared_ptr<IceBlocks>>& ice)
     {
         (*ice_iter)->set_color(IceColor::White);
         ++ice_iter;
+    }
+}
+
+void CollisionsManager::set_all_ice_to_blue(vector<shared_ptr<IceBlocks>>& ice)
+{
+    auto iter = ice.begin();
+    while (iter != ice.end())
+    {
+        (*iter)->set_color(IceColor::Blue);
+        (*iter)->set_color(IceColor::Blue);
+        ++iter;
     }
 }
 

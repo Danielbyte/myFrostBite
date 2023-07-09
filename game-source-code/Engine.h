@@ -16,6 +16,7 @@
 #include "IceBlockController.h"
 #include "AnimatePlayer.h"
 #include "CollisionsManager.h"
+#include "igloo.h"
 
 class Engine
 {
@@ -86,7 +87,10 @@ private:
 	vector <shared_ptr<IceBlocks>> iceblocks;
 	bool canCreateIce;
 
-	//template function to draw all entities in the game over world
+	//Igloo object
+	shared_ptr<Igloo>igloo_house = std::make_shared<Igloo>(Igloo());
+
+	//template function to draw all animals in the game over world
 	template<typename _Animal>
 	void draw_overWorld(const vector<shared_ptr<_Animal>>& _animals)
 	{
