@@ -58,6 +58,12 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                     player.resetReverseBtnPress();
                     igloo->subract_igloo_block();
                 }
+
+                numberOfIglooBlocks = igloo->get_number_of_igloo_blocks();
+                if (numberOfIglooBlocks == 0)
+                {
+                    player.resetReverseBtnPress();
+                }
             }
             ++ice_iter;
         }
