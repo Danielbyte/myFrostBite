@@ -17,6 +17,11 @@ vector2f Igloo::getPosition() const
     return position;
 }
 
+vector2f Igloo::getDoorPosition() const
+{
+    return position;
+}
+
 void Igloo::add_igloo_blocks()
 {
     //If igloo is complete, keep bricks capped at 14.

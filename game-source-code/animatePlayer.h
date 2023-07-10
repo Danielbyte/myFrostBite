@@ -40,7 +40,7 @@ public:
 	void drowning_player(const float deltaTime, Player& player);
 	void collision_with_sea_animal(const float&, Player&);
 	void freezing_animation(const float&, Sprite&);
-	void go_inside_igloo(const float&, Sprite&);
+	void go_inside_igloo(const float&, Player& player);
 	void load_textures();
 
 private:

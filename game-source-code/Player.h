@@ -4,6 +4,7 @@
 
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
+#include "igloo.h"
 
 enum class PlayerRegion { region1, region2, region3, region4, unknown };
 
@@ -42,6 +43,8 @@ public:
     float leftBoundary() const;
     bool isKilledByBear() const;
     void deathByBear();
+    std::tuple<vector2f, vector2f> distanceToDoor(shared_ptr<Igloo>& igloo);
+    void setPosition(const vector2f position);
 
 protected:
     Sprite player_sprite;

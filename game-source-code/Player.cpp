@@ -346,3 +346,19 @@ void Player::deathByBear()
 {
 	killedByBear = true;
 }
+
+std::tuple<vector2f, vector2f> Player::distanceToDoor(shared_ptr<Igloo>& igloo)
+{
+	vector2f doorPosition = igloo->getDoorPosition();
+	vector2f playerPos = position;
+	vector2f _distanceToDoor;
+	_distanceToDoor.x = abs(playerPos.x - doorPosition.x);
+	_distanceToDoor.y = abs(playerPos.y - doorPosition.y);
+	return { _distanceToDoor, doorPosition };
+}
+
+void Player::setPosition(const vector2f _position)
+{
+	position = _position;
+	player_sprite.setPosition(position);
+}

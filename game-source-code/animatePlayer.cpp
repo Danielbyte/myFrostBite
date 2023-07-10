@@ -399,25 +399,25 @@ void AnimatePlayer::freezing_animation(const float& deltaTime, Sprite& bailey_sp
 	}
 }
 
-void AnimatePlayer::go_inside_igloo(const float& y_pos, Sprite& bailey_sprite)
+void AnimatePlayer::go_inside_igloo(const float& y_pos, Player& player)
 {
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
-		bailey_sprite.setTexture(enterIgloo1);
+		player.updateSprite(enterIgloo1);
 	}
 
 	if (y_pos < 160 && y_pos >= 135)
 	{
-		bailey_sprite.setTexture(enterIgloo2);
+		player.updateSprite(enterIgloo2);
 	}
 
 	if (y_pos < 135 && y_pos >= 133)
 	{
-		bailey_sprite.setTexture(enterIgloo3);
+		player.updateSprite(enterIgloo3);
 	}
 
 	if (y_pos < 133)
 	{
-		bailey_sprite.setTexture(enterIgloo4);
+		player.updateSprite(enterIgloo4);
 	}
 }

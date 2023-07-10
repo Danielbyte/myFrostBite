@@ -33,6 +33,7 @@ public:
     Sprite getSprite() const;
     void updateSprite(Texture& newTexture);
     bool isComplete();
+    vector2f getDoorPosition() const;
 
 private:
     vector2f position;
