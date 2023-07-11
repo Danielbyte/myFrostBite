@@ -57,6 +57,7 @@ void Engine::handleInput()
 				isPlaying = true;
 				canCreateIce = true;
 				overworld_watch.restart_timer();
+				overworld.initialize_temperature();
 			}
 
 			if (menu.getCursorLevel() == 2)
@@ -66,6 +67,7 @@ void Engine::handleInput()
 				isPlaying = true;
 				canCreateIce = true;
 				overworld_watch.restart_timer();
+				overworld.initialize_temperature();
 			}
 
 			if (menu.getCursorLevel() == 3)

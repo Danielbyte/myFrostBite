@@ -40,6 +40,12 @@ public:
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
+	void update_temperature();
+	void initialize_temperature();
+	Text getTemperature();
+	Text getTemperatureSymbol() const;
+	int isTimeUp() const; //Temperature reached zero
+
 private:
 
 	//Regions where animals can be possibly spawned
@@ -60,6 +66,14 @@ private:
 	int generate_enemy_type();
 	void clear_regions();
 	void clear_animals();
+
+	int temperature;
+	Stopwatch tempStopWatch;
+	bool startedTempDecrease; //mark when started decreasig the temperature
+	bool timeUp;
+	Text temperature_disp;
+	Text degree_symbol;
+	Font temperatureFont;
 
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
 

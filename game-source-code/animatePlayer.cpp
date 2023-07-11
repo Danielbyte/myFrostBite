@@ -331,71 +331,71 @@ void AnimatePlayer::drowning_player(const float deltaTime, Player& player)
 	}
 }
 
-void AnimatePlayer::freezing_animation(const float& deltaTime, Sprite& bailey_sprite)
+void AnimatePlayer::freezing_animation(const float& deltaTime, Player& player)
 {
 	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze1);
+		player.updateSprite(freeze1);
 	}
 	if (deltaTime >= freezingFrameTime && deltaTime <= 2 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze2);
+		player.updateSprite(freeze2);
 	}
 	if (deltaTime >= 2 * freezingFrameTime && deltaTime <= 3 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze3);
+		player.updateSprite(freeze3);
 	}
 	if (deltaTime >= 3 * freezingFrameTime && deltaTime <= 4 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze4);
+		player.updateSprite(freeze4);
 	}
 	if (deltaTime >= 4 * freezingFrameTime && deltaTime <= 5 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze5);
+		player.updateSprite(freeze5);
 	}
 	if (deltaTime >= 5 * freezingFrameTime && deltaTime <= 6 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze6);
+		player.updateSprite(freeze6);
 	}
 	if (deltaTime >= 6 * freezingFrameTime && deltaTime <= 7 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze7);
+		player.updateSprite(freeze7);
 	}
 	if (deltaTime >= 7 * freezingFrameTime && deltaTime <= 8 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze8);
+		player.updateSprite(freeze8);
 	}
 	if (deltaTime >= 8 * freezingFrameTime && deltaTime <= 9 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze9);
+		player.updateSprite(freeze9);
 	}
 	if (deltaTime >= 9 * freezingFrameTime && deltaTime <= 10 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze10);
+		player.updateSprite(freeze10);
 	}
 	if (deltaTime >= 10 * freezingFrameTime && deltaTime <= 11 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze11);
+		player.updateSprite(freeze11);
 	}
 	if (deltaTime >= 0 && deltaTime <= 12 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze12);
+		player.updateSprite(freeze12);
 	}
 	if (deltaTime >= 12 * freezingFrameTime && deltaTime <= 13 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze13);
+		player.updateSprite(freeze13);
 	}
 	if (deltaTime >= 13 * freezingFrameTime && deltaTime <= 14 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze14);
+		player.updateSprite(freeze14);
 	}
 	if (deltaTime >= 14 * freezingFrameTime && deltaTime <= 15 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze15);
+		player.updateSprite(freeze15);
 	}
 	if (deltaTime >= 15 * freezingFrameTime && deltaTime <= 16 * freezingFrameTime)
 	{
-		bailey_sprite.setTexture(freeze16);
+		player.updateSprite(freeze16);
 	}
 }
 

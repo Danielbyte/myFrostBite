@@ -114,4 +114,5 @@ void Engine::update_over_world(const float deltaTime)
     }
     control_ice.update_iceblocks(iceblocks, deltaTime);
     control_ice.update_ice_texture(iceblocks);
+    overworld.update_temperature();
 }

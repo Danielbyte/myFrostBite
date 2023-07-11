@@ -11,12 +11,29 @@ OverWorld::OverWorld():
 	region3Position{ 424.0f },
 	region4Position{ 506.0f },
 	gapBetweeenAnimals{ 120.0f },
+	temperature{45},
+	startedTempDecrease{false},
+	timeUp{false},
 	//Initially, there should be no animal in region
 	animalInRegion1{AnimalType::none},
 	animalInRegion2{AnimalType::none},
 	animalInRegion3{AnimalType::none},
 	animalInRegion4{AnimalType::none}
-{}
+{
+	temperatureFont.loadFromFile("resources/sansation.ttf");
+	temperature_disp.setFont(temperatureFont);
+	temperature_disp.setCharacterSize(20);
+	temperature_disp.setStyle(Text::Bold);
+	temperature_disp.setFillColor(Color::Cyan);
+	temperature_disp.setPosition(0.0f, 3.0f);
+
+	degree_symbol.setFont(temperatureFont);
+	degree_symbol.setCharacterSize(15);
+	degree_symbol.setStyle(Text::Bold);
+	degree_symbol.setFillColor(Color::Cyan);
+	degree_symbol.setPosition(188.0f, 0.0f);
+	degree_symbol.setString("o");
+}
 
 void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_ptr<Clamp>>& clampsObj,
 	vector<shared_ptr<Bird>>& birdsObj, vector<shared_ptr<Fish>>& fishObj, const float& regionPos)
@@ -302,4 +319,48 @@ bool OverWorld::Isanimal_in_region4() const
 std::tuple<AnimalType, AnimalType, AnimalType, AnimalType> OverWorld::get_animals_in_regions() const
 {
 	return {animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4 };
+}
+
+void OverWorld::initialize_temperature()
+{
+	if (!startedTempDecrease)
+	{
+		tempStopWatch.restart_timer();
+		startedTempDecrease = true;
+	}
+}
+
+void OverWorld::update_temperature()
+{
+	if (startedTempDecrease)
+	{
+		auto _time = tempStopWatch.elapsed_time();
+		if (_time >= 1.0f && temperature >= 1) // decrease temperature every 1 second
+		{
+			--temperature; //decrease the temperature
+			tempStopWatch.restart_timer();
+		}
+
+		if (temperature == 0)
+		{
+			timeUp = true;
+		}
+	}
+}
+
+Text OverWorld::getTemperature()
+{
+	string _temperature = std::to_string(temperature);
+	temperature_disp.setString("TEMPERATURE: " + _temperature);
+	return temperature_disp;
+}
+
+Text OverWorld::getTemperatureSymbol() const
+{
+	return degree_symbol;
+}
+
+int OverWorld::isTimeUp() const
+{
+	return timeUp;
 }

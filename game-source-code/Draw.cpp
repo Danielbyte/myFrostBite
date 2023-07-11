@@ -24,6 +24,8 @@ void Engine::draw()
 			draw_overWorld(iceblocks);
 			window->draw(igloo_house->getSprite());
 			window->draw(bear->getSprite());
+			window->draw(overworld.getTemperature());
+			window->draw(overworld.getTemperatureSymbol());
 			window->draw(player1.getSprite());
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
@@ -32,6 +34,41 @@ void Engine::draw()
 			auto isKilledByBear = player1.isKilledByBear();
 			auto iglooComplete = igloo_house->isComplete();
 			auto [playerDistanceToDoor, IglooDoorPos] = player1.distanceToDoor(igloo_house);
+			auto isTimeUp = overworld.isTimeUp();
+
+			if (isTimeUp)
+			{
+				auto isAnimating = true;
+				Stopwatch s_watch;
+				while (isAnimating)
+				{
+					auto TimeElapsed = s_watch.elapsed_time();
+					animate.freezing_animation(TimeElapsed, player1);
+					window->draw(background_sprite);
+					//Draw birds
+					draw_overWorld(birds);
+					//Draw crabs
+					draw_overWorld(crabs);
+					//Draw clamps
+					draw_overWorld(clamps);
+					//Draw fish
+					draw_overWorld(fish);
+					//Draw ice
+					draw_overWorld(iceblocks);
+					window->draw(igloo_house->getSprite());
+					window->draw(bear->getSprite());
+					window->draw(overworld.getTemperature());
+					window->draw(overworld.getTemperatureSymbol());
+					window->draw(player1.getSprite());
+					window->display();
+					window->clear(Color::White);
+					
+					if (TimeElapsed >= 1.1f)
+					{
+						isAnimating = false;
+					}
+				}
+			}
 
 			if (inSafeZone && iglooComplete && playerDistanceToDoor.x <= 35.0f)
 			{
@@ -86,6 +123,8 @@ void Engine::draw()
 					draw_overWorld(iceblocks);
 					window->draw(igloo_house->getSprite());
 					window->draw(bear->getSprite());
+					window->draw(overworld.getTemperature());
+					window->draw(overworld.getTemperatureSymbol());
 					window->draw(player1.getSprite());
 					window->display();
 					window->clear(Color::White);
@@ -125,6 +164,8 @@ void Engine::draw()
 						draw_overWorld(iceblocks);
 						window->draw(igloo_house->getSprite());
 						window->draw(bear->getSprite());
+						window->draw(overworld.getTemperature());
+						window->draw(overworld.getTemperatureSymbol());
 						window->draw(player1.getSprite());
 						window->display();
 						window->clear(Color::White);
@@ -158,6 +199,8 @@ void Engine::draw()
 					draw_overWorld(iceblocks);
 					window->draw(igloo_house->getSprite());
 					window->draw(bear->getSprite());
+					window->draw(overworld.getTemperature());
+					window->draw(overworld.getTemperatureSymbol());
 					window->draw(player1.getSprite());
 					window->display();
 					window->clear(Color::White);
@@ -190,6 +233,8 @@ void Engine::draw()
 					draw_overWorld(iceblocks);
 					window->draw(igloo_house->getSprite());
 					window->draw(bear->getSprite());
+					window->draw(overworld.getTemperature());
+					window->draw(overworld.getTemperatureSymbol());
 					window->draw(player1.getSprite());
 					window->display();
 					window->clear(Color::White);
@@ -219,6 +264,8 @@ void Engine::draw()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
+			window->draw(overworld.getTemperature());
+			window->draw(overworld.getTemperatureSymbol());
 			window->draw(player1.getSprite());
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
