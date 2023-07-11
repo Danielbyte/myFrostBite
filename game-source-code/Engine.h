@@ -64,7 +64,10 @@ private:
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
 	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime);
-	void draw(); //draw game characters
+	void display_manager(); //Front End (Manages the front end logic)
+	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
+		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
+		Player& player, OverWorld& _overworld);
 
 	void LoadTextures();
 	void SetSprites();

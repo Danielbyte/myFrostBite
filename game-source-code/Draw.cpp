@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-void Engine::draw()
+void Engine::display_manager()
 {
 	window->clear(Color::White);
 	//Draw main menu
@@ -11,22 +11,7 @@ void Engine::draw()
 		{
 			//single player mode
 			window->setView(singlePlayerView);
-			window->draw(background_sprite);
-			//Draw birds
-			draw_overWorld(birds);
-			//Draw crabs
-			draw_overWorld(crabs);
-			//Draw clamps
-			draw_overWorld(clamps);
-			//Draw fish
-			draw_overWorld(fish);
-			//Draw ice
-			draw_overWorld(iceblocks);
-			window->draw(igloo_house->getSprite());
-			window->draw(bear->getSprite());
-			window->draw(overworld.getTemperature());
-			window->draw(overworld.getTemperatureSymbol());
-			window->draw(player1.getSprite());
+			draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
 			auto isJumping = player1.isPlayerJumping();
@@ -54,22 +39,7 @@ void Engine::draw()
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
 					animate.freezing_animation(TimeElapsed, player1);
-					window->draw(background_sprite);
-					//Draw birds
-					draw_overWorld(birds);
-					//Draw crabs
-					draw_overWorld(crabs);
-					//Draw clamps
-					draw_overWorld(clamps);
-					//Draw fish
-					draw_overWorld(fish);
-					//Draw ice
-					draw_overWorld(iceblocks);
-					window->draw(igloo_house->getSprite());
-					window->draw(bear->getSprite());
-					window->draw(overworld.getTemperature());
-					window->draw(overworld.getTemperatureSymbol());
-					window->draw(player1.getSprite());
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
 					window->clear(Color::White);
 					
@@ -133,22 +103,7 @@ void Engine::draw()
 					}
 
 					animate.go_inside_igloo(playerPos.y, player1);
-					window->draw(background_sprite);
-					//Draw birds
-					draw_overWorld(birds);
-					//Draw crabs
-					draw_overWorld(crabs);
-					//Draw clamps
-					draw_overWorld(clamps);
-					//Draw fish
-					draw_overWorld(fish);
-					//Draw ice
-					draw_overWorld(iceblocks);
-					window->draw(igloo_house->getSprite());
-					window->draw(bear->getSprite());
-					window->draw(overworld.getTemperature());
-					window->draw(overworld.getTemperatureSymbol());
-					window->draw(player1.getSprite());
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
 					window->clear(Color::White);
 
@@ -175,22 +130,7 @@ void Engine::draw()
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
 						animate.drowning_player(TimeElapsed, player1);
-						window->draw(background_sprite);
-						//Draw birds
-						draw_overWorld(birds);
-						//Draw crabs
-						draw_overWorld(crabs);
-						//Draw clamps
-						draw_overWorld(clamps);
-						//Draw fish
-						draw_overWorld(fish);
-						//Draw ice
-						draw_overWorld(iceblocks);
-						window->draw(igloo_house->getSprite());
-						window->draw(bear->getSprite());
-						window->draw(overworld.getTemperature());
-						window->draw(overworld.getTemperatureSymbol());
-						window->draw(player1.getSprite());
+						draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 						window->display();
 						window->clear(Color::White);
 						if (TimeElapsed >= 1.03f)
@@ -225,22 +165,7 @@ void Engine::draw()
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
 					animate.collision_with_sea_animal(TimeElapsed, player1);
-					window->draw(background_sprite);
-					//Draw birds
-					draw_overWorld(birds);
-					//Draw crabs
-					draw_overWorld(crabs);
-					//Draw clamps
-					draw_overWorld(clamps);
-					//Draw fish
-					draw_overWorld(fish);
-					//Draw ice
-					draw_overWorld(iceblocks);
-					window->draw(igloo_house->getSprite());
-					window->draw(bear->getSprite());
-					window->draw(overworld.getTemperature());
-					window->draw(overworld.getTemperatureSymbol());
-					window->draw(player1.getSprite());
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
 					window->clear(Color::White);
 					if (TimeElapsed >= 1.03f)
@@ -272,22 +197,7 @@ void Engine::draw()
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
 					animate.killed_by_bear(TimeElapsed, player1);
-					window->draw(background_sprite);
-					//Draw birds
-					draw_overWorld(birds);
-					//Draw crabs
-					draw_overWorld(crabs);
-					//Draw clamps
-					draw_overWorld(clamps);
-					//Draw fish
-					draw_overWorld(fish);
-					//Draw ice
-					draw_overWorld(iceblocks);
-					window->draw(igloo_house->getSprite());
-					window->draw(bear->getSprite());
-					window->draw(overworld.getTemperature());
-					window->draw(overworld.getTemperatureSymbol());
-					window->draw(player1.getSprite());
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
 					window->clear(Color::White);
 					if (TimeElapsed >= 1.03f)
@@ -417,4 +327,26 @@ void Engine::draw()
 	}
 
 	window->display();
+}
+
+void Engine::draw(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,
+	vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish, shared_ptr<Igloo>& iglooHouse,
+	shared_ptr<Bear>& _bear, vector<shared_ptr<IceBlocks>>& _ice, Player& _player, OverWorld& _overworld)
+{
+	window->draw(background_sprite);
+	//Draw birds
+	draw_overWorld(_birds);
+	//Draw crabs
+	draw_overWorld(_crabs);
+	//Draw clamps
+	draw_overWorld(_clamps);
+	//Draw fish
+	draw_overWorld(_fish);
+	//Draw ice
+	draw_overWorld(_ice);
+	window->draw(iglooHouse->getSprite());
+	window->draw(_bear->getSprite());
+	window->draw(_overworld.getTemperature());
+	window->draw(_overworld.getTemperatureSymbol());
+	window->draw(_player.getSprite());
 }

@@ -53,7 +53,7 @@ void Engine::run()
 		//Update game
 		update(dtAsSeconds);
 		//Draw game entities
-		draw();
+		display_manager();
 	}
 }
 
