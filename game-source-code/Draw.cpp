@@ -85,6 +85,11 @@ void Engine::draw()
 					player1.spawnPlayer();
 					bear->spawnBear();
 					overworld.resetTemperature();
+					iceblocks.clear();
+					canCreateIce = true;
+					clamps.clear();
+					birds.clear();
+					crabs.clear();
 				}
 			}
 
@@ -201,6 +206,11 @@ void Engine::draw()
 						player1.ressurectFromDrownDeath();
 						player1.spawnPlayer();
 						bear->spawnBear();
+						iceblocks.clear();
+						canCreateIce = true;
+						clamps.clear();
+						birds.clear();
+						crabs.clear();
 					}
 				}
 			}
@@ -244,6 +254,11 @@ void Engine::draw()
 					player1.spawnPlayer();
 					player1.ressurectFromAnimalDeath();
 					bear->spawnBear();
+					iceblocks.clear();
+					canCreateIce = true;
+					clamps.clear();
+					birds.clear();
+					crabs.clear();
 				}
 			}
 
@@ -286,6 +301,11 @@ void Engine::draw()
 					player1.spawnPlayer();
 					player1.ressurectFromBearDeath();
 					bear->spawnBear();
+					iceblocks.clear();
+					canCreateIce = true;
+					clamps.clear();
+					birds.clear();
+					crabs.clear();
 				}
 			}
 
