@@ -53,6 +53,7 @@ public:
     void ressurectFromAnimalDeath();
     void ressurectFromDrownDeath();
     void ressurectFromBearDeath();
+    void setBoundaries(const float leftB, const float rightB);
 
 protected:
     Sprite player_sprite;

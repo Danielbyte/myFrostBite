@@ -68,6 +68,12 @@ void Engine::handleInput()
 				canCreateIce = true;
 				overworld_watch.restart_timer();
 				overworld.initialize_temperature();
+				
+				//player1
+				player1.setBoundaries(mLeftBoundary, mRightBoundary);
+
+				//player2
+				player2.setBoundaries(mLeftBoundary, mRightBoundary);
 			}
 
 			if (menu.getCursorLevel() == 3)

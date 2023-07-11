@@ -55,6 +55,12 @@ void Player::setInitialPosition(vector2f _position)
 	initialPosition = _position;
 }
 
+void Player::setBoundaries(const float leftB, const float rightB)
+{
+	left_boundary = leftB;
+	right_boundary = rightB;
+}
+
 int Player::getNumberOfLives() const
 {
 	return numberOfLives;

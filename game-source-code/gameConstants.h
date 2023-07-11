@@ -70,6 +70,9 @@ const auto cursor_step = 57.0f;//separation between each level
 const auto instructions_back_x = 660.0f; //x-coordinate of back sign in instructions window
 const auto instructions_back_y = 472.0f;//y-coordinate of back sign in instructions window
 
+const auto mLeftBoundary = 224.0f;
+const auto mRightBoundary = 577.473f;
+
 
 class CouldNotLoadPicture{};
 
