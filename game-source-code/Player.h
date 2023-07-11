@@ -12,7 +12,7 @@ class Player
 {
 public:
 	Player();
-    void spawnPlayer(vector2f initPosition);
+    void spawnPlayer();
     void virtual handleInput(bool keyPressed) = 0;
     Sprite getSprite() const;
     void update(const float timeElapsed);
@@ -47,6 +47,12 @@ public:
     std::tuple<vector2f, vector2f> distanceToDoor(shared_ptr<Igloo>& igloo);
     void setPosition(const vector2f position);
     void subractLive();
+    void setInitialPosition(vector2f _position);
+    //void resetPlayerSprite();
+    int getNumberOfLives() const;
+    void ressurectFromAnimalDeath();
+    void ressurectFromDrownDeath();
+    void ressurectFromBearDeath();
 
 protected:
     Sprite player_sprite;
@@ -93,6 +99,7 @@ private:
     bool playerKilledByAnimal;
     bool killedByBear;
     int numberOfLives;
+    vector2f initialPosition;
 };
 
 #endif // !PLAYER_H

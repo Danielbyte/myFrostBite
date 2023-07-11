@@ -16,6 +16,8 @@ public:
 	void update_bear(const float deltaTime, Player& player);
 	void set_bear_direction(const Direction&);
 	Sprite getSprite() const;
+	void spawnBear();
+	void setSpawnPosition(vector2f _spawnPosition);
 	
 	//Textures
 	Texture bear_left1;
@@ -36,5 +38,6 @@ private:
 	void reset_counter();
 	Sprite bear_sprite;
 	void set_to_track_player(Player& player);
+	vector2f spawnPosition;
 };
 #endif

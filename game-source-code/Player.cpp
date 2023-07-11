@@ -35,16 +35,43 @@ Player::Player():
 	killedByBear{false},
 	numberOfLives{3} //Player has 3 lives
 {
+	initialPosition.y = 199.0f;
+	initialPosition.x = 224.0f;
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
 
-void Player::spawnPlayer(vector2f initPosition)
+void Player::spawnPlayer()
 {
-	position= initPosition;
+	position= initialPosition;
 	player_sprite.setOrigin(bailey_width / 2.0, bailey_height / 2.0);
 	player_sprite.setPosition(position);
+	player_texture.loadFromFile("resources/bailey.png");
 	player_sprite.setTexture(player_texture);
-	prevPosition = initPosition;
+	prevPosition = initialPosition;
+}
+
+void Player::setInitialPosition(vector2f _position)
+{
+	initialPosition = _position;
+}
+
+int Player::getNumberOfLives() const
+{
+	return numberOfLives;
+}
+
+void Player::ressurectFromAnimalDeath()
+{
+	playerKilledByAnimal = false;
+}
+void Player::ressurectFromDrownDeath()
+{
+	playerDrown = false;
+}
+
+void Player::ressurectFromBearDeath()
+{
+	killedByBear = false;
 }
 
 void Player::update(float timeElapsed)
@@ -326,7 +353,6 @@ void Player::subractLive()
 	{
 		numberOfLives = 0;
 	}
-	std::cout<< "Lives: " << numberOfLives << std::endl;
 }
 
 bool Player::isReverseBtnPressed() const

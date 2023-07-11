@@ -45,6 +45,7 @@ public:
 	Text getTemperature();
 	Text getTemperatureSymbol() const;
 	int isTimeUp() const; //Temperature reached zero
+	void resetTemperature();
 
 private:
 

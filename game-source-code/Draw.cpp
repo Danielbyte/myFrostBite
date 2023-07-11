@@ -48,6 +48,7 @@ void Engine::draw()
 			if (isTimeUp)
 			{
 				auto isAnimating = true;
+				auto lives = player1.getNumberOfLives();
 				Stopwatch s_watch;
 				while (isAnimating)
 				{
@@ -76,8 +77,14 @@ void Engine::draw()
 					{
 						isAnimating = false;
 					}
-					player1.subractLive();
-					player1.set_state();
+				}
+				player1.subractLive();
+				player1.set_state();
+				if (lives > 0)
+				{
+					player1.spawnPlayer();
+					bear->spawnBear();
+					overworld.resetTemperature();
 				}
 			}
 
@@ -157,7 +164,8 @@ void Engine::draw()
 				{
 					auto isAnimating = true;
 					Stopwatch s_watch;
-					
+					auto lives = player1.getNumberOfLives();
+
 					while (isAnimating)
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
@@ -187,6 +195,13 @@ void Engine::draw()
 					}
 					player1.subractLive();
 					player1.set_state();
+
+					if (lives > 0)
+					{
+						player1.ressurectFromDrownDeath();
+						player1.spawnPlayer();
+						bear->spawnBear();
+					}
 				}
 			}
 
@@ -194,7 +209,8 @@ void Engine::draw()
 			{
 				auto isAnimating = true;
 				Stopwatch s_watch;
-				
+				auto lives = player1.getNumberOfLives();
+
 				while (isAnimating)
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
@@ -222,12 +238,20 @@ void Engine::draw()
 						isAnimating = false;
 					}
 				}
+
+				if (lives > 0)
+				{
+					player1.spawnPlayer();
+					player1.ressurectFromAnimalDeath();
+					bear->spawnBear();
+				}
 			}
 
 			if (isKilledByBear)
 			{
 				auto isAnimating = true;
 				Stopwatch s_watch;
+				auto lives = player1.getNumberOfLives();
 				
 				while (isAnimating)
 				{
@@ -255,6 +279,13 @@ void Engine::draw()
 					{
 						isAnimating = false;
 					}
+				}
+
+				if (lives > 0)
+				{
+					player1.spawnPlayer();
+					player1.ressurectFromBearDeath();
+					bear->spawnBear();
 				}
 			}
 

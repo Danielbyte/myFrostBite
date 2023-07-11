@@ -348,6 +348,14 @@ void OverWorld::update_temperature()
 	}
 }
 
+void OverWorld::resetTemperature()
+{
+	timeUp = false;
+	startedTempDecrease = false;
+	temperature = 45;
+	initialize_temperature();
+}
+
 Text OverWorld::getTemperature()
 {
 	string _temperature = std::to_string(temperature);

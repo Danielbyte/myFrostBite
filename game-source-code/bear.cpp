@@ -7,8 +7,21 @@ Bear::Bear():
 	counter{0}
 {
 	load_textures();
+	spawnPosition = bear_position;
 	bear_sprite.setOrigin(bear_with / 2.0f, bear_height / 2.0f);
 	bear_sprite.setPosition(bear_position);
+}
+
+void Bear::setSpawnPosition(vector2f _spawnPosition)
+{
+	spawnPosition = _spawnPosition;
+}
+
+void Bear::spawnBear()
+{
+	bear_sprite.setTexture(bear_left1);
+	bear_sprite.setPosition(spawnPosition);
+	counter = 0;
 }
 
 vector2f Bear::get_position() const

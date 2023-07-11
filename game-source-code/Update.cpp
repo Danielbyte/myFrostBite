@@ -9,21 +9,15 @@ void Engine::update(const float dtAsSeconds)
 			if (!splitScreen)
 			{
 				//single player mode
-				vector2f _pos;
-				_pos.y = 199.0f;
-				_pos.x = 224.0f;
-				player1.spawnPlayer(_pos);
+				player1.spawnPlayer();
 				needToSpawn = false;
 			}
 
 			else
 			{
 				//multiplayer mode
-				vector2f _pos;
-				_pos.y = 199.0f;
-				_pos.x = 224.0f;
-				player1.spawnPlayer(_pos);
-				player2.spawnPlayer(_pos);
+				player1.spawnPlayer();
+				player2.spawnPlayer();
 				needToSpawn = false;
 			}
 		}
