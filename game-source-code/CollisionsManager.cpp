@@ -75,7 +75,11 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
         }
     }
 
-   if (!collided) { player.playerShouldDrown(true); }
+   if (!collided) 
+   {
+       player.playerShouldDrown(true);
+   }
+
     auto isIglooComplete = igloo->isComplete();
     if (isIglooComplete)
     {
@@ -234,6 +238,8 @@ void CollisionsManager::player_animal_collisions(Player& player, vector<shared_p
     if (playerCollidedWithAnimal)
     {
         player.KilledByAnimal();
+        player.subractLive();
+        player.set_state();
     }
 }
 
@@ -251,5 +257,7 @@ void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, Player& p
     if (isCollided && baileyInSafeZone)
     {
         player.deathByBear();
+        player.subractLive();
+        player.set_state();
     }
 }

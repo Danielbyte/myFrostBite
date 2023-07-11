@@ -33,7 +33,8 @@ public:
     void setPlayerToMoveWithIce(const Direction& dir, const float deltaTime);
     void playerShouldDrown(const bool should_drown);
     bool isPlayerDrowning() const;
-    void set_to_dead();
+    void set_state();
+    bool getIfDead() const;
     bool isReverseBtnPressed() const;
     void resetReverseBtnPress();
     PlayerRegion get_bailey_region() const;
@@ -45,6 +46,7 @@ public:
     void deathByBear();
     std::tuple<vector2f, vector2f> distanceToDoor(shared_ptr<Igloo>& igloo);
     void setPosition(const vector2f position);
+    void subractLive();
 
 protected:
     Sprite player_sprite;
@@ -90,6 +92,7 @@ private:
     bool isDead;
     bool playerKilledByAnimal;
     bool killedByBear;
+    int numberOfLives;
 };
 
 #endif // !PLAYER_H

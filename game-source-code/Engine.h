@@ -75,6 +75,9 @@ private:
 	Texture background_texture;
 	Sprite background_sprite;
 
+	Texture game_over_texture;
+	Sprite game_over_sprite;
+
 	Texture line_texture;
 	Sprite line_sprite;
 

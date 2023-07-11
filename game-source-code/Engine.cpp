@@ -62,12 +62,14 @@ void Engine::LoadTextures()
 	menu_texture.loadFromFile("resources/menuscreen.png");
 	background_texture.loadFromFile("resources/background.png");
 	line_texture.loadFromFile("resources/line.png");
+	game_over_texture.loadFromFile("resources/gameover.png");
 }
 
 void Engine::SetSprites()
 {
 	menu_sprite.setTexture(menu_texture);
 	background_sprite.setTexture(background_texture);
+	game_over_sprite.setTexture(game_over_texture);
 
 	line_sprite.setTexture(line_texture);
 	line_sprite.setPosition(600.0f, 300.0f);

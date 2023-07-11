@@ -35,6 +35,15 @@ void Engine::draw()
 			auto iglooComplete = igloo_house->isComplete();
 			auto [playerDistanceToDoor, IglooDoorPos] = player1.distanceToDoor(igloo_house);
 			auto isTimeUp = overworld.isTimeUp();
+			auto isDead = player1.getIfDead();
+
+			if (isDead)
+			{
+				window->clear(Color::White);
+				window->draw(game_over_sprite);
+				window->display();
+				return;
+			}
 
 			if (isTimeUp)
 			{
@@ -67,6 +76,8 @@ void Engine::draw()
 					{
 						isAnimating = false;
 					}
+					player1.subractLive();
+					player1.set_state();
 				}
 			}
 
@@ -146,7 +157,7 @@ void Engine::draw()
 				{
 					auto isAnimating = true;
 					Stopwatch s_watch;
-					player1.set_to_dead();
+					
 					while (isAnimating)
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
@@ -174,6 +185,8 @@ void Engine::draw()
 							isAnimating = false;
 						}
 					}
+					player1.subractLive();
+					player1.set_state();
 				}
 			}
 
@@ -181,7 +194,7 @@ void Engine::draw()
 			{
 				auto isAnimating = true;
 				Stopwatch s_watch;
-				player1.set_to_dead();
+				
 				while (isAnimating)
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
@@ -215,7 +228,7 @@ void Engine::draw()
 			{
 				auto isAnimating = true;
 				Stopwatch s_watch;
-				player1.set_to_dead();
+				
 				while (isAnimating)
 				{
 					auto TimeElapsed = s_watch.elapsed_time();
@@ -278,7 +291,7 @@ void Engine::draw()
 				{
 					auto isAnimating = true;
 					Stopwatch s_watch;
-					player1.set_to_dead();
+					
 					while (isAnimating)
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
@@ -309,7 +322,7 @@ void Engine::draw()
 			{
 				auto isAnimating = true;
 				Stopwatch s_watch;
-				player1.set_to_dead();
+				
 				while (isAnimating)
 				{
 					auto TimeElapsed = s_watch.elapsed_time();

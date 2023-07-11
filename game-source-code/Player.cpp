@@ -32,7 +32,8 @@ Player::Player():
 	playerDrown{false},
 	isDead{false},
 	playerKilledByAnimal{false},
-	killedByBear{false}
+	killedByBear{false},
+	numberOfLives{3} //Player has 3 lives
 {
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 }
@@ -247,6 +248,11 @@ void Player::updateSprite(Texture& newTexture)
 	player_sprite.setTexture(newTexture);
 }
 
+bool Player::getIfDead() const
+{
+	return isDead;
+}
+
 bool Player::isPlayerInSafeZone()
 {
 	if (position.y > safe_zone_boundary) { playerInSafeZone = false; }
@@ -297,9 +303,30 @@ bool Player::isPlayerDrowning() const
 	return playerDrown;
 }
 
-void Player::set_to_dead()
+void Player::set_state()
 {
-	isDead = true;
+	if (numberOfLives != 0)
+	{
+		isDead = false;
+	}
+
+	else
+	{
+		isDead = true;
+	}
+}
+
+void Player::subractLive()
+{
+	if (numberOfLives >= 1)
+	{
+		--numberOfLives;
+	}
+	else
+	{
+		numberOfLives = 0;
+	}
+	std::cout<< "Lives: " << numberOfLives << std::endl;
 }
 
 bool Player::isReverseBtnPressed() const
