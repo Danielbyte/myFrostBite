@@ -4,19 +4,22 @@ IceBlockController::IceBlockController():
     R1F{false},
     R2F{false},
     R3F{false},
-    R4F{false}
+    R4F{false},
+    iceOffset{160.0f},
+    mIceOffset{360.0f}
 {
     load_textures();
     OOBBL = -ice_width_offset;
     OOBBR = windowWidth + ice_width_offset;
+    mOOBBL = 40.0f;
+    mOOBBR = 761.473f;
 }
 
 void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice,const float deltaTime)
 {
-    //auto ice_sprite_iter = ice_sprites.begin();
     auto ice_iter = ice.begin();
     auto numberOfIceObjects = ice.size();
-    //std::cout << "Number of objects: " <<numberOfIceObjects<< std::endl;
+
     while(ice_iter != ice.end())
     {
         auto direction = (*ice_iter)->get_direction();
@@ -26,7 +29,7 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice,con
             pos_.x -= 45 * deltaTime;
             (*ice_iter)->set_position(pos_);
             
-            if (pos_.x <= ice_width_offset && numberOfIceObjects < 8)
+            if (pos_.x <= iceOffset && numberOfIceObjects < 8)
             {
                 R1F = false;
                 R2F = false;
@@ -55,7 +58,7 @@ void IceBlockController::update_iceblocks(vector<shared_ptr<IceBlocks>>& ice,con
              pos_.x += 45 * deltaTime;
              (*ice_iter)->set_position(pos_);
  
-            if (pos_.x >= (windowWidth - ice_width_offset) && numberOfIceObjects < 8)
+            if (pos_.x >= (windowWidth - iceOffset) && numberOfIceObjects < 8)
             {
                 auto region = (*ice_iter)->get_region();
                 R1F = false;
@@ -251,4 +254,15 @@ void IceBlockController::load_textures()
     white_ice_texture.loadFromFile("resources/whiteIce.png");
     blue_ice_texture.loadFromFile("resources/blueice.png");
 
+}
+
+void IceBlockController::setNewBoundaries()
+{
+    OOBBL = mOOBBL;
+    OOBBR = mOOBBR;
+}
+
+void IceBlockController::mSetIceOffset()
+{
+    iceOffset = mIceOffset;
 }

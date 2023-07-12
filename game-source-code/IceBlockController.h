@@ -22,14 +22,21 @@ public:
     //Check if you already have ice present in region
     void check_regions(const vector<shared_ptr<IceBlocks>>&);
     void set_position(const IceDirection&, vector2f&, const float&);
+    void setNewBoundaries();
+    void mSetIceOffset();
 
 private:
     void load_textures();
     float OOBBL; //OOBL->Out Of Bounds Boundary Left
     float OOBBR; //OOBR->Out Of Bounds Boundary Right
+    float mOOBBL;
+    float mOOBBR;
     queue<shared_ptr<IceBlocks>>new_ice;
 
     //RXP -> Region X Full
     bool R1F, R2F, R3F, R4F; //mark region already has two ice
+
+    float iceOffset;
+    float mIceOffset;//offset for multiplayer
 } ;
 #endif // ICEBLOCKCONTROLLER_H

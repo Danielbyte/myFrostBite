@@ -72,6 +72,8 @@ const auto instructions_back_y = 472.0f;//y-coordinate of back sign in instructi
 
 const auto mLeftBoundary = 224.0f;
 const auto mRightBoundary = 577.473f;
+const auto mIceBoundaryL = 360.0f;
+const auto mIceBoundaryR = 441.473f;
 
 
 class CouldNotLoadPicture{};

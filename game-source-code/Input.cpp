@@ -71,6 +71,8 @@ void Engine::handleInput()
 				
 				//player1
 				player1.setBoundaries(mLeftBoundary, mRightBoundary);
+				control_ice.setNewBoundaries();
+				control_ice.mSetIceOffset();
 
 				//player2
 				player2.setBoundaries(mLeftBoundary, mRightBoundary);
