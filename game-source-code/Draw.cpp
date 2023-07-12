@@ -270,6 +270,7 @@ void Engine::display_manager()
 						draw_overWorld(fish);
 						//Draw ice
 						draw_overWorld(iceblocks);
+						window->draw(igloo_house->getSprite());
 						window->draw(player1.getSprite());
 						window->display();
 						window->clear(Color::White);
@@ -358,12 +359,43 @@ void Engine::display_manager()
 						//Draw ice
 						draw_overWorld(iceblocks2);
 						window->draw(player2.getSprite());
+						window->draw(igloo_house2->getSprite());
 						window->display();
 						window->clear(Color::White);
 						if (TimeElapsed >= 1.03f)
 						{
 							isAnimating = false;
 						}
+					}
+				}
+			}
+
+			if (isKilledByAnimal)
+			{
+				auto isAnimating = true;
+				Stopwatch s_watch;
+				while (isAnimating)
+				{
+					auto TimeElapsed = s_watch.elapsed_time();
+					animate.collision_with_sea_animal(TimeElapsed, player2);
+					window->draw(background_sprite);
+					//Draw birds
+					draw_overWorld(birds2);
+					//Draw crabs
+					draw_overWorld(crabs2);
+					//Draw clamps
+					draw_overWorld(clamps2);
+					//Draw fish
+					draw_overWorld(fish2);
+					//Draw ice
+					draw_overWorld(iceblocks2);
+					window->draw(igloo_house2->getSprite());
+					window->draw(player2.getSprite());
+					window->display();
+					window->clear(Color::White);
+					if (TimeElapsed >= 1.03f)
+					{
+						isAnimating = false;
 					}
 				}
 			}
