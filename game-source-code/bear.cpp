@@ -4,7 +4,11 @@ Bear::Bear():
 	bear_direction{Direction::Left}, //Bear initially moving to left
 	bear_position{757.5f,199.0f},
 	bear_speed{140.0f},
-	counter{0}
+	counter{0},
+	left_border{42.5f},
+	right_border{757.5f},
+	mLeft_border{242.5f},
+	mRight_border{558.973f}
 {
 	load_textures();
 	spawnPosition = bear_position;
@@ -27,6 +31,12 @@ void Bear::spawnBear()
 	bear_position = spawnPosition;
 	bear_sprite.setPosition(spawnPosition);
 	counter = 0;
+}
+
+void Bear::mSetBorders()
+{
+	left_border = mLeft_border;
+	right_border = mRight_border;
 }
 
 vector2f Bear::get_position() const
@@ -53,9 +63,9 @@ void Bear::update_bear(const float deltaTime, Player& player)
 		bear_position = bear_sprite.getPosition();
 
 		//restrict bear to left border
-		if (bear_position.x <= 42.5f)
+		if (bear_position.x <= left_border)
 		{
-			bear_position.x = 42.5f;
+			bear_position.x = left_border;
 			bear_sprite.setPosition(bear_position);
 			bear_direction = Direction::Right;
 		}
@@ -67,9 +77,9 @@ void Bear::update_bear(const float deltaTime, Player& player)
 		bear_position = bear_sprite.getPosition();
 
 		//restrict bear to right border
-		if (bear_position.x >= 757.5f)
+		if (bear_position.x >= right_border)
 		{
-			bear_position.x = 757.5f;
+			bear_position.x = right_border;
 			bear_sprite.setPosition(bear_position);
 			bear_direction = Direction::Left;
 		}

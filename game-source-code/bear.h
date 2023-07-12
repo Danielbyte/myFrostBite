@@ -18,6 +18,7 @@ public:
 	Sprite getSprite() const;
 	void spawnBear();
 	void mSetSpawnPosition();
+	void mSetBorders();
 	
 	//Textures
 	Texture bear_left1;
@@ -40,5 +41,9 @@ private:
 	void set_to_track_player(Player& player);
 	vector2f spawnPosition;
 	vector2f mSpawnPosition; //multiplayer spawn position for bear
+	float left_border;
+	float right_border;
+	float mLeft_border;
+	float mRight_border;
 };
 #endif

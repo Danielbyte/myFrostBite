@@ -76,6 +76,7 @@ void Engine::handleInput()
 				control_ice.setNewBoundaries();
 				control_ice.mSetIceOffset();
 				bear->mSetSpawnPosition();
+				bear->mSetBorders();
 
 				//player2
 				player2.setBoundaries(mLeftBoundary, mRightBoundary);
