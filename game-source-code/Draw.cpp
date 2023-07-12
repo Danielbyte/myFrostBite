@@ -317,6 +317,7 @@ void Engine::display_manager()
 			window->draw(background_sprite);
 			window->setView(rightView);
 			draw_overWorld(iceblocks2);
+			window->draw(bear2->getSprite());
 			draw_overWorld(birds2);
 			//Draw crabs
 			draw_overWorld(crabs2);

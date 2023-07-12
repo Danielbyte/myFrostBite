@@ -80,6 +80,8 @@ void Engine::handleInput()
 
 				//player2
 				player2.setBoundaries(mLeftBoundary, mRightBoundary);
+				bear2->mSetSpawnPosition();
+				bear2->mSetBorders();
 			}
 
 			if (menu.getCursorLevel() == 3)
