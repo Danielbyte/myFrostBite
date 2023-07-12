@@ -8,18 +8,23 @@ Bear::Bear():
 {
 	load_textures();
 	spawnPosition = bear_position;
+	mSpawnPosition.x = 558.973f;
+	mSpawnPosition.y = 199.0f;
 	bear_sprite.setOrigin(bear_with / 2.0f, bear_height / 2.0f);
-	bear_sprite.setPosition(bear_position);
+	bear_sprite.setPosition(spawnPosition);
 }
 
-void Bear::setSpawnPosition(vector2f _spawnPosition)
+void Bear::mSetSpawnPosition()
 {
-	spawnPosition = _spawnPosition;
+	spawnPosition = mSpawnPosition;
+	bear_position = spawnPosition;
+	bear_sprite.setPosition(spawnPosition);
 }
 
 void Bear::spawnBear()
 {
 	bear_sprite.setTexture(bear_left1);
+	bear_position = spawnPosition;
 	bear_sprite.setPosition(spawnPosition);
 	counter = 0;
 }

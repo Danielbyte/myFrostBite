@@ -238,6 +238,7 @@ void Engine::display_manager()
 			draw_overWorld(fish);
 			//Draw ice
 			draw_overWorld(iceblocks);
+			window->draw(bear->getSprite());
 			window->draw(overworld.getTemperature());
 			window->draw(overworld.getTemperatureSymbol());
 			window->draw(player1.getSprite());
