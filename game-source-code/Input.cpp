@@ -77,11 +77,12 @@ void Engine::handleInput()
 				control_ice.mSetIceOffset();
 				bear->mSetSpawnPosition();
 				bear->mSetBorders();
-
+				igloo_house->mSetPosition();
 				//player2
 				player2.setBoundaries(mLeftBoundary, mRightBoundary);
 				bear2->mSetSpawnPosition();
 				bear2->mSetBorders();
+				igloo_house2->mSetPosition();
 			}
 
 			if (menu.getCursorLevel() == 3)

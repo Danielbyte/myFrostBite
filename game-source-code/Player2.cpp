@@ -35,7 +35,8 @@ void Player2::handleInput(bool keyPressed)
 		rightPressed = false;
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::Space) && (!reverseBtnPressed && !playerInSafeZone))
+	if (sf::Keyboard::isKeyPressed(Keyboard::Space) && keyPressed &&
+		(!reverseBtnPressed && !playerInSafeZone))
 	{
 		reverseBtnPressed = true;
 	}

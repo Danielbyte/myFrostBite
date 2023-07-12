@@ -34,9 +34,11 @@ public:
     void updateSprite(Texture& newTexture);
     bool isComplete();
     vector2f getDoorPosition() const;
+    void mSetPosition();
 
 private:
     vector2f position;
+    vector2f mPosition;
     int igloo_blocks;
 
     void load_textures();

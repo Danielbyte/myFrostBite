@@ -6,11 +6,19 @@ Igloo::Igloo():
 {
     position.x = 612.0f;
     position.y = 130.0f;
+    mPosition.x = 473.0f;
+    mPosition.y = position.y;
+
     load_textures();
     iglooSprite.setOrigin(igloo_width / 2.0f, igloo_height / 2.0f);
     iglooSprite.setPosition(position);
 }
 
+void Igloo::mSetPosition()
+{
+    position = mPosition;
+    iglooSprite.setPosition(position);
+}
 
 vector2f Igloo::getPosition() const
 {

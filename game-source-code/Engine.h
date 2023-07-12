@@ -110,6 +110,7 @@ private:
 
 	//Igloo object
 	shared_ptr<Igloo>igloo_house = std::make_shared<Igloo>(Igloo());
+	shared_ptr<Igloo>igloo_house2 = std::make_shared<Igloo>(Igloo());
 
 	//template function to draw all animals in the game over world
 	template<typename _Animal>

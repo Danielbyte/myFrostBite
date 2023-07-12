@@ -241,6 +241,7 @@ void Engine::display_manager()
 			window->draw(bear->getSprite());
 			window->draw(overworld.getTemperature());
 			window->draw(overworld.getTemperatureSymbol());
+			window->draw(igloo_house->getSprite());
 			window->draw(player1.getSprite());
 
 			auto inSafeZone = player1.isPlayerInSafeZone();
@@ -300,6 +301,7 @@ void Engine::display_manager()
 					draw_overWorld(fish);
 					//Draw ice
 					draw_overWorld(iceblocks);
+					window->draw(igloo_house->getSprite());
 					window->draw(player1.getSprite());
 					window->display();
 					window->clear(Color::White);
@@ -316,6 +318,7 @@ void Engine::display_manager()
 			window->setView(RightViewB);
 			window->draw(background_sprite);
 			window->setView(rightView);
+			window->draw(igloo_house2->getSprite());
 			draw_overWorld(iceblocks2);
 			window->draw(bear2->getSprite());
 			draw_overWorld(birds2);
