@@ -53,8 +53,11 @@ void Engine::update(const float dtAsSeconds)
             manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds, igloo_house);
             manage_collisions.player_ice_collisions(player2, iceblocks2, dtAsSeconds, igloo_house2);
 
-            manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
-            manage_collisions.player_animal_collisions(player2, crabs2, clamps2, birds2, fish2);
+           // manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
+            //manage_collisions.player_animal_collisions(player2, crabs2, clamps2, birds2, fish2);
+
+            //manage_collisions.player_bear_collisions(bear, player1);
+            //manage_collisions.player_bear_collisions(bear2, player2);
 
             igloo_house->update_igloo();
             igloo_house2->update_igloo();

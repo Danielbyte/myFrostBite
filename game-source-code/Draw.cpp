@@ -247,6 +247,12 @@ void Engine::display_manager()
 			auto inSafeZone = player1.isPlayerInSafeZone();
 			auto isJumping = player1.isPlayerJumping();
 			auto isKilledByAnimal = player1.isPlayerKilledByAnimal();
+			auto isKilledByBear = player1.isKilledByBear();
+			auto iglooComplete = igloo_house->isComplete();
+			auto [playerDistanceToDoor, IglooDoorPos] = player1.distanceToDoor(igloo_house);
+			//auto isTimeUp = overworld.isTimeUp();
+			//auto isDead = player1.getIfDead();
+
 			if (!inSafeZone && !isJumping)
 			{
 				auto isDrowning = player1.isPlayerDrowning();
@@ -312,6 +318,93 @@ void Engine::display_manager()
 					}
 				}
 			}
+
+			if (isKilledByBear)
+			{
+				auto isAnimating = true;
+				Stopwatch s_watch;
+				auto lives = player1.getNumberOfLives();
+
+				while (isAnimating)
+				{
+					auto TimeElapsed = s_watch.elapsed_time();
+					animate.killed_by_bear(TimeElapsed, player1);
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+					window->display();
+					window->clear(Color::White);
+					if (TimeElapsed >= 1.03f)
+					{
+						isAnimating = false;
+					}
+				}
+
+				if (lives > 0)
+				{
+					player1.spawnPlayer();
+					player1.ressurectFromBearDeath();
+					bear->spawnBear();
+					iceblocks.clear();
+					canCreateIce = true;
+					clamps.clear();
+					birds.clear();
+					crabs.clear();
+				}
+			}
+
+			if (inSafeZone && iglooComplete && playerDistanceToDoor.x <= 35.0f)
+			{
+				Stopwatch s_watch;
+				bool isInside = false;
+				while (!isInside)
+				{
+					auto [playerDistanceToDoor, iglooDoorPos] = player1.distanceToDoor(igloo_house);
+					auto TimeElapsed = s_watch.elapsed_time();
+					vector2f playerPos = player1.getPosition();
+					float goingInIgloo_X_speed = 100.0f;
+					float goingInIgloo_Y_speed = 9.5f;
+					auto igloorDoorOffset = 14.5f;
+					if (playerPos.x > iglooDoorPos.x)
+					{
+						if (playerDistanceToDoor.x > 1.0f)
+						{
+							vector2f pos = player1.getPosition();
+							pos.x -= TimeElapsed * goingInIgloo_X_speed;
+							player1.setPosition(pos);
+						}
+					}
+
+					if (playerPos.x < iglooDoorPos.x)
+					{
+						if (playerDistanceToDoor.x > igloorDoorOffset)
+						{
+							vector2f pos = player1.getPosition();
+							pos.x += TimeElapsed * goingInIgloo_X_speed;
+							player1.setPosition(pos);
+						}
+					}
+
+					if (playerPos.y > iglooDoorPos.y)
+					{
+						vector2f pos = player1.getPosition();
+						pos.y -= TimeElapsed * goingInIgloo_Y_speed;
+						player1.setPosition(pos);
+					}
+
+					animate.go_inside_igloo(playerPos.y, player1);
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+					window->display();
+					window->clear(Color::White);
+
+					if (playerPos.y < 133.0f)
+					{
+						isInside = true;
+						//is_playing = false;
+						//is_game_over = true;
+						window->setKeyRepeatEnabled(false);
+					}
+				}
+			}
+
 			//Draw line that separates two screens
 			window->draw(line_sprite);
 			
@@ -334,6 +427,11 @@ void Engine::display_manager()
 			inSafeZone = player2.isPlayerInSafeZone();
 			isJumping = player2.isPlayerJumping();
 			isKilledByAnimal = player2.isPlayerKilledByAnimal();
+			isKilledByBear = player2.isKilledByBear();
+			iglooComplete = igloo_house2->isComplete();
+			auto [playerDistanceToDoor2, IglooDoorPos2] = player2.distanceToDoor(igloo_house2);
+			//auto isTimeUp = overworld.isTimeUp();
+			//auto isDead = player1.getIfDead();
 
 			if (!inSafeZone && !isJumping)
 			{
@@ -396,6 +494,92 @@ void Engine::display_manager()
 					if (TimeElapsed >= 1.03f)
 					{
 						isAnimating = false;
+					}
+				}
+			}
+
+			if (isKilledByBear)
+			{
+				auto isAnimating = true;
+				Stopwatch s_watch;
+				auto lives = player2.getNumberOfLives();
+
+				while (isAnimating)
+				{
+					auto TimeElapsed = s_watch.elapsed_time();
+					animate.killed_by_bear(TimeElapsed, player2);
+					draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+					window->display();
+					window->clear(Color::White);
+					if (TimeElapsed >= 1.03f)
+					{
+						isAnimating = false;
+					}
+				}
+
+				if (lives > 0)
+				{
+					player2.spawnPlayer();
+					player2.ressurectFromBearDeath();
+					bear2->spawnBear();
+					iceblocks2.clear();
+					canCreateIce2 = true;
+					clamps2.clear();
+					birds2.clear();
+					crabs2.clear();
+				}
+			}
+
+			if (inSafeZone && iglooComplete && playerDistanceToDoor2.x <= 35.0f)
+			{
+				Stopwatch s_watch;
+				bool isInside = false;
+				while (!isInside)
+				{
+					auto [playerDistanceToDoor2, iglooDoorPos2] = player2.distanceToDoor(igloo_house);
+					auto TimeElapsed = s_watch.elapsed_time();
+					vector2f playerPos = player2.getPosition();
+					float goingInIgloo_X_speed = 100.0f;
+					float goingInIgloo_Y_speed = 9.5f;
+					auto igloorDoorOffset = 14.5f;
+					if (playerPos.x > iglooDoorPos2.x)
+					{
+						if (playerDistanceToDoor2.x > 1.0f)
+						{
+							vector2f pos = player2.getPosition();
+							pos.x -= TimeElapsed * goingInIgloo_X_speed;
+							player2.setPosition(pos);
+						}
+					}
+
+					if (playerPos.x < iglooDoorPos2.x)
+					{
+						if (playerDistanceToDoor2.x > igloorDoorOffset)
+						{
+							vector2f pos = player2.getPosition();
+							pos.x += TimeElapsed * goingInIgloo_X_speed;
+							player2.setPosition(pos);
+						}
+					}
+
+					if (playerPos.y > iglooDoorPos2.y)
+					{
+						vector2f pos = player2.getPosition();
+						pos.y -= TimeElapsed * goingInIgloo_Y_speed;
+						player2.setPosition(pos);
+					}
+
+					animate.go_inside_igloo(playerPos.y, player2);
+					draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+					window->display();
+					window->clear(Color::White);
+
+					if (playerPos.y < 133.0f)
+					{
+						isInside = true;
+						//is_playing = false;
+						//is_game_over = true;
+						window->setKeyRepeatEnabled(false);
 					}
 				}
 			}
