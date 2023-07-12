@@ -329,6 +329,45 @@ void Engine::display_manager()
 			//Draw fish
 			draw_overWorld(fish2);
 			window->draw(player2.getSprite());
+
+			inSafeZone = player2.isPlayerInSafeZone();
+			isJumping = player2.isPlayerJumping();
+			isKilledByAnimal = player2.isPlayerKilledByAnimal();
+
+			if (!inSafeZone && !isJumping)
+			{
+				auto isDrowning = player2.isPlayerDrowning();
+				if (isDrowning)
+				{
+					auto isAnimating = true;
+					Stopwatch s_watch;
+
+					while (isAnimating)
+					{
+						auto TimeElapsed = s_watch.elapsed_time();
+						animate.drowning_player(TimeElapsed, player2);
+						window->draw(background_sprite);
+						//Draw birds
+						draw_overWorld(birds2);
+						//Draw crabs
+						draw_overWorld(crabs2);
+						//Draw clamps
+						draw_overWorld(clamps2);
+						//Draw fish
+						draw_overWorld(fish2);
+						//Draw ice
+						draw_overWorld(iceblocks2);
+						window->draw(player2.getSprite());
+						window->display();
+						window->clear(Color::White);
+						if (TimeElapsed >= 1.03f)
+						{
+							isAnimating = false;
+						}
+					}
+				}
+			}
+
 		}
 	}
 	else
