@@ -66,8 +66,10 @@ void Engine::handleInput()
 				splitScreen = true;
 				isPlaying = true;
 				canCreateIce = true;
+				canCreateIce2 = true;
 				overworld_watch.restart_timer();
 				overworld.initialize_temperature();
+				overworld2.initialize_temperature();
 				
 				//player1
 				player1.setBoundaries(mLeftBoundary, mRightBoundary);

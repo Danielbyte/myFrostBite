@@ -315,6 +315,14 @@ void Engine::display_manager()
 			window->setView(RightViewB);
 			window->draw(background_sprite);
 			window->setView(rightView);
+			draw_overWorld(iceblocks2);
+			draw_overWorld(birds2);
+			//Draw crabs
+			draw_overWorld(crabs2);
+			//Draw clamps
+			draw_overWorld(clamps2);
+			//Draw fish
+			draw_overWorld(fish2);
 			window->draw(player2.getSprite());
 		}
 	}

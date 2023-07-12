@@ -30,7 +30,9 @@ private:
 	Player1 player1;
 	Player2 player2;
 	OverWorld overworld;
+	OverWorld overworld2; //over world for second player
 	Stopwatch overworld_watch;
+	Stopwatch overworld_watch2;
 	BirdController control_birds;
 	CrabController control_crabs;
 	ClampController control_clamps;
@@ -63,7 +65,9 @@ private:
 	sf::View RightViewB; //background of right window 
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
 	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
-	void update_over_world(const float deltaTime);
+	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
+		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, 
+		vector<shared_ptr<IceBlocks>>&, Stopwatch&);
 	void display_manager(); //Front End (Manages the front end logic)
 	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
 		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
@@ -91,9 +95,18 @@ private:
 	vector <shared_ptr<Fish>> fish;
 	shared_ptr<Bear>bear = std::make_shared<Bear>(Bear());
 
+	//Animals for second player overworld
+	vector <shared_ptr<Crab>> crabs2;
+	vector <shared_ptr<Clamp>> clamps2;
+	vector <shared_ptr<Bird>> birds2;
+	vector <shared_ptr<Fish>> fish2;
+	shared_ptr<Bear>bear2 = std::make_shared<Bear>(Bear());
+
 	//Iceblocks
 	vector <shared_ptr<IceBlocks>> iceblocks;
+	vector <shared_ptr<IceBlocks>> iceblocks2;
 	bool canCreateIce;
+	bool canCreateIce2; //for the second player
 
 	//Igloo object
 	shared_ptr<Igloo>igloo_house = std::make_shared<Igloo>(Igloo());

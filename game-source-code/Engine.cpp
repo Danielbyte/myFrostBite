@@ -5,7 +5,8 @@ Engine::Engine():
 	splitScreen{false},
 	inMainMenu{true}, // game initially in main menu display
 	isPlaying{false}, //game initially in not in game play mode
-	canCreateIce{false}
+	canCreateIce{false},
+	canCreateIce2{false}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
