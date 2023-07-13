@@ -119,19 +119,27 @@ void Engine::updatePlayer2World(float dtAsSeconds)
     animate.animate_player(player2);
     bear2->update_bear(dtAsSeconds, player2);
     manage_collisions.player_ice_collisions(player2, iceblocks2, dtAsSeconds, igloo_house2);
-    //manage_collisions.player_animal_collisions(player2, crabs2, clamps2, birds2, fish2);
-    //manage_collisions.player_bear_collisions(bear2, player2);
+    manage_collisions.player_animal_collisions(player2, crabs2, clamps2, birds2, fish2);
+    manage_collisions.player_bear_collisions(bear2, player2);
     igloo_house2->update_igloo();
 }
 
 void Engine::updatePlayer1World(float dtAsSeconds)
 {
+    //Since game entities update wrt time, the code below helps keep 
+    //the time constant (after animations in world1) for smoother game play.
+    if (fromOverWorld2Animation)
+    {
+        dtAsSeconds = standard_dt;
+        fromOverWorld2Animation = false;
+    }
+
     player1.update(dtAsSeconds);
     update_over_world(dtAsSeconds, overworld, crabs, clamps, birds, fish, iceblocks, overworld_watch);
     animate.animate_player(player1);
     bear->update_bear(dtAsSeconds, player1);
     manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds, igloo_house);
-   // manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
+    manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
     //manage_collisions.player_bear_collisions(bear, player1);
     igloo_house->update_igloo();
 }

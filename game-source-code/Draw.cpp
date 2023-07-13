@@ -426,9 +426,9 @@ void Engine::display_manager(float dt)
 				window->setView(RightViewB);
 				window->draw(background_sprite);
 				window->setView(rightView);
-				//window->clear(Color::White);
 				window->draw(game_over_sprite);
 			}
+
 			else
 			{
 				if (!inSafeZone && !isJumping)
@@ -444,26 +444,17 @@ void Engine::display_manager(float dt)
 						{
 							auto TimeElapsed = s_watch.elapsed_time();
 							animate.drowning_player(TimeElapsed, player2);
-							draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
-
-
-							window->display();
-
-							window->clear(Color::White);
-							if (TimeElapsed >= 1.03f)
-							{
-								isAnimating = false;
-							}
-
+							World2Animations(dt, TimeElapsed, isAnimating);
 						}
 
 						player2.subractLive();
 						player2.set_state();
+						fromOverWorld2Animation = true;
 
 						if (lives > 0)
 						{
 							player2.spawnPlayer();
-							player2.ressurectFromBearDeath();
+							player2.ressurectFromDrownDeath();
 							bear2->spawnBear();
 							iceblocks2.clear();
 							canCreateIce2 = true;
@@ -477,21 +468,30 @@ void Engine::display_manager(float dt)
 
 				if (isKilledByAnimal)
 				{
+					auto lives = player2.getNumberOfLives();
 					auto isAnimating = true;
 					Stopwatch s_watch;
 					while (isAnimating)
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
 						animate.collision_with_sea_animal(TimeElapsed, player2);
-						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
-						window->display();
-						window->clear(Color::White);
+						World2Animations(dt, TimeElapsed, isAnimating);
+					}
 
-						if (TimeElapsed >= 1.03f)
-						{
-							isAnimating = false;
-						}
+					player2.subractLive();
+					player2.set_state();
+					fromOverWorld2Animation = true;
 
+					if (lives > 0)
+					{
+						player2.spawnPlayer();
+						player2.ressurectFromAnimalDeath();
+						bear2->spawnBear();
+						iceblocks2.clear();
+						canCreateIce2 = true;
+						clamps2.clear();
+						birds2.clear();
+						crabs2.clear();
 					}
 				}
 
@@ -505,15 +505,12 @@ void Engine::display_manager(float dt)
 					{
 						auto TimeElapsed = s_watch.elapsed_time();
 						animate.killed_by_bear(TimeElapsed, player2);
-						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
-						window->display();
-						window->clear(Color::White);
-
-						if (TimeElapsed >= 1.03f)
-						{
-							isAnimating = false;
-						}
+						World2Animations(dt, TimeElapsed, isAnimating);
 					}
+
+					player2.subractLive();
+					player2.set_state();
+					fromOverWorld2Animation = true;
 
 					if (lives > 0)
 					{
@@ -628,11 +625,32 @@ void Engine::World1Anaimations(const float _dt, const float TimeElapsed, bool& i
 
 	window->setView(rightView);
 	window->draw(background_sprite);
-
 	handleInput();
 	standard_dt = _dt;
 	updatePlayer2World(_dt);
 	draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+
+	if (TimeElapsed >= 1.03f)
+	{
+		isAnimating = false;
+	}
+
+	window->display();
+}
+
+void Engine::World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating)
+{
+	window->setView(rightView);
+	window->draw(background_sprite);
+	draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+
+	window->setView(leftView);
+	window->draw(background_sprite);
+	handleInput();
+	standard_dt = _dt;
+	updatePlayer1World(_dt);
+	draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+	window->draw(line_sprite);
 
 	if (TimeElapsed >= 1.03f)
 	{
