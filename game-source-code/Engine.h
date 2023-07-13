@@ -61,6 +61,7 @@ private:
 	sf::View singlePlayerBG_View; // single player background
 	sf::View LeftViewB; // background of left window
 	sf::View RightViewB; //background of right window 
+
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
 	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
@@ -82,6 +83,9 @@ private:
 
 	Texture game_over_texture;
 	Sprite game_over_sprite;
+
+	Texture victory_texture;
+	Sprite victory_sprite;
 
 	Texture line_texture;
 	Sprite line_sprite;
@@ -119,6 +123,10 @@ private:
 	float standard_dt;
 	float standardAnimDur; //standard time period for animations
 	float freezeAnimDur; // animation period specific to freezing animations
+
+	bool player1Win;
+	bool player2Win;
+
 	void World1Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
 	void World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
 

@@ -11,7 +11,9 @@ Engine::Engine():
 	fromOverWorld2Animation{false},
 	standard_dt{0.0f},
 	standardAnimDur{1.03f},
-	freezeAnimDur{1.1f}
+	freezeAnimDur{1.1f},
+	player1Win{false},
+	player2Win{false}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -69,6 +71,7 @@ void Engine::LoadTextures()
 	background_texture.loadFromFile("resources/background.png");
 	line_texture.loadFromFile("resources/line.png");
 	game_over_texture.loadFromFile("resources/gameover.png");
+	victory_texture.loadFromFile("resources/victory.png");
 }
 
 void Engine::SetSprites()
@@ -76,6 +79,7 @@ void Engine::SetSprites()
 	menu_sprite.setTexture(menu_texture);
 	background_sprite.setTexture(background_texture);
 	game_over_sprite.setTexture(game_over_texture);
+	victory_sprite.setTexture(victory_texture);
 
 	line_sprite.setTexture(line_texture);
 	line_sprite.setPosition(600.0f, 300.0f);

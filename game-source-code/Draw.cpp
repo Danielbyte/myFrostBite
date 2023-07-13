@@ -29,6 +29,13 @@ void Engine::display_manager(float dt)
 				return;
 			}
 
+			if (player1Win)
+			{
+				window->draw(victory_sprite);
+				window->display();
+				return;
+			}
+
 			if (isTimeUp)
 			{
 				auto isAnimating = true;
@@ -40,7 +47,6 @@ void Engine::display_manager(float dt)
 					animate.freezing_animation(TimeElapsed, player1);
 					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
-					//window->clear(Color::White);
 					
 					if (TimeElapsed >= 1.1f)
 					{
@@ -114,6 +120,7 @@ void Engine::display_manager(float dt)
 						window->setKeyRepeatEnabled(false);
 					}
 				}
+				player1Win = true;
 			}
 
 			if (!inSafeZone && !isJumping)
