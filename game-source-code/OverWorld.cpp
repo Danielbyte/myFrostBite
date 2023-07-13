@@ -33,6 +33,17 @@ OverWorld::OverWorld():
 	degree_symbol.setFillColor(Color::Cyan);
 	degree_symbol.setPosition(188.0f, 0.0f);
 	degree_symbol.setString("o");
+
+	mTemperatureHUDpos.x = 200.0f;
+	mTemperatureHUDpos.y = 3.0f;
+	mTemperatureSymbolPos.x = 388.0f;
+	mTemperatureSymbolPos.y = 0.0f;
+}
+
+void OverWorld::mSetTemperatureHUD()
+{
+	temperature_disp.setPosition(mTemperatureHUDpos);
+	degree_symbol.setPosition(mTemperatureSymbolPos);
 }
 
 void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_ptr<Clamp>>& clampsObj,

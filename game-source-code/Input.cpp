@@ -70,6 +70,8 @@ void Engine::handleInput()
 				overworld_watch.restart_timer();
 				overworld.initialize_temperature();
 				overworld2.initialize_temperature();
+				overworld.mSetTemperatureHUD();
+				overworld2.mSetTemperatureHUD();
 				
 				//player1
 				player1.setBoundaries(mLeftBoundary, mRightBoundary);
