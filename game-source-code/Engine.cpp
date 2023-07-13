@@ -9,7 +9,9 @@ Engine::Engine():
 	canCreateIce2{false},
 	fromOverWorld1Animation{false},
 	fromOverWorld2Animation{false},
-	standard_dt{0.0f}
+	standard_dt{0.0f},
+	standardAnimDur{1.03f},
+	freezeAnimDur{1.1f}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);

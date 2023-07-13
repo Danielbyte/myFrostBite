@@ -117,9 +117,10 @@ private:
 	bool fromOverWorld1Animation;
 	bool fromOverWorld2Animation;
 	float standard_dt;
-
-	void World1Anaimations(const float _dt, const float TimeElapsed, bool& isAnimating);
-	void World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating);
+	float standardAnimDur; //standard time period for animations
+	float freezeAnimDur; // animation period specific to freezing animations
+	void World1Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
+	void World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
 
 	//template function to draw all animals in the game over world
 	template<typename _Animal>
