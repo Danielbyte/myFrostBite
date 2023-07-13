@@ -6,7 +6,10 @@ Engine::Engine():
 	inMainMenu{true}, // game initially in main menu display
 	isPlaying{false}, //game initially in not in game play mode
 	canCreateIce{false},
-	canCreateIce2{false}
+	canCreateIce2{false},
+	fromOverWorld1Animation{false},
+	fromOverWorld2Animation{false},
+	standard_dt{0.0f}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -54,7 +57,7 @@ void Engine::run()
 		//Update game
 		update(dtAsSeconds);
 		//Draw game entities
-		display_manager();
+		display_manager(dtAsSeconds);
 	}
 }
 

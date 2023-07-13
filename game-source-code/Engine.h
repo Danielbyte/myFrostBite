@@ -43,9 +43,7 @@ private:
 
 	bool needToSpawn; //flag if need to spawn players
 	
-
 	//initialize single and multiplayer objects
-	
 	bool splitScreen; //for multiplayer mode
 	bool inMainMenu;
 	bool isPlaying;
@@ -68,7 +66,7 @@ private:
 	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, 
 		vector<shared_ptr<IceBlocks>>&, Stopwatch&);
-	void display_manager(); //Front End (Manages the front end logic)
+	void display_manager(float dt); //Front End (Manages the front end logic)
 	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
 		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
 		Player& player, OverWorld& _overworld);
@@ -111,6 +109,17 @@ private:
 	//Igloo object
 	shared_ptr<Igloo>igloo_house = std::make_shared<Igloo>(Igloo());
 	shared_ptr<Igloo>igloo_house2 = std::make_shared<Igloo>(Igloo());
+
+	//Update respective player sides
+	void updatePlayer1World(float dtAsSeconds);
+	void updatePlayer2World(float dtAsSeconds);
+
+	bool fromOverWorld1Animation;
+	bool fromOverWorld2Animation;
+	float standard_dt;
+
+	void World1Anaimations(const float _dt, const float TimeElapsed, bool& isAnimating);
+	void World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating);
 
 	//template function to draw all animals in the game over world
 	template<typename _Animal>
