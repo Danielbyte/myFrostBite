@@ -619,8 +619,7 @@ void Engine::display_manager(float dt)
 						animate.go_inside_igloo(playerPos.y, player2);
 						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
 						window->display();
-						window->clear(Color::White);
-
+					
 						if (playerPos.y < 133.0f)
 						{
 							isInside = true;

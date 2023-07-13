@@ -57,6 +57,7 @@ void Engine::handleInput()
 				isPlaying = true;
 				canCreateIce = true;
 				overworld_watch.restart_timer();
+				overworld_watch2.restart_timer();
 				overworld.initialize_temperature();
 			}
 
@@ -68,6 +69,7 @@ void Engine::handleInput()
 				canCreateIce = true;
 				canCreateIce2 = true;
 				overworld_watch.restart_timer();
+				overworld_watch2.restart_timer();
 				overworld.initialize_temperature();
 				overworld2.initialize_temperature();
 				overworld.mSetTemperatureHUD();
