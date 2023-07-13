@@ -1,7 +1,11 @@
 #include "fishController.h"
 
 FishController::FishController():
-	speed_controller{90.0f}
+	speed_controller{90.0f},
+	LoutOfBounds{821.5f},
+	RoutOfBounds{-21.5f},
+	mLOutOfBounds{622.973f},
+	mROutOfBounds{178.5f}
 {
 	load_textures();
 }
@@ -24,8 +28,7 @@ void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float del
 				pos.x += speed_controller * deltaTime;
 				(*fish_iter)->setPosition(pos);
 
-				auto outOfBounds = windowWidth + (fish_width / 2.0f);
-				if (pos.x >= outOfBounds)
+				if (pos.x >= LoutOfBounds)
 				{
 					fish.erase(fish_iter);
 					return;
@@ -39,8 +42,7 @@ void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float del
 				pos.x -= speed_controller * deltaTime;
 				(*fish_iter)->setPosition(pos);
 
-				auto outOfBounds = -fish_width / 2.0f;
-				if (pos.x <= outOfBounds)
+				if (pos.x <= RoutOfBounds)
 				{
 					fish.erase(fish_iter);
 					return;
@@ -50,6 +52,12 @@ void FishController::update_fish(vector<shared_ptr<Fish>>& fish, const float del
 			++fish_iter;
 		}
 	}
+}
+
+void FishController::setMultiplayerBounds()
+{
+	LoutOfBounds = mLOutOfBounds;
+	RoutOfBounds = mROutOfBounds;
 }
 
 void FishController::animate(shared_ptr<Fish>& fish)

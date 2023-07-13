@@ -17,8 +17,13 @@ public:
 
 	void update_birds(vector<shared_ptr<Bird>>&, const float deltaTime);
 	void animate(shared_ptr<Bird>&);
+	void setMultiPlayerBounds();
 
 private:
 	float speed_controller;
+	float LOutOfBounds;
+	float ROutOfBounds;
+	float mLOutOfBounds;
+	float mROutOfBounds;
 };
 #endif;

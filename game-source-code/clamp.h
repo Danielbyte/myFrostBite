@@ -9,7 +9,7 @@ class Clamp : public Animal
 {
 public:
 	Clamp();
-	Clamp(const int&, const float&);
+	Clamp(const int side, const float region, bool isMultiPlayer);
 	void set_x_position(const float& _x);
 
 	void increment_counter();
@@ -24,5 +24,9 @@ private:
 	//animation of clamp entity
 	int counter;
 	int cycle;
+	float rightP;
+	float leftP;
+	float mRightP;
+	float mLeftP;
 };
 #endif

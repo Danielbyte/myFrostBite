@@ -10,7 +10,7 @@ public:
 	//default constructor
 	Crab();
 	//construct a crab object with parameters
-	Crab(const int&, const float&);
+	Crab(const int side, const float region, bool isMultiplayer);
 	void set_x_position(const float&);
 
 	//for animating crabs
@@ -24,5 +24,9 @@ public:
 private:
 	int counter;
 	int cycle;
+	float rightP;
+	float leftP;
+	float mRightP;
+	float mLeftP;
 };
 #endif

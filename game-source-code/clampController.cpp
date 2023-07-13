@@ -1,9 +1,19 @@
 #include "clampController.h"
 
 ClampController::ClampController():
-	speed_controller{100.0f}
+	speed_controller{100.0f},
+	LOutOfBounds{821.0f},
+	ROutOfBounds{-21.0f},
+	mLOutOfBounds{622.473f},
+	mROutOfBounds{179.0f}
 {
 	load_tectures();
+}
+
+void ClampController::setMultiPlayerBounds()
+{
+	LOutOfBounds = mLOutOfBounds;
+	ROutOfBounds = mROutOfBounds;
 }
 
 void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const float deltaTime)
@@ -26,8 +36,7 @@ void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const floa
 					pos.x += speed_controller * deltaTime;
 					(*clamp_iter)->setPosition(pos);
 
-					auto outOfBounds = windowWidth + (clamp_width / 2.0f);
-					if (pos.x >= outOfBounds)
+					if (pos.x >= LOutOfBounds)
 					{
 						clamps.erase(clamp_iter);
 						return;
@@ -41,8 +50,7 @@ void ClampController::update_clamp(vector<shared_ptr<Clamp>>& clamps, const floa
 					pos.x -= speed_controller * deltaTime;
 					(*clamp_iter)->setPosition(pos);
 
-					auto outOfBounds = -clamp_width / 2.0f;
-					if (pos.x <= outOfBounds)
+					if (pos.x <= ROutOfBounds)
 					{
 						clamps.erase(clamp_iter);
 						return;

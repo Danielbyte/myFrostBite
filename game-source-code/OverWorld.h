@@ -47,6 +47,7 @@ public:
 	int isTimeUp() const; //Temperature reached zero
 	void resetTemperature();
 	void mSetTemperatureHUD();
+	void setMultiPlayerMode();
 
 private:
 
@@ -79,18 +80,19 @@ private:
 	vector2f mTemperatureHUDpos; //heads up display for temperature in multiplayer mode
 	vector2f mTemperatureSymbolPos;
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
+	bool isMultiplayer;
 
 	template<typename T>
-	void place_animal(vector<shared_ptr<T>>& animal, const float region)
+	void place_animal(vector<shared_ptr<T>>& animal, const float region, bool _isMultiPlayer)
 	{
 		//select side
 		auto side = pick_side();
 		//create new animal object
-		shared_ptr<T>animal_ptr(new T(side, region));
+		shared_ptr<T>animal_ptr(new T(side, region, _isMultiPlayer));
 		animal.push_back(animal_ptr);
 
 		//crate second animal
-		shared_ptr<T>animal_ptr2(new T(side, region));
+		shared_ptr<T>animal_ptr2(new T(side, region, _isMultiPlayer));
 		animal_ptr2->set_x_position(gapBetweeenAnimals);
 		animal.push_back(animal_ptr2);
 	}

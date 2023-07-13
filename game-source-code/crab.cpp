@@ -2,33 +2,66 @@
 
 Crab::Crab():
 	counter{ 0 },
-	cycle{ 1 }
+	cycle{ 1 },
+	rightP{941.0f},
+	leftP{-141.0f},
+	mRightP{742.473f},
+	mLeftP{59.0f}
 {}
 
-Crab::Crab(const int& side, const float& region):
+Crab::Crab(const int side, const float region, bool isMultiPlayer):
 	counter{0},
-	cycle{1}
+	cycle{1},
+	rightP{ 941.0f },
+	leftP{ -141.0f },
+	mRightP{ 742.473f },
+	mLeftP{ 59.0f }
 {
 	position.y = region;
-	auto gapBetweeenCrabs = 120.0f;
-	animal_sprite.setOrigin(crab_width / 2.0f, crab_height / 2.0f);
-	if (side == right)
+	if (!isMultiPlayer)
 	{
-		auto x_position = windowWidth + (crab_width / 2) + gapBetweeenCrabs;
-		position.x = x_position;
-		spawned_left = false;
-		spawned_right = true;
-		animal_sprite.setPosition(position);
+		auto gapBetweeenCrabs = 120.0f;
+		animal_sprite.setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+		if (side == right)
+		{
+			position.x = rightP;
+			spawned_left = false;
+			spawned_right = true;
+			animal_sprite.setPosition(position);
+		}
+
+		if (side == left)
+		{
+			position.x = leftP;
+			spawned_left = true;
+			spawned_right = false;
+			animal_sprite.setPosition(position);
+		}
+
+		return;
 	}
 
-	if (side == left)
+	else
 	{
-		auto x_position = (- crab_width / 2.0f) - gapBetweeenCrabs;
-		position.x = x_position;
-		spawned_left = true;
-		spawned_right = false;
-		animal_sprite.setPosition(position);
+		auto gapBetweeenCrabs = 120.0f;
+		animal_sprite.setOrigin(crab_width / 2.0f, crab_height / 2.0f);
+		if (side == right)
+		{
+			position.x = mRightP;
+			spawned_left = false;
+			spawned_right = true;
+			animal_sprite.setPosition(position);
+		}
+
+		if (side == left)
+		{
+			position.x = mLeftP;
+			spawned_left = true;
+			spawned_right = false;
+			animal_sprite.setPosition(position);
+		}
 	}
+
 }
 
 void Crab::set_x_position(const float& x_)

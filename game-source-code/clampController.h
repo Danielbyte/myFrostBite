@@ -24,8 +24,13 @@ public:
 		clamp7_right, clamp8_right, clamp9_right, clamp10_right;
 
 	void load_tectures();
+	void setMultiPlayerBounds();
 
 private:
 	float speed_controller;
+	float LOutOfBounds;
+	float ROutOfBounds;
+	float mLOutOfBounds;
+	float mROutOfBounds;
 };
 #endif

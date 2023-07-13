@@ -1,7 +1,11 @@
 #include "crabController.h"
 
 CrabController::CrabController():
-	speed_controller{100.0f}
+	speed_controller{100.0f},
+	LOutOfBounds{821.0f},
+	ROutOfBounds{-21.0f},
+	mLOutOfBounds{622.473f},
+	mROutOfBounds{179.0f}
 {
 	load_textures();
 }
@@ -27,8 +31,7 @@ void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float de
 					pos.x += speed_controller * deltaTime;
 					(*crab_iter)->setPosition(pos);
 
-					auto outOfBounds = windowWidth + (crab_width / 2.0f);
-					if (pos.x >= outOfBounds)
+					if (pos.x >= LOutOfBounds)
 					{
 						crabs.erase(crab_iter);
 						return;
@@ -43,7 +46,7 @@ void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float de
 					(*crab_iter)->setPosition(pos);
 
 					auto outOfBounds = -crab_width / 2.0f;
-					if (pos.x <= outOfBounds)
+					if (pos.x <= ROutOfBounds)
 					{
 						crabs.erase(crab_iter);
 						return;
@@ -54,6 +57,12 @@ void CrabController::update_crab(vector<shared_ptr<Crab>>& crabs, const float de
 			++crab_iter;
 		}
 	}
+}
+
+void CrabController::setMultiPlayerBounds()
+{
+	LOutOfBounds = mLOutOfBounds;
+	ROutOfBounds = mROutOfBounds;
 }
 
 void CrabController::load_textures()

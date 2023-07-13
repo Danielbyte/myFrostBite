@@ -19,8 +19,13 @@ public:
 
 	void load_textures();
 	void animate(shared_ptr<Crab>&);
+	void setMultiPlayerBounds();
 
 private:
 	float speed_controller;
+	float LOutOfBounds;
+	float ROutOfBounds;
+	float mLOutOfBounds;
+	float mROutOfBounds;
 };
 #endif

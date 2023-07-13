@@ -18,7 +18,8 @@ OverWorld::OverWorld():
 	animalInRegion1{AnimalType::none},
 	animalInRegion2{AnimalType::none},
 	animalInRegion3{AnimalType::none},
-	animalInRegion4{AnimalType::none}
+	animalInRegion4{AnimalType::none},
+	isMultiplayer{false}
 {
 	temperatureFont.loadFromFile("resources/sansation.ttf");
 	temperature_disp.setFont(temperatureFont);
@@ -40,6 +41,11 @@ OverWorld::OverWorld():
 	mTemperatureSymbolPos.y = 0.0f;
 }
 
+void OverWorld::setMultiPlayerMode()
+{
+	isMultiplayer = true;
+}
+
 void OverWorld::mSetTemperatureHUD()
 {
 	temperature_disp.setPosition(mTemperatureHUDpos);
@@ -56,23 +62,23 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 			switch (enemyType)
 			{
 			case crab_:
-				place_animal(crabsObj, region1Position);
+				place_animal(crabsObj, region1Position, isMultiplayer);
 				animalInRegion1 = AnimalType::crabs;
 				break;
 
 			case clamp_:
 				//create clamps
-				place_animal(clampsObj, region1Position);
+				place_animal(clampsObj, region1Position, isMultiplayer);
 				animalInRegion1 = AnimalType::clamps;
 				break;
 
 			case fish_:
-				place_animal(fishObj, region1Position);
+				place_animal(fishObj, region1Position, isMultiplayer);
 				animalInRegion1 = AnimalType::fish;
 				break;
 
 			case bird_:
-				place_animal(birdsObj, region1Position);
+				place_animal(birdsObj, region1Position, isMultiplayer);
 				animalInRegion1 = AnimalType::birds;
 				break;
 
@@ -89,22 +95,22 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 			switch (enemyType)
 			{
 			case crab_:
-				place_animal(crabsObj, region2Position);
+				place_animal(crabsObj, region2Position, isMultiplayer);
 				animalInRegion2 = AnimalType::crabs;
 				break;
 
 			case clamp_:
-				place_animal(clampsObj, region2Position);
+				place_animal(clampsObj, region2Position, isMultiplayer);
 				animalInRegion2 = AnimalType::clamps;
 				break;
 
 			case fish_:
-				place_animal(fishObj, region2Position);
+				place_animal(fishObj, region2Position, isMultiplayer);
 				animalInRegion2 = AnimalType::fish;
 				break;
 
 			case bird_:
-				place_animal(birdsObj, region2Position);
+				place_animal(birdsObj, region2Position, isMultiplayer);
 				animalInRegion2 = AnimalType::birds;
 				break;
 
@@ -121,22 +127,22 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 			switch (enemyType)
 			{
 			case crab_:
-				place_animal(crabsObj, region3Position);
+				place_animal(crabsObj, region3Position, isMultiplayer);
 				animalInRegion3 = AnimalType::crabs;
 				break;
 
 			case clamp_:
-				place_animal(clampsObj, region3Position);
+				place_animal(clampsObj, region3Position, isMultiplayer);
 				animalInRegion3 = AnimalType::clamps;
 				break;
 
 			case fish_:
-				place_animal(fishObj, region3Position);
+				place_animal(fishObj, region3Position, isMultiplayer);
 				animalInRegion3 = AnimalType::fish;
 				break;
 
 			case bird_:
-				place_animal(birdsObj, region3Position);
+				place_animal(birdsObj, region3Position, isMultiplayer);
 				animalInRegion3 = AnimalType::birds;
 				break;
 
@@ -152,22 +158,22 @@ void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_
 			switch (enemyType)
 			{
 			case crab_:
-				place_animal(crabsObj, region4Position);
+				place_animal(crabsObj, region4Position, isMultiplayer);
 				animalInRegion4 = AnimalType::crabs;
 				break;
 
 			case clamp_:
-				place_animal(clampsObj, region4Position);
+				place_animal(clampsObj, region4Position, isMultiplayer);
 				animalInRegion4 = AnimalType::clamps;
 				break;
 
 			case fish_:
-				place_animal(fishObj, region4Position);
+				place_animal(fishObj, region4Position, isMultiplayer);
 				animalInRegion4 = AnimalType::fish;
 				break;
 
 			case bird_:
-				place_animal(birdsObj, region4Position);
+				place_animal(birdsObj, region4Position, isMultiplayer);
 				animalInRegion4 = AnimalType::birds;
 				break;
 

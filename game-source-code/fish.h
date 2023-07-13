@@ -9,7 +9,7 @@ class Fish :public Animal
 {
 public:
 	Fish();
-	Fish(const int&, const float&);
+	Fish(const int side, const float region, bool isMultiPlayer);
 
 	void set_x_position(const float&);
 	void increment_counter();
@@ -18,6 +18,10 @@ public:
 
 private:
 	int counter;
+	float RinitPosition;
+	float LinitPosition;
+	float mRInitPosition;
+	float mLInitPosition;
 };
 #endif
 

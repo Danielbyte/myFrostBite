@@ -74,6 +74,12 @@ void Engine::handleInput()
 				overworld2.initialize_temperature();
 				overworld.mSetTemperatureHUD();
 				overworld2.mSetTemperatureHUD();
+				overworld.setMultiPlayerMode();
+				overworld2.setMultiPlayerMode();
+				control_fish.setMultiplayerBounds();
+				control_birds.setMultiPlayerBounds();
+				control_crabs.setMultiPlayerBounds();
+				control_clamps.setMultiPlayerBounds();
 				
 				//player1
 				player1.setBoundaries(mLeftBoundary, mRightBoundary);

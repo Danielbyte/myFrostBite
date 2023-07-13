@@ -1,7 +1,11 @@
 #include "birdController.h"
 
 BirdController::BirdController():
-	speed_controller{100.0f}
+	speed_controller{100.0f},
+	LOutOfBounds{819.0f},
+	ROutOfBounds{-19.0f},
+	mLOutOfBounds{620.473f},
+	mROutOfBounds{110.0f}
 {
 	load_textures();
 }
@@ -25,8 +29,7 @@ void BirdController::update_birds(vector<shared_ptr<Bird>>& birds, const float d
 				(*bird_iter)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
-				auto outOfBounds = windowWidth + (bird_width / 2.0f);
-				if (pos.x >= outOfBounds)
+				if (pos.x >= LOutOfBounds)
 				{
 					//delete bird object
 					birds.erase(bird_iter);
@@ -41,8 +44,7 @@ void BirdController::update_birds(vector<shared_ptr<Bird>>& birds, const float d
 				(*bird_iter)->setPosition(pos);
 
 				//delete bird if it has travelled past the screen
-				auto outOfBounds = -bird_width / 2.0f;
-				if (pos.x <= outOfBounds)
+				if (pos.x <= ROutOfBounds)
 				{
 					//delete bird object
 					birds.erase(bird_iter);
@@ -150,4 +152,10 @@ void BirdController::animate(shared_ptr<Bird>& bird)
 			bird->reset_counter();
 		}
 	}
+}
+
+void BirdController::setMultiPlayerBounds()
+{
+	LOutOfBounds = mLOutOfBounds;
+	ROutOfBounds = mROutOfBounds;
 }

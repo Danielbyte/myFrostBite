@@ -2,30 +2,58 @@
 
 Clamp::Clamp():
 	counter{ 0 },
-	cycle{ 1 }
+	cycle{ 1 },
+	rightP{941.0f},
+	leftP{-141.0f},
+	mRightP{742.473f},
+	mLeftP{59.0f}
 {}
 
-Clamp::Clamp(const int& side, const float& region):
+Clamp::Clamp(const int side, const float region, bool isMultiPlayer):
 	counter{0},
-	cycle{1}
+	cycle{1},
+	rightP{ 941.0f },
+	leftP{ -141.0f },
+	mRightP{ 742.473f },
+	mLeftP{ 59.0f }
 {
 	position.y = region;
-	auto gapBetweenClamps = 120.0f;
 	animal_sprite.setOrigin(clamp_width / 2.0f, clamp_height / 2.0f);
-	if (side == right)
+
+	if (!isMultiPlayer)
 	{
-		auto x_position = windowWidth + (clamp_width / 2) + gapBetweenClamps;
-		position.x = x_position;
-		spawned_right = true;
-		animal_sprite.setPosition(position);
+		if (side == right)
+		{
+			position.x = rightP;
+			spawned_right = true;
+			animal_sprite.setPosition(position);
+		}
+
+		if (side == left)
+		{
+			position.x = leftP;
+			spawned_left = true;
+			animal_sprite.setPosition(position);
+		}
+
+		return;
 	}
 
-	if (side == left)
+	else
 	{
-		auto x_position = (-clamp_width / 2.0f) - gapBetweenClamps;
-		position.x = x_position;
-		spawned_left = true;
-		animal_sprite.setPosition(position);
+		if (side == right)
+		{
+			position.x = mRightP;
+			spawned_right = true;
+			animal_sprite.setPosition(position);
+		}
+
+		if (side == left)
+		{
+			position.x = mLeftP;
+			spawned_left = true;
+			animal_sprite.setPosition(position);
+		}
 	}
 }
 
