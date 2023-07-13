@@ -2,7 +2,6 @@
 
 void Engine::display_manager(float dt)
 {
-	window->clear(Color::White);
 	//Draw main menu
 	if (!inMainMenu)
 	{
@@ -110,7 +109,6 @@ void Engine::display_manager(float dt)
 					animate.go_inside_igloo(playerPos.y, player1);
 					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
-					window->clear(Color::White);
 
 					if (playerPos.y < 133.0f)
 					{
@@ -138,7 +136,6 @@ void Engine::display_manager(float dt)
 						animate.drowning_player(TimeElapsed, player1);
 						draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 						window->display();
-						window->clear(Color::White);
 
 						if (TimeElapsed >= 1.03f)
 						{
@@ -174,7 +171,7 @@ void Engine::display_manager(float dt)
 					animate.collision_with_sea_animal(TimeElapsed, player1);
 					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
-					window->clear(Color::White);
+
 					if (TimeElapsed >= 1.03f)
 					{
 						isAnimating = false;
@@ -206,7 +203,7 @@ void Engine::display_manager(float dt)
 					animate.killed_by_bear(TimeElapsed, player1);
 					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
-					window->clear(Color::White);
+		
 					if (TimeElapsed >= 1.03f)
 					{
 						isAnimating = false;
@@ -245,12 +242,20 @@ void Engine::display_manager(float dt)
 			auto isTimeUp = overworld.isTimeUp();
 			auto isDead = player1.getIfDead();
 
-			if (isDead)
+			if (isDead || player1Win)
 			{
-				window->setView(LeftViewB);
-				window->draw(background_sprite);
 				window->setView(leftView);
-				window->draw(game_over_sprite);
+				window->draw(background_sprite);
+
+				if (isDead)
+				{
+					window->draw(game_over_sprite);
+				}
+
+				if (player1Win)
+				{
+					window->draw(victory_sprite);
+				}
 			}
 
 			else
@@ -418,14 +423,8 @@ void Engine::display_manager(float dt)
 
 						animate.go_inside_igloo(playerPos.y, player1);
 						draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
-
-						window->setView(RightViewB);
-						window->draw(background_sprite);
-						window->setView(rightView);
-						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
-
 						window->display();
-					
+
 						if (playerPos.y < 133.0f)
 						{
 							isInside = true;
@@ -434,6 +433,7 @@ void Engine::display_manager(float dt)
 							window->setKeyRepeatEnabled(false);
 						}
 					}
+					player1Win = true;
 				}
 			}
 			//Draw line that separates two screens
@@ -454,12 +454,20 @@ void Engine::display_manager(float dt)
 			isTimeUp = overworld2.isTimeUp();
 			isDead = player2.getIfDead();
 
-			if (isDead)
+			if (isDead || player2Win)
 			{
-				window->setView(RightViewB);
-				window->draw(background_sprite);
 				window->setView(rightView);
-				window->draw(game_over_sprite);
+				window->draw(background_sprite);
+
+				if (isDead)
+				{
+					window->draw(game_over_sprite);
+				}
+
+				if (player2Win)
+				{
+					window->draw(victory_sprite);
+				}
 			}
 
 			else
@@ -590,7 +598,7 @@ void Engine::display_manager(float dt)
 					bool isInside = false;
 					while (!isInside)
 					{
-						auto [playerDistanceToDoor2, iglooDoorPos2] = player2.distanceToDoor(igloo_house);
+						auto [playerDistanceToDoor2, iglooDoorPos2] = player2.distanceToDoor(igloo_house2);
 						auto TimeElapsed = s_watch.elapsed_time();
 						vector2f playerPos = player2.getPosition();
 						float goingInIgloo_X_speed = 100.0f;
@@ -635,6 +643,8 @@ void Engine::display_manager(float dt)
 							window->setKeyRepeatEnabled(false);
 						}
 					}
+
+					player2Win = true;
 				}
 			}
 
@@ -682,11 +692,15 @@ void Engine::World1Animations(const float _dt, const float TimeElapsed, bool& is
 	window->draw(line_sprite);
 
 	window->setView(rightView);
-	window->draw(background_sprite);
-	handleInput();
-	standard_dt = _dt;
-	updatePlayer2World(_dt);
-	draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+	auto isDead = player2.getIfDead();
+
+	if (!isDead && !player2Win)
+	{
+		window->draw(background_sprite);
+		handleInput();
+		updatePlayer2World(_dt);
+		draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
+	}
 
 	if (TimeElapsed >= duration)
 	{
@@ -703,11 +717,16 @@ void Engine::World2Animations(const float _dt, const float TimeElapsed, bool& is
 	draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2, overworld2);
 
 	window->setView(leftView);
-	window->draw(background_sprite);
-	handleInput();
-	standard_dt = _dt;
-	updatePlayer1World(_dt);
-	draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+
+	auto isDead = player1.getIfDead();
+	if (!player1Win && !isDead)
+	{
+		window->draw(background_sprite);
+		handleInput();
+		updatePlayer1World(_dt);
+		draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+	}
+
 	window->draw(line_sprite);
 
 	if (TimeElapsed >= duration)

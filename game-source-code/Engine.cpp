@@ -9,7 +9,7 @@ Engine::Engine():
 	canCreateIce2{false},
 	fromOverWorld1Animation{false},
 	fromOverWorld2Animation{false},
-	standard_dt{0.0f},
+	standard_dt{0.016761f},
 	standardAnimDur{1.03f},
 	freezeAnimDur{1.1f},
 	player1Win{false},
