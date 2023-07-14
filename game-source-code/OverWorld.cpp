@@ -362,7 +362,11 @@ void OverWorld::update_temperature(Player& player)
 		{
 			//timeUp = true;
 			player.setState(PlayerState::Freezing);
-
+			player.subractLive();
+			if (player.getState() != PlayerState::Dead)
+			{
+				player.restartWatch();
+			}
 		}
 	}
 }

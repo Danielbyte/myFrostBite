@@ -6,7 +6,7 @@ AnimatePlayer::AnimatePlayer():
 	CWSCTPF{0.17f},
 	freezingFrameTime{0.063f},
 	standardAnimDur{1.03f},
-	freezeAnimDur{1.01f}
+	freezeAnimDur{1.1f}
 {
 	load_textures();
 }

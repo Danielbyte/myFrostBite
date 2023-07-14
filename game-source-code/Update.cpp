@@ -32,7 +32,6 @@ void Engine::update(float dtAsSeconds)
 		else
 		{
 			//update multiplayer mode (both players)
-            if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
             //updatePlayer1World(dtAsSeconds);
            // updatePlayer2World(dtAsSeconds);
 		}
@@ -41,7 +40,7 @@ void Engine::update(float dtAsSeconds)
 
 void Engine::update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>& _crabs,
     vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish,
-    vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overworld_watch, Player& player)
+    vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overworld_watch, Player& _player)
 {
     //create enemy every 5 seconds
     auto timeElapsed = _overworld_watch.elapsed_time();
@@ -103,7 +102,7 @@ void Engine::update_over_world(const float deltaTime, OverWorld& _overworld, vec
     }
     control_ice.update_iceblocks(_ice, deltaTime);
     control_ice.update_ice_texture(_ice);
-    _overworld.update_temperature(player);
+    _overworld.update_temperature(_player);
 }
 
 void Engine::updatePlayer2World(float dtAsSeconds)
@@ -149,7 +148,7 @@ void Engine::updateGamePlay(float dtAsSeconds, Player& _player, vector<shared_pt
     _bear->update_bear(dtAsSeconds, _player);
     manage_collisions.player_ice_collisions(_player, _ice, dtAsSeconds, _igloo);
     manage_collisions.player_animal_collisions(_player, _crabs, _clamps, _birds, _fish);
-    manage_collisions.player_bear_collisions(_bear, _player);
+   // manage_collisions.player_bear_collisions(_bear, _player);
     animate.animate(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld);
     _igloo->update_igloo();
 }

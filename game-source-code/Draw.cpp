@@ -726,7 +726,7 @@ void Engine::World2Animations(const float _dt, const float TimeElapsed, bool& is
 	{
 		window->draw(background_sprite);
 		handleInput();
-		//updatePlayer1World(_dt);
+		//updatePlayer
 		draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 	}
 
