@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-void Engine::update(const float dtAsSeconds)
+void Engine::update(float dtAsSeconds)
 {
 	if (isPlaying)
 	{
@@ -31,6 +31,7 @@ void Engine::update(const float dtAsSeconds)
 		else
 		{
 			//update multiplayer mode (both players)
+            if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
             updatePlayer1World(dtAsSeconds);
             updatePlayer2World(dtAsSeconds);
 		}
@@ -114,6 +115,8 @@ void Engine::updatePlayer2World(float dtAsSeconds)
         fromOverWorld1Animation = false;
     }
 
+    if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
+
     player2.update(dtAsSeconds);
     update_over_world(dtAsSeconds, overworld2, crabs2, clamps2, birds2, fish2, iceblocks2, overworld_watch2);
     animate.animate_player(player2);
@@ -134,12 +137,14 @@ void Engine::updatePlayer1World(float dtAsSeconds)
         fromOverWorld2Animation = false;
     }
 
+    if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
+
     player1.update(dtAsSeconds);
     update_over_world(dtAsSeconds, overworld, crabs, clamps, birds, fish, iceblocks, overworld_watch);
-    animate.animate_player(player1);
     bear->update_bear(dtAsSeconds, player1);
     manage_collisions.player_ice_collisions(player1, iceblocks, dtAsSeconds, igloo_house);
     manage_collisions.player_animal_collisions(player1, crabs, clamps, birds, fish);
     manage_collisions.player_bear_collisions(bear, player1);
+    animate.animate_player(player1);
     igloo_house->update_igloo();
 }

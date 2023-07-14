@@ -1,12 +1,11 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
 
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
 #include "igloo.h"
 
 enum class PlayerRegion { region1, region2, region3, region4, unknown };
+enum class PlayerState {Alive, Dead, Drowning, Freezing, AttackedBySeaAnimal, AttackedByBear};
 
 class Player
 {
@@ -54,6 +53,8 @@ public:
     void ressurectFromDrownDeath();
     void ressurectFromBearDeath();
     void setBoundaries(const float leftB, const float rightB);
+    void setState(PlayerState _state);
+    PlayerState getState();
 
 protected:
     Sprite player_sprite;
@@ -101,7 +102,7 @@ private:
     bool killedByBear;
     int numberOfLives;
     vector2f initialPosition;
-};
 
-#endif // !PLAYER_H
+    PlayerState state;
+};
 

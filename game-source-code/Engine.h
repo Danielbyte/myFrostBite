@@ -63,7 +63,7 @@ private:
 	sf::View RightViewB; //background of right window 
 
 	void handleInput(); //handle input from player/s (function defined in Input.cpp)
-	void update(const float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
+	void update(float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, 
 		vector<shared_ptr<IceBlocks>>&, Stopwatch&);

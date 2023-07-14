@@ -42,6 +42,7 @@ public:
 	void freezing_animation(const float&, Player& player);
 	void go_inside_igloo(const float&, Player& player);
 	void load_textures();
+	void animate(Player& player, const float deltaTime);
 
 private:
 	void increment_frame();

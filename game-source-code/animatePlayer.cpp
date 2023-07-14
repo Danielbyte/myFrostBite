@@ -102,6 +102,34 @@ void AnimatePlayer::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
+void AnimatePlayer::animate(Player& player, const float deltaTime)
+{
+	auto state = player.getState();
+
+	switch (state)
+	{
+	case PlayerState::Alive:
+		animate_player(player);
+		break;
+	case PlayerState::Dead:
+		break;
+	case PlayerState::Drowning:
+		drowning_player(deltaTime, player);
+		break;
+	case PlayerState::Freezing:
+		freezing_animation(deltaTime, player);
+		break;
+	case PlayerState::AttackedBySeaAnimal:
+		collision_with_sea_animal(deltaTime, player);
+		break;
+	case PlayerState::AttackedByBear:
+		killed_by_bear(deltaTime, player);
+		break;
+	default:
+		break;
+	}
+}
+
 void AnimatePlayer::animate_player(Player& player)
 {
 	auto facing_right = player.isFacingRight();
@@ -125,7 +153,6 @@ void AnimatePlayer::animate_player(Player& player)
 		{
 			reset_frame();
 		}
-
 	}
 
     if (facing_left && isLeftKeyPressed && !isBaileyJumping)

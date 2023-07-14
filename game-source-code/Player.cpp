@@ -38,6 +38,17 @@ Player::Player():
 	initialPosition.y = 199.0f;
 	initialPosition.x = 224.0f;
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
+	state = PlayerState::Alive;
+}
+
+void Player::setState(PlayerState _state)
+{
+	state = _state;
+}
+
+PlayerState Player::getState()
+{
+	return state;
 }
 
 void Player::spawnPlayer()
@@ -358,6 +369,7 @@ void Player::subractLive()
 	else
 	{
 		numberOfLives = 0;
+		state = PlayerState::Dead;
 	}
 }
 
