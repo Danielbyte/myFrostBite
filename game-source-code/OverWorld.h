@@ -8,6 +8,7 @@
 #include "bird.h"
 #include "fish.h"
 #include "IceBlocks.h"
+#include "Player.h"
 
 enum class AnimalType { crabs, clamps, birds, fish, none };
 
@@ -40,7 +41,7 @@ public:
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
-	void update_temperature();
+	void update_temperature(Player& player);
 	void initialize_temperature();
 	Text getTemperature();
 	Text getTemperatureSymbol() const;

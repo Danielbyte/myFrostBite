@@ -1,7 +1,8 @@
 #ifndef ANIMATEPLAYER_H
 #define ANIAMATEPLAYER_H
 
-#include "Player.h"
+#include "OverWorld.h"
+#include "bear.h"
 
 class AnimatePlayer
 {
@@ -36,13 +37,25 @@ public:
 
 	int get_frame() const;
 	void animate_player(Player&);
-	void killed_by_bear(const float&, Player& player); //when frostbite collides with bear
-	void drowning_player(const float deltaTime, Player& player);
-	void collision_with_sea_animal(const float&, Player&);
-	void freezing_animation(const float&, Player& player);
+	void killed_by_bear(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce); //when frostbite collides with bear
+
+	void drowning_player(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce);
+
+	void collision_with_sea_animal(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce);
+
+	void freezing_animation(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
+		OverWorld& _overworld);
+
 	void go_inside_igloo(const float&, Player& player);
 	void load_textures();
-	void animate(Player& player, const float deltaTime);
+
+	void animate(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
+		OverWorld& _overworld);
 
 private:
 	void increment_frame();
@@ -52,6 +65,8 @@ private:
 	float drowningTimePerFrame; //constant to time the animation of drowning frostbite
 	float CWSCTPF;//CWSCTPF->Collission With Sea Creature Time Per Frame
 	float freezingFrameTime;
+	float standardAnimDur;
+	float freezeAnimDur;;
 };
 #endif
 

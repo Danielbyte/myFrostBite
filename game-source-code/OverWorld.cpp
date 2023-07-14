@@ -347,7 +347,7 @@ void OverWorld::initialize_temperature()
 	}
 }
 
-void OverWorld::update_temperature()
+void OverWorld::update_temperature(Player& player)
 {
 	if (startedTempDecrease)
 	{
@@ -360,7 +360,9 @@ void OverWorld::update_temperature()
 
 		if (temperature == 0)
 		{
-			timeUp = true;
+			//timeUp = true;
+			player.setState(PlayerState::Freezing);
+
 		}
 	}
 }

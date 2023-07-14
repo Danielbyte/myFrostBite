@@ -10,23 +10,25 @@ void Engine::display_manager(float dt)
 		{
 			//single player mode
 			window->setView(singlePlayerView);
-			draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
-
-			auto inSafeZone = player1.isPlayerInSafeZone();
-			auto isJumping = player1.isPlayerJumping();
-			auto isKilledByAnimal = player1.isPlayerKilledByAnimal();
-			auto isKilledByBear = player1.isKilledByBear();
-			auto iglooComplete = igloo_house->isComplete();
-			auto [playerDistanceToDoor, IglooDoorPos] = player1.distanceToDoor(igloo_house);
-			auto isTimeUp = overworld.isTimeUp();
-			auto isDead = player1.getIfDead();
-
-			if (isDead)
+			auto player_state = player1.getState();
+			if (player_state == PlayerState::Dead)
 			{
 				window->draw(game_over_sprite);
 				window->display();
 				return;
 			}
+
+			draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+			/*
+			auto inSafeZone = player1.isPlayerInSafeZone();
+			auto isJumping = player1.isPlayerJumping();
+			//auto isKilledByAnimal = player1.isPlayerKilledByAnimal();
+			//auto isKilledByBear = player1.isKilledByBear();
+			//auto iglooComplete = igloo_house->isComplete();
+			auto [playerDistanceToDoor, IglooDoorPos] = player1.distanceToDoor(igloo_house);
+			//auto isTimeUp = overworld.isTimeUp();
+			//auto isDead = player1.getIfDead();
+
 
 			if (player1Win)
 			{
@@ -222,10 +224,11 @@ void Engine::display_manager(float dt)
 					crabs.clear();
 				}
 			}
-
+			*/
 		}
 		else
 		{
+			/*
 			//multiplayer mode
 			//player1 side
 			window->setView(LeftViewB);
@@ -647,7 +650,7 @@ void Engine::display_manager(float dt)
 					player2Win = true;
 				}
 			}
-
+			*/
 		}
 	}
 
@@ -723,7 +726,7 @@ void Engine::World2Animations(const float _dt, const float TimeElapsed, bool& is
 	{
 		window->draw(background_sprite);
 		handleInput();
-		updatePlayer1World(_dt);
+		//updatePlayer1World(_dt);
 		draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 	}
 

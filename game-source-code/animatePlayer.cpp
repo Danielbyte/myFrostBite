@@ -4,7 +4,9 @@ AnimatePlayer::AnimatePlayer():
 	frame_counter{0},
 	drowningTimePerFrame{0.06f},
 	CWSCTPF{0.17f},
-	freezingFrameTime{0.063f}
+	freezingFrameTime{0.063f},
+	standardAnimDur{1.03f},
+	freezeAnimDur{1.01f}
 {
 	load_textures();
 }
@@ -102,28 +104,31 @@ void AnimatePlayer::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void AnimatePlayer::animate(Player& player, const float deltaTime)
+void AnimatePlayer::animate(Player& player, vector<shared_ptr<Crab>>& _crabs,
+	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld)
 {
 	auto state = player.getState();
 
 	switch (state)
 	{
+	case PlayerState::Dead:
+		return;
+		break;
 	case PlayerState::Alive:
 		animate_player(player);
 		break;
-	case PlayerState::Dead:
-		break;
 	case PlayerState::Drowning:
-		drowning_player(deltaTime, player);
+		drowning_player(player,_crabs, _clamps, _birds, _bear, _iceblocks, createIce);
 		break;
 	case PlayerState::Freezing:
-		freezing_animation(deltaTime, player);
+		freezing_animation(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce, _overworld);
 		break;
 	case PlayerState::AttackedBySeaAnimal:
-		collision_with_sea_animal(deltaTime, player);
+		collision_with_sea_animal(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce);
 		break;
 	case PlayerState::AttackedByBear:
-		killed_by_bear(deltaTime, player);
+		killed_by_bear(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce);
 		break;
 	default:
 		break;
@@ -194,8 +199,11 @@ void AnimatePlayer::animate_player(Player& player)
 	 }
 }
 
-void AnimatePlayer::collision_with_sea_animal(const float& deltaTime, Player& player)
+void AnimatePlayer::collision_with_sea_animal(Player& player, vector<shared_ptr<Crab>>& _crabs,
+	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear, 
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
+	auto deltaTime = player.getTime();
 	if (deltaTime >= 0 && deltaTime <= CWSCTPF)
 	{
 		player.updateSprite(die1);
@@ -220,11 +228,27 @@ void AnimatePlayer::collision_with_sea_animal(const float& deltaTime, Player& pl
 	{
 		player.updateSprite(die6);
 	}
+
+	if (deltaTime >= standardAnimDur)
+	{
+		player.stopWatch();
+		player.setState(PlayerState::Alive);
+
+		player.spawnPlayer();
+		_bear->spawnBear();
+		_iceblocks.clear();
+		createIce = true;
+		_clamps.clear();
+		_birds.clear();
+		_crabs.clear();
+	}
 }
 
-void AnimatePlayer::killed_by_bear(const float& deltaTime,Player& player)
+void AnimatePlayer::killed_by_bear(Player& player, vector<shared_ptr<Crab>>& _crabs,
+	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
-	
+	auto deltaTime = player.getTime();
 	if (deltaTime >0 && deltaTime <= 0.07)
 	{
 		player.updateSprite(death1_bailey);
@@ -284,10 +308,27 @@ void AnimatePlayer::killed_by_bear(const float& deltaTime,Player& player)
 	{
 		player.updateSprite(death14_bailey);
 	}
+
+	if (deltaTime >= standardAnimDur)
+	{
+		player.setState(PlayerState::Alive);
+		player.stopWatch();
+
+		player.spawnPlayer();
+		_bear->spawnBear();
+		_iceblocks.clear();
+		createIce = true;
+		_clamps.clear();
+		_birds.clear();
+		_crabs.clear();
+	}
 }
 
-void AnimatePlayer::drowning_player(const float deltaTime, Player& player)
+void AnimatePlayer::drowning_player(Player& player, vector<shared_ptr<Crab>>& _crabs,
+	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
+	auto deltaTime = player.getTime();
 	if (deltaTime >= 0 && deltaTime <= drowningTimePerFrame)
 	{
 		player.updateSprite(drown1);
@@ -356,10 +397,27 @@ void AnimatePlayer::drowning_player(const float deltaTime, Player& player)
 	{
 		player.updateSprite(drown17);
 	}
+
+	if (deltaTime >= standardAnimDur)
+	{
+		player.setState(PlayerState::Alive);
+		player.stopWatch();
+
+		player.spawnPlayer();
+		_bear->spawnBear();
+		_iceblocks.clear();
+		createIce = true;
+		_clamps.clear();
+		_birds.clear();
+		_crabs.clear();
+	}
 }
 
-void AnimatePlayer::freezing_animation(const float& deltaTime, Player& player)
+void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>& _crabs,
+	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld)
 {
+	auto deltaTime = player.getTime();
 	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
 	{
 		player.updateSprite(freeze1);
@@ -423,6 +481,21 @@ void AnimatePlayer::freezing_animation(const float& deltaTime, Player& player)
 	if (deltaTime >= 15 * freezingFrameTime && deltaTime <= 16 * freezingFrameTime)
 	{
 		player.updateSprite(freeze16);
+	}
+
+	if (deltaTime >= freezeAnimDur)
+	{
+		player.setState(PlayerState::Alive);
+		player.stopWatch();
+
+		player.spawnPlayer();
+		_bear->spawnBear();
+		_iceblocks.clear();
+		createIce = true;
+		_clamps.clear();
+		_birds.clear();
+		_crabs.clear();
+		_overworld.resetTemperature();
 	}
 }
 

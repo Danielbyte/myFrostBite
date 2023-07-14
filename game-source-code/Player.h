@@ -3,6 +3,7 @@
 #include "SfmlLibrary.h"
 #include "gameConstants.h"
 #include "igloo.h"
+#include "stopwatch.h"
 
 enum class PlayerRegion { region1, region2, region3, region4, unknown };
 enum class PlayerState {Alive, Dead, Drowning, Freezing, AttackedBySeaAnimal, AttackedByBear};
@@ -55,6 +56,9 @@ public:
     void setBoundaries(const float leftB, const float rightB);
     void setState(PlayerState _state);
     PlayerState getState();
+    void restartWatch();
+    void stopWatch();
+    float getTime();
 
 protected:
     Sprite player_sprite;
@@ -68,6 +72,7 @@ protected:
     bool playerJumping;
     bool reverseBtnPressed;
     bool playerInSafeZone;
+    Stopwatch playerWatch;
  
 private:
     vector2f position;

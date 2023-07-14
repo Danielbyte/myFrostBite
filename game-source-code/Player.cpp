@@ -39,6 +39,7 @@ Player::Player():
 	initialPosition.x = 224.0f;
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 	state = PlayerState::Alive;
+	playerWatch.stop_timer();
 }
 
 void Player::setState(PlayerState _state)
@@ -371,6 +372,21 @@ void Player::subractLive()
 		numberOfLives = 0;
 		state = PlayerState::Dead;
 	}
+}
+
+void Player::restartWatch()
+{
+	playerWatch.restart_timer();
+}
+
+float Player::getTime()
+{
+	return playerWatch.elapsed_time();
+}
+
+void Player::stopWatch()
+{
+	playerWatch.stop_timer();
 }
 
 bool Player::isReverseBtnPressed() const

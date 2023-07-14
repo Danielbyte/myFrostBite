@@ -66,7 +66,7 @@ private:
 	void update(float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, 
-		vector<shared_ptr<IceBlocks>>&, Stopwatch&);
+		vector<shared_ptr<IceBlocks>>&, Stopwatch&, Player&);
 	void display_manager(float dt); //Front End (Manages the front end logic)
 	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
 		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
@@ -115,7 +115,11 @@ private:
 	shared_ptr<Igloo>igloo_house2 = std::make_shared<Igloo>(Igloo());
 
 	//Update respective player sides
-	void updatePlayer1World(float dtAsSeconds);
+	void updateGamePlay(float dtAsSeconds, Player&, vector<shared_ptr<Crab>>&,
+		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&,OverWorld&,
+		shared_ptr<Bear>&, shared_ptr<Igloo>&, vector<shared_ptr<IceBlocks>>&, Stopwatch& _overWorldWatch,
+		bool& _canCreateIce);
+
 	void updatePlayer2World(float dtAsSeconds);
 
 	bool fromOverWorld1Animation;
