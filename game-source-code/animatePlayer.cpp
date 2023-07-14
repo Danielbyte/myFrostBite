@@ -104,9 +104,9 @@ void AnimatePlayer::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void AnimatePlayer::animate(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::animateAndSetState(Player& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
-	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld)
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld, shared_ptr<Igloo>& igloo)
 {
 	auto state = player.getState();
 
@@ -129,6 +129,9 @@ void AnimatePlayer::animate(Player& player, vector<shared_ptr<Crab>>& _crabs,
 		break;
 	case PlayerState::AttackedByBear:
 		killed_by_bear(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce);
+		break;
+	case PlayerState::Winning:
+		go_inside_igloo(player, igloo);
 		break;
 	default:
 		break;
@@ -499,8 +502,11 @@ void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>&
 	}
 }
 
-void AnimatePlayer::go_inside_igloo(const float& y_pos, Player& player)
+void AnimatePlayer::go_inside_igloo(Player& player, shared_ptr<Igloo>& igloo)
 {
+	movePlayerTowardsDoor(player, igloo);
+	auto y_pos = player.getPosition().y;
+
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
 		player.updateSprite(enterIgloo1);
@@ -520,4 +526,49 @@ void AnimatePlayer::go_inside_igloo(const float& y_pos, Player& player)
 	{
 		player.updateSprite(enterIgloo4);
 	}
+}
+
+void AnimatePlayer::movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _igloo)
+{
+
+	auto [playerDistanceToDoor, iglooDoorPos] = player.distanceToDoor(_igloo);
+	auto TimeElapsed = player.getTime();
+	vector2f playerPos = player.getPosition();
+	float goingInIgloo_X_speed = 100.0f;
+	float goingInIgloo_Y_speed = 9.5f;
+	auto igloorDoorOffset = 14.5f;
+
+	if (playerPos.x > iglooDoorPos.x)
+	{
+		if (playerDistanceToDoor.x > 1.0f)
+		{
+			vector2f pos = player.getPosition();
+			pos.x -= TimeElapsed * goingInIgloo_X_speed;
+			player.setPosition(pos);
+		}
+	}
+
+	if (playerPos.x < iglooDoorPos.x)
+	{
+		if (playerDistanceToDoor.x > igloorDoorOffset)
+		{
+			vector2f pos = player.getPosition();
+			pos.x += TimeElapsed * goingInIgloo_X_speed;
+			player.setPosition(pos);
+		}
+	}
+
+	if (playerPos.y > iglooDoorPos.y)
+	{
+		vector2f pos = player.getPosition();
+		pos.y -= TimeElapsed * goingInIgloo_Y_speed;
+		player.setPosition(pos);
+	}
+
+	if (playerPos.y < 133.0f)
+	{
+		player.setToWin();
+		player.stopWatch();
+	}
+
 }

@@ -6,7 +6,7 @@
 #include "stopwatch.h"
 
 enum class PlayerRegion { region1, region2, region3, region4, unknown };
-enum class PlayerState {Alive, Dead, Drowning, Freezing, AttackedBySeaAnimal, AttackedByBear};
+enum class PlayerState {Alive, Dead, Drowning, Freezing, AttackedBySeaAnimal, AttackedByBear, Winning};
 
 class Player
 {
@@ -59,6 +59,8 @@ public:
     void restartWatch();
     void stopWatch();
     float getTime();
+    bool getIfWon();
+    void setToWin();
 
 protected:
     Sprite player_sprite;
@@ -109,5 +111,6 @@ private:
     vector2f initialPosition;
 
     PlayerState state;
+    bool won;
 };
 

@@ -137,7 +137,8 @@ void Engine::updateGamePlay(float dtAsSeconds, Player& _player, vector<shared_pt
     auto player_state = _player.getState();
     if (player_state != PlayerState::Alive)
     {
-        animate.animate(_player, _crabs, _clamps, _birds, _bear, _ice, _canCreateIce, _overworld);
+        animate.animateAndSetState(_player, _crabs, _clamps, _birds, _bear, _ice, _canCreateIce, _overworld,
+            _igloo);
         return;
     }
 
@@ -148,7 +149,7 @@ void Engine::updateGamePlay(float dtAsSeconds, Player& _player, vector<shared_pt
     _bear->update_bear(dtAsSeconds, _player);
     manage_collisions.player_ice_collisions(_player, _ice, dtAsSeconds, _igloo);
     manage_collisions.player_animal_collisions(_player, _crabs, _clamps, _birds, _fish);
-   // manage_collisions.player_bear_collisions(_bear, _player);
-    animate.animate(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld);
+    manage_collisions.player_bear_collisions(_bear, _player);
+    animate.animateAndSetState(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld,_igloo);
     _igloo->update_igloo();
 }

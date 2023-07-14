@@ -33,7 +33,8 @@ Player::Player():
 	isDead{false},
 	playerKilledByAnimal{false},
 	killedByBear{false},
-	numberOfLives{3} //Player has 3 lives
+	numberOfLives{3}, //Player has 3 lives
+    won{false}
 {
 	initialPosition.y = 199.0f;
 	initialPosition.x = 224.0f;
@@ -276,6 +277,16 @@ bool Player::isPlayerJumping() const
 bool Player::isFacingRight() const
 {
 	return facingRight;
+}
+
+bool Player::getIfWon()
+{
+	return won;
+}
+
+void Player::setToWin()
+{
+	won = true;
 }
 
 bool Player::isFacingLeft() const

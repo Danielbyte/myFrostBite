@@ -50,12 +50,13 @@ public:
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
 		OverWorld& _overworld);
 
-	void go_inside_igloo(const float&, Player& player);
+	void go_inside_igloo(Player& player, shared_ptr<Igloo>& _igloo);
+
 	void load_textures();
 
-	void animate(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void animateAndSetState(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
-		OverWorld& _overworld);
+		OverWorld& _overworld, shared_ptr<Igloo>& igloo);
 
 private:
 	void increment_frame();
@@ -66,7 +67,8 @@ private:
 	float CWSCTPF;//CWSCTPF->Collission With Sea Creature Time Per Frame
 	float freezingFrameTime;
 	float standardAnimDur;
-	float freezeAnimDur;;
+	float freezeAnimDur;
+	void movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _igloo);
 };
 #endif
 
