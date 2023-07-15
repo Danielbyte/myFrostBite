@@ -93,6 +93,11 @@ int Player::getNumberOfLives() const
 
 void Player::update(float timeElapsed)
 {
+	if (state != PlayerState::Alive)
+	{
+		return;
+	}
+
 	if (rightPressed)
 	{
 		position.x += 180 * timeElapsed;
