@@ -7,6 +7,12 @@ Player2::Player2()
 
 void Player2::handleInput(bool keyPressed)
 {
+	auto state = getState();
+	if (state != PlayerState::Alive)
+	{
+		return;
+	}
+
 	if (sf::Keyboard::isKeyPressed(Keyboard::Up) && !upPressed)
 	{
 		upPressed = true;
