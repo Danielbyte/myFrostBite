@@ -89,10 +89,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
    if (player.getState() == PlayerState::Drowning)
    {
        player.subractLive();
-       if (player.getState() != PlayerState::Dead)
-       {
-           player.restartWatch();
-       }
+       player.restartWatch();
    }
 
     auto isIglooComplete = igloo->isComplete();

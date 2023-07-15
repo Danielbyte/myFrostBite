@@ -236,7 +236,6 @@ void AnimatePlayer::collision_with_sea_animal(Player& player, vector<shared_ptr<
 	{
 		player.stopWatch();
 		player.setState(PlayerState::Alive);
-
 		player.spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
@@ -244,6 +243,8 @@ void AnimatePlayer::collision_with_sea_animal(Player& player, vector<shared_ptr<
 		_clamps.clear();
 		_birds.clear();
 		_crabs.clear();
+
+		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
 	}
 }
 
@@ -316,7 +317,6 @@ void AnimatePlayer::killed_by_bear(Player& player, vector<shared_ptr<Crab>>& _cr
 	{
 		player.setState(PlayerState::Alive);
 		player.stopWatch();
-
 		player.spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
@@ -324,6 +324,8 @@ void AnimatePlayer::killed_by_bear(Player& player, vector<shared_ptr<Crab>>& _cr
 		_clamps.clear();
 		_birds.clear();
 		_crabs.clear();
+
+		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
 	}
 }
 
@@ -405,7 +407,6 @@ void AnimatePlayer::drowning_player(Player& player, vector<shared_ptr<Crab>>& _c
 	{
 		player.setState(PlayerState::Alive);
 		player.stopWatch();
-
 		player.spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
@@ -413,6 +414,8 @@ void AnimatePlayer::drowning_player(Player& player, vector<shared_ptr<Crab>>& _c
 		_clamps.clear();
 		_birds.clear();
 		_crabs.clear();
+
+		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
 	}
 }
 
@@ -490,7 +493,6 @@ void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>&
 	{
 		player.setState(PlayerState::Alive);
 		player.stopWatch();
-
 		player.spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
@@ -499,6 +501,8 @@ void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>&
 		_birds.clear();
 		_crabs.clear();
 		_overworld.resetTemperature();
+
+		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
 	}
 }
 

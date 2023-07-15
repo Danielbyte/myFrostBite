@@ -29,7 +29,7 @@ Player::Player():
 	facingRight{false},
 	facingLeft{false},
 	new_speed{ 88.5f },
-	numberOfLives{2}, //Player has 3 lives
+	numberOfLives{3}, //Player has 3 lives
     won{false}
 {
 	initialPosition.y = 199.0f;
@@ -328,15 +328,9 @@ void Player::setPlayerToMoveWithIce(const Direction& dir, const float deltaTime)
 
 void Player::subractLive()
 {
-	
 	if (numberOfLives >= 1)
 	{
 		--numberOfLives;
-	}
-	else
-	{
-		numberOfLives = 0;
-		state = PlayerState::Dead;
 	}
 }
 
