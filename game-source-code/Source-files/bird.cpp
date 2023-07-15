@@ -1,4 +1,4 @@
-#include "bird.h"
+#include "../Header-files/bird.h"
 
 Bird::Bird():
 	counter{0},

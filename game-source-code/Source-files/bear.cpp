@@ -1,4 +1,4 @@
-#include "bear.h"
+#include "../Header-files/bear.h"
 
 Bear::Bear():
 	bear_direction{Direction::Left}, //Bear initially moving to left

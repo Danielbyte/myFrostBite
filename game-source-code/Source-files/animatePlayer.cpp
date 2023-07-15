@@ -1,4 +1,4 @@
-#include "AnimatePlayer.h"
+#include "../Header-files/AnimatePlayer.h"
 
 AnimatePlayer::AnimatePlayer():
 	frame_counter{0},

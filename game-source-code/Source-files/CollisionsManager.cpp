@@ -1,4 +1,4 @@
-#include "CollisionsManager.h"
+#include "../Header-files/CollisionsManager.h"
 
 CollisionsManager::CollisionsManager():
     NOBI{0},

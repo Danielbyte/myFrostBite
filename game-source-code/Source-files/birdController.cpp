@@ -1,4 +1,4 @@
-#include "birdController.h"
+#include "../Header-files/birdController.h"
 
 BirdController::BirdController():
 	speed_controller{100.0f},
