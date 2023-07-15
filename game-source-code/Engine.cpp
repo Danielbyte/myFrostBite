@@ -66,6 +66,7 @@ void Engine::LoadTextures()
 	line_texture.loadFromFile("resources/line.png");
 	game_over_texture.loadFromFile("resources/gameover.png");
 	victory_texture.loadFromFile("resources/victory.png");
+	instructions_texture.loadFromFile("resources/instructions.png");
 }
 
 void Engine::SetSprites()
@@ -74,6 +75,7 @@ void Engine::SetSprites()
 	background_sprite.setTexture(background_texture);
 	game_over_sprite.setTexture(game_over_texture);
 	victory_sprite.setTexture(victory_texture);
+	instructions_sprite.setTexture(instructions_texture);
 
 	line_sprite.setTexture(line_texture);
 	line_sprite.setPosition(600.0f, 300.0f);

@@ -90,6 +90,9 @@ private:
 	Texture line_texture;
 	Sprite line_sprite;
 
+	Texture instructions_texture;
+	Sprite instructions_sprite;
+
 	//vectors of animals
 	vector <shared_ptr<Crab>> crabs;
 	vector <shared_ptr<Clamp>> clamps;
