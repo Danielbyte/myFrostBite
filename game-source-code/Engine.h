@@ -120,19 +120,7 @@ private:
 		shared_ptr<Bear>&, shared_ptr<Igloo>&, vector<shared_ptr<IceBlocks>>&, Stopwatch& _overWorldWatch,
 		bool& _canCreateIce);
 
-	void updatePlayer2World(float dtAsSeconds);
-
-	bool fromOverWorld1Animation;
-	bool fromOverWorld2Animation;
 	float standard_dt;
-	float standardAnimDur; //standard time period for animations
-	float freezeAnimDur; // animation period specific to freezing animations
-
-	bool player1Win;
-	bool player2Win;
-
-	void World1Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
-	void World2Animations(const float _dt, const float TimeElapsed, bool& isAnimating, float duration);
 
 	//template function to draw all animals in the game over world
 	template<typename _Animal>

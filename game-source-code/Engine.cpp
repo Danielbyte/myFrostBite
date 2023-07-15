@@ -7,13 +7,7 @@ Engine::Engine():
 	isPlaying{false}, //game initially in not in game play mode
 	canCreateIce{false},
 	canCreateIce2{false},
-	fromOverWorld1Animation{false},
-	fromOverWorld2Animation{false},
-	standard_dt{0.016761f},
-	standardAnimDur{1.03f},
-	freezeAnimDur{1.1f},
-	player1Win{false},
-	player2Win{false}
+	standard_dt{0.016761f}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);

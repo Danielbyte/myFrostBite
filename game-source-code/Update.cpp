@@ -32,8 +32,13 @@ void Engine::update(float dtAsSeconds)
 		else
 		{
 			//update multiplayer mode (both players)
-            //updatePlayer1World(dtAsSeconds);
-           // updatePlayer2World(dtAsSeconds);
+            //update player 1 side
+            updateGamePlay(dtAsSeconds, player1, crabs, clamps, birds, fish, overworld, bear, igloo_house,
+                iceblocks, overworld_watch, canCreateIce);
+
+           // update player 2 side
+            updateGamePlay(dtAsSeconds, player2, crabs2, clamps2, birds2, fish2, overworld2, bear2, igloo_house2,
+                iceblocks2, overworld_watch2, canCreateIce2);
 		}
 	}
 }
@@ -105,35 +110,11 @@ void Engine::update_over_world(const float deltaTime, OverWorld& _overworld, vec
     _overworld.update_temperature(_player);
 }
 
-void Engine::updatePlayer2World(float dtAsSeconds)
-{
-    //Since game entities update wrt time, the code below helps keep 
-    //the time constant (after animations in world1) for smoother game play.
-    if (fromOverWorld1Animation)
-    {
-        dtAsSeconds = standard_dt;
-        fromOverWorld1Animation = false;
-    }
-
-    if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
-
-    player2.update(dtAsSeconds);
-    update_over_world(dtAsSeconds, overworld2, crabs2, clamps2, birds2, fish2, iceblocks2, overworld_watch2, player2);
-    animate.animate_player(player2);
-    bear2->update_bear(dtAsSeconds, player2);
-    manage_collisions.player_ice_collisions(player2, iceblocks2, dtAsSeconds, igloo_house2);
-    manage_collisions.player_animal_collisions(player2, crabs2, clamps2, birds2, fish2);
-    manage_collisions.player_bear_collisions(bear2, player2);
-    igloo_house2->update_igloo();
-}
-
 void Engine::updateGamePlay(float dtAsSeconds, Player& _player, vector<shared_ptr<Crab>>& _crabs,
     vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish,
     OverWorld& _overworld, shared_ptr<Bear>& _bear, shared_ptr<Igloo>& _igloo, 
     vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overWorldWatch, bool& _canCreateIce)
 {
-    //Since game entities update wrt time, the code below helps keep 
-    //the time constant (after animations in world2) for smoother game play.
     auto player_state = _player.getState();
     if (player_state != PlayerState::Alive)
     {
@@ -142,6 +123,7 @@ void Engine::updateGamePlay(float dtAsSeconds, Player& _player, vector<shared_pt
         return;
     }
 
+    //avoid glitches in game frame
     if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
 
     _player.update(dtAsSeconds);
