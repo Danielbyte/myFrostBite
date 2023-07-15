@@ -3,7 +3,7 @@
 void Engine::display_manager(float dt)
 {
 	//Draw main menu
-	if (!inMainMenu)
+	if (!inMainMenu && !inInstructionsMenu)
 	{
 		//Display other respective views if not in main menu
 		if (!splitScreen)
@@ -106,9 +106,19 @@ void Engine::display_manager(float dt)
 
 	else
 	{
-		//Draw main menu view
 		window->setView(MainmenuView);
-		window->draw(menu_sprite);
+		if (inInstructionsMenu)
+		{
+			window->draw(instructions_sprite);
+			menu.setCursorPosition(backPos);
+		}
+		else
+		{
+			//Draw main menu view
+			//inMainMenu = true;
+			window->draw(menu_sprite);
+		}
+
 		window->draw(menu.getCursor());
 	}
 

@@ -47,6 +47,7 @@ private:
 	bool splitScreen; //for multiplayer mode
 	bool inMainMenu;
 	bool isPlaying;
+	bool inInstructionsMenu;
 	sf::View MainmenuView; //view for main game menu
 
 	shared_ptr<sf::RenderWindow> window = shared_ptr<RenderWindow>(new sf::RenderWindow(VideoMode
@@ -92,6 +93,7 @@ private:
 
 	Texture instructions_texture;
 	Sprite instructions_sprite;
+	vector2f backPos;
 
 	//vectors of animals
 	vector <shared_ptr<Crab>> crabs;

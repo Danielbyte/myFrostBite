@@ -5,6 +5,7 @@ Engine::Engine():
 	splitScreen{false},
 	inMainMenu{true}, // game initially in main menu display
 	isPlaying{false}, //game initially in not in game play mode
+	inInstructionsMenu{false},
 	canCreateIce{false},
 	canCreateIce2{false},
 	standard_dt{0.016761f}
@@ -39,6 +40,9 @@ Engine::Engine():
 
 	LoadTextures();
 	SetSprites();
+
+	backPos.x = 660.0f;
+	backPos.y = 472.0f;
 }
 
 void Engine::run()

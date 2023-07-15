@@ -12,6 +12,8 @@ public:
 	int getCursorLevel() const;
 	void update(); //update the level of cursor
 	Sprite getCursor() const;
+	void setCursorPosition(const vector2f _position);
+	vector2f getLevel1() const;
 
 private:
 	int cursorLevel;

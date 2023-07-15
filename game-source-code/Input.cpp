@@ -42,13 +42,23 @@ void Engine::handleInput()
 					menu.setCursorLevel(menu.getCursorLevel() - 1);
 				}
 			}
+
+			if (sf::Keyboard::isKeyPressed(Keyboard::Enter) && inInstructionsMenu)
+			{
+				inInstructionsMenu = false;
+				menu.setCursorLevel(1);
+				menu.setCursorPosition(menu.getLevel1());
+				inMainMenu = true;
+				keyPressed = false;
+			}
+
 		}
 	}
 
 	//Button handling
 	if (inMainMenu)
 	{
-		if (sf::Keyboard::isKeyPressed(Keyboard::Enter))
+		if (sf::Keyboard::isKeyPressed(Keyboard::Enter) && keyPressed)
 		{
 			if (menu.getCursorLevel() == 1)
 			{
@@ -98,6 +108,8 @@ void Engine::handleInput()
 			if (menu.getCursorLevel() == 3)
 			{
 				//should display a window of instructions
+				inInstructionsMenu = true;
+				//inMainMenu = false;
 			}
 
 			if (menu.getCursorLevel() == 4)
