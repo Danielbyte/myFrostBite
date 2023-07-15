@@ -18,7 +18,7 @@ Interface contains a main menu where player can navigate between player modes, s
 
 ## Controls and Instructions
 
-Uses `WSAD` conention
+Uses `WSAD` convention
 
 Single player
 - `W` Jump up
@@ -40,6 +40,6 @@ The second player uses the `arrow keys` to move Frostbite and `space` to reverse
 ![image](resources/multiplayer.png)
 
 # How to Run Game
-Click on release link `(on the right)` and download `executables.zip` folder under the latest release. Unzip the file and run the `Frostbite.exe`.
+Click on release link `(on the right)` and download `executables.zip` folder under the latest release. Unzip the file and run the `Frostbite.exe` file.
 
-Alternatively, you can download the `Source code` zip folder. This method will require an IDE setup.
+Alternatively, you can download the `Source code` zip folder under releases. This method will require an IDE setup.
