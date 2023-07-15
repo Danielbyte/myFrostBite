@@ -2,6 +2,12 @@
 
 void Engine::update(float dtAsSeconds)
 {
+    if (reInitialise)
+    {
+        resetGame();
+        return;
+    }
+
 	if (isPlaying)
 	{
 		if (needToSpawn) // initially spawn players
@@ -43,9 +49,10 @@ void Engine::update(float dtAsSeconds)
 	}
 }
 
-void Engine::update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>& _crabs,
-    vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish,
-    vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overworld_watch, Player& _player)
+void Engine::update_over_world(const float deltaTime,OverWorld& _overworld, 
+    vector<shared_ptr<Crab>>& _crabs,vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,
+    vector<shared_ptr<Fish>>& _fish,vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overworld_watch,
+    Player& _player)
 {
     //create enemy every 5 seconds
     auto timeElapsed = _overworld_watch.elapsed_time();
@@ -76,7 +83,7 @@ void Engine::update_over_world(const float deltaTime, OverWorld& _overworld, vec
         {
             //create any enemy in region 3
             auto r3Pos = _overworld.getRegion3Position();
-            overworld.create_animal(_crabs, _clamps, _birds, _fish, r3Pos);
+            _overworld.create_animal(_crabs, _clamps, _birds, _fish, r3Pos);
         }
 
         if (!isEnemyInRegion4)

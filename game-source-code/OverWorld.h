@@ -49,6 +49,7 @@ public:
 	void resetTemperature();
 	void mSetTemperatureHUD();
 	void setMultiPlayerMode();
+	void resetOverWorld();
 
 private:
 

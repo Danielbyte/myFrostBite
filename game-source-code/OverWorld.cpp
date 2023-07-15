@@ -395,3 +395,13 @@ int OverWorld::isTimeUp() const
 {
 	return timeUp;
 }
+
+void OverWorld::resetOverWorld()
+{
+	clear_regions();
+	clear_animals();
+	temperature = 45;
+	startedTempDecrease = false;
+	timeUp = false;
+	isMultiplayer = false;
+}

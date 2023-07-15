@@ -23,6 +23,7 @@ class Engine
 {
 public:
 	Engine();
+	~Engine();
 	void run(); //start game play
 
 private:
@@ -30,7 +31,7 @@ private:
 	Player1 player1;
 	Player2 player2;
 	OverWorld overworld;
-	OverWorld overworld2; //over world for second player
+	OverWorld overworld2;
 	Stopwatch overworld_watch;
 	Stopwatch overworld_watch2;
 	BirdController control_birds;
@@ -71,7 +72,7 @@ private:
 	void display_manager(float dt); //Front End (Manages the front end logic)
 	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
 		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
-		Player& player, OverWorld& _overworld);
+		Player& player,OverWorld& _overworld);
 
 	void LoadTextures();
 	void SetSprites();
@@ -126,7 +127,10 @@ private:
 		bool& _canCreateIce);
 
 	float standard_dt;
+	bool reInitialise;
+	bool quit;
 
+	void resetGame();
 	//template function to draw all animals in the game over world
 	template<typename _Animal>
 	void draw_overWorld(const vector<shared_ptr<_Animal>>& _animals)

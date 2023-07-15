@@ -8,7 +8,9 @@ Engine::Engine():
 	inInstructionsMenu{false},
 	canCreateIce{false},
 	canCreateIce2{false},
-	standard_dt{0.016761f}
+	standard_dt{0.016761f},
+	reInitialise{false},
+	quit{false}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -84,4 +86,51 @@ void Engine::SetSprites()
 	line_sprite.setTexture(line_texture);
 	line_sprite.setPosition(600.0f, 300.0f);
 	line_sprite.setOrigin(0.5f, windowHeight / 2.0f);
+}
+
+void Engine::resetGame()
+{
+	crabs.clear();
+	crabs2.clear();
+	clamps.clear();
+	clamps2.clear();
+	birds.clear();
+	birds2.clear();
+	fish.clear();
+	fish2.clear();
+	iceblocks.clear();
+	iceblocks2.clear();
+
+	needToSpawn = true;
+	splitScreen = false;
+	inMainMenu = true;
+	isPlaying = false; 
+	inInstructionsMenu = false;
+	canCreateIce = false;
+	canCreateIce2 = false;
+	standard_dt = 0.016761f;
+	reInitialise = false;
+	quit = false;
+
+	bear2.reset(new Bear());
+	bear.reset(new Bear());
+	igloo_house.reset(new Igloo());
+	igloo_house2.reset(new Igloo());
+	overworld.resetOverWorld();
+	overworld2.resetOverWorld();
+}
+
+Engine::~Engine()
+{
+	//some house keeping
+	crabs.clear();
+	crabs2.clear();
+	clamps.clear();
+	clamps2.clear();
+	birds.clear();
+	birds2.clear();
+	fish.clear();
+	fish2.clear();
+	iceblocks.clear();
+	iceblocks2.clear();
 }

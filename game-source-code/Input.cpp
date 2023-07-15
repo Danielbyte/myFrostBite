@@ -17,6 +17,7 @@ void Engine::handleInput()
 				isPlaying = false;
 				splitScreen = false;
 				needToSpawn = true;
+				reInitialise = true;
 			}
 
 			if (sf::Keyboard::isKeyPressed(Keyboard::Down) && inMainMenu)
@@ -54,6 +55,7 @@ void Engine::handleInput()
 
 		if (event.type == Event::Closed)
 		{
+			quit = true;
 			window->close();
 		}
 
@@ -119,6 +121,7 @@ void Engine::handleInput()
 			if (menu.getCursorLevel() == 4)
 			{
 				//close game if player clicks on quit game
+				quit = true;
 				window->close();
 			}
 		}
