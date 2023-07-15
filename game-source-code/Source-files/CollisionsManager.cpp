@@ -5,16 +5,16 @@ CollisionsManager::CollisionsManager():
     playerCollidedWithAnimal{false}
 {}
 
-void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,
+void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector<shared_ptr<IceBlocks>>& ice,
     const float deltaTime, shared_ptr<Igloo>& igloo)
 {
-    if (player.getState() != PlayerState::Alive)
+    if (player->getState() != PlayerState::Alive)
     {
         return;
     }
 
     auto collided = false;
-    auto playerInSafeZone = player.isPlayerInSafeZone();
+    auto playerInSafeZone = player->isPlayerInSafeZone();
     //if frostbite bailey is not in the safe zone, check collisions with ice
     if (!playerInSafeZone)
     {
@@ -23,7 +23,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
         {
             vector2f player_pos;
             auto ice_pos = (*ice_iter)->get_position();
-            player_pos = player.getPosition();
+            player_pos = player->getPosition();
 
             auto isCollided = collision.bailey_ice_collision(player_pos, ice_pos);
             auto color = (*ice_iter)->get_color();
@@ -41,10 +41,10 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                         auto region = (*ice_iter)->get_region();
                         update_other_ice(region, _color, ice);
                     }
-                    player.incrementBlueIce();
+                    player->incrementBlueIce();
                 }
 
-                auto isPlayerMoving = player.IsplayerMoving();
+                auto isPlayerMoving = player->IsplayerMoving();
                 if (!isPlayerMoving)
                 {
                     auto ice_direction = (*ice_iter)->get_direction();
@@ -55,42 +55,42 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                 check_player_on_ice_patch(*ice_iter, player);
 
                 //reverse ice direction if player decides to
-                auto reverse = player.isReverseBtnPressed();
+                auto reverse = player->isReverseBtnPressed();
                 auto numberOfIglooBlocks = igloo->get_number_of_igloo_blocks();
                 if (reverse && (numberOfIglooBlocks > 0 && numberOfIglooBlocks < 14))
                 {
                     reverse_ice_direction(ice, *ice_iter);
-                    player.resetReverseBtnPress();
+                    player->resetReverseBtnPress();
                     igloo->subract_igloo_block();
                 }
 
                 numberOfIglooBlocks = igloo->get_number_of_igloo_blocks();
                 if (numberOfIglooBlocks == 0)
                 {
-                    player.resetReverseBtnPress();
+                    player->resetReverseBtnPress();
                 }
             }
             ++ice_iter;
         }
 
-        NOBI = player.NumberOfBlueIceSteepedOn();
+        NOBI = player->NumberOfBlueIceSteepedOn();
         if (NOBI == 4)
         {
             set_all_ice_to_white(ice);
-            player.resetBlueIce();
+            player->resetBlueIce();
         }
     }
 
-    auto isJumping = player.isPlayerJumping();
+    auto isJumping = player->isPlayerJumping();
    if (!collided && !playerInSafeZone && !isJumping) 
    {
-       player.setState(PlayerState::Drowning);
+       player->setState(PlayerState::Drowning);
    }
 
-   if (player.getState() == PlayerState::Drowning)
+   if (player->getState() == PlayerState::Drowning)
    {
-       player.subractLive();
-       player.restartWatch();
+       player->subractLive();
+       player->restartWatch();
    }
 
     auto isIglooComplete = igloo->isComplete();
@@ -100,17 +100,17 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
     }
 }
 
-void CollisionsManager::setPlayerToMoveWithIce(Player& player, const IceDirection& ice_dir,
+void CollisionsManager::setPlayerToMoveWithIce(shared_ptr<Player>& player, const IceDirection& ice_dir,
     const float& deltaTime)
 {
     switch (ice_dir)
     {
     case IceDirection::L:
-        player.setPlayerToMoveWithIce(Direction::Left, deltaTime);
+        player->setPlayerToMoveWithIce(Direction::Left, deltaTime);
         break;
 
     case IceDirection::R:
-        player.setPlayerToMoveWithIce(Direction::Right, deltaTime);
+        player->setPlayerToMoveWithIce(Direction::Right, deltaTime);
         break;
 
     default:
@@ -118,23 +118,23 @@ void CollisionsManager::setPlayerToMoveWithIce(Player& player, const IceDirectio
     }
 }
 
-void CollisionsManager::check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, Player& player)
+void CollisionsManager::check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, shared_ptr<Player>& player)
 {
     auto ice_x_pos = (ice_ptr->get_position()).x - ice_width_offset;
-    auto bailey_x_pos = player.getPosition().x - bailey_width_offset;
+    auto bailey_x_pos = player->getPosition().x - bailey_width_offset;
     auto point1_offset = 37.0f;
     auto point1 = ice_x_pos - point1_offset;
     auto point2_offset = 26.0f;
     auto point2 = (ice_x_pos + point2_offset) + ice_patch_width;
     auto EOI_offset = 16.0f; // end of ice offset
     auto end_of_ice = ice_x_pos + ice_width - EOI_offset;
-    player.setState(PlayerState::Drowning);
+    player->setState(PlayerState::Drowning);
 
     if (bailey_x_pos >= point1 && bailey_x_pos <= end_of_ice)
     {
         if (bailey_x_pos >= point1 && ((bailey_x_pos + bailey_width) <= point2))
         {
-            player.setState(PlayerState::Alive);
+            player->setState(PlayerState::Alive);
         }
 
         auto point3_offset = 26.5f;
@@ -143,14 +143,14 @@ void CollisionsManager::check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr
         auto point4 = point3 + ice_patch_width + point4_offset;
         if (bailey_x_pos >= point3 && ((bailey_x_pos + bailey_width) <= point4))
         {
-            player.setState(PlayerState::Alive);
+            player->setState(PlayerState::Alive);
         }
 
         auto point5_offset = 29.8f;
         auto point5 = point4 - point5_offset;
         if (bailey_x_pos >= point5)
         {
-            player.setState(PlayerState::Alive);
+            player->setState(PlayerState::Alive);
         }
 
     }
@@ -237,10 +237,10 @@ void CollisionsManager::updateOtherIceToChangeDirection(const IceRegion& region,
     }
 }
 
-void CollisionsManager::player_animal_collisions(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
     vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish)
 {
-    if (player.getState() != PlayerState::Alive)
+    if (player->getState() != PlayerState::Alive)
     {
         return;
     }
@@ -255,38 +255,38 @@ void CollisionsManager::player_animal_collisions(Player& player, vector<shared_p
 
     if (playerCollidedWithAnimal)
     {
-        player.setState(PlayerState::AttackedBySeaAnimal);
-        player.subractLive();
-        if (player.getState() != PlayerState::Dead)
+        player->setState(PlayerState::AttackedBySeaAnimal);
+        player->subractLive();
+        if (player->getState() != PlayerState::Dead)
         {
-            player.restartWatch();
+            player->restartWatch();
         }
     }
 }
 
-void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, Player& player)
+void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player)
 {
-    if (player.getState() != PlayerState::Alive)
+    if (player->getState() != PlayerState::Alive)
     {
         return;
     }
 
     auto bear_position = bear->get_position();
-    vector2f player_position = player.getPosition();
+    vector2f player_position = player->getPosition();
 
 
     auto isCollided = collision.entity_collision(player_position, bailey_width, bailey_height,
         bear_position, bear_with, bear_height);
 
     //bailey needs to be in safe zone
-    auto baileyInSafeZone = player.isPlayerInSafeZone();
+    auto baileyInSafeZone = player->isPlayerInSafeZone();
     if (isCollided && baileyInSafeZone)
     {
-        player.setState(PlayerState::AttackedByBear);
-        player.subractLive();
-        if (player.getState() != PlayerState::Dead)
+        player->setState(PlayerState::AttackedByBear);
+        player->subractLive();
+        if (player->getState() != PlayerState::Dead)
         {
-            player.restartWatch();
+            player->restartWatch();
         }
     }
 }

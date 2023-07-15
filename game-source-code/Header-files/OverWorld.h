@@ -41,7 +41,7 @@ public:
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
-	void update_temperature(Player& player);
+	void update_temperature(shared_ptr<Player>& player);
 	void initialize_temperature();
 	Text getTemperature();
 	Text getTemperatureSymbol() const;

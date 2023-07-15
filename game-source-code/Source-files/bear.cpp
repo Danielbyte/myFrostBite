@@ -54,7 +54,7 @@ void Bear::load_textures()
 	bear_right3.loadFromFile("resources/bear3_right.png");
 }
 
-void Bear::update_bear(const float deltaTime, Player& player)
+void Bear::update_bear(const float deltaTime, shared_ptr<Player>& player)
 {
 	set_to_track_player(player);
 	if (bear_direction == Direction::Left)
@@ -157,21 +157,21 @@ Sprite Bear::getSprite() const
 	return bear_sprite;
 }
 
-void Bear::set_to_track_player(Player& player)
+void Bear::set_to_track_player(shared_ptr<Player>& player)
 {
 	auto timePassed = elapsed_time();
 
 	// Bear should track bailey's position after every 1 second
 	if (timePassed >= 2.0f)
 	{
-		auto PlayerPosition = player.getPosition();
+		auto PlayerPosition = player->getPosition();
 		//get the distance between bear and frostbite
 		auto distance_between = abs(PlayerPosition.x - bear_position.x);
-		auto safe_zone = player.isPlayerInSafeZone();
+		auto safe_zone = player->isPlayerInSafeZone();
 
 		//left and right boundaries
-		auto leftBoundary = player.leftBoundary();
-		auto rightBoundary = player.rightBoundary();
+		auto leftBoundary = player->leftBoundary();
+		auto rightBoundary = player->rightBoundary();
 
 		//bear should not move if bailey is at the ends of screen
 		if (!safe_zone && distance_between <= 31.0f &&

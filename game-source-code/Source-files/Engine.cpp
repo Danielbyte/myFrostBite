@@ -118,6 +118,8 @@ void Engine::resetGame()
 	igloo_house2.reset(new Igloo());
 	overworld.resetOverWorld();
 	overworld2.resetOverWorld();
+	player1.reset(new Player1());
+	player2.reset(new Player2());
 }
 
 Engine::~Engine()

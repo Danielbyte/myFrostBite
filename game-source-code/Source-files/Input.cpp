@@ -1,4 +1,4 @@
-#include "Engine.h"
+#include "../Header-files/Engine.h"
 
 //This file handles the input from the main menu and gameplay
 void Engine::handleInput()
@@ -98,14 +98,14 @@ void Engine::handleInput()
 				control_clamps.setMultiPlayerBounds();
 				
 				//player1
-				player1.setBoundaries(mLeftBoundary, mRightBoundary);
+				player1->setBoundaries(mLeftBoundary, mRightBoundary);
 				control_ice.setNewBoundaries();
 				control_ice.mSetIceOffset();
 				bear->mSetSpawnPosition();
 				bear->mSetBorders();
 				igloo_house->mSetPosition();
 				//player2
-				player2.setBoundaries(mLeftBoundary, mRightBoundary);
+				player2->setBoundaries(mLeftBoundary, mRightBoundary);
 				bear2->mSetSpawnPosition();
 				bear2->mSetBorders();
 				igloo_house2->mSetPosition();
@@ -131,8 +131,8 @@ void Engine::handleInput()
 
 	if (isPlaying)
 	{
-		player1.handleInput(keyPressed);
-		player2.handleInput(keyPressed);
+		player1->handleInput(keyPressed);
+		player2->handleInput(keyPressed);
 	}
 
 }

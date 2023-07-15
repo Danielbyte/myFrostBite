@@ -104,11 +104,11 @@ void AnimatePlayer::load_textures()
 	enterIgloo4.loadFromFile("resources/enterIgloo4.png");
 }
 
-void AnimatePlayer::animateAndSetState(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::animateAndSetState(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld, shared_ptr<Igloo>& igloo)
 {
-	auto state = player.getState();
+	auto state = player->getState();
 
 	switch (state)
 	{
@@ -138,24 +138,24 @@ void AnimatePlayer::animateAndSetState(Player& player, vector<shared_ptr<Crab>>&
 	}
 }
 
-void AnimatePlayer::animate_player(Player& player)
+void AnimatePlayer::animate_player(shared_ptr<Player>& player)
 {
-	auto facing_right = player.isFacingRight();
-	auto facing_left = player.isFacingLeft();
-	auto isRightKeyPressed = player.isRightPressed();
-	auto isLeftKeyPressed = player.isLeftPressed();
-	auto isBaileyJumping = player.isPlayerJumping();
+	auto facing_right = player->isFacingRight();
+	auto facing_left = player->isFacingLeft();
+	auto isRightKeyPressed = player->isRightPressed();
+	auto isLeftKeyPressed = player->isLeftPressed();
+	auto isBaileyJumping = player->isPlayerJumping();
 
 	if (facing_right && isRightKeyPressed && !isBaileyJumping)
 	{
 		increment_frame();
 		if (frame_counter <= 10)
 		{
-			player.updateSprite(bailey_texture1);
+			player->updateSprite(bailey_texture1);
 		}
 		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			player.updateSprite(bailey_texture2);
+			player->updateSprite(bailey_texture2);
 		}
 		else
 		{
@@ -168,11 +168,11 @@ void AnimatePlayer::animate_player(Player& player)
 		increment_frame();
 		if (frame_counter <= 10)
 		{
-			player.updateSprite(bailey_texture3);
+			player->updateSprite(bailey_texture3);
 		}
 		else if (frame_counter > 10 && frame_counter <= 20)
 		{
-			player.updateSprite(bailey_texture4);
+			player->updateSprite(bailey_texture4);
 		}
 
 		else
@@ -183,60 +183,60 @@ void AnimatePlayer::animate_player(Player& player)
 
 	 if (isBaileyJumping && facing_left)
 	{
-		player.updateSprite(bailey_texture5);
+		player->updateSprite(bailey_texture5);
 	}
 
 	 if (isBaileyJumping && facing_right)
 	 {
-		 player.updateSprite(bailey_texture6);
+		 player->updateSprite(bailey_texture6);
 	 }
 
 	 if (!isBaileyJumping && (facing_right && !isRightKeyPressed))
 	 {
-		 player.updateSprite(bailey_texture1);
+		 player->updateSprite(bailey_texture1);
 	 }
 
 	 if (!isBaileyJumping && (facing_left && !isLeftKeyPressed))
 	 {
-		 player.updateSprite(bailey_texture3);
+		 player->updateSprite(bailey_texture3);
 	 }
 }
 
-void AnimatePlayer::collision_with_sea_animal(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::collision_with_sea_animal(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear, 
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
-	auto deltaTime = player.getTime();
+	auto deltaTime = player->getTime();
 	if (deltaTime >= 0 && deltaTime <= CWSCTPF)
 	{
-		player.updateSprite(die1);
+		player->updateSprite(die1);
 	}
 	if (deltaTime >= CWSCTPF && deltaTime <= 2*CWSCTPF)
 	{
-		player.updateSprite(die2);
+		player->updateSprite(die2);
 	}
 	if (deltaTime >= 2 * CWSCTPF && deltaTime <= 3 * CWSCTPF)
 	{
-		player.updateSprite(die3);
+		player->updateSprite(die3);
 	}
 	if (deltaTime >= 3 * CWSCTPF && deltaTime <= 4 * CWSCTPF)
 	{
-		player.updateSprite(die4);
+		player->updateSprite(die4);
 	}
 	if (deltaTime >= 4 * CWSCTPF && deltaTime <= 5 * CWSCTPF)
 	{
-		player.updateSprite(die5);
+		player->updateSprite(die5);
 	}
 	if (deltaTime >= 5 * CWSCTPF && deltaTime <= 6 * CWSCTPF)
 	{
-		player.updateSprite(die6);
+		player->updateSprite(die6);
 	}
 
 	if (deltaTime >= standardAnimDur)
 	{
-		player.stopWatch();
-		player.setState(PlayerState::Alive);
-		player.spawnPlayer();
+		player->stopWatch();
+		player->setState(PlayerState::Alive);
+		player->spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
 		createIce = true;
@@ -244,80 +244,80 @@ void AnimatePlayer::collision_with_sea_animal(Player& player, vector<shared_ptr<
 		_birds.clear();
 		_crabs.clear();
 
-		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
+		if (player->getNumberOfLives() == 0) { player->setState(PlayerState::Dead); }
 	}
 }
 
-void AnimatePlayer::killed_by_bear(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::killed_by_bear(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
-	auto deltaTime = player.getTime();
+	auto deltaTime = player->getTime();
 	if (deltaTime >0 && deltaTime <= 0.07)
 	{
-		player.updateSprite(death1_bailey);
+		player->updateSprite(death1_bailey);
 
 	}
 
 	if (deltaTime > 0.07 && deltaTime <= 0.14)
 	{
-		player.updateSprite(death2_bailey);
+		player->updateSprite(death2_bailey);
 	}
 
 	if (deltaTime > 0.14 && deltaTime <= 0.21)
 	{
-		player.updateSprite(death3_bailey);
+		player->updateSprite(death3_bailey);
 	}
 	if (deltaTime > 0.21 && deltaTime <= 0.28)
 	{
-		player.updateSprite(death4_bailey);
+		player->updateSprite(death4_bailey);
 	}
 	if (deltaTime > 0.28 && deltaTime <= 0.35)
 	{
-		player.updateSprite(death5_bailey);
+		player->updateSprite(death5_bailey);
 	}
 	if (deltaTime >0.35 && deltaTime <= 0.42)
 	{
-		player.updateSprite(death6_bailey);
+		player->updateSprite(death6_bailey);
 	}
 	if (deltaTime > 0.42 && deltaTime <= 0.49)
 	{
-		player.updateSprite(death7_bailey);
+		player->updateSprite(death7_bailey);
 	}
 	if (deltaTime > 0.49 && deltaTime <= 0.56)
 	{
-		player.updateSprite(death8_bailey);
+		player->updateSprite(death8_bailey);
 	}
 	if (deltaTime > 0.56 && deltaTime <= 0.63)
 	{
-		player.updateSprite(death9_bailey);
+		player->updateSprite(death9_bailey);
 	}
 	if (deltaTime > 0.63 && deltaTime <= 0.7)
 	{
-		player.updateSprite(death10_bailey);
+		player->updateSprite(death10_bailey);
 	}
 	if (deltaTime > 0.77 && deltaTime <= 0.84)
 	{
-		player.updateSprite(death11_bailey);
+		player->updateSprite(death11_bailey);
 	}
 	if (deltaTime > 0.84 && deltaTime <= 0.91)
 	{
-		player.updateSprite(death12_bailey);
+		player->updateSprite(death12_bailey);
 	}
 	if (deltaTime > 0.91 && deltaTime <= 0.98)
 	{
-		player.updateSprite(death13_bailey);
+		player->updateSprite(death13_bailey);
 	}
 	if (deltaTime > 0.98 && deltaTime <= 1.05)
 	{
-		player.updateSprite(death14_bailey);
+		player->updateSprite(death14_bailey);
 	}
 
 	if (deltaTime >= standardAnimDur)
 	{
-		player.setState(PlayerState::Alive);
-		player.stopWatch();
-		player.spawnPlayer();
+		player->setState(PlayerState::Alive);
+		player->stopWatch();
+		player->spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
 		createIce = true;
@@ -325,89 +325,89 @@ void AnimatePlayer::killed_by_bear(Player& player, vector<shared_ptr<Crab>>& _cr
 		_birds.clear();
 		_crabs.clear();
 
-		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
+		if (player->getNumberOfLives() == 0) { player->setState(PlayerState::Dead); }
 	}
 }
 
-void AnimatePlayer::drowning_player(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::drowning_player(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce)
 {
-	auto deltaTime = player.getTime();
+	auto deltaTime = player->getTime();
 	if (deltaTime >= 0 && deltaTime <= drowningTimePerFrame)
 	{
-		player.updateSprite(drown1);
+		player->updateSprite(drown1);
 	}
 	if (deltaTime > drowningTimePerFrame && deltaTime <= 2*drowningTimePerFrame)
 	{
-		player.updateSprite(drown2);
+		player->updateSprite(drown2);
 	}
 	if (deltaTime > 2*drowningTimePerFrame && deltaTime <= 3*drowningTimePerFrame)
 	{
-		player.updateSprite(drown3);
+		player->updateSprite(drown3);
 	}
 	if (deltaTime > 3*drowningTimePerFrame && deltaTime <= 4*drowningTimePerFrame)
 	{
-		player.updateSprite(drown4);
+		player->updateSprite(drown4);
 	}
 	if (deltaTime > 4*drowningTimePerFrame && deltaTime <= 5*drowningTimePerFrame)
 	{
-		player.updateSprite(drown5);
+		player->updateSprite(drown5);
 	}
 	if (deltaTime > 5 * drowningTimePerFrame && deltaTime <= 6*drowningTimePerFrame)
 	{
-		player.updateSprite(drown6);
+		player->updateSprite(drown6);
 	}
 	if (deltaTime > 6*drowningTimePerFrame && deltaTime <= 7*drowningTimePerFrame)
 	{
-		player.updateSprite(drown7);
+		player->updateSprite(drown7);
 	}
 	if (deltaTime > 7*drowningTimePerFrame && deltaTime <= 8*drowningTimePerFrame)
 	{
-		player.updateSprite(drown8);
+		player->updateSprite(drown8);
 	}
 	if (deltaTime > 8*drowningTimePerFrame && deltaTime <= 9*drowningTimePerFrame)
 	{
-		player.updateSprite(drown9);
+		player->updateSprite(drown9);
 	}
 	if (deltaTime > 9*drowningTimePerFrame && deltaTime <= 10*drowningTimePerFrame)
 	{
-		player.updateSprite(drown10);
+		player->updateSprite(drown10);
 	}
 	if (deltaTime > 10*drowningTimePerFrame && deltaTime <= 11*drowningTimePerFrame)
 	{
-		player.updateSprite(drown11);
+		player->updateSprite(drown11);
 	}
 	if (deltaTime > 11*drowningTimePerFrame && deltaTime <= 12*drowningTimePerFrame)
 	{
-		player.updateSprite(drown12);
+		player->updateSprite(drown12);
 	}
 	if (deltaTime > 12 * drowningTimePerFrame && deltaTime <= 13*drowningTimePerFrame)
 	{
-		player.updateSprite(drown13);
+		player->updateSprite(drown13);
 	}
 	if (deltaTime > 13 * drowningTimePerFrame && deltaTime <= 14*drowningTimePerFrame)
 	{
-		player.updateSprite(drown14);
+		player->updateSprite(drown14);
 	}
 	if (deltaTime > 14 * drowningTimePerFrame && deltaTime <= 15*drowningTimePerFrame)
 	{
-		player.updateSprite(drown15);
+		player->updateSprite(drown15);
 	}
 	if (deltaTime > 15 * drowningTimePerFrame && deltaTime <= 16*drowningTimePerFrame)
 	{
-		player.updateSprite(drown16);
+		player->updateSprite(drown16);
 	}
 	if (deltaTime > 16 * drowningTimePerFrame && deltaTime <= 17*drowningTimePerFrame)
 	{
-		player.updateSprite(drown17);
+		player->updateSprite(drown17);
 	}
 
 	if (deltaTime >= standardAnimDur)
 	{
-		player.setState(PlayerState::Alive);
-		player.stopWatch();
-		player.spawnPlayer();
+		player->setState(PlayerState::Alive);
+		player->stopWatch();
+		player->spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
 		createIce = true;
@@ -415,85 +415,85 @@ void AnimatePlayer::drowning_player(Player& player, vector<shared_ptr<Crab>>& _c
 		_birds.clear();
 		_crabs.clear();
 
-		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
+		if (player->getNumberOfLives() == 0) { player->setState(PlayerState::Dead); }
 	}
 }
 
-void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>& _crabs,
+void AnimatePlayer::freezing_animation(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld)
 {
-	auto deltaTime = player.getTime();
+	auto deltaTime = player->getTime();
 	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
 	{
-		player.updateSprite(freeze1);
+		player->updateSprite(freeze1);
 	}
 	if (deltaTime >= freezingFrameTime && deltaTime <= 2 * freezingFrameTime)
 	{
-		player.updateSprite(freeze2);
+		player->updateSprite(freeze2);
 	}
 	if (deltaTime >= 2 * freezingFrameTime && deltaTime <= 3 * freezingFrameTime)
 	{
-		player.updateSprite(freeze3);
+		player->updateSprite(freeze3);
 	}
 	if (deltaTime >= 3 * freezingFrameTime && deltaTime <= 4 * freezingFrameTime)
 	{
-		player.updateSprite(freeze4);
+		player->updateSprite(freeze4);
 	}
 	if (deltaTime >= 4 * freezingFrameTime && deltaTime <= 5 * freezingFrameTime)
 	{
-		player.updateSprite(freeze5);
+		player->updateSprite(freeze5);
 	}
 	if (deltaTime >= 5 * freezingFrameTime && deltaTime <= 6 * freezingFrameTime)
 	{
-		player.updateSprite(freeze6);
+		player->updateSprite(freeze6);
 	}
 	if (deltaTime >= 6 * freezingFrameTime && deltaTime <= 7 * freezingFrameTime)
 	{
-		player.updateSprite(freeze7);
+		player->updateSprite(freeze7);
 	}
 	if (deltaTime >= 7 * freezingFrameTime && deltaTime <= 8 * freezingFrameTime)
 	{
-		player.updateSprite(freeze8);
+		player->updateSprite(freeze8);
 	}
 	if (deltaTime >= 8 * freezingFrameTime && deltaTime <= 9 * freezingFrameTime)
 	{
-		player.updateSprite(freeze9);
+		player->updateSprite(freeze9);
 	}
 	if (deltaTime >= 9 * freezingFrameTime && deltaTime <= 10 * freezingFrameTime)
 	{
-		player.updateSprite(freeze10);
+		player->updateSprite(freeze10);
 	}
 	if (deltaTime >= 10 * freezingFrameTime && deltaTime <= 11 * freezingFrameTime)
 	{
-		player.updateSprite(freeze11);
+		player->updateSprite(freeze11);
 	}
 	if (deltaTime >= 0 && deltaTime <= 12 * freezingFrameTime)
 	{
-		player.updateSprite(freeze12);
+		player->updateSprite(freeze12);
 	}
 	if (deltaTime >= 12 * freezingFrameTime && deltaTime <= 13 * freezingFrameTime)
 	{
-		player.updateSprite(freeze13);
+		player->updateSprite(freeze13);
 	}
 	if (deltaTime >= 13 * freezingFrameTime && deltaTime <= 14 * freezingFrameTime)
 	{
-		player.updateSprite(freeze14);
+		player->updateSprite(freeze14);
 	}
 	if (deltaTime >= 14 * freezingFrameTime && deltaTime <= 15 * freezingFrameTime)
 	{
-		player.updateSprite(freeze15);
+		player->updateSprite(freeze15);
 	}
 	if (deltaTime >= 15 * freezingFrameTime && deltaTime <= 16 * freezingFrameTime)
 	{
-		player.updateSprite(freeze16);
+		player->updateSprite(freeze16);
 	}
 
 	if (deltaTime >= freezeAnimDur)
 	{
-		player.setState(PlayerState::Alive);
-		player.stopWatch();
-		player.spawnPlayer();
+		player->setState(PlayerState::Alive);
+		player->stopWatch();
+		player->spawnPlayer();
 		_bear->spawnBear();
 		_iceblocks.clear();
 		createIce = true;
@@ -502,42 +502,42 @@ void AnimatePlayer::freezing_animation(Player& player, vector<shared_ptr<Crab>>&
 		_crabs.clear();
 		_overworld.resetTemperature();
 
-		if (player.getNumberOfLives() == 0) { player.setState(PlayerState::Dead); }
+		if (player->getNumberOfLives() == 0) { player->setState(PlayerState::Dead); }
 	}
 }
 
-void AnimatePlayer::go_inside_igloo(Player& player, shared_ptr<Igloo>& igloo)
+void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& igloo)
 {
 	movePlayerTowardsDoor(player, igloo);
-	auto y_pos = player.getPosition().y;
+	auto y_pos = player->getPosition().y;
 
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
-		player.updateSprite(enterIgloo1);
+		player->updateSprite(enterIgloo1);
 	}
 
 	if (y_pos < 160 && y_pos >= 135)
 	{
-		player.updateSprite(enterIgloo2);
+		player->updateSprite(enterIgloo2);
 	}
 
 	if (y_pos < 135 && y_pos >= 133)
 	{
-		player.updateSprite(enterIgloo3);
+		player->updateSprite(enterIgloo3);
 	}
 
 	if (y_pos < 133)
 	{
-		player.updateSprite(enterIgloo4);
+		player->updateSprite(enterIgloo4);
 	}
 }
 
-void AnimatePlayer::movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _igloo)
+void AnimatePlayer::movePlayerTowardsDoor(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo)
 {
 
-	auto [playerDistanceToDoor, iglooDoorPos] = player.distanceToDoor(_igloo);
-	auto TimeElapsed = player.getTime();
-	vector2f playerPos = player.getPosition();
+	auto [playerDistanceToDoor, iglooDoorPos] = player->distanceToDoor(_igloo);
+	auto TimeElapsed = player->getTime();
+	vector2f playerPos = player->getPosition();
 	float goingInIgloo_X_speed = 100.0f;
 	float goingInIgloo_Y_speed = 9.5f;
 	auto igloorDoorOffset = 14.5f;
@@ -546,9 +546,9 @@ void AnimatePlayer::movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _ig
 	{
 		if (playerDistanceToDoor.x > 1.0f)
 		{
-			vector2f pos = player.getPosition();
+			vector2f pos = player->getPosition();
 			pos.x -= TimeElapsed * goingInIgloo_X_speed;
-			player.setPosition(pos);
+			player->setPosition(pos);
 		}
 	}
 
@@ -556,23 +556,23 @@ void AnimatePlayer::movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _ig
 	{
 		if (playerDistanceToDoor.x > igloorDoorOffset)
 		{
-			vector2f pos = player.getPosition();
+			vector2f pos = player->getPosition();
 			pos.x += TimeElapsed * goingInIgloo_X_speed;
-			player.setPosition(pos);
+			player->setPosition(pos);
 		}
 	}
 
 	if (playerPos.y > iglooDoorPos.y)
 	{
-		vector2f pos = player.getPosition();
+		vector2f pos = player->getPosition();
 		pos.y -= TimeElapsed * goingInIgloo_Y_speed;
-		player.setPosition(pos);
+		player->setPosition(pos);
 	}
 
 	if (playerPos.y < 133.0f)
 	{
-		player.setToWin();
-		player.stopWatch();
+		player->setToWin();
+		player->stopWatch();
 	}
 
 }

@@ -16,16 +16,20 @@ class CollisionsManager
 {
 public:
 	CollisionsManager();
-	void player_ice_collisions(Player& player, vector<shared_ptr<IceBlocks>>& ice,const float deltaTime,
-	shared_ptr<Igloo>& igloo);
-	void player_animal_collisions(Player& player, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void player_ice_collisions(shared_ptr<Player>& player, vector<shared_ptr<IceBlocks>>& ice,
+		const float deltaTime, shared_ptr<Igloo>& igloo);
+
+	void player_animal_collisions(shared_ptr<Player>& player, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
+
 	//void region_collisions(Player& player,vector<shared_ptr<Animal>>& _animal, float width, float height);
-	void setPlayerToMoveWithIce(Player& player, const IceDirection& ice_dir, const float& deltaTime);
-	void check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, Player& player);
+	void setPlayerToMoveWithIce(shared_ptr<Player>& player, const IceDirection& ice_dir, const float& deltaTime);
+
+	void check_player_on_ice_patch(shared_ptr<IceBlocks>& ice_ptr, shared_ptr<Player>& player);
+
 	void update_other_ice(const IceRegion region, const IceColor color,vector<shared_ptr<IceBlocks>>& ice);
 	void reverse_ice_direction(vector<shared_ptr<IceBlocks>>& ice, shared_ptr<IceBlocks>& ice_ptr);
-	void player_bear_collisions(shared_ptr<Bear>& bear, Player& player);
+	void player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player);
 
 private:
 	int NOBI; //Number Of Blue Ice blocks
@@ -37,7 +41,7 @@ private:
 	bool playerCollidedWithAnimal;
 
 	template<typename _Animal>
-	void region_collisions(Player& player, vector<shared_ptr<_Animal>>& _animal, float _width, float _height,
+	void region_collisions(shared_ptr<Player>& player, vector<shared_ptr<_Animal>>& _animal, float _width, float _height,
 		bool isFish)
 	{
 		auto animal_iter = _animal.begin();
@@ -45,7 +49,7 @@ private:
 		{
 			auto animal_pos = (*animal_iter)->getPosition();
 			vector2f player_pos;
-			player_pos = player.getPosition();
+			player_pos = player->getPosition();
 			auto isCollided = collision.bailey_enemy_collision(animal_pos, _width, _height, player_pos,
 				bailey_width, bailey_height);
 

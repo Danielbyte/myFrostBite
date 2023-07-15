@@ -13,7 +13,7 @@ class Bear : public Stopwatch //Inherit from stop watch baase class
 public:
 	Bear();
 	vector2f get_position() const;
-	void update_bear(const float deltaTime, Player& player);
+	void update_bear(const float deltaTime, shared_ptr<Player>& player);
 	void set_bear_direction(const Direction&);
 	Sprite getSprite() const;
 	void spawnBear();
@@ -38,7 +38,7 @@ private:
 	void increment_counter();
 	void reset_counter();
 	Sprite bear_sprite;
-	void set_to_track_player(Player& player);
+	void set_to_track_player(shared_ptr<Player>& player);
 	vector2f spawnPosition;
 	vector2f mSpawnPosition; //multiplayer spawn position for bear
 	float left_border;

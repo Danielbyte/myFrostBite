@@ -1,4 +1,4 @@
-#include "OverWorld.h"
+#include "../Header-files/OverWorld.h"
 
 OverWorld::OverWorld():
 	//Initially, no enemies are spawned
@@ -347,7 +347,7 @@ void OverWorld::initialize_temperature()
 	}
 }
 
-void OverWorld::update_temperature(Player& player)
+void OverWorld::update_temperature(shared_ptr<Player>& player)
 {
 	if (startedTempDecrease)
 	{
@@ -361,11 +361,11 @@ void OverWorld::update_temperature(Player& player)
 		if (temperature == 0)
 		{
 			//timeUp = true;
-			player.setState(PlayerState::Freezing);
-			player.subractLive();
-			if (player.getState() != PlayerState::Dead)
+			player->setState(PlayerState::Freezing);
+			player->subractLive();
+			if (player->getState() != PlayerState::Dead)
 			{
-				player.restartWatch();
+				player->restartWatch();
 			}
 		}
 	}

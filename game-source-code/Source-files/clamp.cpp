@@ -1,4 +1,4 @@
-#include "clamp.h"
+#include "../Header-files/clamp.h"
 
 Clamp::Clamp():
 	counter{ 0 },

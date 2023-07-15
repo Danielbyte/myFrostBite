@@ -36,25 +36,25 @@ public:
 	Texture enterIgloo1, enterIgloo2, enterIgloo3, enterIgloo4;
 
 	int get_frame() const;
-	void animate_player(Player&);
-	void killed_by_bear(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void animate_player(shared_ptr<Player>&);
+	void killed_by_bear(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce); //when frostbite collides with bear
 
-	void drowning_player(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void drowning_player(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce);
 
-	void collision_with_sea_animal(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void collision_with_sea_animal(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce);
 
-	void freezing_animation(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void freezing_animation(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
 		OverWorld& _overworld);
 
-	void go_inside_igloo(Player& player, shared_ptr<Igloo>& _igloo);
+	void go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo);
 
 	void load_textures();
 
-	void animateAndSetState(Player&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
+	void animateAndSetState(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
 		OverWorld& _overworld, shared_ptr<Igloo>& igloo);
 
@@ -68,7 +68,7 @@ private:
 	float freezingFrameTime;
 	float standardAnimDur;
 	float freezeAnimDur;
-	void movePlayerTowardsDoor(Player& player, shared_ptr<Igloo>& _igloo);
+	void movePlayerTowardsDoor(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo);
 };
 #endif
 
