@@ -29,10 +29,6 @@ Player::Player():
 	facingRight{false},
 	facingLeft{false},
 	new_speed{ 88.5f },
-	playerDrown{false},
-	isDead{false},
-	playerKilledByAnimal{false},
-	killedByBear{false},
 	numberOfLives{3}, //Player has 3 lives
     won{false}
 {
@@ -77,20 +73,6 @@ void Player::setBoundaries(const float leftB, const float rightB)
 int Player::getNumberOfLives() const
 {
 	return numberOfLives;
-}
-
-void Player::ressurectFromAnimalDeath()
-{
-	playerKilledByAnimal = false;
-}
-void Player::ressurectFromDrownDeath()
-{
-	playerDrown = false;
-}
-
-void Player::ressurectFromBearDeath()
-{
-	killedByBear = false;
 }
 
 void Player::update(float timeElapsed)
@@ -304,11 +286,6 @@ void Player::updateSprite(Texture& newTexture)
 	player_sprite.setTexture(newTexture);
 }
 
-bool Player::getIfDead() const
-{
-	return isDead;
-}
-
 bool Player::isPlayerInSafeZone()
 {
 	if (position.y > safe_zone_boundary) { playerInSafeZone = false; }
@@ -347,29 +324,6 @@ void Player::setPlayerToMoveWithIce(const Direction& dir, const float deltaTime)
 		break;
 	}
 
-}
-
-void Player::playerShouldDrown(const bool should_drown)
-{
-	playerDrown = should_drown;
-}
-
-bool Player::isPlayerDrowning() const
-{
-	return playerDrown;
-}
-
-void Player::set_state()
-{
-	if (numberOfLives != 0)
-	{
-		isDead = false;
-	}
-
-	else
-	{
-		isDead = true;
-	}
 }
 
 void Player::subractLive()
@@ -415,16 +369,6 @@ PlayerRegion Player::get_bailey_region() const
 	return player_region;
 }
 
-bool Player::isPlayerKilledByAnimal() const
-{
-	return playerKilledByAnimal;
-}
-
-void Player::KilledByAnimal()
-{
-	playerKilledByAnimal = true;
-}
-
 float Player::rightBoundary() const
 {
 	return right_boundary;
@@ -433,16 +377,6 @@ float Player::rightBoundary() const
 float Player::leftBoundary() const
 {
 	return left_boundary;
-}
-
-bool Player::isKilledByBear() const
-{
-	return killedByBear;
-}
-
-void Player::deathByBear()
-{
-	killedByBear = true;
 }
 
 std::tuple<vector2f, vector2f> Player::distanceToDoor(shared_ptr<Igloo>& igloo)
