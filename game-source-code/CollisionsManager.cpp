@@ -41,7 +41,7 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
                         auto region = (*ice_iter)->get_region();
                         update_other_ice(region, _color, ice);
                     }
-                    ++NOBI;
+                    player.incrementBlueIce();
                 }
 
                 auto isPlayerMoving = player.IsplayerMoving();
@@ -73,10 +73,11 @@ void CollisionsManager::player_ice_collisions(Player& player, vector<shared_ptr<
             ++ice_iter;
         }
 
+        NOBI = player.NumberOfBlueIceSteepedOn();
         if (NOBI == 4)
         {
             set_all_ice_to_white(ice);
-            NOBI = 0;
+            player.resetBlueIce();
         }
     }
 

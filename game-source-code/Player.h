@@ -50,6 +50,9 @@ public:
     float getTime();
     bool getIfWon();
     void setToWin();
+    int NumberOfBlueIceSteepedOn() const;
+    void incrementBlueIce();
+    void resetBlueIce();
 
 protected:
     Sprite player_sprite;
@@ -97,5 +100,6 @@ private:
 
     PlayerState state;
     bool won;
+    int blueIce;
 };
 

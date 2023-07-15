@@ -30,7 +30,8 @@ Player::Player():
 	facingLeft{false},
 	new_speed{ 88.5f },
 	numberOfLives{3}, //Player has 3 lives
-    won{false}
+    won{false},
+	blueIce{0}
 {
 	initialPosition.y = 199.0f;
 	initialPosition.x = 224.0f;
@@ -47,6 +48,21 @@ void Player::setState(PlayerState _state)
 PlayerState Player::getState()
 {
 	return state;
+}
+
+void Player::incrementBlueIce()
+{
+	++blueIce;
+}
+
+int Player::NumberOfBlueIceSteepedOn() const
+{
+	return blueIce;
+}
+
+void Player::resetBlueIce()
+{
+	blueIce = 0;
 }
 
 void Player::spawnPlayer()
