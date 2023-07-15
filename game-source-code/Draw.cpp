@@ -115,7 +115,6 @@ void Engine::display_manager(float dt)
 		else
 		{
 			//Draw main menu view
-			//inMainMenu = true;
 			window->draw(menu_sprite);
 		}
 

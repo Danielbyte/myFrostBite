@@ -40,11 +40,6 @@ void Menu::setCursorPosition(const vector2f _position)
 	cursor_sprite.setPosition(_position);
 }
 
-vector2f Menu::getLevel1() const
-{
-	return L1;
-}
-
 void Menu::update()
 {
 	switch (cursorLevel)

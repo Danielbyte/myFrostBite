@@ -47,12 +47,16 @@ void Engine::handleInput()
 			{
 				inInstructionsMenu = false;
 				menu.setCursorLevel(1);
-				menu.setCursorPosition(menu.getLevel1());
 				inMainMenu = true;
 				keyPressed = false;
 			}
-
 		}
+
+		if (event.type == Event::Closed)
+		{
+			window->close();
+		}
+
 	}
 
 	//Button handling
