@@ -120,6 +120,11 @@ void Engine::resetGame()
 	overworld2.resetOverWorld();
 	player1.reset(new Player1());
 	player2.reset(new Player2());
+	control_birds.reset(new BirdController());
+	control_clamps.reset(new ClampController());
+	control_crabs.reset(new CrabController());
+	control_fish.reset(new FishController());
+	control_ice.reset(new IceBlockController());
 }
 
 Engine::~Engine()

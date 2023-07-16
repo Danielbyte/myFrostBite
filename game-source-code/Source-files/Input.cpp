@@ -79,36 +79,7 @@ void Engine::handleInput()
 
 			if (menu.getCursorLevel() == 2)
 			{
-				inMainMenu = false;
-				splitScreen = true;
-				isPlaying = true;
-				canCreateIce = true;
-				canCreateIce2 = true;
-				overworld_watch.restart_timer();
-				overworld_watch2.restart_timer();
-				overworld.initialize_temperature();
-				overworld2.initialize_temperature();
-				overworld.mSetTemperatureHUD();
-				overworld2.mSetTemperatureHUD();
-				overworld.setMultiPlayerMode();
-				overworld2.setMultiPlayerMode();
-				control_fish.setMultiplayerBounds();
-				control_birds.setMultiPlayerBounds();
-				control_crabs.setMultiPlayerBounds();
-				control_clamps.setMultiPlayerBounds();
-				
-				//player1
-				player1->setBoundaries(mLeftBoundary, mRightBoundary);
-				control_ice.setNewBoundaries();
-				control_ice.mSetIceOffset();
-				bear->mSetSpawnPosition();
-				bear->mSetBorders();
-				igloo_house->mSetPosition();
-				//player2
-				player2->setBoundaries(mLeftBoundary, mRightBoundary);
-				bear2->mSetSpawnPosition();
-				bear2->mSetBorders();
-				igloo_house2->mSetPosition();
+				InitialiseStatesForMultiPlayer();
 			}
 
 			if (menu.getCursorLevel() == 3)
@@ -135,4 +106,38 @@ void Engine::handleInput()
 		player2->handleInput(keyPressed);
 	}
 
+}
+
+void Engine::InitialiseStatesForMultiPlayer()
+{
+	inMainMenu = false;
+	splitScreen = true;
+	isPlaying = true;
+	canCreateIce = true;
+	canCreateIce2 = true;
+	overworld_watch.restart_timer();
+	overworld_watch2.restart_timer();
+	overworld.initialize_temperature();
+	overworld2.initialize_temperature();
+	overworld.mSetTemperatureHUD();
+	overworld2.mSetTemperatureHUD();
+	overworld.setMultiPlayerMode();
+	overworld2.setMultiPlayerMode();
+	control_fish->setMultiplayerBounds();
+	control_birds->setMultiPlayerBounds();
+	control_crabs->setMultiPlayerBounds();
+	control_clamps->setMultiPlayerBounds();
+
+	//player1
+	player1->setBoundaries(mLeftBoundary, mRightBoundary);
+	control_ice->setNewBoundaries();
+	control_ice->mSetIceOffset();
+	bear->mSetSpawnPosition();
+	bear->mSetBorders();
+	igloo_house->mSetPosition();
+	//player2
+	player2->setBoundaries(mLeftBoundary, mRightBoundary);
+	bear2->mSetSpawnPosition();
+	bear2->mSetBorders();
+	igloo_house2->mSetPosition();
 }

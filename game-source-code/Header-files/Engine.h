@@ -34,11 +34,11 @@ private:
 	OverWorld overworld2;
 	Stopwatch overworld_watch;
 	Stopwatch overworld_watch2;
-	BirdController control_birds;
-	CrabController control_crabs;
-	ClampController control_clamps;
-	FishController control_fish;
-	IceBlockController control_ice;
+	shared_ptr<BirdController> control_birds = std::make_shared<BirdController>(BirdController());
+	shared_ptr<CrabController> control_crabs = std::make_shared<CrabController>(CrabController());
+	shared_ptr<ClampController> control_clamps = std::make_shared<ClampController>(ClampController());
+	shared_ptr<FishController> control_fish = std::make_shared<FishController>(FishController());
+	shared_ptr<IceBlockController> control_ice = std::make_shared<IceBlockController>(IceBlockController());
 	AnimatePlayer animate;
 	CollisionsManager manage_collisions;
 
@@ -76,6 +76,8 @@ private:
 
 	void LoadTextures();
 	void SetSprites();
+
+	void InitialiseStatesForMultiPlayer();
 
 	Texture menu_texture;
 	Sprite menu_sprite;

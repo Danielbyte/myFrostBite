@@ -95,10 +95,10 @@ void Engine::update_over_world(const float deltaTime,OverWorld& _overworld,
         _overworld_watch.restart_timer();
     }
 
-    control_crabs.update_crab(_crabs, deltaTime);
-    control_clamps.update_clamp(_clamps, deltaTime);
-    control_fish.update_fish(_fish, deltaTime);
-    control_birds.update_birds(_birds, deltaTime);
+    control_crabs->update_crab(_crabs, deltaTime);
+    control_clamps->update_clamp(_clamps, deltaTime);
+    control_fish->update_fish(_fish, deltaTime);
+    control_birds->update_birds(_birds, deltaTime);
 
     _overworld.update_animals_in_regions(_crabs, _clamps, _birds, _fish);
 
@@ -112,8 +112,8 @@ void Engine::update_over_world(const float deltaTime,OverWorld& _overworld,
         canCreateIce2 = false;
         _overworld.create_ice(iceblocks2);
     }
-    control_ice.update_iceblocks(_ice, deltaTime);
-    control_ice.update_ice_texture(_ice);
+    control_ice->update_iceblocks(_ice, deltaTime);
+    control_ice->update_ice_texture(_ice);
     _overworld.update_temperature(_player);
 }
 
