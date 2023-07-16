@@ -27,7 +27,7 @@ Single player
 - `D` Move right
 - `Left Shift` Reverse a block of ice
 
-The second player uses the `arrow keys` to move Frostbite and `space` to reverse a block of ice.
+The second player uses the `arrow keys` to move Frostbite and `space` to reverse a block of ice. Press `ESC` to jump out of gameplay screen. 
 
 ![image](resources/instructions_MD.png)
 
