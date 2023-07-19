@@ -90,6 +90,7 @@ void Engine::SetSprites()
 
 void Engine::resetGame()
 {
+	//Re-initialize game/instantiate new objects
 	crabs.clear();
 	crabs2.clear();
 	clamps.clear();
