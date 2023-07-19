@@ -53,10 +53,20 @@ public:
     int NumberOfBlueIceSteepedOn() const;
     void incrementBlueIce();
     void resetBlueIce();
+    void msetHUDPosition(vector2f _position);//reset position for player lives HUD
+    void loadHUDSprites();
 
 protected:
     Sprite player_sprite;
     Texture player_texture;
+
+    Sprite OnelifeHUD;
+    Sprite TwoLivesHUD;
+    Sprite ThreeLivesHUD;
+    Texture OnelifesHUDT;
+    Texture TwoLivesHUDT;
+    Texture ThreeLivesHUDT;
+
 
     //Direction the player is currently moving
     bool rightPressed;
@@ -101,5 +111,6 @@ private:
     PlayerState state;
     bool won;
     int blueIce;
+    vector2f HUDPosition;
 };
 

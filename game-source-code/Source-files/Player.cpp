@@ -38,6 +38,8 @@ Player::Player():
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 	state = PlayerState::Alive;
 	playerWatch.stop_timer();
+	HUDPosition.x = 776.0f;
+	HUDPosition.y = 8.0f;
 }
 
 void Player::setState(PlayerState _state)
@@ -409,4 +411,9 @@ void Player::setPosition(const vector2f _position)
 {
 	position = _position;
 	player_sprite.setPosition(position);
+}
+
+void Player::msetHUDPosition(vector2f _position)
+{
+	HUDPosition = _position;
 }
