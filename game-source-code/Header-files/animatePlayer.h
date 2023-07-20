@@ -3,6 +3,7 @@
 
 #include "OverWorld.h"
 #include "bear.h"
+#include "ScoreManager.h"
 
 class AnimatePlayer
 {
@@ -59,6 +60,7 @@ public:
 		OverWorld& _overworld, shared_ptr<Igloo>& igloo);
 
 private:
+	ScoreManager manage_score;
 	void increment_frame();
 	void reset_frame();
 	int frame_counter;

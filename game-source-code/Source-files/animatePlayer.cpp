@@ -510,7 +510,7 @@ void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo
 {
 	movePlayerTowardsDoor(player, igloo);
 	auto y_pos = player->getPosition().y;
-
+	
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
 		player->updateSprite(enterIgloo1);
@@ -529,6 +529,7 @@ void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo
 	if (y_pos < 133)
 	{
 		player->updateSprite(enterIgloo4);
+		manage_score.updatePlayerScore(player, "igloo");
 	}
 }
 
