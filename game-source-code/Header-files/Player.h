@@ -55,15 +55,15 @@ public:
     void resetBlueIce();
     void msetHUDPosition(vector2f _position);//reset position for player lives HUD
     void loadHUDSprites();
-
+    Sprite getHUDSprite() const;
+    void updateHUDSprite();
+ 
 protected:
     Sprite player_sprite;
     Texture player_texture;
 
-    Sprite OnelifeHUD;
-    Sprite TwoLivesHUD;
-    Sprite ThreeLivesHUD;
-    Texture OnelifesHUDT;
+    Sprite livesHUD;
+    Texture OnelifeHUDT;
     Texture TwoLivesHUDT;
     Texture ThreeLivesHUDT;
 
@@ -112,5 +112,6 @@ private:
     bool won;
     int blueIce;
     vector2f HUDPosition;
+
 };
 

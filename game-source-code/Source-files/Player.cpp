@@ -38,8 +38,11 @@ Player::Player():
 	player_region = PlayerRegion::unknown; //bailey initially not in any of the four regions
 	state = PlayerState::Alive;
 	playerWatch.stop_timer();
-	HUDPosition.x = 776.0f;
-	HUDPosition.y = 8.0f;
+	HUDPosition.x = 752.0f;
+	HUDPosition.y = 21.0f;
+	loadHUDSprites();
+	livesHUD.setOrigin(96.0f / 2.0f, 32.0f / 2.0f);
+	livesHUD.setPosition(HUDPosition);
 }
 
 void Player::setState(PlayerState _state)
@@ -354,6 +357,7 @@ void Player::subractLive()
 	if (numberOfLives >= 1)
 	{
 		--numberOfLives;
+		//updateHUDSprite();
 	}
 }
 
@@ -416,4 +420,35 @@ void Player::setPosition(const vector2f _position)
 void Player::msetHUDPosition(vector2f _position)
 {
 	HUDPosition = _position;
+	livesHUD.setPosition(HUDPosition);
+}
+
+void Player::loadHUDSprites()
+{
+	OnelifeHUDT.loadFromFile("resources/1life.png");
+	TwoLivesHUDT.loadFromFile("resources/2Lives.png");
+	ThreeLivesHUDT.loadFromFile("resources/3Lives.png");
+}
+
+void Player::updateHUDSprite()
+{
+	switch (numberOfLives)
+	{
+	case 3:
+		livesHUD.setTexture(ThreeLivesHUDT);
+		break;
+	case 2:
+		livesHUD.setTexture(TwoLivesHUDT);
+		break;
+	case 1:
+		livesHUD.setTexture(OnelifeHUDT);
+		break;
+	default:
+		break;
+	}
+}
+
+Sprite Player::getHUDSprite() const
+{
+	return livesHUD;
 }
