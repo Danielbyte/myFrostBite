@@ -50,6 +50,7 @@ public:
 	void mSetTemperatureHUD();
 	void setMultiPlayerMode();
 	void resetOverWorld();
+	void resetTemperatureHUDPos();
 
 private:
 
@@ -79,8 +80,12 @@ private:
 	Text temperature_disp;
 	Text degree_symbol;
 	Font temperatureFont;
+
 	vector2f mTemperatureHUDpos; //heads up display for temperature in multiplayer mode
 	vector2f mTemperatureSymbolPos;
+	vector2f temperatureHUDPos; // for single player
+	vector2f temperatureSymbolPos;
+
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
 	bool isMultiplayer;
 

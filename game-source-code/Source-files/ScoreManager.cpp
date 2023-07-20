@@ -12,7 +12,7 @@ ScoreManager::ScoreManager():
 	score_font.loadFromFile("resources/ARCADE_N.ttf");
 	score.setFont(score_font);
 	score.setCharacterSize(20);
-	score.setPosition(mScoreHUDPos);
+	score.setPosition(scoreHUDPos);
 	mScoreHUDPos.x = 200.0f;
 	mScoreHUDPos.y = 30.0f;
 }

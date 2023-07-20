@@ -26,13 +26,17 @@ OverWorld::OverWorld():
 	temperature_disp.setCharacterSize(20);
 	temperature_disp.setStyle(Text::Bold);
 	temperature_disp.setFillColor(Color::Cyan);
-	temperature_disp.setPosition(0.0f, 3.0f);
+	temperatureHUDPos.x = 0.0f;
+	temperatureHUDPos.y = 3.0f;
+	temperature_disp.setPosition(temperatureHUDPos);
 
 	degree_symbol.setFont(temperatureFont);
 	degree_symbol.setCharacterSize(15);
 	degree_symbol.setStyle(Text::Bold);
 	degree_symbol.setFillColor(Color::Cyan);
-	degree_symbol.setPosition(188.0f, 0.0f);
+	temperatureSymbolPos.x = 188.0f;
+	temperatureSymbolPos.y = 0.0f;
+	degree_symbol.setPosition(temperatureSymbolPos);
 	degree_symbol.setString("o");
 
 	mTemperatureHUDpos.x = 200.0f;
@@ -50,6 +54,12 @@ void OverWorld::mSetTemperatureHUD()
 {
 	temperature_disp.setPosition(mTemperatureHUDpos);
 	degree_symbol.setPosition(mTemperatureSymbolPos);
+}
+
+void OverWorld::resetTemperatureHUDPos()
+{
+	temperature_disp.setPosition(temperatureHUDPos);
+	degree_symbol.setPosition(temperatureSymbolPos);
 }
 
 void OverWorld::create_animal(vector<shared_ptr<Crab>>& crabsObj, vector<shared_ptr<Clamp>>& clampsObj,
@@ -404,4 +414,5 @@ void OverWorld::resetOverWorld()
 	startedTempDecrease = false;
 	timeUp = false;
 	isMultiplayer = false;
+	resetTemperatureHUDPos();
 }
