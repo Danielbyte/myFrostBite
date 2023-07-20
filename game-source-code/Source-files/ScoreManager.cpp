@@ -18,7 +18,7 @@ void ScoreManager::updateHighScore()
 
 }
 
-void ScoreManager::updatePlayerScore(shared_ptr<Player>&, const std::string _coreType)
+void ScoreManager::updatePlayerScore(shared_ptr<Player>&, const std::string _scoreType)
 {
 
 }

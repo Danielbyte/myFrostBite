@@ -31,7 +31,8 @@ Player::Player():
 	new_speed{ 88.5f },
 	numberOfLives{3}, //Player has 3 lives
     won{false},
-	blueIce{0}
+	blueIce{0},
+	score{0.0f}
 {
 	initialPosition.y = 199.0f;
 	initialPosition.x = 224.0f;
@@ -451,4 +452,14 @@ void Player::updateHUDSprite()
 Sprite Player::getHUDSprite() const
 {
 	return livesHUD;
+}
+
+void Player::updatePlayerScore(const float _score)
+{
+	score += _score;
+}
+
+float Player::retrievePlayerScore() const
+{
+	return score;
 }
