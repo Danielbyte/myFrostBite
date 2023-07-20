@@ -1,1 +1,16 @@
 #pragma once
+
+#include <sstream>
+#include <fstream>
+#include "Player.h"
+
+class ScoreManager
+{
+public:
+	ScoreManager();
+	float getHighScore();
+	void updateHighScore();
+	void updatePlayerScore(shared_ptr<Player>&, const std::string _coreType);
+private:
+	float high_score;
+};
