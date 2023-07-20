@@ -18,6 +18,7 @@
 #include "CollisionsManager.h"
 #include "igloo.h"
 #include "bear.h"
+#include "ScoreManager.h"
 
 class Engine
 {
@@ -41,6 +42,7 @@ private:
 	shared_ptr<IceBlockController> control_ice = std::make_shared<IceBlockController>(IceBlockController());
 	AnimatePlayer animate;
 	CollisionsManager manage_collisions;
+	ScoreManager manage_scores;
 
 	bool needToSpawn; //flag if need to spawn players
 	

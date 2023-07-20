@@ -144,6 +144,7 @@ void Engine::draw(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _
 	window->draw(_bear->getSprite());
 	window->draw(_overworld.getTemperature());
 	window->draw(_overworld.getTemperatureSymbol());
+	window->draw(manage_scores.getScore(_player));
 	window->draw(_player->getSprite());
 	window->draw(_player->getHUDSprite());
 }

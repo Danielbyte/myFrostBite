@@ -57,8 +57,8 @@ public:
     void loadHUDSprites();
     Sprite getHUDSprite() const;
     void updateHUDSprite();
-    void updatePlayerScore(const float _score);
-    float retrievePlayerScore() const;
+    void updatePlayerScore(const int _score);
+    int retrievePlayerScore() const;
  
 protected:
     Sprite player_sprite;
@@ -114,6 +114,6 @@ private:
     bool won;
     int blueIce;
     vector2f HUDPosition;
-    float score;
+    int score;
 };
 

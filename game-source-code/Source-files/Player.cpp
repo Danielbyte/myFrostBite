@@ -32,7 +32,7 @@ Player::Player():
 	numberOfLives{3}, //Player has 3 lives
     won{false},
 	blueIce{0},
-	score{0.0f}
+	score{0}
 {
 	initialPosition.y = 199.0f;
 	initialPosition.x = 224.0f;
@@ -454,12 +454,12 @@ Sprite Player::getHUDSprite() const
 	return livesHUD;
 }
 
-void Player::updatePlayerScore(const float _score)
+void Player::updatePlayerScore(const int _score)
 {
 	score += _score;
 }
 
-float Player::retrievePlayerScore() const
+int Player::retrievePlayerScore() const
 {
 	return score;
 }
