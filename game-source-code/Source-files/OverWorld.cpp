@@ -21,10 +21,9 @@ OverWorld::OverWorld():
 	animalInRegion4{AnimalType::none},
 	isMultiplayer{false}
 {
-	temperatureFont.loadFromFile("resources/sansation.ttf");
+	temperatureFont.loadFromFile("resources/ARCADE_N.ttf");
 	temperature_disp.setFont(temperatureFont);
 	temperature_disp.setCharacterSize(20);
-	temperature_disp.setStyle(Text::Bold);
 	temperature_disp.setFillColor(Color::Cyan);
 	temperatureHUDPos.x = 0.0f;
 	temperatureHUDPos.y = 3.0f;
@@ -32,16 +31,15 @@ OverWorld::OverWorld():
 
 	degree_symbol.setFont(temperatureFont);
 	degree_symbol.setCharacterSize(15);
-	degree_symbol.setStyle(Text::Bold);
 	degree_symbol.setFillColor(Color::Cyan);
-	temperatureSymbolPos.x = 188.0f;
+	temperatureSymbolPos.x = 40.0f;
 	temperatureSymbolPos.y = 0.0f;
 	degree_symbol.setPosition(temperatureSymbolPos);
 	degree_symbol.setString("o");
 
 	mTemperatureHUDpos.x = 200.0f;
 	mTemperatureHUDpos.y = 3.0f;
-	mTemperatureSymbolPos.x = 388.0f;
+	mTemperatureSymbolPos.x = 240.0f;
 	mTemperatureSymbolPos.y = 0.0f;
 }
 
@@ -392,7 +390,7 @@ void OverWorld::resetTemperature()
 Text OverWorld::getTemperature()
 {
 	string _temperature = std::to_string(temperature);
-	temperature_disp.setString("TEMPERATURE: " + _temperature);
+	temperature_disp.setString(_temperature);
 	return temperature_disp;
 }
 
