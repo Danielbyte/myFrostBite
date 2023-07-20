@@ -45,6 +45,9 @@ Engine::Engine():
 
 	backPos.x = 660.0f;
 	backPos.y = 472.0f;
+
+	mLivesHUDPos.x = 553.0f;
+	mLivesHUDPos.y = 21.0f;
 }
 
 void Engine::run()

@@ -59,7 +59,6 @@ const auto mRightBoundary = 577.473f;
 const auto mIceBoundaryL = 360.0f;
 const auto mIceBoundaryR = 441.473f;
 
-
 class CouldNotLoadPicture{};
 
 enum class Direction {Up, Down, Left, Right,unknown};

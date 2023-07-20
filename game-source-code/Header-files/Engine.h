@@ -131,6 +131,7 @@ private:
 	float standard_dt;
 	bool reInitialise;
 	bool quit;
+	vector2f mLivesHUDPos; //position for lives HUD for multiplayer
 
 	void resetGame();
 	//template function to draw all animals in the game over world

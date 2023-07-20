@@ -130,6 +130,7 @@ void Engine::InitialiseStatesForMultiPlayer()
 
 	//player1
 	player1->setBoundaries(mLeftBoundary, mRightBoundary);
+	player1->msetHUDPosition(mLivesHUDPos);
 	control_ice->setNewBoundaries();
 	control_ice->mSetIceOffset();
 	bear->mSetSpawnPosition();
@@ -137,6 +138,7 @@ void Engine::InitialiseStatesForMultiPlayer()
 	igloo_house->mSetPosition();
 	//player2
 	player2->setBoundaries(mLeftBoundary, mRightBoundary);
+	player2->msetHUDPosition(mLivesHUDPos);
 	bear2->mSetSpawnPosition();
 	bear2->mSetBorders();
 	igloo_house2->mSetPosition();
