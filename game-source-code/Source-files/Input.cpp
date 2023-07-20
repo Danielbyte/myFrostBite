@@ -127,6 +127,7 @@ void Engine::InitialiseStatesForMultiPlayer()
 	control_birds->setMultiPlayerBounds();
 	control_crabs->setMultiPlayerBounds();
 	control_clamps->setMultiPlayerBounds();
+	manage_scores.mSetScoreHUDPos();
 
 	//player1
 	player1->setBoundaries(mLeftBoundary, mRightBoundary);

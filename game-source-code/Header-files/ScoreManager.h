@@ -12,6 +12,8 @@ public:
 	void updateHighScore();
 	void updatePlayerScore(shared_ptr<Player>&, const std::string _scoreType);
 	Text getScore(shared_ptr<Player>&);
+	void mSetScoreHUDPos();
+	void resetHUDPos();
 
 private:
 	int high_score;
@@ -22,4 +24,6 @@ private:
 
 	Text score;
 	Font score_font;
+	vector2f mScoreHUDPos; //position for score  heads up display in multiplayer
+	vector2f scoreHUDPos;//position for score heads up display in single player mode
 };

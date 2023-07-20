@@ -7,10 +7,14 @@ ScoreManager::ScoreManager():
 	enteringIgloo{480},
 	fish{30}
 {
+	scoreHUDPos.x = 400.0f;
+	scoreHUDPos.y = 3.0f;
 	score_font.loadFromFile("resources/ARCADE_N.ttf");
 	score.setFont(score_font);
 	score.setCharacterSize(20);
-	score.setPosition(400.0f, 3.0f);
+	score.setPosition(mScoreHUDPos);
+	mScoreHUDPos.x = 200.0f;
+	mScoreHUDPos.y = 30.0f;
 }
 
 Text ScoreManager::getScore(shared_ptr<Player>& _player)
@@ -19,6 +23,16 @@ Text ScoreManager::getScore(shared_ptr<Player>& _player)
 	score.setString(_score);
 	return score;
 
+}
+
+void ScoreManager::mSetScoreHUDPos()
+{
+	score.setPosition(mScoreHUDPos);
+}
+
+void ScoreManager::resetHUDPos()
+{
+	score.setPosition(scoreHUDPos);
 }
 
 float ScoreManager::getHighScore()

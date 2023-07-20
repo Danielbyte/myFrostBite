@@ -129,6 +129,7 @@ void Engine::resetGame()
 	control_crabs.reset(new CrabController());
 	control_fish.reset(new FishController());
 	control_ice.reset(new IceBlockController());
+	manage_scores.resetHUDPos();
 }
 
 Engine::~Engine()
