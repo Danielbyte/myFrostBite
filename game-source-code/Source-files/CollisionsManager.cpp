@@ -35,6 +35,7 @@ void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector
                     (*ice_iter)->set_color(IceColor::Blue);
                     igloo->add_igloo_blocks();
                     auto ice_size = ice.size();
+                    manage_score.updatePlayerScore(player, "ice");
                     if (ice_size > 4)
                     {
                         auto _color = (*ice_iter)->get_color();

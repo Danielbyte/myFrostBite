@@ -11,6 +11,7 @@
 #include "fish.h"
 #include "igloo.h"
 #include "bear.h"
+#include "ScoreManager.h"
 
 class CollisionsManager
 {
@@ -34,6 +35,7 @@ public:
 private:
 	int NOBI; //Number Of Blue Ice blocks
 	Collision collision;
+	ScoreManager manage_score;
 	void set_all_ice_to_white(vector<shared_ptr<IceBlocks>>& ice);
 	void set_all_ice_to_blue(vector<shared_ptr<IceBlocks>>& ice);
 	void updateOtherIceToChangeDirection(const IceRegion& region, const IceDirection& direction,
