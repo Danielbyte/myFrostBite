@@ -5,12 +5,14 @@
 #include "Player.h"
 #include "OverWorld.h"
 
+class NegativeScoreError{};
+
 class ScoreManager
 {
 public:
 	ScoreManager();
-	float getHighScore();
-	void updateHighScore();
+	int getHighScore() const;
+	void updateHighScore(const int currentScore);
 	void updatePlayerScore(shared_ptr<Player>&, const std::string _scoreType, const int temperature);
 	Text getScore(shared_ptr<Player>&);
 	void mSetScoreHUDPos();
@@ -29,4 +31,7 @@ private:
 	Font score_font;
 	vector2f mScoreHUDPos; //position for score  heads up display in multiplayer
 	vector2f scoreHUDPos;//position for score heads up display in single player mode
+
+	std::ifstream highScoreFile;
+	std::ofstream output;
 };

@@ -35,14 +35,33 @@ void ScoreManager::resetHUDPos()
 	score.setPosition(scoreHUDPos);
 }
 
-float ScoreManager::getHighScore()
+int ScoreManager::getHighScore() const
 {
-
+	return high_score;
 }
 
-void ScoreManager::updateHighScore()
+void ScoreManager::updateHighScore(const int currentScore)
 {
+	if (currentScore < 0) throw NegativeScoreError{};//error handling for negative scores
+	highScoreFile.open("resources/high_score.txt");
 
+	//update high score if previous high score is undertaken
+	if (highScoreFile.is_open())
+	{
+		highScoreFile >> high_score;
+		if (high_score < currentScore)
+		{
+			high_score = currentScore;
+		}
+	}
+	highScoreFile.close();
+
+	output.open("resources/high_score.txt");
+	if (output.is_open())
+	{
+		output << high_score;
+	}
+	output.close();
 }
 
 void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::string _scoreType, 
@@ -56,10 +75,12 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 	if (_scoreType == "ice")
 	{
 		_player->updatePlayerScore(iceBlockPts);
+		return;
 	}
 	if (_scoreType == "igloo")
 	{
 		_player->updatePlayerScore(enteringIgloo);
+		return;
 	}
 	if (_scoreType == "won")
 	{
