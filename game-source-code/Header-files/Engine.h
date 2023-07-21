@@ -136,11 +136,12 @@ private:
 	vector2f mLivesHUDPos; //position for lives HUD for multiplayer
 	bool P1Scored;
 	bool P2Scored;
-
-	void computeWinningScore(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,
-		vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish, shared_ptr<Igloo>& iglooHouse,
-		shared_ptr<Bear>& _bear, vector<shared_ptr<IceBlocks>>& _ice, shared_ptr<Player>& _player,
-		OverWorld& _overworld, bool& computed);
+	bool restartP1;//to mark if scoring watch for P1 can be restarted
+	bool restartP2;//to mark if scoring watch for P2 can be restarted
+	Stopwatch computeScoreP1;
+	Stopwatch computeScoreP2;
+	int counter1;
+	int counter2;
 
 	void resetGame();
 	//template function to draw all animals in the game over world

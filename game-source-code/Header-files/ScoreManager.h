@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include "Player.h"
+#include "OverWorld.h"
 
 class ScoreManager
 {
@@ -14,6 +15,8 @@ public:
 	Text getScore(shared_ptr<Player>&);
 	void mSetScoreHUDPos();
 	void resetHUDPos();
+	void computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>&, bool& computed,
+		int& counter);
 
 private:
 	int high_score;

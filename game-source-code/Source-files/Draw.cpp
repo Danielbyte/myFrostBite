@@ -15,11 +15,24 @@ void Engine::display_manager(float dt)
 
 			if (isWin)
 			{
-				computeWinningScore(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld,
-					P1Scored);
-				window->draw(victory_sprite);
-				window->display();
-				return;
+				if (restartP1)
+				{
+					computeScoreP1.restart_timer();
+					restartP1 = false;
+				}
+				if (!P1Scored)
+				{
+					manage_scores.computeWinningScore(overworld, computeScoreP1,player1,P1Scored, counter1);
+					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+					window->display();
+					return;
+				}
+				else
+				{
+					window->draw(victory_sprite);
+					window->display();
+					return;
+				}
 			}
 
 			if (player_state == PlayerState::Dead)
@@ -56,9 +69,22 @@ void Engine::display_manager(float dt)
 			{
 				if (isWinP1)
 				{
-					computeWinningScore(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld,
-						P1Scored);
-					window->draw(victory_sprite); 
+					if (restartP1)
+					{
+						computeScoreP1.restart_timer();
+						restartP1 = false;
+					}
+
+					if (!P1Scored)
+					{
+						manage_scores.computeWinningScore(overworld, computeScoreP1, player1, P1Scored, counter1);
+						draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
+						window->draw(line_sprite);
+					}
+					else
+					{
+						window->draw(victory_sprite);
+					}
 				}
 				if (player_stateP1 == PlayerState::Dead) { window->draw(game_over_sprite); }
 				window->draw(line_sprite);
@@ -91,9 +117,23 @@ void Engine::display_manager(float dt)
 			{
 				if (isWinP2) 
 				{
-					window->draw(victory_sprite); 
-					computeWinningScore(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2,
-						overworld2, P2Scored);
+					if (restartP2)
+					{
+						computeScoreP2.restart_timer();
+						restartP2 = false;
+					}
+
+					if (!P2Scored)
+					{
+						manage_scores.computeWinningScore(overworld2, computeScoreP2, player2, P2Scored,
+							counter2);
+						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2,
+							overworld2);
+					}
+					else
+					{
+						window->draw(victory_sprite);
+					}
 				}
 				if (player_stateP2 == PlayerState::Dead) { window->draw(game_over_sprite); }
 			}
@@ -134,40 +174,6 @@ void Engine::display_manager(float dt)
 	}
 
 	window->display();
-}
-
-void Engine::computeWinningScore(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,
-	vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish, shared_ptr<Igloo>& iglooHouse,
-	shared_ptr<Bear>& _bear, vector<shared_ptr<IceBlocks>>& _ice, shared_ptr<Player>& _player,
-	OverWorld& _overworld, bool& computed)
-{
-	auto temp = _overworld.getTemperatureInt();
-	Stopwatch watch;
-	watch.restart_timer();
-	while (temp > 0)
-	{
-		auto time = watch.elapsed_time();
-		if (time >= 0.05f)
-		{
-			manage_scores.updatePlayerScore(_player, "won", temp);
-			--temp;
-			_overworld.decrementTemperature();
-			watch.restart_timer();
-		}
-		draw(_crabs, _clamps, _birds, _fish, iglooHouse, _bear, _ice, _player, _overworld);
-		window->display();
-	}
-
-	watch.restart_timer();
-	if (!computed)
-	{
-		while (watch.elapsed_time() < 0.5) // create a 0.5 seconds delay
-		{
-			draw(_crabs, _clamps, _birds, _fish, iglooHouse, _bear, _ice, _player, _overworld);
-			window->display();
-		}
-		computed = true;
-	}
 }
 
 void Engine::draw(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,

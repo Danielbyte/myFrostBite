@@ -12,7 +12,11 @@ Engine::Engine():
 	reInitialise{false},
 	quit{false},
 	P1Scored{false},
-	P2Scored{false}
+	P2Scored{false},
+	restartP1{true},
+	restartP2{true},
+	counter1{0},
+	counter2{0}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -119,6 +123,10 @@ void Engine::resetGame()
 	quit = false;
 	P1Scored = false;
 	P2Scored = false;
+	bool restartP1 = true;//to mark if scoring watch for P1 can be restarted
+	bool restartP2 = true;//to mark if scoring watch for P2 can be restarted
+	counter1 = 0;
+	counter2 = 0;
 
 	bear2.reset(new Bear());
 	bear.reset(new Bear());
