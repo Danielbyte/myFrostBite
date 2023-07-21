@@ -83,9 +83,16 @@ void Engine::display_manager(float dt)
 					}
 					else
 					{
+						auto Player2State = player2->getState();
+						if (Player2State == PlayerState::Alive)
+						{
+							player2->setState(PlayerState::Dead);
+						}
+
 						window->draw(victory_sprite);
 					}
 				}
+
 				if (player_stateP1 == PlayerState::Dead) { window->draw(game_over_sprite); }
 				window->draw(line_sprite);
 			}
@@ -132,6 +139,11 @@ void Engine::display_manager(float dt)
 					}
 					else
 					{
+						auto Player1State = player1->getState();
+						if (Player1State == PlayerState::Alive)
+						{
+							player1->setState(PlayerState::Dead);
+						}
 						window->draw(victory_sprite);
 					}
 				}
