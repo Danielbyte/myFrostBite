@@ -30,6 +30,7 @@ void Engine::display_manager(float dt)
 				else
 				{
 					window->draw(victory_sprite);
+					window->draw(scoreBoardTxt);
 					window->display();
 					return;
 				}
@@ -40,6 +41,16 @@ void Engine::display_manager(float dt)
 				window->draw(game_over_sprite);
 				window->draw(gameOverTxt);
 				window->draw(exitTxt);
+				window->draw(scoreBoardTxt);
+
+				auto score = std::to_string(player1->retrievePlayerScore());
+				player1ScoreTxt.setString("YOUR SCORE: " + score);
+				window->draw(player1ScoreTxt);
+
+				manage_scores.updateHighScore(player1->retrievePlayerScore());
+				auto high_score = manage_scores.getHighScore();
+				highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
+				window->draw(highScoreTxt);
 				window->display();
 				return;
 			}
@@ -100,6 +111,10 @@ void Engine::display_manager(float dt)
 					window->draw(game_over_sprite);
 					window->draw(gameOverTxt);
 					window->draw(exitTxt);
+					window->draw(scoreBoardTxt);
+					auto score = std::to_string(player1->retrievePlayerScore());
+					player1ScoreTxt.setString("YOUR SCORE: " + score);
+					window->draw(player1ScoreTxt);
 				}
 				window->draw(line_sprite);
 			}
@@ -158,6 +173,7 @@ void Engine::display_manager(float dt)
 				{
 					window->draw(game_over_sprite);
 					window->draw(gameOverTxt);
+					window->draw(scoreBoardTxt);
 				}
 			}
 

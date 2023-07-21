@@ -98,6 +98,10 @@ private:
 
 	Text gameOverTxt;
 	Text exitTxt;
+	Text scoreBoardTxt;
+	Text highScoreTxt;
+	Text player1ScoreTxt;
+	Text player2ScoreTxt;
 	Font gameEndFont;
 
 	Texture instructions_texture;

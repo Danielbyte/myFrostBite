@@ -63,10 +63,27 @@ Engine::Engine():
 	exitTxt.setFillColor(Color::Black);
 	exitTxt.setPosition(250.5f, 412.0f);
 	exitTxt.setString("Menu(Esc)");
+
 	exitTxt.setCharacterSize(60);
 	gameOverTxt.setFillColor(Color::Black);
 	gameOverTxt.setPosition(253.0f, 10.0f);
 	gameOverTxt.setString("GAME OVER");
+
+	scoreBoardTxt.setFont(gameEndFont);
+	scoreBoardTxt.setCharacterSize(24);
+	scoreBoardTxt.setFillColor(Color::White);
+	scoreBoardTxt.setPosition(320.5f, 150.0f);
+	scoreBoardTxt.setString("SCORE BOARD");
+
+	player1ScoreTxt.setFont(gameEndFont);
+	player1ScoreTxt.setCharacterSize(24);
+	player1ScoreTxt.setFillColor(Color::White);
+	player1ScoreTxt.setPosition(310.0f, 215.0f);
+
+	highScoreTxt.setFont(gameEndFont);
+	highScoreTxt.setCharacterSize(24);
+	highScoreTxt.setFillColor(Color::White);
+	highScoreTxt.setPosition(310.0f, 280.0f);
 }
 
 void Engine::run()
