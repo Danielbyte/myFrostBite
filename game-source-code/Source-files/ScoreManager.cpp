@@ -13,8 +13,8 @@ ScoreManager::ScoreManager():
 	score.setFont(score_font);
 	score.setCharacterSize(20);
 	score.setPosition(scoreHUDPos);
-	mScoreHUDPos.x = 200.0f;
-	mScoreHUDPos.y = 30.0f;
+	mScoreHUDPos.x = 400.7365f;
+	mScoreHUDPos.y = 0.0f;
 }
 
 Text ScoreManager::getScore(shared_ptr<Player>& _player)
