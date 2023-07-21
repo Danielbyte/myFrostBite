@@ -96,6 +96,10 @@ private:
 	Texture line_texture;
 	Sprite line_sprite;
 
+	Text gameOverTxt;
+	Text exitTxt;
+	Font gameEndFont;
+
 	Texture instructions_texture;
 	Sprite instructions_sprite;
 	vector2f backPos;

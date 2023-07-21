@@ -54,6 +54,19 @@ Engine::Engine():
 
 	mLivesHUDPos.x = 553.0f;
 	mLivesHUDPos.y = 21.0f;
+
+	//Game end text
+	gameEndFont.loadFromFile("resources/SnowtopCaps.otf");
+	gameOverTxt.setFont(gameEndFont);
+	gameOverTxt.setCharacterSize(60);
+	exitTxt.setFont(gameEndFont);
+	exitTxt.setFillColor(Color::Black);
+	exitTxt.setPosition(250.5f, 412.0f);
+	exitTxt.setString("Menu(Esc)");
+	exitTxt.setCharacterSize(60);
+	gameOverTxt.setFillColor(Color::Black);
+	gameOverTxt.setPosition(253.0f, 10.0f);
+	gameOverTxt.setString("GAME OVER");
 }
 
 void Engine::run()

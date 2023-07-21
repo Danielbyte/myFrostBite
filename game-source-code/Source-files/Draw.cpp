@@ -38,6 +38,8 @@ void Engine::display_manager(float dt)
 			if (player_state == PlayerState::Dead)
 			{
 				window->draw(game_over_sprite);
+				window->draw(gameOverTxt);
+				window->draw(exitTxt);
 				window->display();
 				return;
 			}
@@ -93,7 +95,12 @@ void Engine::display_manager(float dt)
 					}
 				}
 
-				if (player_stateP1 == PlayerState::Dead) { window->draw(game_over_sprite); }
+				if (player_stateP1 == PlayerState::Dead)
+				{
+					window->draw(game_over_sprite);
+					window->draw(gameOverTxt);
+					window->draw(exitTxt);
+				}
 				window->draw(line_sprite);
 			}
 
@@ -147,7 +154,11 @@ void Engine::display_manager(float dt)
 						window->draw(victory_sprite);
 					}
 				}
-				if (player_stateP2 == PlayerState::Dead) { window->draw(game_over_sprite); }
+				if (player_stateP2 == PlayerState::Dead)
+				{
+					window->draw(game_over_sprite);
+					window->draw(gameOverTxt);
+				}
 			}
 
 			else
