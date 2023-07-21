@@ -54,7 +54,12 @@ void Engine::display_manager(float dt)
 
 			if (isWinP1 || player_stateP1 == PlayerState::Dead)
 			{
-				if (isWinP1) { window->draw(victory_sprite); }
+				if (isWinP1)
+				{
+					computeWinningScore(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld,
+						P1Scored);
+					window->draw(victory_sprite); 
+				}
 				if (player_stateP1 == PlayerState::Dead) { window->draw(game_over_sprite); }
 				window->draw(line_sprite);
 			}
@@ -84,7 +89,12 @@ void Engine::display_manager(float dt)
 
 			if (isWinP2 || player_stateP2 == PlayerState::Dead)
 			{
-				if (isWinP2) { window->draw(victory_sprite); }
+				if (isWinP2) 
+				{
+					window->draw(victory_sprite); 
+					computeWinningScore(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2,
+						overworld2, P2Scored);
+				}
 				if (player_stateP2 == PlayerState::Dead) { window->draw(game_over_sprite); }
 			}
 
