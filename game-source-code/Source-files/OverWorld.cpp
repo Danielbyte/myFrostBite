@@ -414,3 +414,13 @@ void OverWorld::resetOverWorld()
 	isMultiplayer = false;
 	resetTemperatureHUDPos();
 }
+
+void OverWorld::decrementTemperature()
+{
+	--temperature;
+}
+
+int OverWorld::getTemperatureInt() const
+{
+	return temperature;
+}

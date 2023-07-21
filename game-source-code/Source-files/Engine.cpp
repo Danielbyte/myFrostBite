@@ -10,7 +10,9 @@ Engine::Engine():
 	canCreateIce2{false},
 	standard_dt{0.016761f},
 	reInitialise{false},
-	quit{false}
+	quit{false},
+	P1Scored{false},
+	P2Scored{false}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);

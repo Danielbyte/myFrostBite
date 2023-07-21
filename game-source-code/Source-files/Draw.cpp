@@ -15,6 +15,8 @@ void Engine::display_manager(float dt)
 
 			if (isWin)
 			{
+				computeWinningScore(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld,
+					P1Scored);
 				window->draw(victory_sprite);
 				window->display();
 				return;
@@ -122,6 +124,40 @@ void Engine::display_manager(float dt)
 	}
 
 	window->display();
+}
+
+void Engine::computeWinningScore(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,
+	vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish, shared_ptr<Igloo>& iglooHouse,
+	shared_ptr<Bear>& _bear, vector<shared_ptr<IceBlocks>>& _ice, shared_ptr<Player>& _player,
+	OverWorld& _overworld, bool& computed)
+{
+	auto temp = _overworld.getTemperatureInt();
+	Stopwatch watch;
+	watch.restart_timer();
+	while (temp > 0)
+	{
+		auto time = watch.elapsed_time();
+		if (time >= 0.05f)
+		{
+			manage_scores.updatePlayerScore(_player, "won", temp);
+			--temp;
+			_overworld.decrementTemperature();
+			watch.restart_timer();
+		}
+		draw(_crabs, _clamps, _birds, _fish, iglooHouse, _bear, _ice, _player, _overworld);
+		window->display();
+	}
+
+	watch.restart_timer();
+	if (!computed)
+	{
+		while (watch.elapsed_time() < 0.5) // create a 0.5 seconds delay
+		{
+			draw(_crabs, _clamps, _birds, _fish, iglooHouse, _bear, _ice, _player, _overworld);
+			window->display();
+		}
+		computed = true;
+	}
 }
 
 void Engine::draw(vector<shared_ptr<Crab>>& _crabs, vector<shared_ptr<Clamp>>& _clamps,

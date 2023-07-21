@@ -529,7 +529,7 @@ void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo
 	if (y_pos < 133)
 	{
 		player->updateSprite(enterIgloo4);
-		manage_score.updatePlayerScore(player, "igloo");
+		manage_score.updatePlayerScore(player, "igloo", 0);
 	}
 }
 

@@ -55,7 +55,7 @@ void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector
                 check_player_on_ice_patch(*ice_iter, player);
                 if (player->getState() != PlayerState::Drowning && color == IceColor::White)
                 {
-                    manage_score.updatePlayerScore(player, "ice");
+                    manage_score.updatePlayerScore(player, "ice", 0);
                 }
 
                 //reverse ice direction if player decides to

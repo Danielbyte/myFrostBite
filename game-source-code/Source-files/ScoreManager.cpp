@@ -45,7 +45,8 @@ void ScoreManager::updateHighScore()
 
 }
 
-void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::string _scoreType)
+void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::string _scoreType, 
+	const int temperature)
 {
 	if (_scoreType == "fish")
 	{
@@ -59,5 +60,9 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 	if (_scoreType == "igloo")
 	{
 		_player->updatePlayerScore(enteringIgloo);
+	}
+	if (_scoreType == "won")
+	{
+		_player->updatePlayerScore(30 * temperature);
 	}
 }

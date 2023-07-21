@@ -51,6 +51,8 @@ public:
 	void setMultiPlayerMode();
 	void resetOverWorld();
 	void resetTemperatureHUDPos();
+	int getTemperatureInt() const; // get the integer version of temperature
+	void decrementTemperature();
 
 private:
 

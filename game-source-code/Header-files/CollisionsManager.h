@@ -62,7 +62,7 @@ private:
 				if (isFish)
 				{
 					playerCollidedWithAnimal = false;
-					manage_score.updatePlayerScore(player, "fish");
+					manage_score.updatePlayerScore(player, "fish", 0);
 					_animal.erase(animal_iter);
 					return;
 				}

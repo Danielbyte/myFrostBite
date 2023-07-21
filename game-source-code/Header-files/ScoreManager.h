@@ -10,7 +10,7 @@ public:
 	ScoreManager();
 	float getHighScore();
 	void updateHighScore();
-	void updatePlayerScore(shared_ptr<Player>&, const std::string _scoreType);
+	void updatePlayerScore(shared_ptr<Player>&, const std::string _scoreType, const int temperature);
 	Text getScore(shared_ptr<Player>&);
 	void mSetScoreHUDPos();
 	void resetHUDPos();
