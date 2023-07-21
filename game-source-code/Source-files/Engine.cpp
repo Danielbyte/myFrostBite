@@ -72,18 +72,23 @@ Engine::Engine():
 	scoreBoardTxt.setFont(gameEndFont);
 	scoreBoardTxt.setCharacterSize(24);
 	scoreBoardTxt.setFillColor(Color::White);
-	scoreBoardTxt.setPosition(320.5f, 150.0f);
+	scoreBoardTxt.setPosition(320.5f, 180.0f);
 	scoreBoardTxt.setString("SCORE BOARD");
 
 	player1ScoreTxt.setFont(gameEndFont);
 	player1ScoreTxt.setCharacterSize(24);
 	player1ScoreTxt.setFillColor(Color::White);
-	player1ScoreTxt.setPosition(310.0f, 215.0f);
+	player1ScoreTxt.setPosition(310.0f, 245.0f);
+
+	player2ScoreTxt.setFont(gameEndFont);
+	player2ScoreTxt.setCharacterSize(24);
+	player2ScoreTxt.setFillColor(Color::White);
+	player2ScoreTxt.setPosition(310.0f, 245.0f);
 
 	highScoreTxt.setFont(gameEndFont);
 	highScoreTxt.setCharacterSize(24);
 	highScoreTxt.setFillColor(Color::White);
-	highScoreTxt.setPosition(310.0f, 280.0f);
+	highScoreTxt.setPosition(310.0f, 310.0f);
 }
 
 void Engine::run()

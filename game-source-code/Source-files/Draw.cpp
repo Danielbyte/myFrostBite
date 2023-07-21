@@ -115,6 +115,11 @@ void Engine::display_manager(float dt)
 					auto score = std::to_string(player1->retrievePlayerScore());
 					player1ScoreTxt.setString("YOUR SCORE: " + score);
 					window->draw(player1ScoreTxt);
+
+					manage_scores.updateHighScore(player1->retrievePlayerScore());
+					auto high_score = manage_scores.getHighScore();
+					highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
+					window->draw(highScoreTxt);
 				}
 				window->draw(line_sprite);
 			}
@@ -174,6 +179,15 @@ void Engine::display_manager(float dt)
 					window->draw(game_over_sprite);
 					window->draw(gameOverTxt);
 					window->draw(scoreBoardTxt);
+
+					auto score = std::to_string(player2->retrievePlayerScore());
+					player2ScoreTxt.setString("YOUR SCORE: " + score);
+					window->draw(player2ScoreTxt);
+
+					manage_scores.updateHighScore(player2->retrievePlayerScore());
+					auto high_score = manage_scores.getHighScore();
+					highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
+					window->draw(highScoreTxt);
 				}
 			}
 
