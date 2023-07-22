@@ -4,6 +4,7 @@
 #include "gameConstants.h"
 #include "igloo.h"
 #include "stopwatch.h"
+#include "SoundManager.h"
 
 enum class PlayerRegion { region1, region2, region3, region4, unknown };
 enum class PlayerState {Alive, Dead, Drowning, Freezing, AttackedBySeaAnimal, AttackedByBear, Winning};
@@ -15,7 +16,7 @@ public:
     void spawnPlayer();
     void virtual handleInput(bool keyPressed) = 0;
     Sprite getSprite() const;
-    void update(const float timeElapsed);
+    void update(const float timeElapsed, SoundManager& manage_sound);
     void jump_down(const float& deltaTime, const float start_position);
     void jump_up(const float deltaTime, const float start_position);
     void calibrate();

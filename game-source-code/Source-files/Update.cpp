@@ -133,7 +133,7 @@ void Engine::updateGamePlay(float dtAsSeconds, shared_ptr<Player>& _player, vect
     //avoid glitches in game frame
     if (dtAsSeconds >= 1) { dtAsSeconds = standard_dt; }
 
-    _player->update(dtAsSeconds);
+    _player->update(dtAsSeconds, manage_sound);
     _player->updateHUDSprite();
     update_over_world(dtAsSeconds, _overworld, _crabs, _clamps, _birds, _fish, _ice, _overWorldWatch, _player);
     _bear->update_bear(dtAsSeconds, _player);

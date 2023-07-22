@@ -97,7 +97,7 @@ int Player::getNumberOfLives() const
 	return numberOfLives;
 }
 
-void Player::update(float timeElapsed)
+void Player::update(float timeElapsed, SoundManager& manage_sound)
 {
 	if (state != PlayerState::Alive)
 	{
@@ -142,6 +142,7 @@ void Player::update(float timeElapsed)
 		isJumpingDown = true;
 		setSpeed(downJumpForce);
 		prevRegion = position.y;
+		manage_sound.playJumpingSound();
 	}
 
 	if (upPressed && !playerJumping)
@@ -151,6 +152,7 @@ void Player::update(float timeElapsed)
 		isJumpingUp = true;
 		setSpeed(upJumpForce);
 		prevRegion = position.y;
+		manage_sound.playJumpingSound();
 	}
 
 	if (playerJumping && isJumpingDown) { jump_down(timeElapsed, prevRegion); }

@@ -15,8 +15,7 @@ void Player1::handleInput(bool keyPressed)
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::W) && !upPressed)
 	{
-		upPressed = true;
-			
+		upPressed = true;	
 	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::S) && !downPressed)
