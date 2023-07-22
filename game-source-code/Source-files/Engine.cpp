@@ -64,6 +64,11 @@ Engine::Engine():
 	exitTxt.setPosition(250.5f, 412.0f);
 	exitTxt.setString("Menu(Esc)");
 
+	gameWinTxt.setFont(gameEndFont);
+	gameWinTxt.setCharacterSize(60);
+	gameWinTxt.setPosition(300.0f, 10.0f);
+	gameWinTxt.setString("VICTORY");
+
 	exitTxt.setCharacterSize(60);
 	gameOverTxt.setFillColor(Color::Black);
 	gameOverTxt.setPosition(253.0f, 10.0f);
@@ -107,6 +112,15 @@ void Engine::run()
 		//Draw game entities
 		display_manager(dtAsSeconds);
 	}
+}
+
+void Engine::computeScoreBoard(shared_ptr<Player>& _player,Text& _highScore, Text& _playerScore)
+{
+	auto score = std::to_string(_player->retrievePlayerScore());
+	_playerScore.setString("YOUR SCORE: " + score);
+	manage_scores.updateHighScore(_player->retrievePlayerScore());
+	auto high_score = manage_scores.getHighScore();
+	_highScore.setString("HIGH SCORE: " + std::to_string(high_score));
 }
 
 void Engine::LoadTextures()

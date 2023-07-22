@@ -30,7 +30,13 @@ void Engine::display_manager(float dt)
 				else
 				{
 					window->draw(victory_sprite);
+					window->draw(gameWinTxt);
 					window->draw(scoreBoardTxt);
+					computeScoreBoard(player1, highScoreTxt, player1ScoreTxt);
+					window->draw(player1ScoreTxt);
+					window->draw(player1ScoreTxt);
+					window->draw(highScoreTxt);
+					window->draw(exitTxt);
 					window->display();
 					return;
 				}
@@ -42,15 +48,10 @@ void Engine::display_manager(float dt)
 				window->draw(gameOverTxt);
 				window->draw(exitTxt);
 				window->draw(scoreBoardTxt);
-
-				auto score = std::to_string(player1->retrievePlayerScore());
-				player1ScoreTxt.setString("YOUR SCORE: " + score);
+				computeScoreBoard(player1, highScoreTxt, player1ScoreTxt);
 				window->draw(player1ScoreTxt);
-
-				manage_scores.updateHighScore(player1->retrievePlayerScore());
-				auto high_score = manage_scores.getHighScore();
-				highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
 				window->draw(highScoreTxt);
+				window->draw(exitTxt);
 				window->display();
 				return;
 			}
@@ -103,6 +104,11 @@ void Engine::display_manager(float dt)
 						}
 
 						window->draw(victory_sprite);
+						window->draw(gameWinTxt);
+						computeScoreBoard(player1, highScoreTxt, player1ScoreTxt);
+						window->draw(player1ScoreTxt);
+						window->draw(highScoreTxt);
+						window->draw(exitTxt);
 					}
 				}
 
@@ -112,14 +118,10 @@ void Engine::display_manager(float dt)
 					window->draw(gameOverTxt);
 					window->draw(exitTxt);
 					window->draw(scoreBoardTxt);
-					auto score = std::to_string(player1->retrievePlayerScore());
-					player1ScoreTxt.setString("YOUR SCORE: " + score);
+					computeScoreBoard(player1, highScoreTxt, player1ScoreTxt);
 					window->draw(player1ScoreTxt);
-
-					manage_scores.updateHighScore(player1->retrievePlayerScore());
-					auto high_score = manage_scores.getHighScore();
-					highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
 					window->draw(highScoreTxt);
+					window->draw(exitTxt);
 				}
 				window->draw(line_sprite);
 			}
@@ -172,6 +174,11 @@ void Engine::display_manager(float dt)
 							player1->setState(PlayerState::Dead);
 						}
 						window->draw(victory_sprite);
+						window->draw(gameWinTxt);
+						window->draw(scoreBoardTxt);
+						computeScoreBoard(player2, highScoreTxt, player2ScoreTxt);
+						window->draw(player2ScoreTxt);
+						window->draw(highScoreTxt);
 					}
 				}
 				if (player_stateP2 == PlayerState::Dead)
@@ -179,14 +186,8 @@ void Engine::display_manager(float dt)
 					window->draw(game_over_sprite);
 					window->draw(gameOverTxt);
 					window->draw(scoreBoardTxt);
-
-					auto score = std::to_string(player2->retrievePlayerScore());
-					player2ScoreTxt.setString("YOUR SCORE: " + score);
+					computeScoreBoard(player2, highScoreTxt, player2ScoreTxt);
 					window->draw(player2ScoreTxt);
-
-					manage_scores.updateHighScore(player2->retrievePlayerScore());
-					auto high_score = manage_scores.getHighScore();
-					highScoreTxt.setString("HIGH SCORE: " + std::to_string(high_score));
 					window->draw(highScoreTxt);
 				}
 			}

@@ -97,6 +97,7 @@ private:
 	Sprite line_sprite;
 
 	Text gameOverTxt;
+	Text gameWinTxt;
 	Text exitTxt;
 	Text scoreBoardTxt;
 	Text highScoreTxt;
@@ -152,6 +153,8 @@ private:
 	int counter2;
 
 	void resetGame();
+	void computeScoreBoard(shared_ptr<Player>& _player, Text& _highScore, Text& _playerScore);
+
 	//template function to draw all animals in the game over world
 	template<typename _Animal>
 	void draw_overWorld(const vector<shared_ptr<_Animal>>& _animals)
