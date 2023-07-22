@@ -114,7 +114,7 @@ void Engine::update_over_world(const float deltaTime,OverWorld& _overworld,
     }
     control_ice->update_iceblocks(_ice, deltaTime);
     control_ice->update_ice_texture(_ice);
-    _overworld.update_temperature(_player);
+    _overworld.update_temperature(_player, manage_sound);
 }
 
 void Engine::updateGamePlay(float dtAsSeconds, shared_ptr<Player>& _player, vector<shared_ptr<Crab>>& _crabs,
@@ -137,9 +137,9 @@ void Engine::updateGamePlay(float dtAsSeconds, shared_ptr<Player>& _player, vect
     _player->updateHUDSprite();
     update_over_world(dtAsSeconds, _overworld, _crabs, _clamps, _birds, _fish, _ice, _overWorldWatch, _player);
     _bear->update_bear(dtAsSeconds, _player);
-    manage_collisions.player_ice_collisions(_player, _ice, dtAsSeconds, _igloo);
-    manage_collisions.player_animal_collisions(_player, _crabs, _clamps, _birds, _fish);
-    manage_collisions.player_bear_collisions(_bear, _player);
+    manage_collisions.player_ice_collisions(_player, _ice, dtAsSeconds, _igloo, manage_sound);
+    manage_collisions.player_animal_collisions(_player, _crabs, _clamps, _birds, _fish, manage_sound);
+    manage_collisions.player_bear_collisions(_bear, _player, manage_sound);
     animate.animateAndSetState(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld,_igloo);
     _igloo->update_igloo();
 }

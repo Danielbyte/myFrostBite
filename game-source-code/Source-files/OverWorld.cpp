@@ -355,7 +355,7 @@ void OverWorld::initialize_temperature()
 	}
 }
 
-void OverWorld::update_temperature(shared_ptr<Player>& player)
+void OverWorld::update_temperature(shared_ptr<Player>& player,SoundManager& manage_sound)
 {
 	if (startedTempDecrease)
 	{
@@ -371,6 +371,7 @@ void OverWorld::update_temperature(shared_ptr<Player>& player)
 			//timeUp = true;
 			player->setState(PlayerState::Freezing);
 			player->subractLive();
+			manage_sound.playDeathSound();
 			if (player->getState() != PlayerState::Dead)
 			{
 				player->restartWatch();

@@ -6,7 +6,7 @@ CollisionsManager::CollisionsManager():
 {}
 
 void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector<shared_ptr<IceBlocks>>& ice,
-    const float deltaTime, shared_ptr<Igloo>& igloo)
+    const float deltaTime, shared_ptr<Igloo>& igloo, SoundManager& manage_sound)
 {
     if (player->getState() != PlayerState::Alive)
     {
@@ -95,6 +95,7 @@ void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector
    {
        player->subractLive();
        player->restartWatch();
+       manage_sound.playDeathSound();
    }
 
     auto isIglooComplete = igloo->isComplete();
@@ -242,7 +243,8 @@ void CollisionsManager::updateOtherIceToChangeDirection(const IceRegion& region,
 }
 
 void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
-    vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish)
+    vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish,
+    SoundManager& manage_sound)
 {
     if (player->getState() != PlayerState::Alive)
     {
@@ -251,11 +253,11 @@ void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vec
 
     playerCollidedWithAnimal = false;
     auto isFish = false;
-    region_collisions(player, _crabs, crab_width, crab_height, isFish);
-    region_collisions(player, _clamps, crab_width, crab_height, isFish);
-    region_collisions(player, _birds, bird_width, bird_height, isFish);
+    region_collisions(player, _crabs, crab_width, crab_height, isFish, manage_sound);
+    region_collisions(player, _clamps, crab_width, crab_height, isFish, manage_sound);
+    region_collisions(player, _birds, bird_width, bird_height, isFish, manage_sound);
     isFish = true;
-    region_collisions(player, _fish, fish_width, fish_height, isFish);
+    region_collisions(player, _fish, fish_width, fish_height, isFish, manage_sound);
 
     if (playerCollidedWithAnimal)
     {
@@ -264,11 +266,13 @@ void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vec
         if (player->getState() != PlayerState::Dead)
         {
             player->restartWatch();
+            manage_sound.playDeathSound();
         }
     }
 }
 
-void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player)
+void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player, 
+    SoundManager& manage_sound)
 {
     if (player->getState() != PlayerState::Alive)
     {
@@ -291,6 +295,7 @@ void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, shared_pt
         if (player->getState() != PlayerState::Dead)
         {
             player->restartWatch();
+            manage_sound.playDeathSound();
         }
     }
 }

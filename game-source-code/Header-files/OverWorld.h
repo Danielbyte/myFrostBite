@@ -41,7 +41,7 @@ public:
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
-	void update_temperature(shared_ptr<Player>& player);
+	void update_temperature(shared_ptr<Player>& player, SoundManager& manage_sound);
 	void initialize_temperature();
 	Text getTemperature();
 	Text getTemperatureSymbol() const;

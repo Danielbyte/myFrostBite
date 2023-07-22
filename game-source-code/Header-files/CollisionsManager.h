@@ -18,10 +18,10 @@ class CollisionsManager
 public:
 	CollisionsManager();
 	void player_ice_collisions(shared_ptr<Player>& player, vector<shared_ptr<IceBlocks>>& ice,
-		const float deltaTime, shared_ptr<Igloo>& igloo);
+		const float deltaTime, shared_ptr<Igloo>& igloo, SoundManager& manage_sound);
 
 	void player_animal_collisions(shared_ptr<Player>& player, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
-		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&);
+		vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, SoundManager& manage_sound);
 
 	//void region_collisions(Player& player,vector<shared_ptr<Animal>>& _animal, float width, float height);
 	void setPlayerToMoveWithIce(shared_ptr<Player>& player, const IceDirection& ice_dir, const float& deltaTime);
@@ -30,7 +30,7 @@ public:
 
 	void update_other_ice(const IceRegion region, const IceColor color,vector<shared_ptr<IceBlocks>>& ice);
 	void reverse_ice_direction(vector<shared_ptr<IceBlocks>>& ice, shared_ptr<IceBlocks>& ice_ptr);
-	void player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player);
+	void player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player, SoundManager& manage_sound);
 
 private:
 	int NOBI; //Number Of Blue Ice blocks
@@ -44,7 +44,7 @@ private:
 
 	template<typename _Animal>
 	void region_collisions(shared_ptr<Player>& player, vector<shared_ptr<_Animal>>& _animal, float _width, float _height,
-		bool isFish)
+		bool isFish, SoundManager& manage_sound)
 	{
 		auto animal_iter = _animal.begin();
 		while (animal_iter != _animal.end())
@@ -62,6 +62,7 @@ private:
 				if (isFish)
 				{
 					playerCollidedWithAnimal = false;
+					manage_sound.playEatFishSound();
 					manage_score.updatePlayerScore(player, "fish", 0);
 					_animal.erase(animal_iter);
 					return;
