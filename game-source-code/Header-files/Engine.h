@@ -19,6 +19,7 @@
 #include "igloo.h"
 #include "bear.h"
 #include "ScoreManager.h"
+#include "SoundManager.h"
 
 class Engine
 {
@@ -43,6 +44,8 @@ private:
 	AnimatePlayer animate;
 	CollisionsManager manage_collisions;
 	ScoreManager manage_scores;
+	SoundManager manage_sound;
+
 
 	bool needToSpawn; //flag if need to spawn players
 	

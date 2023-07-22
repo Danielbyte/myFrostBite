@@ -50,6 +50,7 @@ void Engine::handleInput()
 				menu.setCursorLevel(1);
 				inMainMenu = true;
 				keyPressed = false;
+				manage_sound.playConfimationSound();
 			}
 		}
 
@@ -75,18 +76,20 @@ void Engine::handleInput()
 				overworld_watch.restart_timer();
 				overworld_watch2.restart_timer();
 				overworld.initialize_temperature();
+				manage_sound.playConfimationSound();
 			}
 
 			if (menu.getCursorLevel() == 2)
 			{
 				InitialiseStatesForMultiPlayer();
+				manage_sound.playConfimationSound();
 			}
 
 			if (menu.getCursorLevel() == 3)
 			{
 				//should display a window of instructions
 				inInstructionsMenu = true;
-				//inMainMenu = false;
+				manage_sound.playConfimationSound();
 			}
 
 			if (menu.getCursorLevel() == 4)
