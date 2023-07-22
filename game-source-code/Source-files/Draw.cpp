@@ -105,6 +105,7 @@ void Engine::display_manager(float dt)
 
 						window->draw(victory_sprite);
 						window->draw(gameWinTxt);
+						window->draw(scoreBoardTxt);
 						computeScoreBoard(player1, highScoreTxt, player1ScoreTxt);
 						window->draw(player1ScoreTxt);
 						window->draw(highScoreTxt);
