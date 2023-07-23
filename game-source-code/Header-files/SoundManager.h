@@ -11,6 +11,7 @@ public:
 	void playEatFishSound();
 	void playTemperatureScoreCountSound();
 	void playIglooScoreCountSound();
+	void playMoveInSound();
 
 private:
 	sf::SoundBuffer confirmationBuffer;
@@ -19,6 +20,7 @@ private:
 	sf::SoundBuffer eatFishBuffer;
 	sf::SoundBuffer temperatureScoreCountBuffer;
 	sf::SoundBuffer iglooScoreCountBuffer;
+	sf::SoundBuffer playerMoveInBuffer;
 
 	sf::Sound confirmationSound;
 	sf::Sound playerJumpSound;
@@ -26,4 +28,5 @@ private:
 	sf::Sound eatFishSound;
 	sf::Sound temperatureScoreCountSound;
 	sf::Sound iglooScoreCountSound;
+	sf::Sound playerMoveInSound;
 };

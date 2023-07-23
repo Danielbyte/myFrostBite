@@ -106,7 +106,8 @@ void AnimatePlayer::load_textures()
 
 void AnimatePlayer::animateAndSetState(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
-	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld, shared_ptr<Igloo>& igloo)
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld, shared_ptr<Igloo>& igloo,
+	SoundManager& manage_sound, int& counter)
 {
 	auto state = player->getState();
 
@@ -131,7 +132,7 @@ void AnimatePlayer::animateAndSetState(shared_ptr<Player>& player, vector<shared
 		killed_by_bear(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce);
 		break;
 	case PlayerState::Winning:
-		go_inside_igloo(player, igloo);
+		go_inside_igloo(player, igloo, manage_sound, counter);
 		break;
 	default:
 		break;
@@ -506,14 +507,16 @@ void AnimatePlayer::freezing_animation(shared_ptr<Player>& player, vector<shared
 	}
 }
 
-void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& igloo)
+void AnimatePlayer::go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& igloo, 
+	SoundManager& manage_sound, int& counter)
 {
 	movePlayerTowardsDoor(player, igloo);
 	auto y_pos = player->getPosition().y;
-	
+
 	if (y_pos <= 199.0f && y_pos >= 160.0f)
 	{
 		player->updateSprite(enterIgloo1);
+		if (counter == 0) { manage_sound.playMoveInSound(); ++counter; }
 	}
 
 	if (y_pos < 160 && y_pos >= 135)

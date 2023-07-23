@@ -140,7 +140,7 @@ private:
 	void updateGamePlay(float dtAsSeconds,shared_ptr<Player>&, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&,OverWorld&,
 		shared_ptr<Bear>&, shared_ptr<Igloo>&, vector<shared_ptr<IceBlocks>>&, Stopwatch& _overWorldWatch,
-		bool& _canCreateIce);
+		bool& _canCreateIce, int& counter);
 
 	float standard_dt;
 	bool reInitialise;
@@ -154,6 +154,8 @@ private:
 	Stopwatch computeScoreP2;
 	int counter1;
 	int counter2;
+	int iglooCounter1; //variable to player1 sound if player moves in igloo house
+	int iglooCounter2; //variable to player2 sound if player moves in igloo house
 
 	void resetGame();
 	void computeScoreBoard(shared_ptr<Player>& _player, Text& _highScore, Text& _playerScore);

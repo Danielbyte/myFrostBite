@@ -16,7 +16,9 @@ Engine::Engine():
 	restartP1{true},
 	restartP2{true},
 	counter1{0},
-	counter2{0}
+	counter2{0},
+	iglooCounter1{0},
+	iglooCounter2{0}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -176,6 +178,8 @@ void Engine::resetGame()
 	bool restartP2 = true;//to mark if scoring watch for P2 can be restarted
 	counter1 = 0;
 	counter2 = 0;
+	iglooCounter1 = 0;
+	iglooCounter2 = 0;
 
 	bear2.reset(new Bear());
 	bear.reset(new Bear());

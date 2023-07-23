@@ -32,7 +32,7 @@ void Engine::update(float dtAsSeconds)
 		{
 			//update single player mode
             updateGamePlay(dtAsSeconds, player1, crabs, clamps, birds, fish, overworld, bear, igloo_house,
-                iceblocks, overworld_watch, canCreateIce);
+                iceblocks, overworld_watch, canCreateIce, iglooCounter1);
 		}
 
 		else
@@ -40,11 +40,11 @@ void Engine::update(float dtAsSeconds)
 			//update multiplayer mode (both players)
             //update player 1 side
             updateGamePlay(dtAsSeconds, player1, crabs, clamps, birds, fish, overworld, bear, igloo_house,
-                iceblocks, overworld_watch, canCreateIce);
+                iceblocks, overworld_watch, canCreateIce, iglooCounter1);
 
            // update player 2 side
             updateGamePlay(dtAsSeconds, player2, crabs2, clamps2, birds2, fish2, overworld2, bear2, igloo_house2,
-                iceblocks2, overworld_watch2, canCreateIce2);
+                iceblocks2, overworld_watch2, canCreateIce2, iglooCounter2);
 		}
 	}
 }
@@ -120,13 +120,13 @@ void Engine::update_over_world(const float deltaTime,OverWorld& _overworld,
 void Engine::updateGamePlay(float dtAsSeconds, shared_ptr<Player>& _player, vector<shared_ptr<Crab>>& _crabs,
     vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, vector<shared_ptr<Fish>>& _fish,
     OverWorld& _overworld, shared_ptr<Bear>& _bear, shared_ptr<Igloo>& _igloo, 
-    vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overWorldWatch, bool& _canCreateIce)
+    vector<shared_ptr<IceBlocks>>& _ice, Stopwatch& _overWorldWatch, bool& _canCreateIce, int& _counter)
 {
     auto player_state = _player->getState();
     if (player_state != PlayerState::Alive)
     {
         animate.animateAndSetState(_player, _crabs, _clamps, _birds, _bear, _ice, _canCreateIce, _overworld,
-            _igloo);
+            _igloo, manage_sound, _counter);
         return;
     }
 
@@ -140,6 +140,7 @@ void Engine::updateGamePlay(float dtAsSeconds, shared_ptr<Player>& _player, vect
     manage_collisions.player_ice_collisions(_player, _ice, dtAsSeconds, _igloo, manage_sound);
     manage_collisions.player_animal_collisions(_player, _crabs, _clamps, _birds, _fish, manage_sound);
     manage_collisions.player_bear_collisions(_bear, _player, manage_sound);
-    animate.animateAndSetState(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld,_igloo);
+    animate.animateAndSetState(_player,_crabs,_clamps,_birds,_bear,_ice,_canCreateIce,_overworld,_igloo,
+        manage_sound, _counter);
     _igloo->update_igloo();
 }

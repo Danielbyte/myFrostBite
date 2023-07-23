@@ -51,13 +51,14 @@ public:
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
 		OverWorld& _overworld);
 
-	void go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo);
+	void go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo, SoundManager& manage_sound,
+		int& counter);
 
 	void load_textures();
 
 	void animateAndSetState(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
-		OverWorld& _overworld, shared_ptr<Igloo>& igloo);
+		OverWorld& _overworld, shared_ptr<Igloo>& igloo, SoundManager& manage_sound, int& counter);
 
 private:
 	ScoreManager manage_score;
