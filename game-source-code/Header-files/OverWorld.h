@@ -41,18 +41,18 @@ public:
 
 	void create_ice(vector<shared_ptr<IceBlocks>>&);
 
-	void update_temperature(shared_ptr<Player>& player, SoundManager& manage_sound);
+	void update_temperature(shared_ptr<Player>& player, SoundManager& manage_sound, bool& isUpdated);
 	void initialize_temperature();
 	Text getTemperature();
 	Text getTemperatureSymbol() const;
 	int isTimeUp() const; //Temperature reached zero
-	void resetTemperature();
+	void resetTemperature(bool& isUpdated);
 	void mSetTemperatureHUD();
 	void setMultiPlayerMode();
 	void resetOverWorld();
 	void resetTemperatureHUDPos();
 	int getTemperatureInt() const; // get the integer version of temperature
-	void decrementTemperature();
+	void decrementTemperature(bool& isUpdated);
 
 private:
 
@@ -90,6 +90,7 @@ private:
 
 	AnimalType animalInRegion1, animalInRegion2, animalInRegion3, animalInRegion4;
 	bool isMultiplayer;
+	vector2f prevDegreeSymbolPos;
 
 	template<typename T>
 	void place_animal(vector<shared_ptr<T>>& animal, const float region, bool _isMultiPlayer)

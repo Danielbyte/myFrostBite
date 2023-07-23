@@ -41,6 +41,7 @@ OverWorld::OverWorld():
 	mTemperatureHUDpos.y = 3.0f;
 	mTemperatureSymbolPos.x = 240.0f;
 	mTemperatureSymbolPos.y = 0.0f;
+	prevDegreeSymbolPos = temperatureSymbolPos;
 }
 
 void OverWorld::setMultiPlayerMode()
@@ -355,7 +356,7 @@ void OverWorld::initialize_temperature()
 	}
 }
 
-void OverWorld::update_temperature(shared_ptr<Player>& player,SoundManager& manage_sound)
+void OverWorld::update_temperature(shared_ptr<Player>& player,SoundManager& manage_sound, bool& isUpdated)
 {
 	if (startedTempDecrease)
 	{
@@ -364,6 +365,13 @@ void OverWorld::update_temperature(shared_ptr<Player>& player,SoundManager& mana
 		{
 			--temperature; //decrease the temperature
 			tempStopWatch.restart_timer();
+			if (temperature < 10 && !isUpdated)
+			{
+				vector2f _pos = degree_symbol.getPosition();
+				prevDegreeSymbolPos = _pos;
+				degree_symbol.setPosition((_pos.x - 20.0f), _pos.y);
+				isUpdated = true;
+			}
 		}
 
 		if (temperature == 0)
@@ -380,11 +388,13 @@ void OverWorld::update_temperature(shared_ptr<Player>& player,SoundManager& mana
 	}
 }
 
-void OverWorld::resetTemperature()
+void OverWorld::resetTemperature(bool& isUpdated)
 {
 	timeUp = false;
 	startedTempDecrease = false;
+	degree_symbol.setPosition(prevDegreeSymbolPos);
 	temperature = 45;
+	isUpdated = false;
 	initialize_temperature();
 }
 
@@ -416,9 +426,16 @@ void OverWorld::resetOverWorld()
 	resetTemperatureHUDPos();
 }
 
-void OverWorld::decrementTemperature()
+void OverWorld::decrementTemperature(bool& isUpdated)
 {
 	--temperature;
+	if (temperature < 10 && !isUpdated)
+	{
+		vector2f _pos = degree_symbol.getPosition();
+		prevDegreeSymbolPos = _pos;
+		degree_symbol.setPosition((_pos.x - 20.0f), _pos.y);
+		isUpdated = true;
+	}
 }
 
 int OverWorld::getTemperatureInt() const

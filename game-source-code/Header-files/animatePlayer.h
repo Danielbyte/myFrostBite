@@ -49,7 +49,7 @@ public:
 
 	void freezing_animation(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
-		OverWorld& _overworld);
+		OverWorld& _overworld, bool& isTempDigitUpdated);
 
 	void go_inside_igloo(shared_ptr<Player>& player, shared_ptr<Igloo>& _igloo, SoundManager& manage_sound,
 		int& counter);
@@ -58,7 +58,8 @@ public:
 
 	void animateAndSetState(shared_ptr<Player>&, vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&,
 		vector<shared_ptr<Bird>>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&, bool& createIce,
-		OverWorld& _overworld, shared_ptr<Igloo>& igloo, SoundManager& manage_sound, int& counter);
+		OverWorld& _overworld, shared_ptr<Igloo>& igloo, SoundManager& manage_sound, int& counter,
+		bool& isTempDigitUpdated);
 
 private:
 	ScoreManager manage_score;

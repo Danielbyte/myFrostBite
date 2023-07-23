@@ -73,7 +73,7 @@ private:
 	void update(float _time); //update game entities (in multiplayer or single | defined in Update.cpp)
 	void update_over_world(const float deltaTime, OverWorld& _overworld, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&, 
-		vector<shared_ptr<IceBlocks>>&, Stopwatch&, shared_ptr<Player>&);
+		vector<shared_ptr<IceBlocks>>&, Stopwatch&, shared_ptr<Player>&, bool& isTempDigitUpdated);
 	void display_manager(float dt); //Front End (Manages the front end logic)
 	void draw(vector<shared_ptr<Crab>>&, vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, 
 		vector<shared_ptr<Fish>>&, shared_ptr<Igloo>&, shared_ptr<Bear>&, vector<shared_ptr<IceBlocks>>&,
@@ -140,7 +140,7 @@ private:
 	void updateGamePlay(float dtAsSeconds,shared_ptr<Player>&, vector<shared_ptr<Crab>>&,
 		vector<shared_ptr<Clamp>>&, vector<shared_ptr<Bird>>&, vector<shared_ptr<Fish>>&,OverWorld&,
 		shared_ptr<Bear>&, shared_ptr<Igloo>&, vector<shared_ptr<IceBlocks>>&, Stopwatch& _overWorldWatch,
-		bool& _canCreateIce, int& counter);
+		bool& _canCreateIce, int& counter, bool& isTempDigitUpdated);
 
 	float standard_dt;
 	bool reInitialise;
@@ -156,6 +156,8 @@ private:
 	int counter2;
 	int iglooCounter1; //variable to player1 sound if player moves in igloo house
 	int iglooCounter2; //variable to player2 sound if player moves in igloo house
+	bool tempDigitUpdated1; //variable to mark if temperature for P1 has transitioned to  single digit
+	bool tempDigitUpdated2; //variable to mark if temperature for P2 has transitioned to single digit
 
 	void resetGame();
 	void computeScoreBoard(shared_ptr<Player>& _player, Text& _highScore, Text& _playerScore);

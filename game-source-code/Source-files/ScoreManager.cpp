@@ -89,7 +89,7 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 }
 
 void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>& _player,
-	bool& computed, int& counter, SoundManager& manage_sound, shared_ptr<Igloo>& _igloo)
+	bool& computed, int& counter, SoundManager& manage_sound, shared_ptr<Igloo>& _igloo, bool& isUpdated)
 {
 	auto temp = _overworld.getTemperatureInt();
 	auto blocks = _igloo->get_number_of_igloo_blocks();
@@ -115,7 +115,7 @@ void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch,
 		if (time >= 0.05f)
 		{
 			updatePlayerScore(_player, "won", temp);
-			_overworld.decrementTemperature();
+			_overworld.decrementTemperature(isUpdated);
 			manage_sound.playTemperatureScoreCountSound();
 			_watch.restart_timer();
 		}

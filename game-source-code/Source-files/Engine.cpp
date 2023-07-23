@@ -18,7 +18,9 @@ Engine::Engine():
 	counter1{0},
 	counter2{0},
 	iglooCounter1{0},
-	iglooCounter2{0}
+	iglooCounter2{0},
+	tempDigitUpdated1{false},
+	tempDigitUpdated2{false}
 {
 	window->setVerticalSyncEnabled(true);
 	window->setFramerateLimit(60);
@@ -180,6 +182,8 @@ void Engine::resetGame()
 	counter2 = 0;
 	iglooCounter1 = 0;
 	iglooCounter2 = 0;
+	tempDigitUpdated1 = false;
+	tempDigitUpdated2 = false;
 
 	bear2.reset(new Bear());
 	bear.reset(new Bear());

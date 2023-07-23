@@ -107,7 +107,7 @@ void AnimatePlayer::load_textures()
 void AnimatePlayer::animateAndSetState(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
 	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld, shared_ptr<Igloo>& igloo,
-	SoundManager& manage_sound, int& counter)
+	SoundManager& manage_sound, int& counter, bool& isTempDigitUpdated)
 {
 	auto state = player->getState();
 
@@ -123,7 +123,8 @@ void AnimatePlayer::animateAndSetState(shared_ptr<Player>& player, vector<shared
 		drowning_player(player,_crabs, _clamps, _birds, _bear, _iceblocks, createIce);
 		break;
 	case PlayerState::Freezing:
-		freezing_animation(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce, _overworld);
+		freezing_animation(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce, _overworld, 
+			isTempDigitUpdated);
 		break;
 	case PlayerState::AttackedBySeaAnimal:
 		collision_with_sea_animal(player, _crabs, _clamps, _birds, _bear, _iceblocks, createIce);
@@ -422,7 +423,7 @@ void AnimatePlayer::drowning_player(shared_ptr<Player>& player, vector<shared_pt
 
 void AnimatePlayer::freezing_animation(shared_ptr<Player>& player, vector<shared_ptr<Crab>>& _crabs,
 	vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds, shared_ptr<Bear>& _bear,
-	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld)
+	vector<shared_ptr<IceBlocks>>& _iceblocks, bool& createIce, OverWorld& _overworld,bool& isTempDigitUpdated)
 {
 	auto deltaTime = player->getTime();
 	if (deltaTime >= 0 && deltaTime <= freezingFrameTime)
@@ -501,7 +502,7 @@ void AnimatePlayer::freezing_animation(shared_ptr<Player>& player, vector<shared
 		_clamps.clear();
 		_birds.clear();
 		_crabs.clear();
-		_overworld.resetTemperature();
+		_overworld.resetTemperature(isTempDigitUpdated);
 
 		if (player->getNumberOfLives() == 0) { player->setState(PlayerState::Dead); }
 	}
