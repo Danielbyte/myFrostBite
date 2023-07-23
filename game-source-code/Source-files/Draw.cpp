@@ -23,7 +23,7 @@ void Engine::display_manager(float dt)
 				if (!P1Scored)
 				{
 					manage_scores.computeWinningScore(overworld, computeScoreP1,player1,P1Scored, counter1,
-						manage_sound);
+						manage_sound, igloo_house);
 					draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 					window->display();
 					return;
@@ -93,7 +93,7 @@ void Engine::display_manager(float dt)
 					if (!P1Scored)
 					{
 						manage_scores.computeWinningScore(overworld, computeScoreP1, player1, P1Scored,
-							counter1, manage_sound);
+							counter1, manage_sound, igloo_house);
 						draw(crabs, clamps, birds, fish, igloo_house, bear, iceblocks, player1, overworld);
 						window->draw(line_sprite);
 					}
@@ -165,7 +165,7 @@ void Engine::display_manager(float dt)
 					if (!P2Scored)
 					{
 						manage_scores.computeWinningScore(overworld2, computeScoreP2, player2, P2Scored,
-							counter2, manage_sound);
+							counter2, manage_sound, igloo_house2);
 						draw(crabs2, clamps2, birds2, fish2, igloo_house2, bear2, iceblocks2, player2,
 							overworld2);
 					}

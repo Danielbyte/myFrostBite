@@ -18,13 +18,13 @@ public:
 	void mSetScoreHUDPos();
 	void resetHUDPos();
 	void computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>&, bool& computed,
-		int& counter, SoundManager& manage_sound);
+		int& counter, SoundManager& manage_sound, shared_ptr<Igloo>& _igloo);
 
 private:
 	int high_score;
 	int iceBlockPts; //points per ice block
 	int winning; // points for winning
-	int enteringIgloo; //points for entering igloo
+	int iglooPts; //points for building igloo
 	int fish; //points for eating fish
 
 	Text score;

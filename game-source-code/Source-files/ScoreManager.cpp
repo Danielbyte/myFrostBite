@@ -4,7 +4,7 @@ ScoreManager::ScoreManager():
 	high_score{0},
 	iceBlockPts{30},
 	winning{0},
-	enteringIgloo{480},
+	iglooPts{10},
 	fish{30}
 {
 	scoreHUDPos.x = 400.0f;
@@ -79,7 +79,7 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 	}
 	if (_scoreType == "igloo")
 	{
-		_player->updatePlayerScore(enteringIgloo);
+		_player->updatePlayerScore(iglooPts);
 		return;
 	}
 	if (_scoreType == "won")
@@ -89,9 +89,24 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 }
 
 void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>& _player,
-	bool& computed, int& counter, SoundManager& manage_sound)
+	bool& computed, int& counter, SoundManager& manage_sound, shared_ptr<Igloo>& _igloo)
 {
 	auto temp = _overworld.getTemperatureInt();
+	auto blocks = _igloo->get_number_of_igloo_blocks();
+	
+	if (blocks > 0)
+	{
+		auto time = _watch.elapsed_time();
+		if (time >= 0.1f)
+		{
+			_igloo->subract_igloo_block();
+			updatePlayerScore(_player, "igloo", temp);
+			_igloo->update_igloo();
+			_watch.restart_timer();
+		}
+		
+		return;
+	}
 
 	if (temp > 0)
 	{
