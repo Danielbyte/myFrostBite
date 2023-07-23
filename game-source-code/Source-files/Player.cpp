@@ -152,7 +152,7 @@ void Player::update(float timeElapsed, SoundManager& manage_sound)
 		isJumpingUp = true;
 		setSpeed(upJumpForce);
 		prevRegion = position.y;
-		manage_sound.playJumpingSound();
+		if (!playerInSafeZone) { manage_sound.playJumpingSound(); }
 	}
 
 	if (playerJumping && isJumpingDown) { jump_down(timeElapsed, prevRegion); }
