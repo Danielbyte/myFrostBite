@@ -89,7 +89,7 @@ void ScoreManager::updatePlayerScore(shared_ptr<Player>& _player, const std::str
 }
 
 void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>& _player,
-	bool& computed, int& counter)
+	bool& computed, int& counter, SoundManager& manage_sound)
 {
 	auto temp = _overworld.getTemperatureInt();
 
@@ -100,6 +100,7 @@ void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch,
 		{
 			updatePlayerScore(_player, "won", temp);
 			_overworld.decrementTemperature();
+			manage_sound.playTemperatureScoreCountSound();
 			_watch.restart_timer();
 		}
 	}

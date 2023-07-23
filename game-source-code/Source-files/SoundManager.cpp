@@ -7,6 +7,7 @@ SoundManager::SoundManager()
 	playerJumpBuffer.loadFromFile("resources/jump.wav");
 	playerDeathBuffer.loadFromFile("resources/death.wav");
 	eatFishBuffer.loadFromFile("resources/eatfish.wav");
+	temperatureScoreCountBuffer.loadFromFile("resources/temperature_score.wav");
 
 	//load buffers in to sounds
 	confirmationSound.setBuffer(confirmationBuffer);
@@ -17,6 +18,13 @@ SoundManager::SoundManager()
 	playerDeathSound.setRelativeToListener(true);
 	eatFishSound.setBuffer(eatFishBuffer);
 	eatFishSound.setRelativeToListener(true);
+	temperatureScoreCountSound.setBuffer(temperatureScoreCountBuffer);
+	temperatureScoreCountSound.setRelativeToListener(true);
+}
+
+void SoundManager::playTemperatureScoreCountSound()
+{
+	temperatureScoreCountSound.play();
 }
 
 void SoundManager::playEatFishSound()

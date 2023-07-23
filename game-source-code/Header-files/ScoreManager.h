@@ -18,7 +18,7 @@ public:
 	void mSetScoreHUDPos();
 	void resetHUDPos();
 	void computeWinningScore(OverWorld& _overworld, Stopwatch& _watch, shared_ptr<Player>&, bool& computed,
-		int& counter);
+		int& counter, SoundManager& manage_sound);
 
 private:
 	int high_score;
