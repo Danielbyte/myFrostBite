@@ -33,7 +33,6 @@ void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector
                 if (color == IceColor::White)
                 {
                     (*ice_iter)->set_color(IceColor::Blue);
-                    igloo->add_igloo_blocks();
                     auto ice_size = ice.size();
                     if (ice_size > 4)
                     {
@@ -56,6 +55,7 @@ void CollisionsManager::player_ice_collisions(shared_ptr<Player>& player, vector
                 if (player->getState() != PlayerState::Drowning && color == IceColor::White)
                 {
                     manage_score.updatePlayerScore(player, "ice", 0);
+                    igloo->add_igloo_blocks();
                 }
 
                 //reverse ice direction if player decides to
