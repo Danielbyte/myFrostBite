@@ -11,7 +11,7 @@ This is a `Frostbite Atari 2600` game clone coded in `C++ (ISO C++ 20 Standard)`
 ## Main Menu
 Interface contains a main menu where player can navigate between player modes, see game instructions and quit game. Use `Arrow keys` to navigate the main menu and press `Enter` to make a selection.
 
-![image](resources/menuscreen.png)
+![image](resources/menuscreen_MD.png)
 
 ## Controls and Instructions
 
