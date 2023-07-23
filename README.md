@@ -1,12 +1,9 @@
 # About
-This is a `Frostbite Atari 2600` game clone coded in `C++ (ISO C++ 20 Standard)` and `SFML 2.5.1` library. No `OpenGL` and or frameworks built ontop of SFML were used for this project. The following `additional` functionality was added ontop of the original game:
-
-- `Multiplayer mode`
-- `Ice Reversal` 
+This is a `Frostbite Atari 2600` game clone coded in `C++ (ISO C++ 20 Standard)` and `SFML 2.5.1` library. No `OpenGL` and or frameworks built ontop of SFML were used for this project. The game code can be easily scaled up to include levels. External contributions are welcome. Cheeers :smiley:!
 
 ## Software Development Practices
 
-- `Agile Development (2 iterations)`
+- `Agile Development (3 iterations)`
 - `Object Oriented Programming`
 - `Scalable Code`
 - `Data Encapsulation`
