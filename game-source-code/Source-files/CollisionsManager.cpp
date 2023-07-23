@@ -246,7 +246,7 @@ void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vec
     vector<shared_ptr<Clamp>>& _clamps, vector<shared_ptr<Bird>>& _birds,vector<shared_ptr<Fish>>& _fish,
     SoundManager& manage_sound)
 {
-    if (player->getState() != PlayerState::Alive)
+    if (player->getState() != PlayerState::Alive || player->isPlayerJumping() == true)
     {
         return;
     }
@@ -274,7 +274,7 @@ void CollisionsManager::player_animal_collisions(shared_ptr<Player>& player, vec
 void CollisionsManager::player_bear_collisions(shared_ptr<Bear>& bear, shared_ptr<Player>& player, 
     SoundManager& manage_sound)
 {
-    if (player->getState() != PlayerState::Alive)
+    if (player->getState() != PlayerState::Alive || player->isPlayerJumping() == true)
     {
         return;
     }

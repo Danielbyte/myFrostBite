@@ -105,10 +105,10 @@ void Engine::handleInput()
 
 	if (isPlaying)
 	{
+
 		player1->handleInput(keyPressed);
 		player2->handleInput(keyPressed);
 	}
-
 }
 
 void Engine::InitialiseStatesForMultiPlayer()
