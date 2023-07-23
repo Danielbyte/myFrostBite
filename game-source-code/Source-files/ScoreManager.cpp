@@ -99,6 +99,7 @@ void ScoreManager::computeWinningScore(OverWorld& _overworld, Stopwatch& _watch,
 		auto time = _watch.elapsed_time();
 		if (time >= 0.1f)
 		{
+			manage_sound.playIglooScoreCountSound();
 			_igloo->subract_igloo_block();
 			updatePlayerScore(_player, "igloo", temp);
 			_igloo->update_igloo();

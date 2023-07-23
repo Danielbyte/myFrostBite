@@ -8,6 +8,7 @@ SoundManager::SoundManager()
 	playerDeathBuffer.loadFromFile("resources/death.wav");
 	eatFishBuffer.loadFromFile("resources/eatfish.wav");
 	temperatureScoreCountBuffer.loadFromFile("resources/temperature_score.wav");
+	iglooScoreCountBuffer.loadFromFile("resources/igloo_points.wav");
 
 	//load buffers in to sounds
 	confirmationSound.setBuffer(confirmationBuffer);
@@ -20,6 +21,13 @@ SoundManager::SoundManager()
 	eatFishSound.setRelativeToListener(true);
 	temperatureScoreCountSound.setBuffer(temperatureScoreCountBuffer);
 	temperatureScoreCountSound.setRelativeToListener(true);
+	iglooScoreCountSound.setBuffer(iglooScoreCountBuffer);
+	iglooScoreCountSound.setRelativeToListener(true);
+}
+
+void SoundManager::playIglooScoreCountSound()
+{
+	iglooScoreCountSound.play();
 }
 
 void SoundManager::playTemperatureScoreCountSound()

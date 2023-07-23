@@ -10,6 +10,7 @@ public:
 	void playDeathSound();
 	void playEatFishSound();
 	void playTemperatureScoreCountSound();
+	void playIglooScoreCountSound();
 
 private:
 	sf::SoundBuffer confirmationBuffer;
@@ -17,10 +18,12 @@ private:
 	sf::SoundBuffer playerDeathBuffer;
 	sf::SoundBuffer eatFishBuffer;
 	sf::SoundBuffer temperatureScoreCountBuffer;
+	sf::SoundBuffer iglooScoreCountBuffer;
 
 	sf::Sound confirmationSound;
 	sf::Sound playerJumpSound;
 	sf::Sound playerDeathSound;
 	sf::Sound eatFishSound;
 	sf::Sound temperatureScoreCountSound;
+	sf::Sound iglooScoreCountSound;
 };
