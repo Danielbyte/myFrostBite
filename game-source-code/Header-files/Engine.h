@@ -14,7 +14,7 @@
 #include "crabController.h"
 #include "fishController.h"
 #include "IceBlockController.h"
-#include "AnimatePlayer.h"
+#include "animatePlayer.h"
 #include "CollisionsManager.h"
 #include "igloo.h"
 #include "bear.h"
