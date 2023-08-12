@@ -26,4 +26,4 @@ private:
 	float mLOutOfBounds;
 	float mROutOfBounds;
 };
-#endif;
+#endif
