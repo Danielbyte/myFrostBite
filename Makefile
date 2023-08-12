@@ -8,7 +8,7 @@ SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 #Directories
 SRC_DIR = game-source-code/Source-files
-HEADER_DIR = game-source-code/Header-files
+HEADER_DIR = include #game-source-code/Header-files
 
 #Source file and output executable
 SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
