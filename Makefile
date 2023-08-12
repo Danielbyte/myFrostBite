@@ -1,6 +1,6 @@
 #compiler settings
 CXX = g++
-CXXFLAGS = -std=c++20 -Wall
+CXXFLAGS = -std=c++17 -Wall
 
 #SFML Settings
 SFML_INCLUDE = -I/usr/include/SFML
