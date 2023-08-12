@@ -1,7 +1,7 @@
 #ifndef STOPWATCH_H
 #define STOPWATCH_H
 
-#include <ctime>
+#include <chrono>
 
 class Stopwatch
 {
@@ -12,9 +12,9 @@ public:
 	void restart_timer();
 
 private:
-	float current_time();
-	float initial_time;
-	float final_time;
+	std::chrono::time_point<std::chrono::high_resolution_clock> current_time();
+	std::chrono::time_point<std::chrono::high_resolution_clock> initial_time;
+	std::chrono::time_point<std::chrono::high_resolution_clock> final_time;
 
 };
 #endif
