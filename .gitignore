@@ -92,5 +92,6 @@ compile_commands.json
 
 ### macOS ###
 *.DS_Store
-
+*.frostbite
 .vscode/
+
