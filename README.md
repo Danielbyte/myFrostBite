@@ -42,5 +42,6 @@ The second player uses the `arrow keys` to move Frostbite and `space` to reverse
 `Linux`: Download and unzip the "executables-Linux.zip" and run the frostbite "executable" under releases.
 
 # Building from source code
-Windows: You will need to download SFML library and do the required IDE setup.
-Linux: Install sfml libraries in the default folder and run the Makefile.
+`Windows`: You will need to download SFML library and do the required IDE setup.
+
+`Linux`: Install sfml libraries in the default directory and run the Makefile.
